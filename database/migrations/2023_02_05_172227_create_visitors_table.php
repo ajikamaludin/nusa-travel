@@ -13,17 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('visitors', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('slug');
-            $table->string('title');
-            $table->text('body')->nullable();
-            $table->string('meta_tag')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->string('related_model')->nullable();
+            $table->uuid('related_model_id')->nullable();
+            $table->string('device')->nullable();
+            $table->string('platform')->nullable();
+            $table->string('browser')->nullable();
+            $table->string('languages')->nullable();
+            $table->string('ip')->nullable();
+            $table->string('useragent')->nullable();
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();
             $table->uuid('deleted_by')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -34,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('visitors');
     }
 };

@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('password');
             $table->string('address')->nullable();
             $table->string('nation')->nullable();
+            $table->rememberToken();
+            $table->string('reset_token')->nullable();
+            $table->smallInteger('is_active');
+            $table->smallInteger('email_varified_at');
             $table->softDeletes();
             $table->timestamps();
             $table->uuid('created_by')->nullable();
