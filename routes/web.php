@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\VisitorCounter;
+use App\Models\Visitor;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,7 +18,8 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
+Route::middleware(VisitorCounter::class)->get('/', function () {
+    Visitor::track([Visitor::class, 10]);
     return view('welcome');
 });
 
