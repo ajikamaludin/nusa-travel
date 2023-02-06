@@ -21,6 +21,8 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $permissions = [
+            ['id' => Str::uuid(), 'label' => 'View Dashboard', 'name' => 'view-dashboard'],
+
             ['id' => Str::uuid(), 'label' => 'Create Post', 'name' => 'create-post'],
             ['id' => Str::uuid(), 'label' => 'Update Post', 'name' => 'update-post'],
             ['id' => Str::uuid(), 'label' => 'View Post', 'name' => 'view-post'],

@@ -1,7 +1,8 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import React, { useEffect, useRef, useState } from 'react';
+import InputError from '@/Components/Defaults/InputError';
+import InputLabel from '@/Components/Defaults/InputLabel';
+import PrimaryButton from '@/Components/Defaults/PrimaryButton';
+import TextInput from '@/Components/Defaults/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
@@ -9,22 +10,21 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     const user = usePage().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
-        name: user.name,
+        username: user.username,
         email: user.email,
     });
 
     const submit = (e) => {
         e.preventDefault();
-
         patch(route('profile.update'));
     };
 
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Profile Information</h2>
+                <h2 className="text-lg font-medium text-gray-900">Profile Information</h2>
 
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mt-1 text-sm text-gray-600">
                     Update your account's profile information and email address.
                 </p>
             </header>
@@ -34,16 +34,17 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     <InputLabel for="name" value="Name" />
 
                     <TextInput
-                        id="name"
+                        id="username"
+                        type="text"
                         className="mt-1 block w-full"
-                        value={data.name}
-                        handleChange={(e) => setData('name', e.target.value)}
+                        value={data.username}
+                        handleChange={(e) => setData('username', e.target.value)}
                         required
-                        isFocused
-                        autoComplete="name"
+                        autofocus
+                        autocomplete="name"
                     />
 
-                    <InputError className="mt-2" message={errors.name} />
+                    <InputError className="mt-2" message={errors.username} />
                 </div>
 
                 <div>
@@ -56,7 +57,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         value={data.email}
                         handleChange={(e) => setData('email', e.target.value)}
                         required
-                        autoComplete="email"
+                        autocomplete="email"
                     />
 
                     <InputError className="mt-2" message={errors.email} />
@@ -64,20 +65,20 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
-                        <p className="text-sm mt-2 text-gray-800 dark:text-gray-200">
+                        <p className="text-sm mt-2 text-gray-800">
                             Your email address is unverified.
                             <Link
                                 href={route('verification.send')}
                                 method="post"
                                 as="button"
-                                className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                                 Click here to re-send the verification email.
                             </Link>
                         </p>
 
                         {status === 'verification-link-sent' && (
-                            <div className="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
+                            <div className="mt-2 font-medium text-sm text-green-600">
                                 A new verification link has been sent to your email address.
                             </div>
                         )}
@@ -93,7 +94,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         leaveTo="opacity-0"
                         className="transition ease-in-out"
                     >
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Saved.</p>
+                        <p className="text-sm text-gray-600">Saved.</p>
                     </Transition>
                 </div>
             </form>

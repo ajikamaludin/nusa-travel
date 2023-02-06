@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import InputError from '@/Components/Defaults/InputError';
+import InputLabel from '@/Components/Defaults/InputLabel';
+import PrimaryButton from '@/Components/Defaults/PrimaryButton';
+import TextInput from '@/Components/Defaults/TextInput';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function ResetPassword({ token, email }) {
@@ -39,7 +39,6 @@ export default function ResetPassword({ token, email }) {
                     <InputLabel forInput="email" value="Email" />
 
                     <TextInput
-                        id="email"
                         type="email"
                         name="email"
                         value={data.email}
@@ -55,7 +54,6 @@ export default function ResetPassword({ token, email }) {
                     <InputLabel forInput="password" value="Password" />
 
                     <TextInput
-                        id="password"
                         type="password"
                         name="password"
                         value={data.password}

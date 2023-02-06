@@ -1,57 +1,23 @@
-import { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import React from "react";
+import { HiX } from "react-icons/hi";
 
-export default function Modal({ children, show = false, maxWidth = '2xl', closeable = true, onClose = () => {} }) {
-    const close = () => {
-        if (closeable) {
-            onClose();
-        }
-    };
 
-    const maxWidthClass = {
-        sm: 'sm:max-w-sm',
-        md: 'sm:max-w-md',
-        lg: 'sm:max-w-lg',
-        xl: 'sm:max-w-xl',
-        '2xl': 'sm:max-w-2xl',
-    }[maxWidth];
-
+export default function Modal({ isOpen, toggle = () => {}, children, title = "", maxW = '2' }) {
     return (
-        <Transition show={show} as={Fragment} leave="duration-200">
-            <Dialog
-                as="div"
-                id="modal"
-                className="fixed inset-0 flex overflow-y-auto px-4 py-6 sm:px-0 items-center z-50 transform transition-all"
-                onClose={close}
-            >
-                <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                >
-                    <div className="absolute inset-0 bg-gray-500/75 dark:bg-gray-900/75" />
-                </Transition.Child>
-
-                <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                    enterTo="opacity-100 translate-y-0 sm:scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-                    leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                >
-                    <Dialog.Panel
-                        className={`mb-6 bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
-                    >
+        <div className={`${isOpen ? "" : "hidden "} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 p-4 w-full md:inset-0 h-modal md:h-full justify-center items-center flex bg-opacity-50 dark:bg-opacity-90 bg-gray-900 dark:bg-gray-900`}>
+            <div className={`relative w-full max-w-${maxW}xl h-full md:h-auto`}>
+                <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 text-base dark:text-gray-400">
+                    <div className="flex items-start justify-between rounded-t dark:border-gray-600 p-2">
+                        <h3 className="text-xl font-medium text-gray-900 dark:text-white py-2 pl-2">{ title }</h3>
+                        <button aria-label="Close" className="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" type="button" onClick={toggle}>
+                            <HiX className="h-5 w-5"/>
+                        </button>
+                    </div>
+                    <div className="px-4 pb-4 space-y-2">
                         {children}
-                    </Dialog.Panel>
-                </Transition.Child>
-            </Dialog>
-        </Transition>
-    );
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
 }

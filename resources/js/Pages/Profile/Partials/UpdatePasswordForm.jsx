@@ -1,8 +1,8 @@
-import { useRef } from 'react';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import React, { useEffect, useRef, useState } from 'react';
+import InputError from '@/Components/Defaults/InputError';
+import InputLabel from '@/Components/Defaults/InputLabel';
+import PrimaryButton from '@/Components/Defaults/PrimaryButton';
+import TextInput from '@/Components/Defaults/TextInput';
 import { useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
@@ -18,7 +18,6 @@ export default function UpdatePasswordForm({ className }) {
 
     const updatePassword = (e) => {
         e.preventDefault();
-
         put(route('password.update'), {
             preserveScroll: true,
             onSuccess: () => reset(),
@@ -39,9 +38,9 @@ export default function UpdatePasswordForm({ className }) {
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Update Password</h2>
+                <h2 className="text-lg font-medium text-gray-900">Update Password</h2>
 
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mt-1 text-sm text-gray-600">
                     Ensure your account is using a long, random password to stay secure.
                 </p>
             </header>
@@ -57,7 +56,7 @@ export default function UpdatePasswordForm({ className }) {
                         handleChange={(e) => setData('current_password', e.target.value)}
                         type="password"
                         className="mt-1 block w-full"
-                        autoComplete="current-password"
+                        autocomplete="current-password"
                     />
 
                     <InputError message={errors.current_password} className="mt-2" />
@@ -73,7 +72,7 @@ export default function UpdatePasswordForm({ className }) {
                         handleChange={(e) => setData('password', e.target.value)}
                         type="password"
                         className="mt-1 block w-full"
-                        autoComplete="new-password"
+                        autocomplete="new-password"
                     />
 
                     <InputError message={errors.password} className="mt-2" />
@@ -88,7 +87,7 @@ export default function UpdatePasswordForm({ className }) {
                         handleChange={(e) => setData('password_confirmation', e.target.value)}
                         type="password"
                         className="mt-1 block w-full"
-                        autoComplete="new-password"
+                        autocomplete="new-password"
                     />
 
                     <InputError message={errors.password_confirmation} className="mt-2" />
@@ -103,7 +102,7 @@ export default function UpdatePasswordForm({ className }) {
                         leaveTo="opacity-0"
                         className="transition ease-in-out"
                     >
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Saved.</p>
+                        <p className="text-sm text-gray-600">Saved.</p>
                     </Transition>
                 </div>
             </form>
