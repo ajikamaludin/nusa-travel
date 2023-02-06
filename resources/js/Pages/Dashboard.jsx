@@ -15,7 +15,7 @@ export default function Dashboard(props) {
 
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8 ">
-                    <div className="overflow-hidden shadow-sm sm:rounded-lg bg-white dark:bg-gray-800">
+                    <div className="overflow-hidden shadow sm:rounded-lg bg-white dark:bg-gray-800">
                         <div className="p-6 dark:text-gray-100 ">Dashboard</div>
                     </div>
                 </div>

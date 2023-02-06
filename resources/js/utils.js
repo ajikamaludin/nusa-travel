@@ -38,7 +38,7 @@ export const formatIDDate = (date) => {
 
 export const hasPermission = (auth, permission) => {
     const { user } = auth
-    if (+user.is_superadmin === 1) {
+    if (+user.role === null) {
         return true;
     }
 

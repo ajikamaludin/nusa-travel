@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Website\LandingController;
 use App\Http\Middleware\VisitorCounter;
-use App\Models\Visitor;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,16 +17,39 @@ use Inertia\Inertia;
 |
 */
 
-Route::middleware(VisitorCounter::class)->get('/', function () {
-    Visitor::track([Visitor::class, 10]);
-    return view('welcome');
+Route::middleware(VisitorCounter::class)->group(function () {
+    // Landing
+    Route::get('/',[LandingController::class, 'index']);
+
+    // Blog
+
+    // Page
+
+    // Package Tours
+    // Car Rentals
+    // Fastboat
+
+    Route::middleware('auth:customer')->group(function(){
+        // Profile
+        // Order
+    });
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:web')->group(function(){
+    // Dashboard
+    Route::get('/dashboard', [GeneralController::class, 'index'])->name('dashboard');
+
+    // Blog
+    // Page
+
+    // Setting
+
+    // Package Tours
+    // Car Rentals
+    // Fastboat
+
+    // User Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

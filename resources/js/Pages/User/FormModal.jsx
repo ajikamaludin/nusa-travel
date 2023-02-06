@@ -83,7 +83,7 @@ export default function FormModal(props) {
                 label="Password"
                 error={errors.password}
             />
-            {+data.is_superadmin === 0 && (
+            {data.role === null && (
                 <>
                     <RoleSelectionInput
                         label="Role"

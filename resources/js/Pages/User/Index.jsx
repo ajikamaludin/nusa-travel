@@ -110,7 +110,7 @@ export default function Supplier(props) {
                                                     {user.employee.name}
                                                 </td>
                                                 <td className="py-4 px-6">
-                                                    {+user.is_superadmin === 1 ? 'System Administrator' : user.role?.name}
+                                                    {user.role === null ? 'System Administrator' : user.role?.name}
                                                 </td>
                                                 <td className="py-4 px-6">
                                                     {+user.is_enable === 1 ? 'Ya' : 'Tidak'}
