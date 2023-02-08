@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Website\LandingController;
@@ -35,24 +36,27 @@ Route::middleware(VisitorCounter::class)->group(function () {
     });
 });
 
+Route::prefix('travel')->group(function(){
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
-Route::middleware('auth:web')->group(function(){
-    // Dashboard
-    Route::get('/dashboard', [GeneralController::class, 'index'])->name('dashboard');
+    Route::middleware('auth:web')->group(function(){
+        // Dashboard
+        Route::get('/dashboard', [GeneralController::class, 'index'])->name('dashboard');
 
-    // Blog
-    // Page
+        // Blog
+        // Page
 
-    // Setting
+        // Setting
 
-    // Package Tours
-    // Car Rentals
-    // Fastboat
+        // Package Tours
+        // Car Rentals
+        // Fastboat
 
-    // User Profile
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        // User Profile
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
 });
-
 require __DIR__.'/auth.php';

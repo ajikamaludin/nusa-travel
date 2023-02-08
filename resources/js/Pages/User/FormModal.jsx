@@ -4,7 +4,6 @@ import { useForm } from "@inertiajs/react";
 import Button from "@/Components/Button";
 import FormInput from "@/Components/FormInput";
 import RoleSelectionInput from "../Role/SelectionInput";
-import EmployeeSelectionInput from "../Employee/SelectionInput";
 
 import { isEmpty } from "lodash";
 import Checkbox from "@/Components/Checkbox";
@@ -15,7 +14,6 @@ export default function FormModal(props) {
         username: '',
         password: '',
         role_id: null,
-        employee_id: null,
         is_superadmin: 0,
         is_enable: 0
     })
@@ -90,12 +88,6 @@ export default function FormModal(props) {
                         itemSelected={data.role_id}
                         onItemSelected={(id) => setData('role_id', id)}
                         error={errors.role_id}
-                    />
-                    <EmployeeSelectionInput
-                        label="Karyawan"
-                        itemSelected={data.employee_id}
-                        onItemSelected={(id) => setData('employee_id', id)}
-                        error={errors.employee_id}
                     />
                 </>
             )}
