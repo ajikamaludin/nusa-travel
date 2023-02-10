@@ -279,7 +279,7 @@
 
             <!-- popular packages -->
             <div class="w-full max-w-7xl mx-auto pt-2 md:pt-10 px-2">
-                <div class="flex flex-col w-full mx-auto pt-10 pb-5 text-center md:text-left">
+                <div class="flex flex-col w-full mx-auto pt-10 pb-5">
                     <div class="flex flex-row justify-between">
                         <div class="text-3xl font-bold pb-1">Popular Tours</div>
                         <div class="hidden md:block">
@@ -397,34 +397,70 @@
                             <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Topic's" required/>
                         </div>
                     </div>
-                    <div class="flex flex-col text-xl">
-                        <div class="w-full border-b-2 inline-flex justify-between py-4 px-1 items-center">
+                    <div class="flex flex-col text-xl" id="accordion-collapse" data-accordion="collapse">
+                        <!-- 1 -->
+                        <button type="button" class="w-full border-b-2 inline-flex justify-between py-4 px-1 items-center" id="accordion-collapse-heading-1" data-accordion-target="#accordion-collapse-body-1" aria-expanded="false" aria-controls="accordion-collapse-body-1">
                             Why Nusa Travel ?
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
+                        </button>
+                        <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
+                            <div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                                <p>
+                                An Indonesia's leading provider of fast boat tickets, we offer the most reliable and
+                                efficient transport options for island-hopping. Our main fast boat, the Ekajaya Fast Boat,
+                                is equipped with modern facilities and offers a comfortable and safe journey to your
+                                desired destination.
+                                </p>
+                            </div>
                         </div>
-                        <div class="w-full border-b-2 inline-flex justify-between py-4 px-1 items-center">
+                        <!-- 2 -->
+                        <button type="button" class="w-full border-b-2 inline-flex justify-between py-4 px-1 items-center" id="accordion-collapse-heading-2" data-accordion-target="#accordion-collapse-body-2" aria-expanded="false" aria-controls="accordion-collapse-body-2">
                             Can i refund my booking ?
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
+                        </button>
+                        <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
+                            <div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                                <p>
+                                Sure
+                                </p>
+                            </div>
                         </div>
-                        <div class="w-full border-b-2 inline-flex justify-between py-4 px-1 items-center">
+                        <!-- 3 -->
+                        <button type="button" class="w-full border-b-2 inline-flex justify-between py-4 px-1 items-center" id="accordion-collapse-heading-3" data-accordion-target="#accordion-collapse-body-3" aria-expanded="false" aria-controls="accordion-collapse-body-3">
                             Can i change my plan ?
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
+                        </button>
+                        <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
+                            <div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                                <p>
+                                Sure
+                                </p>
+                            </div>
                         </div>
-                        <div class="w-full border-b-2 inline-flex justify-between py-4 px-1 items-center">
+                        <!-- 4 -->
+                        <button type="button" class="w-full border-b-2 inline-flex justify-between py-4 px-1 items-center" id="accordion-collapse-heading-4" data-accordion-target="#accordion-collapse-body-4" aria-expanded="false" aria-controls="accordion-collapse-body-4">
                             How to applay promo ?
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
+                        </button>
+                        <div id="accordion-collapse-body-4" class="hidden" aria-labelledby="accordion-collapse-heading-4">
+                            <div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                                <p>
+                                Sure
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- footer -->
             <div class="w-full bg-gray-100">
                 <div class="max-w-7xl mx-auto flex flex-col md:flex-row w-full justify-between py-5 px-6 border-b-2">
