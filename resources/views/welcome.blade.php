@@ -4,17 +4,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Nusa Travel</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        @vite(['resources/js/app.jsx'])
-
+        @vite(['resources/js/frontpage.jsx'])
     </head>
     <body class="antialiased">
         <div class="w-full justify-center flex flex-col">
+            <!-- header -->
             <div class="sticky top-0 z-50 bg-white">
                 <!-- Header -->
                 <div class="flex flex-row border-b-2 border-gray-100 pt-4 pb-2 px-2 lg:px-10">
@@ -22,18 +22,43 @@
                         <div class="flex items-center">
                             <img src="{{asset('logo-side.png')}}" class="h-10 w-auto"/>
                         </div>
-                        <div class="flex flex-row gap-1 items-center">
-                            <div class="px-2.5 py-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 flex flex-row gap-2">
+                        <div class="hidden md:flex flex-row gap-1 items-center">
+                            <div id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="px-2.5 py-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 flex flex-row gap-2">
                                 <img src="{{asset('images/flag_usa.png')}}" class="h-3 w-auto" alt="nation"/>
                                 <img src="{{asset('images/chevron_down.svg')}}" class="h-2 w-auto" alt="chevron-down"/>
                             </div>
+                            <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                                    <li>
+                                        <a href="#" class="inline-flex w-full items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white gap-1">
+                                            <img src="{{asset('images/flag_indonesia.png')}}" class="h-3 w-4" alt="nation"/>
+                                            <p>Indonesia</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="inline-flex w-full items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white gap-1">
+                                            <img src="{{asset('images/flag_usa.png')}}" class="h-3 w-4" alt="nation"/>
+                                            <p>English</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
                             <button type="button" class="px-5 py-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">Sign Up</button>
+
                             <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+                        </div>
+
+                        <div class="space-y-2 md:hidden" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
+                            <span class="block w-8 h-0.5 bg-gray-600"></span>
+                            <span class="block w-8 h-0.5 bg-gray-600"></span>
+                            <span class="block w-5 h-0.5 bg-gray-600"></span>
                         </div>
                     </div>
                 </div>
+
                 <!-- Menu -->
-                <div class="flex flex-row gap-2 items-center border-b-2 border-gray-100 px-2 lg:px-16 overflow-auto">
+                <div class="hidden md:flex flex-row gap-2 items-center border-b-2 border-gray-100 px-2 lg:px-16 overflow-auto">
                     <div class="flex flex-row max-w-7xl mx-auto w-full items-center font-bold">
                         <div class="my-1 px-4 py-2 text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
                             Home
@@ -59,7 +84,56 @@
                     </div>
                 </div>
             </div>
-            <!-- C -->
+
+            <!-- drawer -->
+            <div id="drawer-navigation" class="fixed top-0 left-0 z-50 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-full dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-navigation-label">
+                <img src="{{asset('logo-side.png')}}" class="h-10 w-auto"/>
+                <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" >
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close menu</span>
+                </button>
+                <div class="py-4 overflow-y-auto">
+                    <ul>
+                        <li>
+                            <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="ml-3">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="ml-3">Tour Packages</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="ml-3">Fastboat</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="ml-3">Car Rentals</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="ml-3">Blog</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="ml-3">FAQ</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="ml-3">About us</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- slide images -->
             <div class="w-full mx-auto">
                 <div id="animation-carousel" class="relative" data-carousel="slide">
                     <!-- Carousel wrapper -->
@@ -98,6 +172,11 @@
                         </span>
                     </button>
 
+                    <div class="absolute z-40 top-14 lg:top-16 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto h-60 lg:px-0 px-4">
+                        <div class="text-5xl font-extrabold text-white outlined-text">Welcome To Nusa Travel</div>
+                        <div class="text-xl font-light text-white text-opacity-80">Your One-Stop Destination for Island Hopping in Indonesia</div>
+                    </div>
+
                     <div class="hidden md:block absolute z-40 -bottom-10 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto h-60 ">
                         <div>
                             <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
@@ -129,13 +208,13 @@
                             </div>
                             <div class="grid grid-cols-3 pt-4 gap-2">
                                 <div>
-                                    <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="From" required>
+                                    <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="From" required autocomplete="off">
                                 </div>
                                 <div>
-                                    <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="To" required>
+                                    <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="To" required autocomplete="off">
                                 </div>
                                 <div>
-                                    <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Date" required>
+                                    <input type="date" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Date" required autocomplete="off">
                                 </div>
                             </div>  
                             <div class="w-full flex flex-row justify-end pt-2">
@@ -147,7 +226,7 @@
             </div>
 
             <!-- mobile order -->
-            <div class="w-full max-w-7xl mx-auto pt-5">
+            <div class="w-full max-w-7xl mx-auto pt-5 px-2">
                 <div class="md:hidden block w-full mx-auto">
                     <div>
                         <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
@@ -199,9 +278,17 @@
             </div>
 
             <!-- popular packages -->
-            <div class="w-full max-w-7xl mx-auto pt-10 px-2">
+            <div class="w-full max-w-7xl mx-auto pt-2 md:pt-10 px-2">
                 <div class="flex flex-col w-full mx-auto pt-10 pb-5 text-center md:text-left">
-                    <div class="text-2xl font-bold">Popular Tours</div>
+                    <div class="flex flex-row justify-between">
+                        <div class="text-3xl font-bold pb-1">Popular Tours</div>
+                        <div class="hidden md:block">
+                            <div type="button" class="inline-flex text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 items-center">
+                                See More
+                                <svg aria-hidden="true" class="w-5 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            </div>
+                        </div>
+                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-2 px-1">
                         @foreach([1,2,3,4] as $a)
                         <div class="hover:-translate-y-2 ease-in duration-100 first-letter:max-w-sm bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
@@ -221,21 +308,25 @@
                         </div>
                         @endforeach
                     </div>
-                    <div class="w-full flex flex-row justify-center pt-2">
+                    <div class="md:hidden w-full flex flex-row justify-center pt-2">
                         <div type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">See More...</div>
                     </div>
                 </div>
             </div>
 
+            <!-- best picture of the month -->
             <div class="w-full max-w-7xl mx-auto pt-10 px-2">
                 <div class="flex flex-col">
                     <div class="flex flex-row justify-between">
                         <div class="flex flex-col">
-                            <div class="text-2xl font-bold">Best picture of the month</div>
+                            <div class="text-3xl font-bold">Best picture of the month</div>
                             <div class="text-gray-400">We have pictures based on location that they upload.</div>
                         </div>
-                        <div>
-                            <div type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">See More</div>
+                        <div class="hidden md:block">
+                            <div type="button" class="inline-flex text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 items-center">
+                                See More
+                                <svg aria-hidden="true" class="w-5 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            </div>
                         </div>
                     </div>
                     <div class="px-2 pt-2 flex flex-row">
@@ -249,12 +340,15 @@
                             @foreach([1,2] as $a)
                                 <div class="relative transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0 scale-100 hover:scale-110 hover:z-10">
                                     <img class="object-fill h-full w-full rounded-lg" src='{{asset("images/$a.jpg")}}' alt=""/>
-                                    <div class="absolute px-4 text-xl md:text-2xl font-bold text-white bottom-10 md:left-5">
+                                    <div class="hidden lg:block md:absolute px-4 text-xl md:text-2xl font-bold text-white bottom-10 md:left-5">
                                         <p>Selat Duri {{ $a }}</p>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
+                    </div>
+                    <div class="md:hidden w-full flex flex-row justify-center pt-2">
+                        <div type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">See More...</div>
                     </div>
                 </div>
             </div>
@@ -262,7 +356,15 @@
             <!-- latest updates -->
             <div class="w-full max-w-7xl mx-auto px-2">
                 <div class="flex flex-col w-full mx-auto pt-10 pb-5 text-center md:text-left">
-                    <div class="text-2xl font-bold">Lastest Updates</div>
+                    <div class="flex flex-row justify-between">
+                        <div class="text-3xl font-bold pb-1">Lastest Updates</div>
+                        <div class="hidden md:block">
+                            <div type="button" class="inline-flex text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 items-center">
+                                See More
+                                <svg aria-hidden="true" class="w-5 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            </div>
+                        </div>
+                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-2 px-2">
                         @foreach([1,2,3,4] as $a)
                         <div class="hover:-translate-y-2 ease-in duration-100 first-letter:max-w-sm bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
@@ -277,36 +379,92 @@
                         </div>
                         @endforeach
                     </div>
-                    <div class="w-full flex flex-row justify-center pt-2">
+                    <div class="md:hidden w-full flex flex-row justify-center pt-2">
                         <div type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">See More...</div>
                     </div>
                 </div>
             </div>
 
-            <!-- TODO: tambah FAQ seperti yang di gambar design  -->
-
-            <!-- TODO: ganti mirip seperti yang di gambar design -->
+            <!-- faq  -->
+            <div class="w-full max-w-7xl mx-auto px-2 py-4">
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="flex flex-col px-2">
+                        <div class="text-3xl font-bold md:text-6xl md:font-semibold pb-6">Frequently asked questions</div>
+                        <div class="relative md:w-4/5 pb-2">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Topic's" required/>
+                        </div>
+                    </div>
+                    <div class="flex flex-col text-xl">
+                        <div class="w-full border-b-2 inline-flex justify-between py-4 px-1 items-center">
+                            Why Nusa Travel ?
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </div>
+                        <div class="w-full border-b-2 inline-flex justify-between py-4 px-1 items-center">
+                            Can i refund my booking ?
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </div>
+                        <div class="w-full border-b-2 inline-flex justify-between py-4 px-1 items-center">
+                            Can i change my plan ?
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </div>
+                        <div class="w-full border-b-2 inline-flex justify-between py-4 px-1 items-center">
+                            How to applay promo ?
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- footer -->
             <div class="w-full bg-gray-100">
-                <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 w-full justify-between  py-5 px-16">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row w-full justify-between py-5 px-6 border-b-2">
+                    <div class="flex-1">
+                        <div class="text-3xl font-bold py-2">About Us</div>
+                        <div>
+                            An Indonesia's leading provider of fast boat tickets, we offer the most reliable and
+                            efficient transport options for island-hopping. Our main fast boat, the Ekajaya Fast Boat,
+                            is equipped with modern facilities and offers a comfortable and safe journey to your
+                            desired destination.
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 mt-2">
+                        <div class="px-2">
+                            <div class="font-bold pb-2">Company</div>
+                            <div><a href="#">About Us</a></div>
+                            <div><a href="#">Blog</a></div>
+                        </div>
+                        <div class="px-2">
+                            <div class="font-bold pb-2">Terms of use</div>
+                            <div>Terms of service</div>
+                            <div>Privacy Policy</div>
+                            <div>Cookie Policy</div>
+                            <div>Refund Policy</div>
+                            <div>Disclaimer</div>
+                        </div>
+                        <div class="px-2">
+                            <div class="font-bold pb-2">Products</div>
+                            <div>Tour Travels</div>
+                            <div>Fastboat</div>
+                            <div>Car Rentals</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row w-full justify-between items-center py-5 px-6">
                     <div>
+                        <img src="{{asset('logo-side.png')}}" class="h-5 w-auto"/>
+                    </div>
+                    <div class="py-2">
                         &copy; {{now()->format('Y')}} Nusa Travel. All Rights Reserved.
-                    </div>
-                    <div>
-                        <div class="font-bold pb-2">About</div>
-                        <div><a href="#">About Us</a></div>
-                        <div><a href="#">Blog</a></div>
-                    </div>
-                    <div>
-                        <div class="font-bold pb-2">Terms of use</div>
-                        <div>Terms of service</div>
-                        <div>Privacy Policy</div>
-                        <div>Cookie Policy</div>
-                        <div>Refund Policy</div>
-                        <div>Disclaimer</div>
-                    </div>
-                    <div>
-                        <div class="font-bold pb-2">Payment channels</div>
                     </div>
                 </div>
             </div>
