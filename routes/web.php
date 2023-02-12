@@ -26,6 +26,11 @@ Route::middleware(VisitorCounter::class)->group(function () {
     Route::get('/blog', function () {
         return view('blog');
     });
+
+    // Detail Blog
+    Route::get('/blog/post', function () {
+        return view('blog-post');
+    });
     // Page
 
     // Package Tours
