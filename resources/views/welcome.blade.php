@@ -173,8 +173,8 @@
                     </button>
 
                     <div class="absolute z-40 top-14 lg:top-16 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto h-60 lg:px-0 px-4">
-                        <div class="text-5xl font-extrabold text-white outlined-text">Welcome To Nusa Travel</div>
-                        <div class="text-xl font-light text-white text-opacity-80">Your One-Stop Destination for Island Hopping in Indonesia</div>
+                        <div class="text-center md:text-left text-5xl font-extrabold text-white outlined-text">Welcome To Nusa Travel</div>
+                        <div class="text-center md:text-left text-xl font-light text-white text-opacity-80">Your One-Stop Destination for Island Hopping in Indonesia</div>
                     </div>
 
                     <div class="hidden md:block absolute z-40 -bottom-10 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto h-60 ">
