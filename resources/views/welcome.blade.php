@@ -329,22 +329,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="px-2 pt-2 flex flex-row">
-                        <div class="relative w-2/3 transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0 scale-100 hover:scale-110 hover:z-10">
+                    <div class="px-2 pt-2 grid grid-cols-1 gap-2 md:gap-4 md:grid-cols-3">
+                        <div class=" md:col-span-2 md:row-span-2 transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0 scale-100 hover:scale-110 hover:z-10">
                             <img class="object-fill w-full h-auto rounded-lg" src="{{asset('images/4.jpg')}}" alt=""/>
                             <div class="absolute px-4 text-xl md:text-4xl font-bold text-white bottom-10 md:left-10">
                                 <p>Pantai Indah Kapuk</p>
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 gap-1 pl-2 w-1/3">
-                            @foreach([1,2] as $a)
-                                <div class="relative transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0 scale-100 hover:scale-110 hover:z-10">
-                                    <img class="object-fill h-full w-full rounded-lg" src='{{asset("images/$a.jpg")}}' alt=""/>
-                                    <div class="hidden lg:block md:absolute px-4 text-xl md:text-2xl font-bold text-white bottom-10 md:left-5">
-                                        <p>Selat Duri {{ $a }}</p>
-                                    </div>
-                                </div>
-                            @endforeach
+                        <div class="transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0 scale-100 hover:scale-110 hover:z-10">
+                            <img class="object-fill h-full w-full rounded-lg" src='{{asset("images/1.jpg")}}' alt=""/>
+                            <div class="absolute px-4 text-xl md:text-2xl font-bold text-white bottom-10 md:left-5">
+                                <p>Selat Duri 1</p>
+                            </div>
+                        </div>
+                        <div class="transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0 scale-100 hover:scale-110 hover:z-10">
+                            <img class="object-fill h-full w-full rounded-lg" src='{{asset("images/2.jpg")}}' alt=""/>
+                            <div class="absolute px-4 text-xl md:text-2xl font-bold text-white bottom-10 md:left-5">
+                                <p>Selat Duri 2</p>
+                            </div>
                         </div>
                     </div>
                     <div class="md:hidden w-full flex flex-row justify-center pt-2">
