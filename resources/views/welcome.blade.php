@@ -291,13 +291,13 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-2 px-1">
                         @foreach([1,2,3,4] as $a)
-                        <div class="hover:-translate-y-2 ease-in duration-150 first-letter:max-w-sm bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+                        <div class="hover:-translate-y-2 ease-in duration-150 shadow first-letter:max-w-sm bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                             <a href="#">
                                 <img class="rounded-t-lg" src="{{asset('images/1.jpg')}}" alt="" />
                             </a>
                             <div class="p-5">
                                 <a href="#">
-                                    <h5 class="mb-1 tracking-tight font-bold text-gray-900 dark:text-white">Sunrise overlooking Borobudur at Punthuk Setumbu Hil...</h5>
+                                    <h5 class="mb-1 tracking-tight font-bold text-gray-900 line-clamp-1 dark:text-white">Sunrise overlooking Borobudur at Punthuk Setumbu Hil</h5>
                                 </a>
                                 <span class="mb-3 py-1 px-2 text-xs font-bold rounded bg-gray-200 text-gray-700 dark:text-gray-400">Instant Confirmation</span>
                                 <div class="pt-5">
@@ -369,13 +369,13 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-2 px-2">
                         @foreach([1,2,3,4] as $a)
-                        <div class="hover:-translate-y-2 ease-in duration-100 first-letter:max-w-sm bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+                        <div class="hover:-translate-y-2 ease-in duration-100 first-letter:max-w-sm shadow bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                             <a href="#">
                                 <img class="rounded-t-lg" src="{{asset('images/1.jpg')}}" alt="" />
                             </a>
                             <div class="p-5">
                                 <a href="#">
-                                    <h5 class="mb-1 tracking-tight font-bold text-gray-900 dark:text-white">Sunrise overlooking Borobudur at Punthuk Setumbu Hil...</h5>
+                                    <h5 class="mb-1 tracking-tight font-bold text-gray-900 dark:text-white line-clamp-1">Sunrise overlooking Borobudur at Punthuk Setumbu Hil</h5>
                                 </a>
                             </div>
                         </div>
@@ -467,7 +467,7 @@
             <div class="w-full bg-gray-100">
                 <div class="max-w-7xl mx-auto flex flex-col md:flex-row w-full justify-between py-5 px-6 border-b-2">
                     <div class="flex-1">
-                        <div class="text-3xl font-bold py-2">About Us</div>
+                        <div class="text-lg md:text-3xl font-bold pb-2">About Us</div>
                         <div>
                             An Indonesia's leading provider of fast boat tickets, we offer the most reliable and
                             efficient transport options for island-hopping. Our main fast boat, the Ekajaya Fast Boat,
@@ -475,22 +475,22 @@
                             desired destination.
                         </div>
                     </div>
-                    <div class="grid grid-cols-3 gap-2 mt-2">
-                        <div class="px-2">
-                            <div class="font-bold pb-2">Company</div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2">
+                        <div class="md:px-2">
+                            <div class="text-lg md:text-xl font-bold pb-2">Company</div>
                             <div><a href="#">About Us</a></div>
                             <div><a href="#">Blog</a></div>
                         </div>
-                        <div class="px-2">
-                            <div class="font-bold pb-2">Terms of use</div>
+                        <div class="md:px-2">
+                            <div class="text-lg md:text-xl font-bold pb-2">Terms of use</div>
                             <div>Terms of service</div>
                             <div>Privacy Policy</div>
                             <div>Cookie Policy</div>
                             <div>Refund Policy</div>
                             <div>Disclaimer</div>
                         </div>
-                        <div class="px-2">
-                            <div class="font-bold pb-2">Products</div>
+                        <div class="md:px-2">
+                            <div class="text-lg md:text-xl font-bold pb-2">Products</div>
                             <div>Tour Travels</div>
                             <div>Fastboat</div>
                             <div>Car Rentals</div>
