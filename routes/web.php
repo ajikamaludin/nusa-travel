@@ -23,7 +23,9 @@ Route::middleware(VisitorCounter::class)->group(function () {
     Route::get('/',[LandingController::class, 'index']);
 
     // Blog
-
+    Route::get('/blog', function () {
+        return view('blog');
+    });
     // Page
 
     // Package Tours
