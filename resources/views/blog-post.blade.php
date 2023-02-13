@@ -13,7 +13,10 @@
         @vite(['resources/js/frontpage.jsx'])
     </head>
     <body class="antialiased">
-        <div class="w-full justify-center flex flex-col">
+        <div class="loader-container">
+            <div class="spinner"></div>
+        </div>
+        <div class="w-full justify-center flex flex-col main-content">
             <!-- header -->
             <div class="sticky top-0 z-50 shadow bg-white">
                 <!-- Header -->
@@ -236,4 +239,16 @@
             </div>
         </div>
     </body>
+    <script>
+        const loaderContainer = document.querySelector('.loader-container');
+        const mainContainer = document.querySelector('.main-content');
+        window.addEventListener('load', () => {
+            loaderContainer.classList.remove('hidden');
+            mainContainer.style.display = 'none';
+            setTimeout(() => {
+                loaderContainer.classList.add('hidden');
+                mainContainer.style.display = 'block';
+            }, 800);
+        });
+    </script>
 </html>
