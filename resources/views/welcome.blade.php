@@ -423,6 +423,36 @@
                 </div>
             </div>
 
+            <!-- why NT -->
+            <div class="w-full max-w-7xl mx-auto px-2 py-4 text-center">
+                <div class="py-4">
+                    <h3 class="text-xl md:text-3xl font-bold ">Welcome to Nusa Travel</h3>
+                    <h3 class="text-xl md:text-3xl font-bold ">Your One-Stop Destination for Island Hopping in Indonesia</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 space-y-4 md:space-y-0 md:gap-2 py-2">
+                    <div class="py-2 px-2">
+                        <img class=" w-full aspect-video" src="{{asset('images/undraw_Travel.png')}}" alt="" />
+                        <h3 class="font-bold text-2xl pb-2">Hassle-Free</h3>
+                        <span class=" text-lg leading-tight">We are dedicated to providing seamless and convenient travel experiences to our clients</span>
+                    </div>
+                    <div class="py-2 px-2">
+                        <img class=" w-full aspect-video" src="{{asset('images/undraw_Yacht.png')}}" alt="" />
+                        <h3 class="font-bold text-2xl pb-2">Service You Can Trust</h3>
+                        <span class=" text-lg leading-tight">We offer the most reliable and efficient transport options</span>
+                    </div>
+                    <div class="py-2 px-2">
+                        <img class=" w-full aspect-video" src="{{asset('images/undraw_adventure.png')}}" alt="" />
+                        <h3 class="font-bold text-2xl pb-2">Expertise</h3>
+                        <span class=" text-lg leading-tight">Our experts are here to help you plan your trip and make the most of your adventure</span>
+                    </div>
+                    <div class="py-2 px-2">
+                        <img class=" w-full aspect-video" src="{{asset('images/undraw_Trip.png')}}" alt="" />
+                        <h3 class="font-bold text-2xl pb-2">Get packages</h3>
+                        <span class=" text-lg leading-tight">Our tour packages are designed to offer a comprehensive and immersive travel experience</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- faq  -->
             <div class="w-full max-w-7xl mx-auto px-2 py-4">
                 <div class="grid grid-cols-1 md:grid-cols-2">
