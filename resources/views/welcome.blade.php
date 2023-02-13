@@ -21,6 +21,8 @@
             top: 100%;
             left: 0;
             right: 0;
+            max-height: 200px;
+            overflow-y:scroll;
         }
 
         .autocomplete-items div {
@@ -553,7 +555,7 @@
                     let a, b, i, val = this.value;
                     /*close any already open lists of autocompleted values*/
                     closeAllLists();
-                    if (!val) { return false;}
+                    // if (!val) { return false;}
                     currentFocus = -1;
                     /*create a DIV element that will contain the items (values):*/
                     a = document.createElement("DIV");
