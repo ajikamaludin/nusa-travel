@@ -47,7 +47,7 @@
         <div class="loader-container">
             <div class="spinner"></div>
         </div>
-        <div class="w-full justify-center flex flex-col main-content">
+        <div class="w-full justify-center flex flex-col main-content" style="display: none;">
             <!-- header -->
             <div class="sticky top-0 z-50 shadow bg-white">
                 <!-- Header -->
