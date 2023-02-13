@@ -12,6 +12,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update && apt-get dist-upgrade -y && \ 
     apt-get install -y \
     git \
+    libcurl-dev \
     curl \
     libpng-dev \
     libonig-dev \
