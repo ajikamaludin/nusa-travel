@@ -14,7 +14,7 @@
     </head>
     <body class="antialiased">
         <div class="loader-container">
-            <div class="spinner"></div>
+            <div class="web-spinner"></div>
         </div>
         <div class="w-full justify-center flex flex-col main-content" style="display: none;">
             <!-- header -->

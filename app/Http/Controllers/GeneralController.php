@@ -10,4 +10,9 @@ class GeneralController extends Controller
     {
         return inertia('Dashboard');
     }
+
+    public function indev()
+    {
+        return inertia('Dev');
+    }
 }

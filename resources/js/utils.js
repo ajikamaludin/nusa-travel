@@ -38,7 +38,7 @@ export const formatIDDate = (date) => {
 
 export const hasPermission = (auth, permission) => {
     const { user } = auth
-    if (+user.role === null) {
+    if (user.role === null) {
         return true;
     }
 

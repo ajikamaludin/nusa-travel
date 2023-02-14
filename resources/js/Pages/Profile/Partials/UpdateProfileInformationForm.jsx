@@ -10,7 +10,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     const user = usePage().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
-        username: user.username,
+        name: user.name,
         email: user.email,
     });
 
@@ -34,17 +34,17 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     <InputLabel for="name" value="Name" />
 
                     <TextInput
-                        id="username"
+                        id="name"
                         type="text"
                         className="mt-1 block w-full"
-                        value={data.username}
-                        handleChange={(e) => setData('username', e.target.value)}
+                        value={data.name}
+                        handleChange={(e) => setData('name', e.target.value)}
                         required
                         autofocus
                         autocomplete="name"
                     />
 
-                    <InputError className="mt-2" message={errors.username} />
+                    <InputError className="mt-2" message={errors.name} />
                 </div>
 
                 <div>

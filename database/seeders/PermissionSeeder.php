@@ -77,6 +77,19 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'Update Fastboat Order', 'name' => 'update-fastboat-order'],
             ['id' => Str::uuid(), 'label' => 'View Fastboat Order', 'name' => 'view-fastboat-order'],
             ['id' => Str::uuid(), 'label' => 'Delete Fastboat Order', 'name' => 'delete-fastboat-order'],
+
+            ['id' => Str::uuid(), 'label' => 'Create User', 'name' => 'create-user'],
+            ['id' => Str::uuid(), 'label' => 'Update User', 'name' => 'update-user'],
+            ['id' => Str::uuid(), 'label' => 'View User', 'name' => 'view-user'],
+            ['id' => Str::uuid(), 'label' => 'Delete User', 'name' => 'delete-user'],
+
+            ['id' => Str::uuid(), 'label' => 'Create Role', 'name' => 'create-role'],
+            ['id' => Str::uuid(), 'label' => 'Update Role', 'name' => 'update-role'],
+            ['id' => Str::uuid(), 'label' => 'View Role', 'name' => 'view-role'],
+            ['id' => Str::uuid(), 'label' => 'Delete Role', 'name' => 'delete-role'],
+
+            ['id' => Str::uuid(), 'label' => 'Update Setting', 'name' => 'update-setting'],
+            ['id' => Str::uuid(), 'label' => 'View Setting', 'name' => 'view-setting'],
         ];
 
         foreach($permissions as $permission) {
@@ -105,7 +118,31 @@ class PermissionSeeder extends Seeder
 
         $setting = [
             ['id' => Str::uuid(), 'key' => 'SITE_NAME', 'value' => 'Nusa Travel', 'type' => 'text'],
-            ['id' => Str::uuid(), 'key' => 'SITE_LOGO', 'value' => 'logo.png ', 'type' => 'image'],
+            ['id' => Str::uuid(), 'key' => 'SITE_LOGO', 'value' => 'logo-side.png ', 'type' => 'image'],
+            [
+                'id' => Str::uuid(), 
+                'key' => 'SITE_ABOUT', 
+                'value' => 'An Indonesia\'s leading provider of fast boat tickets, we offer the most reliable and efficient transport options for island-hopping. Our main fast boat, the Ekajaya Fast Boat, is equipped with modern facilities and offers a comfortable and safe journey to your desired destination.', 
+                'type' => 'text'
+            ],
+            [
+                'id' => Str::uuid(), 
+                'key' => 'SITE_WELCOME', 
+                'value' => 'Welcome To Nusa Travel', 
+                'type' => 'text'
+            ],
+            [
+                'id' => Str::uuid(), 
+                'key' => 'SITE_SUBWELCOME', 
+                'value' => 'Your One-Stop Destination for Island Hopping in Indonesia', 
+                'type' => 'text'
+            ],
+            ['id' => Str::uuid(), 'key' => 'SITE_META_DESC', 'value' => 'description here', 'type' => 'text'],
+            ['id' => Str::uuid(), 'key' => 'SITE_META_KEYWORD', 'value' => 'keyword here', 'type' => 'text'],
+            ['id' => Str::uuid(), 'key' => 'LANDING_SLIDE_1', 'value' => 'images/1.jpg', 'type' => 'image'],
+            ['id' => Str::uuid(), 'key' => 'LANDING_SLIDE_2', 'value' => 'images/2.jpg', 'type' => 'image'],
+            ['id' => Str::uuid(), 'key' => 'LANDING_SLIDE_3', 'value' => 'images/3.jpg', 'type' => 'image'],
+
             ['id' => Str::uuid(), 'key' => 'midtrans_server_key', 'value' => '', 'type' => 'text'],
             ['id' => Str::uuid(), 'key' => 'midtrans_client_key', 'value' => '', 'type' => 'text'],
             ['id' => Str::uuid(), 'key' => 'midtrans_merchant_id', 'value' => '', 'type' => 'text'],
