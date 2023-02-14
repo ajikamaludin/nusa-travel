@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(VisitorCounter::class)->group(function () {
     // Landing
-    Route::get('/',[LandingController::class, 'index']);
+    Route::get('/',[LandingController::class, 'index'])->name('home.index');
 
     // Blog
     Route::get('/blog', function () {
@@ -38,6 +38,14 @@ Route::middleware(VisitorCounter::class)->group(function () {
     // Package Tours
     // Car Rentals
     // Fastboat
+
+    // Login / Register
+    Route::get('/login', function () {
+        return view('login');
+    })->name('customer.login');
+    Route::get('/signup', function () {
+        return view('signup');
+    })->name('customer.signup');
 
     Route::middleware('auth:customer')->group(function(){
         // Profile
