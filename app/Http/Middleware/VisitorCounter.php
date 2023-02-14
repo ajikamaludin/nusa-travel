@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Visitor;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use React\EventLoop\Loop;
 use function React\Async\async;
 
@@ -20,17 +21,17 @@ class VisitorCounter
     public function handle(Request $request, Closure $next)
     {
         $response = $next($request);
-        
 
         Loop::addTimer(0.1, async(function () use($request) {
             $v = Visitor::getInstance();
+            Log::debug("visitor", [$request->ip()]);
             $v->fill([
-                'device' => $request->visitor()->device(),
-                'platform' => $request->visitor()->platform(),
-                'browser' => $request->visitor()->browser(),
-                'languages' => json_encode($request->visitor()->languages()),
-                'ip' => $request->visitor()->ip(),
-                'useragent' => $request->visitor()->useragent(),
+                'device' => $request->header('sec-ch-ua-mobile'),
+                'platform' => $request->header('sec-ch-ua-platform'),
+                'browser' => $request->header('sec-ch-ua'),
+                'languages' => json_encode($request->header('accept-language')),
+                'ip' => $request->ip(),
+                'useragent' => $request->header('user-agent'),
             ]);
             $v->save();
         }));

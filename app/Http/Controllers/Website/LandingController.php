@@ -10,7 +10,7 @@ class LandingController extends Controller
 {
     public function index() 
     {
-        Visitor::track([Visitor::class, 10]);
+        Visitor::track([Visitor::class, 'LANDING_PAGE']);
         return view('welcome');
     }
 }
