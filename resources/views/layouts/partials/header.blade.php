@@ -3,9 +3,9 @@
     <!-- Header -->
     <div class="flex flex-row border-b-2 border-gray-100 pt-4 pb-2 px-2 lg:px-10">
         <div class="flex flex-row max-w-7xl mx-auto w-full justify-between items-center ">
-            <div class="flex items-center">
+            <a href="{{ route('home.index') }}" class="flex items-center">
                 <img src="{{asset('logo-side.png')}}" class="h-10 w-auto"/>
-            </div>
+            </a>
             <div class="hidden md:flex flex-row gap-1 items-center">
                 <div id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="px-2.5 py-2.5 cursor-pointer text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 flex flex-row gap-2">
                     <img src="{{asset('images/flag_usa.png')}}" class="h-3 w-auto" alt="nation"/>
@@ -28,7 +28,7 @@
                     </ul>
                 </div>
 
-                <button type="button" class="px-5 py-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">Sign Up</button>
+                <a href="{{ route('customer.signup') }}" class="px-5 py-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">Sign Up</a>
 
                 <a href="{{ route('customer.login') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</a>
             </div>
