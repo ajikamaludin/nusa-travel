@@ -43,25 +43,19 @@
         <div id="animation-carousel" class="relative" data-carousel="slide">
             <!-- Carousel wrapper -->
             <div class="relative h-72 overflow-hidden md:h-99" >
+                @foreach($setting->getSlides() as $slide)
                 <!-- Item 1 -->
                 <div class="hidden brightness-90 duration-700 ease-in-out" data-carousel-item>
                     <span class="absolute text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 sm:text-3xl dark:text-gray-800">First Slide</span>
-                    <img src="{{asset('images/1.jpg')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                    <img src="{{asset($slide)}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                 </div>
-                <!-- Item 2 -->
-                <div class="hidden brightness-90 duration-700 ease-in-out" data-carousel-item>
-                    <img src="{{asset('images/2.jpg')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                </div>
-                <!-- Item 3 -->
-                <div class="hidden brightness-90 duration-700 ease-in-out" data-carousel-item>
-                    <img src="{{asset('images/3.jpg')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                </div>
+                @endforeach
             </div>
             <!-- Slider indicators -->
             <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+                @foreach($setting->getSlides() as $slide)
+                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                @endforeach
             </div>
             <!-- Slider controls -->
             <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
@@ -78,8 +72,8 @@
             </button>
 
             <div class="absolute z-40 top-14 lg:top-16 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto h-60 lg:px-0 px-4">
-                <div class="text-center md:text-left text-5xl font-extrabold text-white outlined-text">Welcome To Nusa Travel</div>
-                <div class="text-center md:text-left text-xl font-light text-white text-opacity-80">Your One-Stop Destination for Island Hopping in Indonesia</div>
+                <div class="text-center md:text-left text-5xl font-extrabold text-white outlined-text">{{$setting->getValue('G_SITE_WELCOME')}}</div>
+                <div class="text-center md:text-left text-xl font-light text-white text-opacity-80">{{$setting->getValue('G_SITE_SUBWELCOME')}}</div>
             </div>
 
             <div class="hidden md:block absolute z-40 -bottom-10 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto h-60 ">

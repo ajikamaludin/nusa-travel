@@ -9,7 +9,7 @@
         <div class="mx-auto max-w-sm p-6 bg-white border border-b-0 border-gray-200 rounded-t-lg shadow">
             <form>
                 <div class="mb-12 text-center">
-                    <div class="text-2xl font-extrabold">Signup To Nusa Travel</div>
+                    <div class="text-2xl font-extrabold">Signup To {{$setting->getValue('G_SITE_NAME')}}</div>
                     <div class="text-gray-500">get our gratest tour services</div>
                 </div>
                 <div class="mb-6">

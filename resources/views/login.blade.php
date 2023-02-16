@@ -9,7 +9,7 @@
         <div class="mx-auto max-w-sm p-6 bg-white border border-b-0 border-gray-200 rounded-t-lg shadow">
             <form>
                 <div class="mb-12 text-center">
-                    <div class="text-2xl font-extrabold">Welcome To Nusa Travel</div>
+                    <div class="text-2xl font-extrabold">Welcome To {{$setting->getValue('G_SITE_NAME')}}</div>
                 </div>
                 <div class="mb-6">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>

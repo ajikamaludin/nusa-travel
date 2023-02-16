@@ -4,10 +4,7 @@
         <div class="flex-1">
             <div class="text-lg md:text-3xl font-bold pb-2">About Us</div>
             <div>
-                An Indonesia's leading provider of fast boat tickets, we offer the most reliable and
-                efficient transport options for island-hopping. Our main fast boat, the Ekajaya Fast Boat,
-                is equipped with modern facilities and offers a comfortable and safe journey to your
-                desired destination.
+                {{$setting->getValue('G_SITE_ABOUT')}}
             </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2">
@@ -34,10 +31,10 @@
     </div>
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row w-full justify-between items-center py-5 px-6">
         <div>
-            <img src="{{asset('logo-side.png')}}" class="h-5 w-auto"/>
+            <img src="{{asset($setting->getValue('G_SITE_LOGO'))}}" class="h-5 w-auto"/>
         </div>
         <div class="py-2">
-            &copy; {{now()->format('Y')}} Nusa Travel. All Rights Reserved.
+            &copy; {{now()->format('Y')}} {{$setting->getValue('G_SITE_NAME')}}. All Rights Reserved.
         </div>
     </div>
 </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Website\LandingController;
 use App\Http\Middleware\VisitorCounter;
 use Illuminate\Support\Facades\Route;
@@ -27,12 +28,12 @@ Route::middleware(VisitorCounter::class)->group(function () {
     // Blog
     Route::get('/blog', function () {
         return view('blog');
-    });
+    })->name('blog.index');
 
     // Detail Blog
     Route::get('/blog/post', function () {
         return view('blog-post');
-    });
+    })->name('blog.post');
     // Page
 
     // Package Tours
@@ -80,6 +81,10 @@ Route::prefix('travel')->group(function() {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
         // Setting
+        Route::get('/setting/general', [SettingController::class, 'general'])->name('setting.general');
+        Route::post('/setting/update-general', [SettingController::class, 'updateGeneral'])->name('setting.update-general');
+        Route::get('/setting/payment', [SettingController::class, 'payment'])->name('setting.payment');
+        Route::post('/setting/update-payment', [SettingController::class, 'updatePayment'])->name('setting.update-payment');
         // User
         Route::get('/users', [UserController::class, 'index'])->name('user.index');
         Route::post('/users', [UserController::class, 'store'])->name('user.store');
