@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Inertia\Response;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $query = User::query()->with(['role']);
 
@@ -22,7 +24,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -42,7 +44,7 @@ class UserController extends Controller
             ->with('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -72,7 +74,7 @@ class UserController extends Controller
             ->with('message', ['type' => 'success', 'message' => 'Item has beed updated']);
     }
 
-    public function destroy(User $user)
+    public function destroy(User $user): RedirectResponse
     {
         if ($user->role_id == null) {
             return redirect()->route('user.index')

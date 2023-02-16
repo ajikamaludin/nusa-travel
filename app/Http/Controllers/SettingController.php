@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Response;
 
 class SettingController extends Controller
 {
-    public function general()
+    public function general(): Response
     {
         $setting = Setting::where('key', 'like', 'g_%')->orderBy('key', 'asc')->get();
 
@@ -24,7 +26,7 @@ class SettingController extends Controller
         ]);
     }
 
-    public function updateGeneral(Request $request)
+    public function updateGeneral(Request $request): RedirectResponse
     {
         $request->validate([
             'site_name' => 'required|string',
@@ -76,7 +78,7 @@ class SettingController extends Controller
             ->with('message', ['type' => 'success', 'message' => 'Setting has beed saved']);
     }
 
-    public function payment()
+    public function payment(): Response
     {
         $setting = Setting::where('key', 'like', 'midtrans%')->orderBy('key', 'asc')->get();
 
@@ -91,7 +93,7 @@ class SettingController extends Controller
         ]);
     }
 
-    public function updatePayment(Request $request)
+    public function updatePayment(Request $request): RedirectResponse
     {
         $request->validate([
             'midtrans_client_key' => 'required|string|max:255',

@@ -19,7 +19,8 @@ class Setting extends Model
         'type'
     ];
 
-    public static function getInstance() {
+    public static function getInstance() : Setting
+    {
         if (self::$instance == null) {
             self::$instance = new Setting();
             self::$instance->setting = Setting::all();
@@ -27,15 +28,18 @@ class Setting extends Model
         return self::$instance;
     }
 
-    public function getValue($key) {
+    public function getValue($key): string
+    {
         $v = self::getInstance();
         return $v->setting->where('key', $key)->first()->value;
     }
 
-    public function getSlides() {
+    public function getSlides(): array
+    {
         $v = self::getInstance();
         return $v->setting->filter(function($item) {
             return false !== strpos($item->key, 'G_LANDING_SLIDE_');
-        })->pluck('value');
+        })->pluck('value')
+        ->toArray();
     }
 }

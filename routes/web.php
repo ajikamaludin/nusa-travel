@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\FastboatPlaceController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -73,7 +74,14 @@ Route::prefix('travel')->group(function() {
 
         // Package Tours
         // Car Rentals
-        // Fastboat
+
+        // Fastboat Place
+        Route::get('/fastboat/places', [FastboatPlaceController::class, 'index'])->name('fastboat.place.index');
+        Route::post('/fastboat/places', [FastboatPlaceController::class, 'store'])->name('fastboat.place.store');
+        Route::put('/fastboat/places/{place}', [FastboatPlaceController::class, 'update'])->name('fastboat.place.update');
+        Route::delete('/fastboat/places/{place}', [FastboatPlaceController::class, 'destroy'])->name('fastboat.place.destroy');
+        // Fastboat Track
+        // Fastboat Order
 
         // User Profile
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

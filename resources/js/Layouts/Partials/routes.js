@@ -36,10 +36,10 @@ export default [
         icon: HiCollection,
         items: [
             {
-                name: "Place",
+                name: "Dock",
                 show: true,
                 icon: HiClipboardList,
-                route: route("in.dev"),
+                route: route("fastboat.place.index"),
                 active: "fastboat.place.*",
                 permission: "view-fastboat-place",
             },

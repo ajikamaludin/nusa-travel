@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\RolePermission;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Response;
 
 class RoleController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $request->user()->allow('view-role', true);
 
@@ -27,14 +29,14 @@ class RoleController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): Response
     {
         return inertia('Role/Form', [
             'permissions' => Permission::all(),
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'string|required|max:255',
@@ -56,7 +58,7 @@ class RoleController extends Controller
             ->with('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
-    public function edit(Role $role)
+    public function edit(Role $role): Response
     {
         return inertia('Role/Form', [
             'role' => $role->load(['permissions']),
@@ -64,7 +66,7 @@ class RoleController extends Controller
         ]);
     }
 
-    public function update(Request $request, Role $role)
+    public function update(Request $request, Role $role): RedirectResponse
     {
         $request->validate([
             'name' => 'string|required|max:255',
@@ -96,7 +98,7 @@ class RoleController extends Controller
             ->with('message', ['type' => 'success', 'message' => 'Item has beed updated']);
     }
 
-    public function destroy(Role $role)
+    public function destroy(Role $role): RedirectResponse
     {
         $deleted = $role->delete();
 
