@@ -18,7 +18,8 @@ import {
     HiHome,
     HiInboxIn,
     HiOutlineCash,
-    HiOutlineTable
+    HiOutlineTable,
+    HiOutlineCog,
 } from "react-icons/hi";
 
 export default [
@@ -47,7 +48,7 @@ export default [
                 name: "Track",
                 show: true,
                 icon: HiClipboardList,
-                route: route("in.dev"),
+                route: route("fastboat.track.index"),
                 active: "fastboat.track.*",
                 permission: "view-fastboat-track",
             },
@@ -70,6 +71,29 @@ export default [
         permission: "view-customer",
     },
     {
+        name: "Blog",
+        show: true,
+        icon: HiCollection,
+        items: [
+            {
+                name: "Posts",
+                show: true,
+                icon: HiClipboardList,
+                route: route("in.dev"),
+                active: "posts.index",
+                permission: "view-post",
+            },
+            {
+                name: "Tags",
+                show: true,
+                icon: HiClipboardList,
+                route: route("in.dev"),
+                active: "tags.index",
+                permission: "view-tag",
+            },
+        ],
+    },
+    {
         name: "Setting",
         show: true,
         icon: HiCollection,
@@ -77,7 +101,7 @@ export default [
             {
                 name: "General",
                 show: true,
-                icon: HiPlusCircle,
+                icon: HiOutlineCog,
                 route: route("setting.general"),
                 active: "setting.general",
                 permission: "view-setting",

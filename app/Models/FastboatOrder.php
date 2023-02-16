@@ -5,6 +5,7 @@ namespace App\Models;
 class FastboatOrder extends Model
 {
     protected $cascadeDeletes = [];
+
     protected $fillable = [
         "order_code",
         "track_name",

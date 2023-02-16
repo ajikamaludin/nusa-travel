@@ -19,9 +19,9 @@ return new class extends Migration
             $table->uuid('fastboat_destination_id')->nullable();
             $table->decimal('price', 14, 2)->default(0);
             $table->integer('capacity')->default(0);
-            $table->time('arrival_time');
-            $table->time('departure_time');
-            $table->smallInteger('is_publish');
+            $table->time('arrival_time')->nullable();
+            $table->time('departure_time')->nullable();
+            $table->smallInteger('is_publish')->default(0);
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by')->nullable();
