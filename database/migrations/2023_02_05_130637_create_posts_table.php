@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('slug');
             $table->string('title');
+            $table->string('cover_image');
             $table->text('body')->nullable();
             $table->string('meta_tag')->nullable();
             $table->timestamps();

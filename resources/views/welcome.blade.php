@@ -190,14 +190,14 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-2 px-1">
-                @foreach([1,2,3,4] as $a)
+                @foreach($posts as $a)
                 <div class="hover:-translate-y-2 ease-in duration-150 shadow first-letter:max-w-sm bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class="rounded-t-lg" src="{{asset('images/1.jpg')}}" alt="" />
+                    <a href="{{ route('blog.post', $a) }}">
+                        <img class="rounded-t-lg" src="{{asset($a->cover_image)}}" alt="" />
                     </a>
                     <div class="p-5">
                         <a href="#">
-                            <h5 class="mb-1 tracking-tight font-bold text-gray-900 line-clamp-1 dark:text-white">Sunrise overlooking Borobudur at Punthuk Setumbu Hil</h5>
+                            <h5 class="mb-1 tracking-tight font-bold text-gray-900 line-clamp-1 dark:text-white">{{ $a->title }}</h5>
                         </a>
                         <span class="mb-3 py-1 px-2 text-xs font-bold rounded bg-gray-200 text-gray-700 dark:text-gray-400">Instant Confirmation</span>
                         <div class="pt-5">
@@ -268,14 +268,14 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-2 px-2">
-                @foreach([1,2,3,4] as $a)
+                @foreach($posts as $a)
                 <div class="hover:-translate-y-2 ease-in duration-150 shadow bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class="rounded-t-lg" src="{{asset('images/1.jpg')}}" alt="" />
+                    <a href="{{ route('blog.post', $a) }}">
+                        <img class="rounded-t-lg" src="{{asset($a->cover_image)}}" alt="" />
                     </a>
                     <div class="p-3 md:p-5 space-y-1">
                         <a href="#">
-                            <h4 class="font-bold text-xl text-gray-900 dark:text-white line-clamp-1">Sunrise overlooking Borobudur at Punthuk Setumbu Hil</h4>
+                            <h4 class="font-bold text-xl text-gray-900 dark:text-white line-clamp-1">{{ $a->title }}</h4>
                         </a>
                         <span class="line-clamp-1 text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, velit.</span>
                         <div class="flex items-center space-x-2">

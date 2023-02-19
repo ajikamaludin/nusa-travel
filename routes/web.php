@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\BlogController as AdminBlogController;
 use App\Http\Controllers\Website\BlogController;
 use App\Http\Controllers\Website\FastboatController;
 use App\Http\Controllers\Website\LandingController;
@@ -37,7 +38,7 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     Route::get('/blog',[BlogController::class, 'index'])->name('blog.index');
 
     // Detail Blog
-    Route::get('/blog/post',[BlogController::class, 'show'])->name('blog.post');
+    Route::get('/blog/{post}',[BlogController::class, 'show'])->name('blog.post');
 
     // Package Tours
     // Car Rentals
@@ -88,6 +89,11 @@ Route::prefix('travel')->group(function() {
         Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
 
         // Blog
+        Route::get('/posts', [AdminBlogController::class, 'index'])->name('post.index');
+        Route::get('/posts/create', [AdminBlogController::class, 'create'])->name('post.create');
+        Route::post('/posts', [AdminBlogController::class, 'store'])->name('post.store');
+        Route::delete('/posts/{post}', [AdminBlogController::class, 'destroy'])->name('post.destroy');
+
         // Page
 
         // Setting

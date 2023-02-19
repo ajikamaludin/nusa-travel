@@ -11,5 +11,8 @@ class Post extends Model
         'title',
         'body',
         'meta_tag',
+        'cover_image',
     ];
+
+
 }

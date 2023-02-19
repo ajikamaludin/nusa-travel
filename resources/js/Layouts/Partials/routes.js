@@ -79,8 +79,8 @@ export default [
                 name: "Posts",
                 show: true,
                 icon: HiClipboardList,
-                route: route("in.dev"),
-                active: "posts.index",
+                route: route("post.index"),
+                active: "post.index",
                 permission: "view-post",
             },
             // {
