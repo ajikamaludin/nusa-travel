@@ -11,7 +11,7 @@ import Pagination from '@/Components/Pagination';
 import ModalConfirm from '@/Components/ModalConfirm';
 import FormModal from './FormModal';
 import SearchInput from '@/Components/SearchInput';
-import { hasPermission } from '@/utils';
+import { formatIDR, hasPermission } from '@/utils';
 
 export default function Index(props) {
     const { query: { links, data }, auth } = props
@@ -97,6 +97,15 @@ export default function Index(props) {
                                             <th scope="col" className="py-3 px-6">
                                                 Departure Time
                                             </th>
+                                            <th scope="col" className="py-3 px-6">
+                                                Price
+                                            </th>
+                                            <th scope="col" className="py-3 px-6">
+                                                Capacity
+                                            </th>
+                                            <th scope="col" className="py-3 px-6">
+                                                Publish
+                                            </th>
                                             <th scope="col" className="py-3 px-6"/>
                                         </tr>
                                     </thead>
@@ -114,6 +123,15 @@ export default function Index(props) {
                                                 </td>
                                                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     {track.departure_time}
+                                                </td>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {formatIDR(track.price)}
+                                                </td>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {formatIDR(track.capacity)}
+                                                </td>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {+track.is_publish === 1 ? 'Yes' : 'No'}
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown

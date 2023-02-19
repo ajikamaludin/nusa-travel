@@ -24,7 +24,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->string('reset_token')->nullable();
             $table->smallInteger('is_active');
-            $table->smallInteger('email_varified_at');
+            $table->timestamp('email_varified_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->uuid('created_by')->nullable();

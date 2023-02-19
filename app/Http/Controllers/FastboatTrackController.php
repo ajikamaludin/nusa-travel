@@ -17,14 +17,11 @@ class FastboatTrackController extends Controller
         $query = FastboatTrack::query()->with(['source', 'destination']);
 
         if($request->has('q')) {
-            $query->with([
-                'source' => function($query) use($request) {
-                    $query->where('name', 'like', "%{$request->q}%");
-                }, 
-                'destination' => function($query) use($request) {
-                    $query->where('name', 'like', "%{$request->q}%");
-                }
-            ]);
+            $query->whereHas('source', function($query) use($request) {
+                $query->where('name', 'like', "%{$request->q}%");
+            })->orWhereHas('destination', function($query) use($request) {
+                $query->where('name', 'like', "%{$request->q}%");
+            });
         }
     
         return inertia('FastboatTrack/Index', [
@@ -38,12 +35,13 @@ class FastboatTrackController extends Controller
     public function store(Request $request): void
     {
         $request->validate([
-            "fastboat_source_id" => 'required|exists:places,id',
-            "fastboat_destination_id" => 'required|exists:places,id',
+            "fastboat_source_id" => 'required|exists:fastboat_places,id',
+            "fastboat_destination_id" => 'required|exists:fastboat_places,id',
             "price" => 'required|numeric',
             "capacity" => 'required|numeric',
             "arrival_time" => 'required',
             "departure_time" => 'required',
+            "is_publish" => 'required|in:0,1'
         ]);
 
         FastboatTrack::create([
@@ -53,6 +51,7 @@ class FastboatTrackController extends Controller
             "capacity" => $request->capacity,
             "arrival_time" => $request->arrival_time,
             "departure_time" => $request->departure_time,
+            "is_publish" => $request->is_publish,
         ]);
     }
 
@@ -62,12 +61,13 @@ class FastboatTrackController extends Controller
     public function update(Request $request, FastboatTrack $track): void
     {
         $request->validate([
-            "fastboat_source_id" => 'required|exists:places,id',
-            "fastboat_destination_id" => 'required|exists:places,id',
+            "fastboat_source_id" => 'required|exists:fastboat_places,id',
+            "fastboat_destination_id" => 'required|exists:fastboat_places,id',
             "price" => 'required|numeric',
             "capacity" => 'required|numeric',
             "arrival_time" => 'required',
             "departure_time" => 'required',
+            "is_publish" => 'required|in:0,1'
         ]);
 
         $track->update([
@@ -77,6 +77,7 @@ class FastboatTrackController extends Controller
             "capacity" => $request->capacity,
             "arrival_time" => $request->arrival_time,
             "departure_time" => $request->departure_time,
+            "is_publish" => $request->is_publish,
         ]);
     }
 

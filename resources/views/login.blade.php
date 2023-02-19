@@ -8,9 +8,12 @@
         </div> -->
         <div class="mx-auto max-w-sm p-6 bg-white border border-b-0 border-gray-200 rounded-t-lg shadow">
             <form>
-                <div class="mb-12 text-center">
+                <div class="mb-6 text-center">
                     <div class="text-2xl font-extrabold">Welcome To {{$setting->getValue('G_SITE_NAME')}}</div>
                 </div>
+                @if(session()->has('message'))
+                <x-alert type="{{ session()->get('message.type') }}" message="{{ session()->get('message.message') }}"/>
+                @endif
                 <div class="mb-6">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                     <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@yourmail.com" required>

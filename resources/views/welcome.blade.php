@@ -294,14 +294,27 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-2 px-2">
                 @foreach([1,2,3,4] as $a)
-                <div class="hover:-translate-y-2 ease-in duration-100 first-letter:max-w-sm shadow bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+                <div class="hover:-translate-y-2 ease-in duration-150 shadow bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <img class="rounded-t-lg" src="{{asset('images/1.jpg')}}" alt="" />
                     </a>
-                    <div class="p-5">
+                    <div class="p-3 md:p-5 space-y-1">
                         <a href="#">
-                            <h5 class="mb-1 tracking-tight font-bold text-gray-900 dark:text-white line-clamp-1">Sunrise overlooking Borobudur at Punthuk Setumbu Hil</h5>
+                            <h4 class="font-bold text-xl text-gray-900 dark:text-white line-clamp-1">Sunrise overlooking Borobudur at Punthuk Setumbu Hil</h4>
                         </a>
+                        <span class="line-clamp-1 text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, velit.</span>
+                        <div class="flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-yellow-300">
+                                <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-sm text-gray-500">
+                                300 views
+                            </span>
+                        </div>
+                        <div>
+                            <span class="py-1 px-2 text-xs font-bold rounded bg-gray-200 text-gray-700 dark:text-gray-400">tag1</span>
+                            <span class="py-1 px-2 text-xs font-bold rounded bg-gray-200 text-gray-700 dark:text-gray-400">tag2</span>
+                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -432,6 +445,43 @@
                     }
                 }
             });
+            inp.addEventListener("click", function(e) {
+                let a, b, i, val = this.value;
+                /*close any already open lists of autocompleted values*/
+                closeAllLists();
+                // if (!val) { return false;}
+                currentFocus = -1;
+                /*create a DIV element that will contain the items (values):*/
+                a = document.createElement("DIV");
+                a.setAttribute("id", this.id + "autocomplete-list");
+                a.setAttribute("class", "autocomplete-items");
+                /*append the DIV element as a child of the autocomplete container:*/
+                this.parentNode.appendChild(a);
+                /*for each item in the array...*/
+                for (i = 0; i < arr.length; i++) {
+                    console.log(arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase())
+                    /*check if the item starts with the same letters as the text field value:*/
+                    if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    /*create a DIV element for each matching element:*/
+                    b = document.createElement("DIV");
+                    /*make the matching letters bold:*/
+                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length);
+                    /*insert a input field that will hold the current array item's value:*/
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    /*execute a function when someone clicks on the item value (DIV element):*/
+                    b.addEventListener("click", function(e) {
+                        /*insert the value for the autocomplete text field:*/
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        /*close the list of autocompleted values,
+                        (or any other open lists of autocompleted values:*/
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+                    }
+                }
+            });
+            
             inp.addEventListener("keydown", function(e) {
                 var x = document.getElementById(this.id + "autocomplete-list");
                 if (x) x = x.getElementsByTagName("div");
@@ -456,6 +506,7 @@
                     }
                 }
             });
+            
             function addActive(x) {
                 /*a function to classify an item as "active":*/
                 if (!x) return false;
