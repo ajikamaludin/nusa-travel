@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\FastboatOrderController;
 use App\Http\Controllers\FastboatPlaceController;
 use App\Http\Controllers\FastboatTrackController;
 use App\Http\Controllers\GeneralController;
@@ -105,6 +106,7 @@ Route::prefix('travel')->group(function() {
         Route::put('/fastboat/tracks/{track}', [FastboatTrackController::class, 'update'])->name('fastboat.track.update');
         Route::delete('/fastboat/tracks/{track}', [FastboatTrackController::class, 'destroy'])->name('fastboat.track.destroy');
         // Fastboat Order
+        Route::get('/fastboat/orders', [FastboatOrderController::class, 'index'])->name('fastboat.order.index');
 
         // User Profile
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
