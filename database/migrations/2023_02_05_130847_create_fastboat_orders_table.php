@@ -24,10 +24,11 @@ return new class extends Migration
             $table->date('date');
             $table->time('arrival_time');
             $table->time('departure_time');
-            $table->string('payment_status');
-            $table->text('payment_response');
-            $table->string('payment_channel');
-            $table->string('payment_type');
+            $table->string('payment_token')->nullable();
+            $table->string('payment_status')->nullable();
+            $table->text('payment_response')->nullable();
+            $table->string('payment_channel')->nullable();
+            $table->string('payment_type')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by')->nullable();

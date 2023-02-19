@@ -30,4 +30,9 @@ class Customer extends Authenticatable
         "is_active",
         "email_varified_at"
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(FastboatOrder::class);
+    }
 }

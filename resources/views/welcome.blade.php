@@ -79,13 +79,13 @@
                     </div>
                     <div class="grid grid-cols-3 pt-4 gap-2">
                         <div class="auto-search-wrapper">
-                            <input type="text" id="from" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" placeholder="From" name="from">
+                            <input type="text" id="from" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" placeholder="From" name="from" autocomplete="off">
                         </div>
                         <div class="auto-search-wrapper">
-                            <input type="text" id="to" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" placeholder="To" name="to">
+                            <input type="text" id="to" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" placeholder="To" name="to" autocomplete="off">
                         </div>
                         <div>
-                            <input type="date" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Date" required autocomplete="off" name="date">
+                            <input type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Date" required autocomplete="off" name="date" min="{{ now()->format('Y-m-d') }}">
                         </div>
                     </div>
                     <div class="w-full flex flex-row justify-end pt-2">
@@ -111,40 +111,42 @@
                 </ul>
             </div>
             <div class="bg-white rounded-b-lg rounded-r-lg border-gray-200 shadow-lg px-8 py-6">
-                <div class="flex flex-row w-full ">
-                    <ul class="grid w-full gap-1 grid-cols-2">
-                        <li>
-                            <input type="radio" checked id="hosting-small" name="hosting" value="hosting-small" class="hidden peer" required>
-                            <label for="hosting-small" class="inline-flex items-center justify-between w-full px-5 py-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                <div class="block">
-                                    <div class="w-full text-base font-semibold">One Way</div>
-                                </div>
-                            </label>
-                        </li>
-                        <li>
-                            <input type="radio" id="hosting-big" name="hosting" value="hosting-big" class="hidden peer" required>
-                            <label for="hosting-big" class="inline-flex items-center justify-between w-full px-5 py-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                <div class="block">
-                                    <div class="w-full text-base font-semibold">Round Trip</div>
-                                </div>
-                            </label>
-                        </li>
-                    </ul>
-                </div>
-                <div class="grid grid-cols-1 pt-4 gap-2">
-                    <div>
-                        <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="From" required>
+                <form method="GET" action="{{ route('fastboat.index') }}">
+                    <div class="flex flex-row w-full ">
+                        <ul class="grid w-full gap-1 grid-cols-2">
+                            <li>
+                                <input type="radio" checked id="hosting-small" value="1" name="ways" class="hidden peer" required>
+                                <label for="hosting-small" class="inline-flex items-center justify-between w-full px-5 py-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                    <div class="block">
+                                        <div class="w-full text-base font-semibold">One Way</div>
+                                    </div>
+                                </label>
+                            </li>
+                            <li>
+                                <input type="radio" id="hosting-big" value="2" name="ways" class="hidden peer" required>
+                                <label for="hosting-big" class="inline-flex items-center justify-between w-full px-5 py-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                    <div class="block">
+                                        <div class="w-full text-base font-semibold">Round Trip</div>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
                     </div>
-                    <div>
-                        <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="To" required>
+                    <div class="grid grid-cols-1 pt-4 gap-2">
+                    <div class="auto-search-wrapper">
+                            <input type="text" id="from-m" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" placeholder="From" name="from" autocomplete="off">
+                        </div>
+                        <div class="auto-search-wrapper">
+                            <input type="text" id="to-m" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" placeholder="To" name="to" autocomplete="off">
+                        </div>
+                        <div>
+                            <input type="date" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Date" required autocomplete="off" name="date" min="{{ now()->format('Y-m-d') }}">
+                        </div>
                     </div>
-                    <div>
-                        <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Date" required>
+                    <div class="w-full flex flex-row justify-end pt-2">
+                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                     </div>
-                </div>
-                <div class="w-full flex flex-row justify-end pt-2">
-                    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -409,6 +411,8 @@
             // 'local' is the 'id' of input element
             new Autocomplete('from', options);
             new Autocomplete('to', options);
+            new Autocomplete('from-m', options);
+            new Autocomplete('to-m', options);
         });
     </script>
 @endsection

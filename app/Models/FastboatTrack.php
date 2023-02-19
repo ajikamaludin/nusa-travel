@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class FastboatTrack extends Model
 {
@@ -30,5 +31,19 @@ class FastboatTrack extends Model
     public function orders()
     {
         return $this->hasMany(FastboatOrder::class);
+    }
+
+    protected function arrivalTime(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => substr($value, 0, 5),
+        );
+    }
+
+    protected function departureTime(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => substr($value, 0, 5),
+        );
     }
 }

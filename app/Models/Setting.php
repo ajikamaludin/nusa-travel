@@ -42,4 +42,9 @@ class Setting extends Model
         })->pluck('value')
         ->toArray();
     }
+
+    public static function getByKey($key)
+    {
+        return Setting::where('key', $key)->first()?->value;
+    }
 }

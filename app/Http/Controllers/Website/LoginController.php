@@ -23,6 +23,11 @@ class LoginController extends Controller
         ]);
 
         $customer = Customer::where('email', $request->email)->first();
+        if ($customer == null) {
+            return redirect()->route('customer.login')
+                ->with('message', ['type' => 'error', 'message' => 'Credential not valid']);
+        }
+
         if ($customer->is_active == Customer::DEACTIVE) {
             return redirect()->route('customer.login')
                 ->with('message', ['type' => 'error', 'message' => 'Account is not actived']);

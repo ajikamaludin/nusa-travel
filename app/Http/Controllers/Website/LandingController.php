@@ -9,12 +9,13 @@ use Illuminate\Http\Request;
 
 class LandingController extends Controller
 {
-    public function index(Request $request, $locale = 'en') 
+    public function index(Request $request, $locale = null) 
     {
         if ($locale != null) {
             app()->setLocale($locale);
             session(['locale' => $locale]);
         }
+
         Visitor::track([Visitor::class, 'LANDING_PAGE']);
 
         return view('welcome', [

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FastboatPlaceController;
 use App\Http\Controllers\FastboatTrackController;
 use App\Http\Controllers\GeneralController;
@@ -56,6 +57,9 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
         Route::get('/profile', [CustomerProfileController::class, 'index'])->name('customer.profile');
         Route::post('/profile/logout', [CustomerProfileController::class, 'destroy'])->name('customer.logout');
         // Order
+        Route::get('/fastboat/orders', [FastboatController::class, 'mine'])->name('fastboat.mine');
+        Route::post('/fastboat/{track}',[FastboatController::class, 'order'])->name('fastboat.order');
+        Route::get('/fastboat/{order}', [FastboatController::class, 'show'])->name('fastboat.show');
     });
 
     // Page
@@ -77,6 +81,10 @@ Route::prefix('travel')->group(function() {
     Route::middleware('auth:web')->group(function(){
         // Dashboard
         Route::get('/dashboard', [GeneralController::class, 'index'])->name('dashboard');
+
+        // Customer
+        Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
+        Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
 
         // Blog
         // Page
@@ -108,6 +116,7 @@ Route::prefix('travel')->group(function() {
         Route::post('/setting/update-general', [SettingController::class, 'updateGeneral'])->name('setting.update-general');
         Route::get('/setting/payment', [SettingController::class, 'payment'])->name('setting.payment');
         Route::post('/setting/update-payment', [SettingController::class, 'updatePayment'])->name('setting.update-payment');
+
         // User
         Route::get('/users', [UserController::class, 'index'])->name('user.index');
         Route::post('/users', [UserController::class, 'store'])->name('user.store');

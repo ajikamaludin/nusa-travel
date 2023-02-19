@@ -21,7 +21,7 @@ class VisitorCounter
      */
     public function handle(Request $request, Closure $next)
     {
-        app()->setLocale(session('locale', 'en'));
+        app()->setLocale(session('locale'));
 
         $response = $next($request);
 

@@ -66,8 +66,8 @@ export default [
         name: "Customer",
         show: true,
         icon: HiCollection,
-        route: route("in.dev"),
-        active: "customers.index",
+        route: route("customer.index"),
+        active: "customer.index",
         permission: "view-customer",
     },
     {
