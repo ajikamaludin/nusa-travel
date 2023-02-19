@@ -9,10 +9,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Website\BlogController;
+use App\Http\Controllers\Website\FastboatController;
 use App\Http\Controllers\Website\LandingController;
 use App\Http\Controllers\Website\LoginController;
 use App\Http\Controllers\Website\SignUpController;
 use App\Http\Controllers\Website\PageController;
+use App\Http\Controllers\Website\ProfileController as CustomerProfileController;
+use App\Http\Middleware\GuardCustomer;
 use App\Http\Middleware\VisitorCounter;
 use Illuminate\Support\Facades\Route;
 
@@ -27,10 +30,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(VisitorCounter::class)->group(function () {
-    // Landing
-    Route::get('/',[LandingController::class, 'index'])->name('home.index');
-
+Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function () {
     // Blog
     Route::get('/blog',[BlogController::class, 'index'])->name('blog.index');
 
@@ -40,21 +40,28 @@ Route::middleware(VisitorCounter::class)->group(function () {
     // Package Tours
     // Car Rentals
     // Fastboat
+    Route::get('/fastboat',[FastboatController::class, 'index'])->name('fastboat.index');
 
     // Login / Register
-    Route::get('/login', [LoginController::class, 'index'])->name('customer.login');
-    Route::get('/signup',[SignUpController::class, 'index'])->name('customer.signup');
-    Route::post('/signup',[SignUpController::class, 'store']);
-    Route::get('/customer/{customer:id}/active',[SignUpController::class, 'active'])->name('customer.active');
-
+    Route::middleware('guest:customer')->group(function(){
+        Route::get('/login', [LoginController::class, 'index'])->name('customer.login');
+        Route::post('/login', [LoginController::class, 'store']);
+        Route::get('/signup',[SignUpController::class, 'index'])->name('customer.signup');
+        Route::post('/signup',[SignUpController::class, 'store']);
+        Route::get('/customer/{customer:id}/active',[SignUpController::class, 'active'])->name('customer.active');
+    });
 
     Route::middleware('auth:customer')->group(function(){
         // Profile
+        Route::get('/profile', [CustomerProfileController::class, 'index'])->name('customer.profile');
+        Route::post('/profile/logout', [CustomerProfileController::class, 'destroy'])->name('customer.logout');
         // Order
     });
 
     // Page
     Route::get('/page/{page:key}', [PageController::class, 'index'])->name('page.index');
+    // Landing
+    Route::get('/{locale?}',[LandingController::class, 'index'])->name('home.index');
 });
 
 Route::prefix('travel')->group(function() {
@@ -62,8 +69,10 @@ Route::prefix('travel')->group(function() {
 
     Route::get('in-dev', [GeneralController::class, 'indev'])->name('in.dev');
 
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::middleware('guest:web')->group(function(){
+        Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+        Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    });
 
     Route::middleware('auth:web')->group(function(){
         // Dashboard

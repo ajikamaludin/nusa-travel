@@ -17,14 +17,13 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, ...$guards)
+    public function handle(Request $request, Closure $next, $guard)
     {
-        $guards = empty($guards) ? [null] : $guards;
-
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
-            }
+        if ($guard == "web" && Auth::guard($guard)->check()) {
+            return redirect()->route('dashboard');
+        }
+        if ($guard == "customer" && Auth::guard($guard)->check()) {
+            return redirect()->route('customer.profile');
         }
 
         return $next($request);

@@ -3,14 +3,22 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\FastboatPlace;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
 
 class LandingController extends Controller
 {
-    public function index() 
+    public function index(Request $request, $locale = 'en') 
     {
+        if ($locale != null) {
+            app()->setLocale($locale);
+            session(['locale' => $locale]);
+        }
         Visitor::track([Visitor::class, 'LANDING_PAGE']);
-        return view('welcome');
+
+        return view('welcome', [
+            'places' => FastboatPlace::select('name')->get()->pluck('name'),
+        ]);
     }
 }

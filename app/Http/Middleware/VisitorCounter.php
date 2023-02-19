@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Visitor;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use React\EventLoop\Loop;
 use function React\Async\async;
@@ -20,6 +21,8 @@ class VisitorCounter
      */
     public function handle(Request $request, Closure $next)
     {
+        app()->setLocale(session('locale', 'en'));
+
         $response = $next($request);
 
         Loop::addTimer(0.1, async(function () use($request) {
