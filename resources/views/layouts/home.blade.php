@@ -20,7 +20,7 @@
         <div class="loader-container">
             <div class="web-spinner"></div>
         </div>
-        <div class="w-full justify-center flex flex-col main-content" style="display: none;">
+        <div class="w-full justify-center flex flex-col main-content">
         @include('layouts.partials.header')
         @yield('content')
         @include('layouts.partials.footer')
