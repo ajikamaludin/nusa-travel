@@ -9,7 +9,7 @@ import { useModalState } from '@/hooks';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Pagination from '@/Components/Pagination';
 import ModalConfirm from '@/Components/ModalConfirm';
-// import FormModal from './FormModal';
+import FormModal from './FormModal';
 import SearchInput from '@/Components/SearchInput';
 import { hasPermission } from '@/utils';
 
@@ -34,7 +34,7 @@ export default function Index(props) {
 
     const onDelete = () => {
         if(confirmModal.data !== null) {
-            router.delete(route('customer.destroy', confirmModal.data.id))
+            router.delete(route('tag.destroy', confirmModal.data.id))
         }
     }
 
@@ -52,19 +52,19 @@ export default function Index(props) {
         }
     }, [search])
 
-    const canCreate = false//hasPermission(auth, 'create-customer')
-    const canUpdate = false//hasPermission(auth, 'update-customer')
-    const canDelete = false//hasPermission(auth, 'delete-customer')
+    const canCreate = hasPermission(auth, 'create-fastboat-place')
+    const canUpdate = hasPermission(auth, 'update-fastboat-place')
+    const canDelete = hasPermission(auth, 'delete-fastboat-place')
 
     return (
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={'Fastboat'}
-            action={'Dock'}
+            page={'Blog'}
+            action={'Tag'}
         >
-            <Head title="Dock" />
+            <Head title="Tag" />
 
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8 ">
@@ -86,46 +86,16 @@ export default function Index(props) {
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="py-3 px-6">
-                                                Customer Name
-                                            </th>
-                                            <th scope="col" className="py-3 px-6">
-                                                Order Code
-                                            </th>
-                                            <th scope="col" className="py-3 px-6">
-                                                Track Name
-                                            </th>
-                                            <th scope="col" className="py-3 px-6">
-                                                Quantity
-                                            </th>
-                                            <th scope="col" className="py-3 px-6">
-                                                Total
-                                            </th>
-                                            <th scope="col" className="py-3 px-6">
-                                                Payment Status
+                                                Name
                                             </th>
                                             <th scope="col" className="py-3 px-6"/>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {data.map(order => (
-                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={order.id}>
-                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {order.customer.name}
-                                                </td>
-                                                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {order.order_code}
-                                                </td>
-                                                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {order.track_code}
-                                                </td>
-                                                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {order.quantity}
-                                                </td>
-                                                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {order.quantity * order.amount}
-                                                </td>
-                                                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {order.payment_status}
+                                        {data.map(tag => (
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={tag.id}>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {tag.name}
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown
@@ -136,7 +106,7 @@ export default function Index(props) {
                                                         size={'sm'}
                                                     >
                                                         {canUpdate && (
-                                                            <Dropdown.Item onClick={() => toggleFormModal(order)}>
+                                                            <Dropdown.Item onClick={() => toggleFormModal(tag)}>
                                                                 <div className='flex space-x-1 items-center'>
                                                                     <HiPencil/> 
                                                                     <div>Ubah</div>
@@ -144,7 +114,7 @@ export default function Index(props) {
                                                             </Dropdown.Item>
                                                         )}
                                                         {canDelete && (
-                                                            <Dropdown.Item onClick={() => handleDeleteClick(order)}>
+                                                            <Dropdown.Item onClick={() => handleDeleteClick(tag)}>
                                                                 <div className='flex space-x-1 items-center'>
                                                                     <HiTrash/> 
                                                                     <div>Hapus</div>
@@ -169,9 +139,9 @@ export default function Index(props) {
                 modalState={confirmModal}
                 onConfirm={onDelete}
             />
-            {/* <FormModal
+            <FormModal
                 modalState={formModal}
-            /> */}
+            />
         </AuthenticatedLayout>
     );
 }

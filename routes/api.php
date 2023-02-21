@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\FastboatPlaceController;
-use App\Http\Controllers\BlogController;
+use App\Http\Controllers\Api\TagController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\Website\FastboatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,4 +27,5 @@ Route::get('/roles', [RoleController::class, 'index'])->name('api.role.index');
 Route::get('/fastboat/places', [FastboatPlaceController::class, 'index'])->name('api.fastboat.place.index');
 Route::post('/fastboat/{order}',[FastboatController::class, 'store'])->name('api.fastboat.store');
 Route::put('/fastboat/{order}',[FastboatController::class, 'update'])->name('api.fastboat.update');
-Route::post('/upload', [BlogController::class, 'upload'])->name('api.upload');
+
+Route::get('/tags', [TagController::class, 'index'])->name('api.tag.index');

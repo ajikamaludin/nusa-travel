@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 export default function FormInputTime({ value = '10:20', onChange, label = '', error }) {
-    console.log("value", value)
     const clocks = Array.from(Array(24).keys())
     const minutes = Array.from(Array(61).keys())
 
     const [clock, setClock] = useState('')
     const [minute, setMinute] = useState('')
-    console.log("clock", clock)
 
     const selectTime = (v, s) => {
         if (s === 'm') {

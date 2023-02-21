@@ -104,7 +104,7 @@ export default function Index(props) {
                                                 Capacity
                                             </th>
                                             <th scope="col" className="py-3 px-6">
-                                                Publish
+                                                Open
                                             </th>
                                             <th scope="col" className="py-3 px-6"/>
                                         </tr>

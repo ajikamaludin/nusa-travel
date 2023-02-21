@@ -14,11 +14,11 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
+        if ($request->is('travel/*')) {
+            return route('login');
+        }
         if (! $request->expectsJson()) {
             return route('customer.login');
-        }
-        if ($request->is('travel')) {
-            return redirect()->guest(route('login'));
         }
         return redirect()->guest(route('customer.login'));
     }

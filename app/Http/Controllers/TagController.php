@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FastboatPlace;
+use App\Models\Tag;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
 
-class FastboatPlaceController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request): Response
     {
-        $query = FastboatPlace::query();
+        $query = Tag::query();
 
         if($request->has('q')) {
             $query->where('name', 'like', "%{$request->q}%");
         }
 
-        return inertia('FastboatPlace/Index', [
+        return inertia('Tag/Index', [
             'query' => $query->orderBy('created_at', 'desc')->paginate(),
         ]);
     }
@@ -33,7 +34,7 @@ class FastboatPlaceController extends Controller
             'name' => 'required|string|max:255'
         ]);
 
-        FastboatPlace::create(['name' => $request->name]);
+        Tag::create(['name' => $request->name]);
 
         session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
     }
@@ -41,13 +42,13 @@ class FastboatPlaceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FastboatPlace $place): void
+    public function update(Request $request, Tag $tag): void
     {
         $request->validate([
             'name' => 'required|string|max:255'
         ]);
 
-        $place->update(['name' => $request->name]);
+        $tag->update(['name' => $request->name]);
 
         session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
     }
@@ -55,9 +56,9 @@ class FastboatPlaceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FastboatPlace $place): void
+    public function destroy(Tag $tag): void
     {
-        $place->delete();
+        $tag->delete();
 
         session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']); 
     }

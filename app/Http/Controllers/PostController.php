@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Response;
 
-class BlogController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -55,13 +55,31 @@ class BlogController extends Controller
             ->with('message', ['type' => 'success', 'message' => 'Post has beed saved']); 
     }
 
-    public function upload(Request $request) 
+    public function update(Request $request, Post $post) 
     {
-        $request->validate(['image' => 'required|image']);
-        $file = $request->file('image');
-        $file->store('uploads', 'public');
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required',
+            'image' => 'required|image'
+        ]);
 
-        return response()->json(['url' => asset($file->hashName('uploads'))]);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $file->store('uploads', 'public');
+            $post->cover_image = $file->hashName('uploads');
+        }
+
+        $post->fill([
+            'slug' => Str::slug($request->title),
+            'title' => $request->title,
+            'body' => $request->body,
+            'meta_tag' => 'tag1',
+        ]);
+
+        $post->save();
+
+        return redirect()->route('post.index')
+            ->with('message', ['type' => 'success', 'message' => 'Post has beed updated']); 
     }
 
     public function destroy(Post $post) 

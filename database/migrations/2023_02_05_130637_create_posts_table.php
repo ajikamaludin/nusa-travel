@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('cover_image');
             $table->text('body')->nullable();
             $table->string('meta_tag')->nullable();
+            $table->smallInteger('is_publish')->default(0);
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by')->nullable();

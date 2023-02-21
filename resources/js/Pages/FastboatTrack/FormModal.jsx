@@ -112,7 +112,7 @@ export default function FormModal(props) {
                 error={errors.departure_time}
             />
             <Checkbox
-                label='Publish'
+                label='Open'
                 value={+data.is_publish === 1}
                 onChange={handleOnChange}
                 name='is_publish'

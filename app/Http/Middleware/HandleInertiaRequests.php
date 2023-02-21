@@ -36,6 +36,7 @@ class HandleInertiaRequests extends Middleware
         if(Auth::guard('web')->check()) {
             $user = $request->user() instanceof User ? $request->user()->load(['role.permissions']) : $request->user();
         }
+
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $user,
@@ -43,6 +44,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn () => $request->session()->get('message')
             ],
+            'csrf_token' =>  csrf_token() 
         ]);
     }
 }

@@ -26,6 +26,16 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'View Post', 'name' => 'view-post'],
             ['id' => Str::uuid(), 'label' => 'Delete Post', 'name' => 'delete-post'],
 
+            ['id' => Str::uuid(), 'label' => 'Create FAQ', 'name' => 'create-faq'],
+            ['id' => Str::uuid(), 'label' => 'Update FAQ', 'name' => 'update-faq'],
+            ['id' => Str::uuid(), 'label' => 'View FAQ', 'name' => 'view-faq'],
+            ['id' => Str::uuid(), 'label' => 'Delete FAQ', 'name' => 'delete-faq'],
+
+            ['id' => Str::uuid(), 'label' => 'Create Gallery', 'name' => 'create-gallery'],
+            ['id' => Str::uuid(), 'label' => 'Update Gallery', 'name' => 'update-gallery'],
+            ['id' => Str::uuid(), 'label' => 'View Gallery', 'name' => 'view-gallery'],
+            ['id' => Str::uuid(), 'label' => 'Delete Gallery', 'name' => 'delete-gallery'],
+
             ['id' => Str::uuid(), 'label' => 'Create Page', 'name' => 'create-page'],
             ['id' => Str::uuid(), 'label' => 'Update Page', 'name' => 'update-page'],
             ['id' => Str::uuid(), 'label' => 'View Page', 'name' => 'view-page'],
@@ -46,20 +56,15 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'View Tour Package', 'name' => 'view-tour-package'],
             ['id' => Str::uuid(), 'label' => 'Delete Tour Package', 'name' => 'delete-tour-package'],
 
-            ['id' => Str::uuid(), 'label' => 'Create Tour Package Order', 'name' => 'create-tour-package-order'],
-            ['id' => Str::uuid(), 'label' => 'Update Tour Package Order', 'name' => 'update-tour-package-order'],
-            ['id' => Str::uuid(), 'label' => 'View Tour Package Order', 'name' => 'view-tour-package-order'],
-            ['id' => Str::uuid(), 'label' => 'Delete Tour Package Order', 'name' => 'delete-tour-package-order'],
+            ['id' => Str::uuid(), 'label' => 'Create Order', 'name' => 'create-order'],
+            ['id' => Str::uuid(), 'label' => 'Update Order', 'name' => 'update-order'],
+            ['id' => Str::uuid(), 'label' => 'View Order', 'name' => 'view-order'],
+            ['id' => Str::uuid(), 'label' => 'Delete Order', 'name' => 'delete-order'],
 
             ['id' => Str::uuid(), 'label' => 'Create Car Rental', 'name' => 'create-car-rental'],
             ['id' => Str::uuid(), 'label' => 'Update Car Rental', 'name' => 'update-car-rental'],
             ['id' => Str::uuid(), 'label' => 'View Car Rental', 'name' => 'view-car-rental'],
             ['id' => Str::uuid(), 'label' => 'Delete Car Rental', 'name' => 'delete-car-rental'],
-
-            ['id' => Str::uuid(), 'label' => 'Create Car Rental Order', 'name' => 'create-car-rental-order'],
-            ['id' => Str::uuid(), 'label' => 'Update Car Rental Order', 'name' => 'update-car-rental-order'],
-            ['id' => Str::uuid(), 'label' => 'View Car Rental Order', 'name' => 'view-car-rental-order'],
-            ['id' => Str::uuid(), 'label' => 'Delete Car Rental Order', 'name' => 'delete-car-rental-order'],
 
             ['id' => Str::uuid(), 'label' => 'Create Fastboat Place', 'name' => 'create-fastboat-place'],
             ['id' => Str::uuid(), 'label' => 'Update Fastboat Place', 'name' => 'update-fastboat-place'],
@@ -70,11 +75,6 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'Update Fastboat Track', 'name' => 'update-fastboat-track'],
             ['id' => Str::uuid(), 'label' => 'View Fastboat Track', 'name' => 'view-fastboat-track'],
             ['id' => Str::uuid(), 'label' => 'Delete Fastboat Track', 'name' => 'delete-fastboat-track'],
-
-            ['id' => Str::uuid(), 'label' => 'Create Fastboat Order', 'name' => 'create-fastboat-order'],
-            ['id' => Str::uuid(), 'label' => 'Update Fastboat Order', 'name' => 'update-fastboat-order'],
-            ['id' => Str::uuid(), 'label' => 'View Fastboat Order', 'name' => 'view-fastboat-order'],
-            ['id' => Str::uuid(), 'label' => 'Delete Fastboat Order', 'name' => 'delete-fastboat-order'],
 
             ['id' => Str::uuid(), 'label' => 'Create User', 'name' => 'create-user'],
             ['id' => Str::uuid(), 'label' => 'Update User', 'name' => 'update-user'],

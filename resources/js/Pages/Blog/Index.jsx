@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { router } from '@inertiajs/react';
 import { usePrevious } from 'react-use';
 import { Head, Link } from '@inertiajs/react';
-import { Button, Dropdown } from 'flowbite-react';
+import { Dropdown } from 'flowbite-react';
 import { HiPencil, HiTrash } from 'react-icons/hi';
 import { useModalState } from '@/hooks';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Pagination from '@/Components/Pagination';
 import ModalConfirm from '@/Components/ModalConfirm';
-// import FormModal from './FormModal';
 import SearchInput from '@/Components/SearchInput';
 import { hasPermission } from '@/utils';
 
@@ -53,7 +52,7 @@ export default function Index(props) {
     }, [search])
 
     const canCreate = hasPermission(auth, 'create-post')
-    const canUpdate = false//hasPermission(auth, 'update-post')
+    const canUpdate = hasPermission(auth, 'update-post')
     const canDelete = hasPermission(auth, 'delete-post')
 
     return (
@@ -61,10 +60,10 @@ export default function Index(props) {
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={'Fastboat'}
-            action={'Dock'}
+            page={'Blog'}
+            action={'Post'}
         >
-            <Head title="Dock" />
+            <Head title="Post" />
 
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8 ">

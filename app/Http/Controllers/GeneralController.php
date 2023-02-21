@@ -16,4 +16,13 @@ class GeneralController extends Controller
     {
         return inertia('Dev');
     }
+
+    public function upload(Request $request) 
+    {
+        $request->validate(['image' => 'required|image']);
+        $file = $request->file('image');
+        $file->store('uploads', 'public');
+
+        return response()->json(['url' => asset($file->hashName('uploads'))]);
+    }
 }

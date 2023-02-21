@@ -47,6 +47,7 @@ export default function Authenticated({ auth, children, flash, page = '', action
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
+                                        <Dropdown.Link href={route('home.index')} target='_blank'>Visit Site</Dropdown.Link>
                                         <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out

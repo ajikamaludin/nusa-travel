@@ -4,6 +4,7 @@ import FormInput from '@/Components/FormInput';
 import Button from '@/Components/Button';
 import { Head, useForm } from '@inertiajs/react';
 import FormFile from '@/Components/FormFile';
+
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
@@ -13,6 +14,8 @@ export default function Payment(props) {
         title: '',
         body: '',
         image: '',
+        tags: [],
+        is_publish: 0
     })
 
     function uploadAdapter(loader) {
@@ -21,16 +24,17 @@ export default function Payment(props) {
             return new Promise((resolve, reject) => {
               const body = new FormData();
               loader.file.then((file) => {
+                body.append("_token", props.csrf_token);
                 body.append("image", file);
-                // let headers = new Headers();
-                // headers.append("Origin", "http://localhost:3000");
-                fetch(route('api.upload'), {
+
+                fetch(route('post.upload'), {
                   method: "post",
                   body: body,
                   headers: {
-                    'accept-content': 'application/json'
-                  }
-                  // mode: "no-cors"
+                    'accept-content': 'application/json',
+                    'X-CSSRF-TOKEN': props.csrf_token
+                  },
+                  credentials: 'include'
                 })
                   .then((res) => res.json())
                   .then((res) => {
@@ -46,11 +50,12 @@ export default function Payment(props) {
           }
         };
       }
-      function uploadPlugin(editor) {
-        editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
-          return uploadAdapter(loader);
-        };
-      }
+
+    function uploadPlugin(editor) {
+      editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+        return uploadAdapter(loader);
+      };
+    }
 
     const handleOnChange = (event) => {
         setData(event.target.name, event.target.type === 'checkbox' ? (event.target.checked ? 1 : 0) : event.target.value);
@@ -92,9 +97,10 @@ export default function Payment(props) {
                             />
                         <CKEditor
                             config={{
-                                extraPlugins: [uploadPlugin]
+                                extraPlugins: [uploadPlugin],
                             }}
                             editor={ClassicEditor}
+                            data={data.body}
                             onReady={(editor) => {}}
                             onBlur={(event, editor) => {}}
                             onFocus={(event, editor) => {}}
