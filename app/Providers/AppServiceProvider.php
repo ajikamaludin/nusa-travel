@@ -42,9 +42,12 @@ class AppServiceProvider extends ServiceProvider
             });
         }
 
-        // shared setting
-        if(Schema::hasTable('settings')) {
-            View::share('setting', Setting::getInstance());
-        }
+        // just for optional provider on web app run
+        try {
+            // shared setting
+            if(Schema::hasTable('settings')) {
+                View::share('setting', Setting::getInstance());
+            }
+        } catch(\Exception $r) {}
     }
 }
