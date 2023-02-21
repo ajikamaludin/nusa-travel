@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Traits\OrderAble;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class FastboatTrack extends Model
 {
-    protected $cascadeDeletes = ['orders'];
+    use OrderAble;
+
+    protected $ORDER_NAMES = ['source->name', 'destination->name']; // need to know if this works
 
     protected $fillable = [
         "fastboat_source_id",
@@ -30,7 +33,7 @@ class FastboatTrack extends Model
 
     public function orders()
     {
-        return $this->hasMany(FastboatOrder::class);
+        return $this->hasMany(OrderItem::class);
     }
 
     protected function arrivalTime(): Attribute

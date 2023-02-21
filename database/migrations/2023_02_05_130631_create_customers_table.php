@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('address')->nullable();
             $table->string('nation')->nullable();
+            $table->string('national_id')->unique()->nullable();
             $table->rememberToken();
             $table->string('reset_token')->nullable();
             $table->smallInteger('is_active');

@@ -24,6 +24,8 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     libgmp-dev \
     vim-nox \
     iputils-ping \
+    mysql-client \
+    postgresql-client \
     sudo
 
 # Clear cache
