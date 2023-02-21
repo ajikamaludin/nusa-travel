@@ -6,31 +6,33 @@
             <a href="{{ route('home.index') }}" class="flex items-center">
                 <img src="{{ asset($setting->getValue('G_SITE_LOGO')) }}" class="h-10 w-auto"/>
             </a>
-            <div class="hidden md:flex flex-row gap-1 items-center">
-                <div id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="px-2.5 py-2.5 cursor-pointer text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 flex flex-row gap-2 items-center">
-                    @if(session('locale') == 'en')
-                    <img src="{{asset('images/flag_usa.png')}}" class="h-3 w-auto" alt="nation"/>
-                    @else
-                    <img src="{{asset('images/flag_indonesia.png')}}" class="h-3 w-auto" alt="nation"/>
-                    @endif
-                    <div>{{ session('locale') }}</div>
-                    <img src="{{asset('images/chevron_down.svg')}}" class="h-2 w-auto" alt="chevron-down"/>
-                </div>
-                <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                        <li>
-                            <a href="{{ route('home.index') }}/id" class="inline-flex w-full items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white gap-1">
-                                <img src="{{asset('images/flag_indonesia.png')}}" class="h-3 w-4" alt="nation"/>
-                                <p>Indonesia</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('home.index') }}/en" class="inline-flex w-full items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white gap-1">
-                                <img src="{{asset('images/flag_usa.png')}}" class="h-3 w-4" alt="nation"/>
-                                <p>English</p>
-                            </a>
-                        </li>
-                    </ul>
+            <div class="lang-container flex-row gap-1 items-center">
+                <div>
+                    <div id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="px-2.5 py-2.5 cursor-pointer text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 flex flex-row gap-2 items-center">
+                        @if(session('locale') == 'en')
+                        <img src="{{asset('images/flag_usa.png')}}" class="h-3 w-auto" alt="nation"/>
+                        @else
+                        <img src="{{asset('images/flag_indonesia.png')}}" class="h-3 w-auto" alt="nation"/>
+                        @endif
+                        <div>{{ session('locale') }}</div>
+                        <img src="{{asset('images/chevron_down.svg')}}" class="h-2 w-auto" alt="chevron-down"/>
+                    </div>
+                    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                            <li>
+                                <a href="{{ route('home.index') }}/id" class="inline-flex w-full items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white gap-1">
+                                    <img src="{{asset('images/flag_indonesia.png')}}" class="h-3 w-4" alt="nation"/>
+                                    <p>Indonesia</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('home.index') }}/en" class="inline-flex w-full items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white gap-1">
+                                    <img src="{{asset('images/flag_usa.png')}}" class="h-3 w-4" alt="nation"/>
+                                    <p>English</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 @if(auth()->check())
