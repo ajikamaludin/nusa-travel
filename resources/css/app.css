@@ -304,3 +304,13 @@
     display: none;
     opacity: 0;
 }
+
+.hero-container {
+    display: none;
+}
+
+@media (min-width: 768px) {
+  .hero-container {
+    display: block;
+  }
+}
