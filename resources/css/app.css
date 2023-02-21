@@ -305,7 +305,7 @@
     opacity: 0;
 }
 
-.hero-container, .lang-container {
+.hero-container, .lang-container, .menu-container {
     display: none;
 }
 
@@ -313,7 +313,7 @@
   .hero-container {
     display: block;
   }
-  .lang-container{
+  .lang-container, .menu-container{
     display: flex;
   }
 }

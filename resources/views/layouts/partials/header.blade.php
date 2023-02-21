@@ -71,7 +71,7 @@
     </div>
 
     <!-- Menu -->
-    <div class="hidden md:flex flex-row gap-2 items-center border-b-2 border-gray-100 px-2 lg:px-16 overflow-auto">
+    <div class="menu-container flex-row gap-2 items-center border-b-2 border-gray-100 px-2 lg:px-16 overflow-auto">
         <div class="flex flex-row max-w-7xl mx-auto w-full items-center font-bold">
             <a href="{{ route('home.index') }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
                 Home
