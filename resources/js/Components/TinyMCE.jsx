@@ -49,22 +49,108 @@ import 'tinymce/plugins/emoticons/js/emojis';
 
 // Content styles, including inline UI like fake cursors
 /* eslint import/no-webpack-loader-syntax: off */
-import contentCss from 'tinymce/skins/content/default/content.min.css';
-import contentUiCss from 'tinymce/skins/ui/oxide/content.min.css';
+import contentCss from 'tinymce/skins/content/default/content.min.css?inline';
+import contentUiCss from 'tinymce/skins/ui/oxide/content.min.css?inline';
+
+import { usePage } from '@inertiajs/react';
 
 export default function BundledEditor(props) {
-  const {init, ...rest} = props;
-  // note that skin and content_css is disabled to avoid the normal
-  // loading process and is instead loaded as a string via content_style
-  return (
-    <Editor
-      init={{
-        ...init,
-        skin: false,
-        content_css: false,
-        content_style: [contentCss, contentUiCss].join('\n'),
-      }}
-      {...rest}
-    />
-  );
+    const {init, ...rest} = props;
+    const { csrf_token } = usePage().props
+
+    const FilePickerCallback = async (callback, value, meta) => {
+        // Provide file and text for the link dialog
+        const input = document.createElement("input");
+        input.setAttribute("type", "file");
+        input.setAttribute("accept", "image/*,video/*");
+
+        input.addEventListener("change", async (e) => {
+            const body = new FormData();
+            body.append("_token", csrf_token);
+            body.append("image", e.target.files[0]);
+
+            await fetch(route("post.upload"), {
+                method: "post",
+                body: body,
+                headers: {
+                    "accept-content": "application/json",
+                    "X-CSSRF-TOKEN": csrf_token,
+                },
+                credentials: "include",
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    callback(res.url, { alt: "My alt text" });
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        });
+
+        input.click();
+    };
+
+    const ImageUploadHandler = (blobInfo, progress) => new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+        xhr.open("POST", route("post.upload"));
+
+        xhr.upload.onprogress = (e) => {
+            progress((e.loaded / e.total) * 100);
+        };
+
+        xhr.onload = () => {
+            if (xhr.status === 403) {
+                reject({ message: "HTTP Error: " + xhr.status, remove: true });
+                return;
+            }
+
+            if (xhr.status < 200 || xhr.status >= 300) {
+                reject("HTTP Error: " + xhr.status);
+                return;
+            }
+
+            const json = JSON.parse(xhr.responseText);
+
+            if (!json || typeof json.url != "string") {
+                reject("Invalid JSON: " + xhr.responseText);
+                return;
+            }
+
+            resolve(json.url);
+        };
+
+        xhr.onerror = () => {
+            reject(
+                "Image upload failed due to a XHR Transport error. Code: " +
+                    xhr.status
+            );
+        };
+
+        const formData = new FormData();
+        formData.append("_token", csrf_token);
+        formData.append("image", blobInfo.blob(), blobInfo.filename());
+
+        xhr.send(formData);
+    });
+
+    // note that skin and content_css is disabled to avoid the normal
+    // loading process and is instead loaded as a string via content_style
+    return (
+        <Editor
+        init={{
+            ...init,
+            file_picker_callback: FilePickerCallback,
+            images_upload_handler: ImageUploadHandler,
+            promotion: false,
+            image_caption: true,
+            image_advtab: true,
+            object_resizing: true,
+            skin: false,
+            content_css: false,
+            content_style: [contentCss, contentUiCss].join('\n'),
+        }}
+        {...rest}
+        />
+    );
 }

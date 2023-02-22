@@ -87,6 +87,12 @@ export default function Index(props) {
                                             <th scope="col" className="py-3 px-6">
                                                 Title
                                             </th>
+                                            <th scope="col" className="py-3 px-6">
+                                                Publish Date
+                                            </th>
+                                            <th scope="col" className="py-3 px-6">
+                                                Status
+                                            </th>
                                             <th scope="col" className="py-3 px-6"/>
                                         </tr>
                                     </thead>
@@ -95,6 +101,12 @@ export default function Index(props) {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={post.id}>
                                                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                                     {post.title}
+                                                </td>
+                                                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                    {post.publish_at}
+                                                </td>
+                                                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                    {post.publish}
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown
@@ -105,11 +117,11 @@ export default function Index(props) {
                                                         size={'sm'}
                                                     >
                                                         {canUpdate && (
-                                                            <Dropdown.Item onClick={() => toggleFormModal(post)}>
-                                                                <div className='flex space-x-1 items-center'>
-                                                                    <HiPencil/> 
+                                                            <Dropdown.Item>
+                                                                <Link href={route('post.edit', post)} className='flex space-x-1 items-center'>
+                                                                    <HiPencil/>
                                                                     <div>Ubah</div>
-                                                                </div>
+                                                                </Link>
                                                             </Dropdown.Item>
                                                         )}
                                                         {canDelete && (
@@ -138,9 +150,6 @@ export default function Index(props) {
                 modalState={confirmModal}
                 onConfirm={onDelete}
             />
-            {/* <FormModal
-                modalState={formModal}
-            /> */}
         </AuthenticatedLayout>
     );
 }

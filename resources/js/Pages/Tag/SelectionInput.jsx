@@ -43,7 +43,7 @@ export default function SelectionInput(props) {
 
     const handleSelectItem = (item) => {
         setIsSelected(true)
-        onItemSelected(item.id)
+        onItemSelected(item)
         setSelected(item.name)
         setIsOpen(false)
     }
@@ -78,7 +78,7 @@ export default function SelectionInput(props) {
 
     const fetch = (q = '') => {
         setLoading(true)
-        axios.get(route('api.fastboat.place.index', { 'q': q, 'all': all }), {
+        axios.get(route('api.tag.index', { 'q': q, 'all': all }), {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + auth.user.jwt_token
@@ -182,7 +182,7 @@ export default function SelectionInput(props) {
                         </div>
                         {isOpen && (
                             <div
-                                className="absolute mt-1 shadow-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-200 top-100 z-40 w-full lef-0 rounded overflow-y-auto"
+                                className="absolute mt-1 shadow-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-200 top-100 z-50 w-full lef-0 rounded overflow-y-auto"
                                 style={{ maxHeight: '300px', top: '100%' }}
                             >
                                 <div className="flex flex-col w-full">

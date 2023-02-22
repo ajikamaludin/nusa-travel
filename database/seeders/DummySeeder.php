@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\FastboatPlace;
 use App\Models\FastboatTrack;
 use App\Models\Setting;
+use App\Models\Tag;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -314,5 +315,14 @@ class DummySeeder extends Seeder
         })->toArray();
 
         FastboatTrack::insert($tracks);
+
+        $tags = [
+            ['id' => Str::uuid(), 'name' => 'News'],
+            ['id' => Str::uuid(), 'name' => 'Tours'],
+            ['id' => Str::uuid(), 'name' => 'Destination'],
+            ['id' => Str::uuid(), 'name' => 'Boat']
+        ];
+
+        Tag::insert($tags);
     }
 }

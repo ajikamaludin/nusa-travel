@@ -27,7 +27,7 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     Route::get('/blog',[BlogController::class, 'index'])->name('blog.index');
 
     // Detail Blog
-    Route::get('/blog/{post}',[BlogController::class, 'show'])->name('blog.post');
+    Route::get('/blog/{post:slug}',[BlogController::class, 'show'])->name('blog.post');
 
     // Package Tours
     // Car Rentals

@@ -90,7 +90,7 @@ export default [
                 show: true,
                 icon: HiClipboardList,
                 route: route("post.index"),
-                active: "post.index",
+                active: "post.*",
                 permission: "view-post",
             },
             {
