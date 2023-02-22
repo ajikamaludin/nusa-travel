@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FastboatPlaceController;
 use App\Http\Controllers\FastboatTrackController;
 use App\Http\Controllers\GeneralController;
@@ -33,6 +34,14 @@ Route::prefix('travel')->group(function() {
         // post
         // put
         Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+
+        // Faq
+        Route::get('/faqs', [FaqController::class, 'index'])->name('faq.index');
+        Route::get('/faqs/create', [FaqController::class, 'create'])->name('faq.create');
+        Route::post('/faqs', [FaqController::class, 'store'])->name('faq.store');
+        Route::get('/faqs/{faq}', [FaqController::class, 'edit'])->name('faq.edit');
+        Route::post('/faqs/{faq}', [FaqController::class, 'update'])->name('faq.update');
+        Route::delete('/faqs/{faq}', [FaqController::class, 'destroy'])->name('faq.destroy');
 
         // Tag
         Route::get('/tags', [TagController::class, 'index'])->name('tag.index');

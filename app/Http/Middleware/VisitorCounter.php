@@ -21,11 +21,15 @@ class VisitorCounter
      */
     public function handle(Request $request, Closure $next)
     {
-        app()->setLocale(session('locale'));
+        if(session()->has('locale')) {
+            app()->setLocale(session('locale'));
+        } else {
+            session(['locale' => 'en']);
+        }
 
         $response = $next($request);
 
-        Loop::addTimer(0.1, async(function () use($request) {
+        Loop::addTimer(1, async(function () use($request) {
             $v = Visitor::getInstance();
             Log::debug("visitor", [$request->ip()]);
             $v->fill([

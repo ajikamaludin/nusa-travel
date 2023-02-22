@@ -5,7 +5,7 @@
     <section class="w-full min-h-[250px] relative flex flex-col items-center justify-center">
         <img src="{{asset( $setting->getSlides()[rand(0, count($setting->getSlides()) - 1)] )}}" class="w-full brightness-75  h-full rounded object-cover blur-[1px] absolute top-0" alt="...">
         <div class="relative text-white text-center space-y-2">
-            <h1 class=" text-4xl md:text-6xl font-semibold">{{$page->title}}</h1>
+            <h1 class=" text-4xl md:text-6xl font-semibold outlined-text">{{$page->title}}</h1>
         </div>
     </section>
 

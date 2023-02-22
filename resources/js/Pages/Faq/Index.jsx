@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, Link } from '@inertiajs/react';
 import { usePrevious } from 'react-use';
 import { Head } from '@inertiajs/react';
 import { Button, Dropdown } from 'flowbite-react';
@@ -9,7 +9,6 @@ import { useModalState } from '@/hooks';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Pagination from '@/Components/Pagination';
 import ModalConfirm from '@/Components/ModalConfirm';
-// import FormModal from './FormModal';
 import SearchInput from '@/Components/SearchInput';
 import { hasPermission } from '@/utils';
 
@@ -20,12 +19,6 @@ export default function Index(props) {
     const preValue = usePrevious(search)
 
     const confirmModal = useModalState()
-    const formModal = useModalState()
-
-    const toggleFormModal = (place = null) => {
-        formModal.setData(place)
-        formModal.toggle()
-    }
 
     const handleDeleteClick = (place) => {
         confirmModal.setData(place)
@@ -34,7 +27,7 @@ export default function Index(props) {
 
     const onDelete = () => {
         if(confirmModal.data !== null) {
-            router.delete(route('customer.destroy', confirmModal.data.id))
+            router.delete(route('faq.destroy', confirmModal.data.id))
         }
     }
 
@@ -52,26 +45,26 @@ export default function Index(props) {
         }
     }, [search])
 
-    const canCreate = false//hasPermission(auth, 'create-customer')
-    const canUpdate = false//hasPermission(auth, 'update-customer')
-    const canDelete = hasPermission(auth, 'delete-customer')
+    const canCreate = hasPermission(auth, 'create-faq')
+    const canUpdate = hasPermission(auth, 'update-faq')
+    const canDelete = hasPermission(auth, 'delete-faq')
 
     return (
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={'Customer'}
+            page={'Faq'}
             action={''}
         >
-            <Head title="Customer" />
+            <Head title="Faq" />
 
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8 ">
                     <div className="p-6 overflow-hidden shadow-sm sm:rounded-lg bg-gray-200 dark:bg-gray-800 space-y-4">
                         <div className='flex justify-between'>
                             {canCreate && (
-                                <Button size="sm" onClick={() => toggleFormModal()}>Tambah</Button>
+                                <Link href={route("faq.create")} className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>Tambah</Link>
                             )}
                             <div className="flex items-center">
                                 <SearchInput
@@ -86,22 +79,16 @@ export default function Index(props) {
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="py-3 px-6">
-                                                Name
-                                            </th>
-                                            <th scope="col" className="py-3 px-6">
-                                                Email Verified 
+                                                Question
                                             </th>
                                             <th scope="col" className="py-3 px-6"/>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {data.map(customer => (
-                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={customer.id}>
-                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {customer.name}
-                                                </td>
-                                                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {+customer.is_active === 1 ? 'Yes' : 'No'}
+                                        {data.map(faq => (
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={faq.id}>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {faq.question}
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown
@@ -112,15 +99,15 @@ export default function Index(props) {
                                                         size={'sm'}
                                                     >
                                                         {canUpdate && (
-                                                            <Dropdown.Item onClick={() => toggleFormModal(customer)}>
-                                                                <div className='flex space-x-1 items-center'>
+                                                            <Dropdown.Item>
+                                                                <Link href={route('faq.edit', faq)} className='flex space-x-1 items-center'>
                                                                     <HiPencil/> 
                                                                     <div>Ubah</div>
-                                                                </div>
+                                                                </Link>
                                                             </Dropdown.Item>
                                                         )}
                                                         {canDelete && (
-                                                            <Dropdown.Item onClick={() => handleDeleteClick(customer)}>
+                                                            <Dropdown.Item onClick={() => handleDeleteClick(faq)}>
                                                                 <div className='flex space-x-1 items-center'>
                                                                     <HiTrash/> 
                                                                     <div>Hapus</div>
@@ -145,9 +132,6 @@ export default function Index(props) {
                 modalState={confirmModal}
                 onConfirm={onDelete}
             />
-            {/* <FormModal
-                modalState={formModal}
-            /> */}
         </AuthenticatedLayout>
     );
 }

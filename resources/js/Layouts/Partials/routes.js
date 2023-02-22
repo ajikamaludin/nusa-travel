@@ -14,6 +14,7 @@ import {
     HiOutlineCog,
     HiCash,
     HiOutlineCube,
+    HiOutlineQuestionMarkCircle,
 } from "react-icons/hi";
 
 export default [
@@ -107,6 +108,7 @@ export default [
         name: "Page",
         show: true,
         icon: HiTemplate,
+        active: "page.edit",
         items: [
             {
                 name: "About Us",
@@ -165,6 +167,14 @@ export default [
         route: route("in.dev"),
         active: "order.index",
         permission: "view-gallery",
+    },
+    {
+        name: "Faq",
+        show: true,
+        icon: HiOutlineQuestionMarkCircle,
+        route: route("faq.index"),
+        active: "faq.index",
+        permission: "view-faq",
     },
     {
         name: "Setting",

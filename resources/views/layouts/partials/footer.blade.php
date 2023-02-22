@@ -10,8 +10,8 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2">
             <div class="md:px-2">
                 <div class="text-lg md:text-xl font-bold pb-2">Company</div>
-                <div><a href="#">About Us</a></div>
-                <div><a href="#">Blog</a></div>
+                <div><a href="{{ route('page.show', ['page' => 'aboutus']) }}">About Us</a></div>
+                <div><a href="{{ route('blog.index') }}">Blog</a></div>
             </div>
             <div class="md:px-2">
                 <div class="text-lg md:text-xl font-bold pb-2">Terms of use</div>
@@ -25,9 +25,9 @@
             </div>
             <div class="md:px-2">
                 <div class="text-lg md:text-xl font-bold pb-2">Products</div>
-                <div>Tour Travels</div>
-                <div>Fastboat</div>
-                <div>Car Rentals</div>
+                <div><a href="#">Tour Travels</a></div>
+                <div><a href="{{route('fastboat.index')}}">Fastboat</a></div>
+                <div><a href="#">Car Rentals</a></div>
             </div>
         </div>
     </div>

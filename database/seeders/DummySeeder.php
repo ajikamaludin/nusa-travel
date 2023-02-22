@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Faq;
 use App\Models\FastboatPlace;
 use App\Models\FastboatTrack;
 use App\Models\Page;
@@ -343,5 +344,19 @@ class DummySeeder extends Seeder
                 'body' => file_get_contents(__DIR__.$page['file'])
             ]);
         }
+
+        $faqs = [
+            ['id' => Str::uuid(), 'question' => 'Why Nusa Travel ? ', 'answer' => "<div>
+            <div>An Indonesia's leading provider of fast boat tickets, we offer the most reliable and</div>
+            <div>efficient transport options for island-hopping. Our main fast boat, the Ekajaya Fast Boat,</div>
+            <div>is equipped with modern facilities and offers a comfortable and safe journey to your</div>
+            <div>desired destination.</div>
+            </div>", 'order' => 1],
+            ['id' => Str::uuid(), 'question' => 'Can i refund my booking ?', 'answer' => "<div>Sure</div>", 'order' => 2],
+            ['id' => Str::uuid(), 'question' => 'Can i change my plan ?', 'answer' => "<div>Sure</div>", 'order' => 3],
+            ['id' => Str::uuid(), 'question' => 'How to apply promo ?', 'answer' => "<div>Sure</div>", 'order' => 4],
+        ];
+
+        Faq::insert($faqs);
     }
 }

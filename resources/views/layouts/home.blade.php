@@ -6,7 +6,7 @@
         <meta name="keywords" content="{{ $setting->getValue('G_SITE_META_KEYWORD') }}">
         <meta name="author" content="{{ $setting->getValue('G_SITE_NAME') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        @yield('meta')
         <title>{{ $setting->getValue('G_SITE_NAME') }}  @yield('title')</title>
 
         <!-- Fonts -->
