@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\FastboatPlace;
 use App\Models\FastboatTrack;
+use App\Models\Page;
 use App\Models\Setting;
 use App\Models\Tag;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -324,5 +325,23 @@ class DummySeeder extends Seeder
         ];
 
         Tag::insert($tags);
+
+        $pages = [
+            ['key' => 'term-of-service', 'title' => 'Term Of Service', 'file' => '/pages/termofservice.txt'],
+            ['key' => 'privacy-policy', 'title' => 'Privacy Policy', 'file' => '/pages/privacypolicy.txt'],
+            ['key' => 'disclaimer', 'title' => 'Disclaimer', 'file' => '/pages/disclaimer.txt'],
+            ['key' => 'refundpolicy', 'title' => 'Refund Policy', 'file' => '/pages/refundpolicy.txt'],
+            ['key' => 'cookiepolicy', 'title' => 'Cookie Policy', 'file' => '/pages/cookiepolicy.txt'],
+            ['key' => 'aboutus', 'title' => 'About Us', 'file' => '/pages/aboutus.txt'],
+
+        ];
+
+        foreach($pages as $page) {
+            Page::create([
+                'key' => $page['key'],
+                'title' => $page['title'],
+                'body' => file_get_contents(__DIR__.$page['file'])
+            ]);
+        }
     }
 }

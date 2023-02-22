@@ -11,6 +11,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('travel')->group(function() {
@@ -49,6 +50,8 @@ Route::prefix('travel')->group(function() {
         Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.destroy');
 
         // Page
+        Route::get('/pages/{page:key}', [PageController::class, 'edit'])->name('page.edit');
+        Route::post('/pages/{page}', [PageController::class, 'update'])->name('page.update');
 
         // Setting
 

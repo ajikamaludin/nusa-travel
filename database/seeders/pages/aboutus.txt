@@ -1,0 +1,13 @@
+<p dir="ltr"><strong>Get in Touch with Nusa Travel for All Your Travel Needs</strong></p>
+<p dir="ltr">At Nusa Travel, we're dedicated to providing the best possible travel experience for our customers. Whether you have a question about our fast boat tickets, tour packages, or private car transfer services, or you simply want to provide feedback, our team is here to help.</p>
+<p dir="ltr">We believe that open communication is key to ensuring customer satisfaction, and we're always eager to hear from our customers. So don't hesitate to get in touch with us if you have any questions or concerns.</p>
+<p dir="ltr">You can reach us through the following channels:</p>
+<ul>
+<li dir="ltr" aria-level="1">
+<p dir="ltr" role="presentation">Email: business@nusa.travell</p>
+</li>
+<li dir="ltr" aria-level="1">
+<p dir="ltr" role="presentation">Phone:&nbsp;</p>
+</li>
+</ul>
+<p dir="ltr">At Nusa Travel, we're always here to help, and we look forward to hearing from you.</p>

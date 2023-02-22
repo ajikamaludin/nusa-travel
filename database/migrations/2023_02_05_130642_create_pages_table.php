@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('body')->nullable();
             $table->string('meta_tag')->nullable();
             $table->string('attribute', 500)->nullable();
-            $table->smallInteger('flag');
+            $table->smallInteger('flag')->default(0);
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by')->nullable();
