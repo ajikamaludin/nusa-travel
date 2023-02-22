@@ -5,21 +5,10 @@ import Button from '@/Components/Button';
 import { Head, useForm } from '@inertiajs/react';
 import FormFile from '@/Components/FormFile';
 
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
-import { useQuill } from 'react-quilljs';
-import 'react-quill/dist/quill.snow.css';
-import BlotFormatter from 'quill-blot-formatter';
-
-import TinyEditorComponent from '@/Components/TinyMCE';
+import TinyEditor from '@/Components/TinyMCE';
 
 
 export default function Payment(props) {
-  const { quill, quillRef , Quill} = useQuill({
-    modules: { blotFormatter: {} }
-  });
-
     const {data, setData, post, processing, errors} = useForm({
         title: '',
         body: '',
@@ -28,49 +17,6 @@ export default function Payment(props) {
         is_publish: 0
     })
 
-    if (Quill && !quill) {
-      // const BlotFormatter = require('quill-blot-formatter');
-      Quill.register('modules/blotFormatter', BlotFormatter);
-    }
-
-    function uploadAdapter(loader) {
-        return {
-          upload: () => {
-            return new Promise((resolve, reject) => {
-              const body = new FormData();
-              loader.file.then((file) => {
-                body.append("_token", props.csrf_token);
-                body.append("image", file);
-
-                fetch(route('post.upload'), {
-                  method: "post",
-                  body: body,
-                  headers: {
-                    'accept-content': 'application/json',
-                    'X-CSSRF-TOKEN': props.csrf_token
-                  },
-                  credentials: 'include'
-                })
-                  .then((res) => res.json())
-                  .then((res) => {
-                    resolve({
-                      default: res.url
-                    });
-                  })
-                  .catch((err) => {
-                    reject(err);
-                  });
-              });
-            });
-          }
-        };
-      }
-
-    function uploadPlugin(editor) {
-      editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
-        return uploadAdapter(loader);
-      };
-    }
 
     const handleOnChange = (event) => {
         setData(event.target.name, event.target.type === 'checkbox' ? (event.target.checked ? 1 : 0) : event.target.value);
@@ -84,74 +30,92 @@ export default function Payment(props) {
         post(route('post.store'))
     }
 
-    // Insert Image(selected by user) to quill
-  const insertToEditor = (url) => {
-    const range = quill.getSelection();
-    quill.insertEmbed(range.index, 'image', url);
-  };
+    const file_picker_callback = async (callback, value, meta) => {
+      // Provide file and text for the link dialog
+      if (meta.filetype == 'file') {
+        callback('mypage.html', { text: 'My text' });
+      }
+  
+      // Provide image and alt text for the image dialog
+      if (meta.filetype == 'image') {
+        console.log(value)
+        // const body = new FormData();
+        // body.append("_token", props.csrf_token);
+        // body.append("image", meta.file);
 
-  // Upload Image to Image Server such as AWS S3, Cloudinary, Cloud Storage, etc..
-  const saveToServer = async (file) => {
-    const body = new FormData();
-    body.append("_token", props.csrf_token);
-    body.append("image", file);
-
-    await fetch(route('post.upload'), {
-      method: "post",
-      body: body,
-      headers: {
-        'accept-content': 'application/json',
-        'X-CSSRF-TOKEN': props.csrf_token
-      },
-      credentials: 'include'
-    }).then(res => res.json())
-    .then(res => insertToEditor(res.url))
-  };
-
-  // Open Dialog to select Image File
-  const selectLocalImage = () => {
-    const input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
-
-    input.onchange = () => {
-      const file = input.files[0];
-      saveToServer(file);
-    };
-  };
-
-  React.useEffect(() => {
-    if (quill) {
-      // Add custom handler for Image Upload
-      quill.getModule('toolbar').addHandler('image', selectLocalImage);
+        // await fetch(route('post.upload'), {
+        //   method: "post",
+        //   body: body,
+        //   headers: {
+        //     'accept-content': 'application/json',
+        //     'X-CSSRF-TOKEN': props.csrf_token
+        //   },
+        //   credentials: 'include'
+        // }).then(res => res.json())
+        // .then(res => {
+        //   callback(res.url, { alt: 'My alt text' });
+        // })
+        callback('imge.jprg', { text: 'My text' });
+      }
+  
+      // Provide alternative source and posted for the media dialog
+      if (meta.filetype == 'media') {
+        callback('movie.mp4', { source2: 'alt.ogg', poster: 'image.jpg' });
+      }
     }
-  }, [quill]);
 
-  useEffect(() => {
-    if (quill) {
-      quill.on('text-change', (delta, oldDelta, source) => {
-        console.log(quill.root.innerHTML); // Get innerHTML using quill
-      });
-    }
-  }, [quill])
+    const example_image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
+      xhr.open('POST', route('post.upload'));
+    
+      xhr.upload.onprogress = (e) => {
+        progress(e.loaded / e.total * 100);
+      };
+    
+      xhr.onload = () => {
+        if (xhr.status === 403) {
+          reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
+          return;
+        }
+    
+        if (xhr.status < 200 || xhr.status >= 300) {
+          reject('HTTP Error: ' + xhr.status);
+          return;
+        }
+    
+        const json = JSON.parse(xhr.responseText);
+    
+        if (!json || typeof json.url != 'string') {
+          reject('Invalid JSON: ' + xhr.responseText);
+          return;
+        }
+    
+        resolve(json.url);
+      };
+    
+      xhr.onerror = () => {
+        reject('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+      };
+    
+      const formData = new FormData();
+      formData.append("_token", props.csrf_token);
+      formData.append('image', blobInfo.blob(), blobInfo.filename());
+    
+      xhr.send(formData);
+    });
 
-  const editorRef = useRef(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
+    const editorRef = useRef()
 
     return (
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={"Setting"}
-            action={"Payment"}
+            page={"Blog"}
+            action={"Post"}
         >
-            <Head title="Payment" />
+            <Head title="Post" />
 
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8">
@@ -169,70 +133,26 @@ export default function Payment(props) {
                                 onChange={e => setData('image', e.target.files[0])}
                                 error={errors.image}
                             />
-                        {/* <CKEditor
-                            config={{
-                                extraPlugins: [uploadPlugin],
-                            }}
-                            editor={ClassicEditor}
-                            data={data.body}
-                            onReady={(editor) => {}}
-                            onBlur={(event, editor) => {}}
-                            onFocus={(event, editor) => {}}
-                            onChange={(event, editor) => {
-                                handleChange(editor.getData());
-                            }}
-                        /> */}
-                        {/* <div className='pb-10' style={{ width: '100hs', height: '500px', border: '1px solid lightgray' }}>
-                          <div ref={quillRef} />
-                        </div> */}
-                        <TinyEditorComponent
+
+                        <TinyEditor
                         onInit={(evt, editor) => editorRef.current = editor}
-                        initialValue='<p>This is the initial content of the editor.</p>'
+                        initialValue={data.body}
                         init={{
                           height: 500,
-                          menubar: false,
-                          plugins: [
-                            'advlist', 'anchor', 'autolink', 'help', 'image', 'link', 'lists',
-                            'searchreplace', 'table', 'wordcount'
-                          ],
-                          toolbar: 'undo redo | blocks | ' +
-                            'bold italic forecolor | alignleft aligncenter ' +
-                            'alignright alignjustify | bullist numlist outdent indent | ' +
-                            'removeformat | help image',
+                          // menubar: false,
+                          menubar: 'file edit view insert format tools table help',
+                          plugins: 'preview importcss searchreplace autolink directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons',
+                          toolbar_mode: 'scrolling',
+                          toolbar: 'insertfile image media link anchor codesample | undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | ltr rtl',
                           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-                          file_picker_callback: async (callback, value, meta) => {
-                            // Provide file and text for the link dialog
-                            if (meta.filetype == 'file') {
-                              callback('mypage.html', { text: 'My text' });
-                            }
-                        
-                            // Provide image and alt text for the image dialog
-                            if (meta.filetype == 'image') {
-                              // const body = new FormData();
-                              // body.append("_token", props.csrf_token);
-                              // body.append("image", meta.file);
-
-                              // await fetch(route('post.upload'), {
-                              //   method: "post",
-                              //   body: body,
-                              //   headers: {
-                              //     'accept-content': 'application/json',
-                              //     'X-CSSRF-TOKEN': props.csrf_token
-                              //   },
-                              //   credentials: 'include'
-                              // }).then(res => res.json())
-                              // .then(res => {
-                              //   callback(res.url, { alt: 'My alt text' });
-                              // })
-                              callback('imge.jprg', { text: 'My text' });
-                              
-                            }
-                        
-                            // Provide alternative source and posted for the media dialog
-                            if (meta.filetype == 'media') {
-                              callback('movie.mp4', { source2: 'alt.ogg', poster: 'image.jpg' });
-                            }
-                          }
+                          file_picker_callback: file_picker_callback,
+                          images_upload_handler: example_image_upload_handler,
+                          // images_upload_url: 'postAcceptor.php',
+                          // automatic_uploads: true,
+                          promotion: false,
+                          image_caption: true,
+                          image_advtab: true,
+                          object_resizing: true,
                         }}
                 />
                         <div className='mt-2'>

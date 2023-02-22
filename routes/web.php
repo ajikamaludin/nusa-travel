@@ -56,7 +56,8 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     // Page
     Route::get('/page/{page:key}', [PageController::class, 'index'])->name('page.index');
     // Landing
-    Route::get('/{locale?}',[LandingController::class, 'index'])->name('home.index');
+    Route::get('/{locale?}',[LandingController::class, 'index'])->name('home.index')
+        ->whereIn('locale', ['en', 'id']);
 });
 
 require __DIR__.'/admin.php';

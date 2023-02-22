@@ -49,8 +49,8 @@ import 'tinymce/plugins/emoticons/js/emojis';
 
 // Content styles, including inline UI like fake cursors
 /* eslint import/no-webpack-loader-syntax: off */
-// import contentCss from '!!raw-loader!tinymce/skins/content/default/content.min.css';
-// import contentUiCss from '!!raw-loader!tinymce/skins/ui/oxide/content.min.css';
+import contentCss from 'tinymce/skins/content/default/content.min.css';
+import contentUiCss from 'tinymce/skins/ui/oxide/content.min.css';
 
 export default function BundledEditor(props) {
   const {init, ...rest} = props;
@@ -62,6 +62,7 @@ export default function BundledEditor(props) {
         ...init,
         skin: false,
         content_css: false,
+        content_style: [contentCss, contentUiCss].join('\n'),
       }}
       {...rest}
     />
