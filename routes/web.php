@@ -54,7 +54,8 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     });
 
     // Page
-    Route::get('/page/{page:key}', [PageController::class, 'index'])->name('page.index');
+    Route::get('/page/{page:key}', [PageController::class, 'show'])->name('page.show');
+
     // Landing
     Route::get('/{locale?}',[LandingController::class, 'index'])->name('home.index')
         ->whereIn('locale', ['en', 'id']);

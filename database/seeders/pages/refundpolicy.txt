@@ -1,56 +1,30 @@
-<p dir="ltr" style="text-align: justify;">Return &amp; Refund Policy</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
-<p dir="ltr" style="text-align: justify;">Updated at 2023-02-03</p>
-<p dir="ltr" style="text-align: justify;"><strong><br><br></strong></p>
-<p dir="ltr" style="text-align: justify;">Definitions and key terms</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
+<p dir="ltr" style="text-align: justify;"><strong>Definitions and key terms</strong><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">To help explain things as clearly as possible in this Return &amp; Refund Policy, every time any of these terms are referenced, are strictly defined as:</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">&nbsp;&nbsp;-Company: when this policy mentions &ldquo;Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our,&rdquo; it refers to Nusa Travel, that is responsible for your information under this Return &amp; Refund Policy.</p>
 <p dir="ltr" style="text-align: justify;">&nbsp;&nbsp;-Customer:&nbsp;refers to the company, organization or person that signs up to use the Nusa Travel Service to manage the relationships with your consumers or service users.</p>
 <p dir="ltr" style="text-align: justify;">&nbsp;&nbsp;-Device:&nbsp;any internet connected device such as a phone, tablet, computer or any other device that can be used to visit Nusa Travel and use the services.</p>
 <p dir="ltr" style="text-align: justify;">&nbsp;&nbsp;-Service: refers to the service provided by Nusa Travel as described in the relative terms (if available) and on this platform.</p>
 <p dir="ltr" style="text-align: justify;">&nbsp;&nbsp;-Website: Nusa Travel."&rsquo;s" site, which can be accessed via this URL: nusa.travel</p>
-<p dir="ltr" style="text-align: justify;">&nbsp;&nbsp;-You: a person or entity that is registered with Nusa Travel to use the Services.</p>
-<p dir="ltr" style="text-align: justify;"><strong><br><br></strong></p>
-<p dir="ltr" style="text-align: justify;">Return &amp; Refund Policy</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
+<p dir="ltr" style="text-align: justify;">&nbsp;&nbsp;-You: a person or entity that is registered with Nusa Travel to use the Services.<strong><br></strong></p>
+<p dir="ltr" style="text-align: justify;"><strong>Return &amp; Refund Policy</strong><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">Thanks for shopping at Nusa Travel. We appreciate the fact that you like to buy the stuff we build. We also want to make sure you have a rewarding experience while you&rsquo;re exploring, evaluating, and purchasing our products.</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">As with any shopping experience, there are terms and conditions that apply to transactions at Nusa Travel. We&rsquo;ll be as brief as our attorneys will allow. The main thing to remember is that by placing an order or making a purchase at Nusa Travel, you agree to the terms set forth below along with&nbsp; Policy.</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">If there&rsquo;s something wrong with the product/service you bought, or if you are not happy with it, you have 2 weeks to issue a refund and return your product/service.</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">If you would like to return a product, the only way would be if you follow the next guidelines:</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">&nbsp;&nbsp;&nbsp;-The product has to be damage free, if we find any damage on the product we will cancel your refund immediately.</p>
-<p dir="ltr" style="text-align: justify;"><strong><br><br></strong></p>
-<p dir="ltr" style="text-align: justify;">Refunds</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
+<p dir="ltr" style="text-align: justify;"><strong>Refunds</strong><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">We at&nbsp; ourselves to serving our customers with the best products. Every single product that you choose is thoroughly inspected, checked for defects and packaged with utmost care. We do this to ensure that you fall in love with our products.</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">Sadly, there are times when we may not have the product(s) that you choose in stock, or may face some issues with our inventory and quality check. In such cases, we may have to cancel your order. You will be intimated about it in advance so that you don't have to worry unnecessarily about your order. If you have purchased via Online payment (not Cash on Delivery), then you will be refunded once our team confirms your request.</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">We carry out thorough quality check before processing the ordered item. We take utmost care while packing the product. At the same time we ensure that the packing is good such that the items won&rsquo;t get damaged during transit. Please note that Nusa Travel is not liable for damages that are caused to the items during transit or transportation.</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
-<p dir="ltr" style="text-align: justify;">We will revise your returned product as soon as we receive it and if it follows the guidelines addressed above, we will proceed to issue a refund of your purchase. Your refund may take a couple of days to process but you will be notified when you receive your money.</p>
-<p dir="ltr" style="text-align: justify;"><strong><br><br></strong></p>
-<p dir="ltr" style="text-align: justify;">Shipping</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
-<p dir="ltr" style="text-align: justify;">Nusa Travel is not responsible for return shipping costs. Every shipping has to be paid by the customer, even if the item had free shipping in the first place, the customer has to pay for the shipping in return.</p>
-<p dir="ltr" style="text-align: justify;"><strong><br><br></strong></p>
-<p dir="ltr" style="text-align: justify;">Your Consent</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
+<p dir="ltr" style="text-align: justify;">We will revise your returned product as soon as we receive it and if it follows the guidelines addressed above, we will proceed to issue a refund of your purchase. Your refund may take a couple of days to process but you will be notified when you receive your money.<strong><br></strong></p>
+<p dir="ltr" style="text-align: justify;"><strong>Shipping</strong><strong>&nbsp;</strong></p>
+<p dir="ltr" style="text-align: justify;">Nusa Travel is not responsible for return shipping costs. Every shipping has to be paid by the customer, even if the item had free shipping in the first place, the customer has to pay for the shipping in return.<strong><br></strong></p>
+<p dir="ltr" style="text-align: justify;"><strong>Your Consent</strong><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">By using our website, registering an account, or making a purchase, you hereby consent to our Return &amp; Refund Policy and agree to its terms.</p>
-<p dir="ltr" style="text-align: justify;"><strong><br><br></strong></p>
-<p dir="ltr" style="text-align: justify;">Changes To Our Return &amp; Refund Policy</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
+<p dir="ltr" style="text-align: justify;"><strong>Changes To Our Return &amp; Refund Policy</strong><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">Should we update, amend or make any changes to this document so that they accurately reflect our Service and policies. Unless otherwise required by law, those changes will be prominently posted here. Then, if you continue to use the Service, you will be bound by the updated Return &amp; Refund Policy. If you do not want to agree to this or any updated Return &amp; Refund Policy, you can delete your account.</p>
-<p dir="ltr" style="text-align: justify;"><strong><br><br></strong></p>
-<p dir="ltr" style="text-align: justify;">Contact Us</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
+<p dir="ltr" style="text-align: justify;"><strong>Contact Us</strong></p>
 <p dir="ltr" style="text-align: justify;">If, for any reason, You are not completely satisfied with any good or service that we provide, don't hesitate to contact us and we will discuss any of the issues you are going through with our product.</p>
-<p dir="ltr" style="text-align: justify;"><strong>&nbsp;</strong></p>
 <p dir="ltr" style="text-align: justify;">&nbsp;-Via Email:&nbsp; business@nusa.travel</p>
 <p dir="ltr" style="text-align: justify;">&nbsp;-Via Phone Number:&nbsp; 6287820231626</p>
 <p dir="ltr" style="text-align: justify;">&nbsp;-Via this Link:&nbsp; https://nusa.travel</p>
