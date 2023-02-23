@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FastboatPlaceController;
 use App\Http\Controllers\FastboatTrackController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -42,6 +43,12 @@ Route::prefix('travel')->group(function() {
         Route::get('/faqs/{faq}', [FaqController::class, 'edit'])->name('faq.edit');
         Route::post('/faqs/{faq}', [FaqController::class, 'update'])->name('faq.update');
         Route::delete('/faqs/{faq}', [FaqController::class, 'destroy'])->name('faq.destroy');
+
+        // Tag
+        Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+        Route::post('/gallery', [GalleryController::class, 'store'])->name('gallery.store');
+        Route::post('/gallery/{file}', [GalleryController::class, 'update'])->name('gallery.update');
+        Route::delete('/gallery/{file}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
 
         // Tag
         Route::get('/tags', [TagController::class, 'index'])->name('tag.index');

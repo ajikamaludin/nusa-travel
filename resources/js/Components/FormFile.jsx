@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 
-
-export default function FormFile({ label, onChange, error, preview }) {
+export default function FormFile({ label, onChange, error, preview, inputRef = useRef() }) {
     return (
         <div className='mt-2'>
             {label !== '' && (
@@ -15,6 +14,7 @@ export default function FormFile({ label, onChange, error, preview }) {
                 id="small_size" 
                 type="file"
                 onChange={onChange}
+                ref={inputRef}
             />
             {error && (
                 <p className="mb-2 text-sm text-red-600 dark:text-red-500">{error}</p>

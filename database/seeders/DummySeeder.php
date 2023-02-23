@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Faq;
 use App\Models\FastboatPlace;
 use App\Models\FastboatTrack;
+use App\Models\File;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\PostTag;
@@ -382,5 +383,14 @@ class DummySeeder extends Seeder
                 'tag_id' => $tags[rand(0,3)]['id']
             ]);
         }
+
+        $files = [
+            ['id' => Str::uuid(), 'name' => 'Pantai Gili Trawangank', 'path' => 'images/4.jpg', 'show_on' => File::MAIN_DISPLAY],
+            ['id' => Str::uuid(), 'name' => 'Gili Trawangank 1', 'path' => 'images/1.jpg', 'show_on' => File::SIDE1_DISPLAY],
+            ['id' => Str::uuid(), 'name' => 'Gili Trawangank 2', 'path' => 'images/2.jpg', 'show_on' => File::SIDE2_DISPLAY],
+            ['id' => Str::uuid(), 'name' => 'Sample', 'path' => 'images/3.jpg', 'show_on' => File::NO_DISPLAY],
+        ];
+
+        File::insert($files);
     }
 }

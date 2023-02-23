@@ -164,7 +164,7 @@ export default [
         name: "Gallery",
         show: true,
         icon: HiViewGrid,
-        route: route("in.dev"),
+        route: route("gallery.index"),
         active: "order.index",
         permission: "view-gallery",
     },

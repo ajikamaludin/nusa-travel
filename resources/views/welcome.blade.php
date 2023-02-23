@@ -230,25 +230,14 @@
                 </div>
             </div>
             <div class="px-2 pt-2 grid grid-cols-1 gap-2 md:gap-4 md:grid-cols-3">
-                <div class=" md:col-span-2 md:row-span-2 transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0 scale-100 hover:scale-110 hover:z-10">
-                    <img class="object-fill w-full h-auto rounded-lg" src="{{asset('images/4.jpg')}}" alt=""/>
-                    <div class="absolute px-4 text-xl md:text-4xl font-bold text-white bottom-10 md:left-10">
-                        <p>Pantai Indah Kapuk</p>
+                @foreach($images as $image)
+                    <div class="{{$image->show_on == 1 ? 'md:col-span-2 md:row-span-2' : ''}} transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0 scale-100 hover:scale-105 hover:z-10">
+                        <img class="object-fill w-full {{$image->show_on == 1 ? 'h-auto' : 'h-full'}} rounded-lg" src="{{ $image->path_url }}" alt=""/>
+                        <div class="absolute px-4 text-xl {{$image->show_on == 1 ? 'md:text-4xl' : 'md:text-2xl'}} font-bold text-white bottom-10 md:left-10">
+                            <p>{{ $image->name }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0 scale-100 hover:scale-110 hover:z-10">
-                    <img class="object-fill h-full w-full rounded-lg" src='{{asset("images/1.jpg")}}' alt=""/>
-                    <div class="absolute px-4 text-xl md:text-2xl font-bold text-white bottom-10 md:left-5">
-                        <p>Selat Duri 1</p>
-                    </div>
-                </div>
-                <div class="transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0 scale-100 hover:scale-110 hover:z-10">
-                    <img class="object-fill h-full w-full rounded-lg" src='{{asset("images/2.jpg")}}' alt=""/>
-                    <div class="absolute px-4 text-xl md:text-2xl font-bold text-white bottom-10 md:left-5">
-                        <p>Selat Duri 2</p>
-                    </div>
-                </div>
-            </div>
+                @endforeach
             <div class="md:hidden w-full flex flex-row justify-center pt-2">
                 <div type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">See More...</div>
             </div>

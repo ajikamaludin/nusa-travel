@@ -53,6 +53,8 @@ class FastboatTrackController extends Controller
             "departure_time" => $request->departure_time,
             "is_publish" => $request->is_publish,
         ]);
+
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
     }
 
     /**
@@ -79,6 +81,9 @@ class FastboatTrackController extends Controller
             "departure_time" => $request->departure_time,
             "is_publish" => $request->is_publish,
         ]);
+
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed updated']); 
+
     }
 
     /**
@@ -87,5 +92,7 @@ class FastboatTrackController extends Controller
     public function destroy(FastboatTrack $track): void
     {
         $track->delete();
+
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']); 
     }
 }
