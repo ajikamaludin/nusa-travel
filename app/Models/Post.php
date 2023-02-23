@@ -34,6 +34,11 @@ class Post extends Model
         );
     }
 
+    public function visitors()
+    {
+        return $this->hasMany(Visitor::class, 'related_model_id', 'id');
+    }
+
     protected function publish(): Attribute
     {
         return Attribute::make(

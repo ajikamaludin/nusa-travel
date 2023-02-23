@@ -23,12 +23,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function () {
-    // Blog
-    Route::get('/blog',[BlogController::class, 'index'])->name('blog.index');
-
-    // Detail Blog
-    Route::get('/blog/{post:slug}',[BlogController::class, 'show'])->name('blog.post');
-
     // Package Tours
     // Car Rentals
     // Fastboat
@@ -53,6 +47,10 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
         Route::get('/fastboat/{order}', [FastboatController::class, 'show'])->name('fastboat.show');
     });
 
+    // Blog
+    Route::get('/page/blog',[BlogController::class, 'index'])->name('blog.index');
+    // Detail Blog
+    Route::get('page/blog/{post:slug}',[BlogController::class, 'show'])->name('blog.post');
     // Page
     Route::get('/page/gallery', [PageController::class, 'gallery'])->name('page.gallery');
     Route::get('/page/faq', [PageController::class, 'faq'])->name('page.faq');

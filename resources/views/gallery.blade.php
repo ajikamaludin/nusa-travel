@@ -3,9 +3,9 @@
 @section('content')
     <!-- Hero Blog -->
     <section class="w-full min-h-[250px] relative flex flex-col items-center justify-center">
-        <img src="{{asset( $setting->getSlides()[rand(0, count($setting->getSlides()) - 1)] )}}" class="w-full brightness-75  h-full rounded object-cover blur-[1px] absolute top-0" alt="...">
+        <img src="{{asset( $images[rand(0, count($images) - 1)]['path_url'] )}}" class="w-full brightness-75  h-full rounded object-cover blur-[1px] absolute top-0" alt="...">
         <div class="relative text-white text-center space-y-2">
-            <h1 class=" text-4xl md:text-6xl font-semibold">Insparing your holiday</h1>
+            <h1 class=" text-4xl md:text-6xl font-semibold outlined-black">Insparing your holiday</h1>
             <p class="text-base md:text-lg">Explore fun, culture and more</p>
         </div>
     </section>

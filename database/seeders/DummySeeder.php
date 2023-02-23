@@ -368,20 +368,22 @@ class DummySeeder extends Seeder
             ['title' => 'Tanjung Benoa Watersports in Bali by Bali Bintang Dive and Watersport	', 'file' => '/blog/post4.txt', 'image' => 'images/post4.webp'],
         ];
 
-        foreach($posts as $post) {
-            $post = Post::create([
-                'slug' => Str::slug($post['title']),
-                'meta_tag' => '',
-                'cover_image' => $post['image'],
-                'is_publish' => Post::PUBLISH,
-                'title' => $post['title'],
-                'body' => file_get_contents(__DIR__.$page['file'])
-            ]);
+        foreach($posts as $p) {
+            foreach(range(0, 4) as $r) {
+                $post = Post::create([
+                    'slug' => Str::slug($p['title']),
+                    'meta_tag' => '',
+                    'cover_image' => $p['image'],
+                    'is_publish' => Post::PUBLISH,
+                    'title' => $p['title'],
+                    'body' => file_get_contents(__DIR__.$page['file'])
+                ]);
 
-            PostTag::create([
-                'post_id' => $post->id,
-                'tag_id' => $tags[rand(0,3)]['id']
-            ]);
+                PostTag::create([
+                    'post_id' => $post->id,
+                    'tag_id' => $tags[rand(0,3)]['id']
+                ]);
+            }
         }
 
         $files = [
