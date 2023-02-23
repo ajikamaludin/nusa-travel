@@ -28,7 +28,7 @@
             <input type="date" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Date" required autocomplete="off" name="date" value="{{ $date }}" min="{{ now()->format('Y-m-d') }}">
         </div>
         <div class="{{ $ways == 1 ? 'hidden' : '' }}">
-            <input type="date" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Date" autocomplete="off" name="return_date" value="{{ $date }}" min="{{ now()->format('Y-m-d') }}">
+            <input type="date" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Date" autocomplete="off" name="return_date" value="{{ $return_date }}" min="{{ now()->format('Y-m-d') }}">
         </div>
     </div>
     <div class="w-full flex flex-row justify-end pt-2">
