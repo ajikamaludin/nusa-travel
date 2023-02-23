@@ -310,12 +310,12 @@
     opacity: 0;
 }
 
-.hero-container, .lang-container, .menu-container {
+.hero-container, .lang-container, .menu-container, .see-more-container {
     display: none;
 }
 
 @media (min-width: 768px) {
-  .hero-container {
+  .hero-container, .see-more-container {
     display: block;
   }
   .lang-container, .menu-container{

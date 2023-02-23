@@ -39,7 +39,7 @@
         </div>
         @endforeach
     </section>
-    <div class="max-w-7xl mx-auto mb-5">
+    <div class="max-w-7xl mx-auto mb-5 px-1">
         {{$posts->links()}}
     </div>
 @endsection

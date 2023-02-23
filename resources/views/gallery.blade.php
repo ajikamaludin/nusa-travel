@@ -11,9 +11,9 @@
     </section>
 
     <!-- Blog  -->
-    <section class="w-full mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-4 py-2 md:py-5 px-1">
+    <section class="w-full mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4 py-2 md:py-5 px-1">
         @foreach($images as $index => $image)
-        <figure class="{{ $index == 0 ? 'col-span-2' : '' }} relative transition-all duration-300 cursor-pointer filter  grayscale hover:grayscale-0">
+        <figure class="{{ $index == 0 ? 'md:col-span-2' : '' }} relative transition-all duration-300 cursor-pointer filter  grayscale hover:grayscale-0">
             <img class="rounded-lg object-cover h-full w-full" src="{{ $image->path_url }}" alt="{{ $image->name }}"/>
             <figcaption class="absolute px-4 text-xl text-white outlined-black bottom-6">
                 <p>{{ $image->name }}</p>
@@ -21,7 +21,7 @@
         </figure>
         @endforeach
     </section>
-    <div class="max-w-7xl mx-auto mb-5">
+    <div class="max-w-7xl mx-auto mb-5 px-1">
         {{$images->links()}}
     </div>
 @endsection
