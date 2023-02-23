@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Faq;
+use App\Models\File;
 use App\Models\Page;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,13 @@ class PageController extends Controller
         return view('faq', [
             'faqs' => $query->orderBy('order', 'asc')->get(),
             'q' => $request->q
+        ]);
+    }
+
+    public function gallery()
+    {
+        return view('gallery', [
+            'images' => File::orderBy('updated_at', 'desc')->paginate(),
         ]);
     }
 }

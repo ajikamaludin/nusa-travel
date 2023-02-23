@@ -54,6 +54,7 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     });
 
     // Page
+    Route::get('/page/gallery', [PageController::class, 'gallery'])->name('page.gallery');
     Route::get('/page/faq', [PageController::class, 'faq'])->name('page.faq');
     Route::get('/page/{page:key}', [PageController::class, 'show'])->name('page.show');
 
