@@ -268,14 +268,14 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-2 px-2">
-                @foreach($posts as $a)
+                @foreach($posts as $post)
                 <div class="hover:-translate-y-2 ease-in duration-150 shadow bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-                    <a href="{{ route('blog.post', $a) }}">
-                        <img class="rounded-t-lg" src="{{asset($a->cover_image)}}" alt="" />
+                    <a href="{{ route('blog.post', $post) }}">
+                        <img class="rounded-t-lg" src="{{asset($post->cover_image)}}" alt="" />
                     </a>
                     <div class="p-3 md:p-5 space-y-1">
                         <a href="#">
-                            <h4 class="font-bold text-xl text-gray-900 dark:text-white line-clamp-1">{{ $a->title }}</h4>
+                            <h4 class="font-bold text-xl text-gray-900 dark:text-white line-clamp-1">{{ $post->title }}</h4>
                         </a>
                         <span class="line-clamp-1 text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, velit.</span>
                         <div class="flex items-center space-x-2">
@@ -287,8 +287,9 @@
                             </span>
                         </div>
                         <div>
-                            <span class="py-1 px-2 text-xs font-bold rounded bg-gray-200 text-gray-700 dark:text-gray-400">tag1</span>
-                            <span class="py-1 px-2 text-xs font-bold rounded bg-gray-200 text-gray-700 dark:text-gray-400">tag2</span>
+                            @foreach($post->tags as $tag)
+                                <span class="py-1 px-2 text-xs font-bold rounded bg-gray-200 text-gray-700 dark:text-gray-400">{{$tag->name}}</span>
+                            @endforeach
                         </div>
                     </div>
                 </div>

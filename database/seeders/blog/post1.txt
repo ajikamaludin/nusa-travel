@@ -1,0 +1,63 @@
+<div id="activity_summary" class="experience-section-item activity_summary">
+<div id="activity_summary" class="k-section dynamic_component  experiences-activity-dto activity_summary" data-navigation-title="What to expect" data-spm-provide="section">
+<div id="activity_summary" data-navigation-title="What to expect" data-v-257ac1f6="">
+<div data-v-257ac1f6="">
+<div data-v-257ac1f6="">
+<div id="activity_summary" class="dynamic-component dynamic-component dynamic-component_desktop" title="What to expect" data-navigation-title="What to expect" data-v-5775af16="">
+<div class="dynamic-component-section" title="Highlights" data-v-5775af16="">
+<div class="activity-klk-markdown" data-v-87a71e24="">
+<div class="klk-markdown klk-markdown--highlight" data-v-87a71e24="">
+<p>If you&rsquo;re going on a trip to Bali, then visiting the Uluwatu Temple is a must and one of its highlights is the Kecak fire and dance show that takes place at night. Book through Klook and get to watch this highly-touted show! Get to see the locals put on an enchanting show with traditional and hypnotic Kecak dances with swirling flames and vibrant cultural outfits, all while enjoying the sublime sunset; the show is perfectly timed just in time for it. This will surely make for a more memorable trip to the island.</p>
+</div>
+</div>
+</div>
+<div class="dynamic-image dynamic-component-section desktop" data-v-3db8ddd9="" data-v-5775af16="">
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/tuldqyysf4fyumhcs3on/UluwatuKecakFireandDanceShowTicketinBali.webp" alt="the beginning of the Kecak Fire and Dance Show in Uluwatu Temple" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/tuldqyysf4fyumhcs3on/UluwatuKecakFireandDanceShowTicketinBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Purchase tickets to watch the famous Kecak fire and dance show in Bali's magnificent Uluwatu Temple. Redemption location is at ticketing counter, follow online travel agent line and show your Klook voucher</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/qcsdjibehl9rqg3fqw8r/UluwatuKecakFireandDanceShowTicketinBali.webp" alt="sunset over Bali" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/qcsdjibehl9rqg3fqw8r/UluwatuKecakFireandDanceShowTicketinBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Enjoy a view of the beautiful sunset over the island while you watch the show</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/hfeplgylmamp3y1cyip1/UluwatuKecakFireandDanceShowTicketinBali.webp" alt="Uluwatu Sunset" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/hfeplgylmamp3y1cyip1/UluwatuKecakFireandDanceShowTicketinBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Complete the whole experience with an amazing view of the sunset over the ocean from a cliff</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/a5ys4t3sjkvnlqj0n9fl/UluwatuKecakFireandDanceShowTicketinBali.webp" alt="Uluwatu Kecak Fire Dance Show" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/a5ys4t3sjkvnlqj0n9fl/UluwatuKecakFireandDanceShowTicketinBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Marvel the beautiful sunset in the background, timed perfectly for this incredible show</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/pcqrjriixnomk5trrzpa/UluwatuKecakFireandDanceShowTicketinBali.webp" alt="Uluwatu Kecak Fire Dance Show" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/pcqrjriixnomk5trrzpa/UluwatuKecakFireandDanceShowTicketinBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Be mesmerized by hypnotic Kecak dances, dazzling flames and colorful cultural costumes</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="grey_gap" class="experience-section-item grey_gap">
+<div id="grey_gap" class="k-section gap  experiences-activity-dto grey_gap" data-navigation-title="" data-spm-provide="section">
+<div id="grey_gap" class="divider-gap section-divider section-divider-desktop" data-navigation-title=""></div>
+</div>
+</div>
+<div id="Things_To_Note" class="experience-section-item Things_To_Note">
+<div id="Things_To_Note" class="k-section dynamic_component  experiences-activity-dto Things_To_Note" data-navigation-title="Things To Note" data-spm-provide="section">
+<div id="Things_To_Note" class="section-header desktop" data-spm-module="Things_To_Note:common:::RightCornerButton?trg=manual" data-navigation-title="Things To Note" data-v-43d17206="">
+<div class="section-header_top" data-v-43d17206="">&nbsp;</div>
+</div>
+</div>
+</div>

@@ -6,6 +6,8 @@ use App\Models\Faq;
 use App\Models\FastboatPlace;
 use App\Models\FastboatTrack;
 use App\Models\Page;
+use App\Models\Post;
+use App\Models\PostTag;
 use App\Models\Setting;
 use App\Models\Tag;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -334,7 +336,6 @@ class DummySeeder extends Seeder
             ['key' => 'refundpolicy', 'title' => 'Refund Policy', 'file' => '/pages/refundpolicy.txt'],
             ['key' => 'cookiepolicy', 'title' => 'Cookie Policy', 'file' => '/pages/cookiepolicy.txt'],
             ['key' => 'aboutus', 'title' => 'About Us', 'file' => '/pages/aboutus.txt'],
-
         ];
 
         foreach($pages as $page) {
@@ -358,5 +359,28 @@ class DummySeeder extends Seeder
         ];
 
         Faq::insert($faqs);
+
+        $posts = [
+            ['title' => 'Uluwatu Kecak Fire and Dance Show Ticket in Bali	', 'file' => '/blog/post1.txt', 'image' => 'images/post1.webp'],
+            ['title' => 'Nusa Penida Day Tour from Bali	', 'file' => '/blog/post2.txt', 'image' => 'images/post2.webp'],
+            ['title' => 'Nusa Penida Instagram Tour from Bali', 'file' => '/blog/post3.txt', 'image' => 'images/post3.webp'],
+            ['title' => 'Tanjung Benoa Watersports in Bali by Bali Bintang Dive and Watersport	', 'file' => '/blog/post4.txt', 'image' => 'images/post4.webp'],
+        ];
+
+        foreach($posts as $post) {
+            $post = Post::create([
+                'slug' => Str::slug($post['title']),
+                'meta_tag' => '',
+                'cover_image' => $post['image'],
+                'is_publish' => Post::PUBLISH,
+                'title' => $post['title'],
+                'body' => file_get_contents(__DIR__.$page['file'])
+            ]);
+
+            PostTag::create([
+                'post_id' => $post->id,
+                'tag_id' => $tags[rand(0,3)]['id']
+            ]);
+        }
     }
 }

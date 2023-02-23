@@ -1,0 +1,52 @@
+<div id="activity_summary" class="experience-section-item activity_summary">
+<div id="activity_summary" class="k-section dynamic_component  experiences-activity-dto activity_summary" data-navigation-title="What to expect" data-spm-provide="section">
+<div id="activity_summary" class="section-header desktop" data-spm-module="activity_summary:common:::RightCornerButton?trg=manual" data-navigation-title="What to expect" data-v-43d17206="">
+<div class="section-header_top" data-v-43d17206="">
+<h2 class="section-title" data-v-43d17206="">What to expect</h2>
+</div>
+</div>
+<div id="activity_summary" data-navigation-title="What to expect" data-v-257ac1f6="">
+<div data-v-257ac1f6="">
+<div data-v-257ac1f6="">
+<div id="activity_summary" class="dynamic-component dynamic-component dynamic-component_desktop" title="What to expect" data-navigation-title="What to expect" data-v-5775af16="">
+<div class="dynamic-image dynamic-component-section desktop" data-v-3db8ddd9="" data-v-5775af16="">
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/u3vustngukhpzlsal3yy/TanjungBenoaWatersportsinBalibyBaliBintangDiveandWatersport.webp" alt="fly board" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/u3vustngukhpzlsal3yy/TanjungBenoaWatersportsinBalibyBaliBintangDiveandWatersport.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Choose from various packages of watersport activities!</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ufu2d5vv7cafyumdsunw/TanjungBenoaWatersportsinBalibyBaliBintangDiveandWatersport.webp" alt="fly board" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ufu2d5vv7cafyumdsunw/TanjungBenoaWatersportsinBalibyBaliBintangDiveandWatersport.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Challenge your adrenaline on this fly board experience!</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/qhc7zaw9q1jhifr2bqop/TanjungBenoaWatersportsinBalibyBaliBintangDiveandWatersport.webp" alt="parasailing" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/qhc7zaw9q1jhifr2bqop/TanjungBenoaWatersportsinBalibyBaliBintangDiveandWatersport.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Fly over Bali's beautiful blue water on this parasailing!</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/akqdv0gjlg2dzouwqubu/TanjungBenoaWatersportsinBalibyBaliBintangDiveandWatersport.webp" alt="rolling donut" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/akqdv0gjlg2dzouwqubu/TanjungBenoaWatersportsinBalibyBaliBintangDiveandWatersport.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Try the adventurous rolling donut!</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/j0ul8szmdisnuyopsdnr/TanjungBenoaWatersportsinBalibyBaliBintangDiveandWatersport.webp" alt="tanjung benoa watersport" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/j0ul8szmdisnuyopsdnr/TanjungBenoaWatersportsinBalibyBaliBintangDiveandWatersport.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Wakeboarding experience!</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="grey_gap" class="experience-section-item grey_gap">
+<div id="grey_gap" class="k-section gap  experiences-activity-dto grey_gap" data-navigation-title="" data-spm-provide="section"></div>
+</div>

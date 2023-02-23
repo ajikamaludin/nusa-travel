@@ -1,0 +1,192 @@
+<div id="activity_summary" class="experience-section-item activity_summary">
+<div id="activity_summary" class="k-section dynamic_component  experiences-activity-dto activity_summary" data-navigation-title="What to expect" data-spm-provide="section">
+<div id="activity_summary" class="section-header desktop" data-spm-module="activity_summary:common:::RightCornerButton?trg=manual" data-navigation-title="What to expect" data-v-43d17206="">
+<div class="section-header_top" data-v-43d17206="">
+<h2 class="section-title" data-v-43d17206="">What to Expect from West Nusa Penida Full Day Trip</h2>
+</div>
+</div>
+<div id="activity_summary" data-navigation-title="What to expect" data-v-257ac1f6="">
+<div data-v-257ac1f6="">
+<div data-v-257ac1f6="">
+<div id="activity_summary" class="dynamic-component dynamic-component dynamic-component_desktop" title="What to Expect from West Nusa Penida Full Day Trip" data-navigation-title="What to expect" data-v-5775af16="">
+<div class="dynamic-component-section" title="Highlights" data-v-5775af16="">
+<div class="activity-klk-markdown" data-v-87a71e24="">
+<div class="klk-markdown klk-markdown--highlight" data-v-87a71e24="">
+<p class="p_followed">If you're visiting the island of Bali, you might want to know that there's a nearby island that's great to visit if you want to avoid the noisy crowds. Book through Klook and go on a wonderful trip to the West Side of the Nusa Penida island and revel in the joys of its tranquil atmosphere and picturesque landscape.</p>
+<p class="p_followed">Drop by magnificent photo stops worth posting on your Instagram, such as Angela Billabong, Broken Beach, Klingking Beach, and the Crystal Bay. You'll get the opportunity to swim in the area's crystal clear waters.</p>
+<p>You can even go snorkeling in Crystal Bay, Manta Bay, or Wall Bay and discover the majestic marine life in the area. It's a must for any beachgoer visiting Bali.</p>
+</div>
+</div>
+</div>
+<div class="dynamic-image dynamic-component-section desktop" data-v-3db8ddd9="" data-v-5775af16="">
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/vawxmlydulgkkemplyk1/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida Tour hotel transfer" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/vawxmlydulgkkemplyk1/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Get picked up by your personal Klook driver - this tour offers a round-trip transfers to and from your hotel</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1024,h_768/w_63,x_11,y_11,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/xukw8bisv0iidtotxzzp/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida Day Tour" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1024,h_768/w_63,x_11,y_11,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/xukw8bisv0iidtotxzzp/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1214,h_764/w_74,x_14,y_14,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/j7mhbxr0zd6hnzgwmi9a/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida Day Tour" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1214,h_764/w_74,x_14,y_14,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/j7mhbxr0zd6hnzgwmi9a/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">You'll first take a fast boat from Sanur to Nusa Penida. If you get motion sickness, it's highly recommend you take motion sickness pills before hopping on!</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/qh1r546eodtqzcgrje1l/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida " data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/qh1r546eodtqzcgrje1l/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Once you arrive to Nusa Penida, you will arrive at the shore You'll need to walk through shallow water to hop off the boat so be sure to wear sandals and you'll be picked up by your friendly Klook tour guide and driver for the day.</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_612/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/vpc6f22gk78j55q0r6jk/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida Bali" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_612/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/vpc6f22gk78j55q0r6jk/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Embark on a Nusa Penida day trip from Bali and enjoy a full day of adventure and breathtaking views</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1280,h_588/w_79,x_14,y_14,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/uyrxapgnraeo2mch3amd/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida Tour snorkeling" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1280,h_588/w_79,x_14,y_14,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/uyrxapgnraeo2mch3amd/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Experience the diverse marine life of Bali (depends on the weather) during snorkeling activities at Crystal Bay, Manta Bay, or Gamat Bay</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/bbx32pfjh3dsunpvyngi/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida angel billabong" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/bbx32pfjh3dsunpvyngi/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">First top Angel Billabong! Get a chance to swim in the crystal clear emerald waters of the island's natural infinity pool, Angel Billabong</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/dxucfe6sdpxm3rptzmqq/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida " data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/dxucfe6sdpxm3rptzmqq/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Plenty of photo taking opportunities against the background of beautiful Nusa Penida</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/dldpdl5dj2wprqoc3m3k/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida broken beach" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/dldpdl5dj2wprqoc3m3k/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">A short walk later, you will drop by Broken Beach</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/idhtxayjclgekvket5lw/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida " data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/idhtxayjclgekvket5lw/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Your Klook guide will help you take photos at every photo opportunity - in this case Broken Beach!</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ocy1gdslxpjaxygzhcy7/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida " data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ocy1gdslxpjaxygzhcy7/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">The car ride can be quite bumpy so be sure to take motion sickness tablets if needed</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_1726/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/xqugpiy1dzoljangijbu/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida Kelingking beach" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_1726/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/xqugpiy1dzoljangijbu/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Visit the famous Kelingking beach</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1080,h_1080/w_66,x_12,y_12,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ictqhhooiahyxt11ycrq/NusaPenidaDayTourfromBali.webp" alt="Nusa penida" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1080,h_1080/w_66,x_12,y_12,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ictqhhooiahyxt11ycrq/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Embark on a Nusa Penida day trip from Bali and enjoy a full day of adventure and breathtaking views</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ycfkiemzyhl9ixbgpefd/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida " data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ycfkiemzyhl9ixbgpefd/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">You'll have a stop for lunch at a highly recommended local restaurant that serves both Indonesian and continental dishes</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/gc8wf4ueyxodulplvsli/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida snorkelling" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_971/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/gc8wf4ueyxodulplvsli/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">It's snorkelling time. Your guide will take you to the best snorkelling spots around the island</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_513/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/npvg2y3vcynqdef3wz5g/NusaPenidaDayTourfromBali.webp" alt="a man snorkeling near two fishes Nusa Penida Full Day Trip from Bali" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_513/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/npvg2y3vcynqdef3wz5g/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Discover a variety of adorable marine creatures and swim alongside colorful fishes and corals</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_970/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/mbvlpyes3xzb7bh0ei87/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida snorkelling" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_970/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/mbvlpyes3xzb7bh0ei87/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Full equipped snorkelling gear will be ready on the boat</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_970/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/rzibswgljirifjm1fhww/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida " data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_970/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/rzibswgljirifjm1fhww/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Learn about Nusa Penida from our Klook guides</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1156,h_867/w_71,x_13,y_13,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/y4z4frb0jlwm7a6d8jc1/NusaPenidaDayTourfromBali.webp" alt="nusa penida tour" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1156,h_867/w_71,x_13,y_13,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/y4z4frb0jlwm7a6d8jc1/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Participants of the tour will be gathered at this Klook meeting point prior to embarking on the fast boat!</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1080,h_428/w_66,x_12,y_12,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/m0f0tamrxhqptjxduss3/NusaPenidaDayTourfromBali.webp" alt="shoreline with boats at Nusa Penida Full Day Trip from Bali" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1080,h_428/w_66,x_12,y_12,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/m0f0tamrxhqptjxduss3/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">Marvel at the raw beauty of nature or immerse yourself in the majestic Tembeling Beach</span></div>
+</div>
+<div class="page-activity-description-image-desc" data-v-3db8ddd9="">
+<div class="img-container" data-v-3db8ddd9=""><img class="seo-lazy-image" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1000,h_550/w_61,x_11,y_11,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/nqgarockyrq9hnxuaawo/NusaPenidaDayTourfromBali.webp" alt="Nusa Penida Tour" data-src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1000,h_550/w_61,x_11,y_11,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/nqgarockyrq9hnxuaawo/NusaPenidaDayTourfromBali.webp">
+<div>&nbsp;</div>
+</div>
+<div class="page-activity-description-desc page-activity-description-desc-desktop" data-v-3db8ddd9=""><span data-v-3db8ddd9="">It's highly recommend to bring these items during the trip!</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="grey_gap" class="experience-section-item grey_gap">
+<div id="grey_gap" class="k-section gap  experiences-activity-dto grey_gap" data-navigation-title="" data-spm-provide="section">
+<div id="grey_gap" class="divider-gap section-divider section-divider-desktop" data-navigation-title=""></div>
+</div>
+</div>
+<div id="Things_to_note" class="experience-section-item Things_to_note">
+<div id="Things_to_note" class="k-section dynamic_component  experiences-activity-dto Things_to_note" data-navigation-title="Things to note" data-spm-provide="section">
+<div id="Things_to_note" class="section-header desktop" data-spm-module="Things_to_note:common:::RightCornerButton?trg=manual" data-navigation-title="Things to note" data-v-43d17206="">
+<div class="section-header_top" data-v-43d17206="">
+<h2 class="section-title" data-v-43d17206="">Things to note</h2>
+</div>
+</div>
+<div id="Things_to_note" data-navigation-title="Things to note" data-v-257ac1f6="">
+<div data-v-257ac1f6="">
+<div data-v-257ac1f6="">
+<div id="Things_to_note" class="dynamic-component dynamic-component dynamic-component_desktop" title="Things to note" data-navigation-title="Things to note" data-v-5775af16="">
+<div class="dynamic-component-section" title="Highlights" data-v-5775af16="">
+<div class="activity-klk-markdown" data-v-87a71e24="">
+<div class="klk-markdown klk-markdown--highlight" data-v-87a71e24="">
+<h4>What To Bring:</h4>
+<ul>
+<li>Comfortable clothes and rubber shoes</li>
+<li>Towel</li>
+<li>Raincoat</li>
+<li>Swimwear</li>
+<li>Mosquito repellant</li>
+<li>Sunscreen, hat, and sunglasses</li>
+<li>Camera</li>
+<li>A set of dry clothes</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
