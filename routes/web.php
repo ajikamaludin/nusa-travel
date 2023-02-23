@@ -27,6 +27,12 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     // Car Rentals
     // Fastboat
     Route::get('/fastboat',[FastboatController::class, 'index'])->name('fastboat.index');
+    
+    // Order
+    Route::get('/carts', [FastboatController::class, 'mine'])->name('orders.mine');
+    // Route::get('/orders', [FastboatController::class, 'mine'])->name('orders.mine');
+    Route::post('/orders',[FastboatController::class, 'index'])->name('customer.orders');
+    // Route::get('/orders/{order}', [FastboatController::class, 'show'])->name('orders.show');
 
     // Login / Register
     Route::middleware('guest:customer')->group(function(){
@@ -43,10 +49,6 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
         Route::post('/profile', [CustomerProfileController::class, 'update']);
         Route::post('/profile/p', [CustomerProfileController::class, 'password'])->name('customer.password');
         Route::post('/profile/logout', [CustomerProfileController::class, 'destroy'])->name('customer.logout');
-        // Order
-        Route::get('/fastboat/orders', [FastboatController::class, 'mine'])->name('fastboat.mine');
-        Route::post('/fastboat/{track}',[FastboatController::class, 'order'])->name('fastboat.order');
-        Route::get('/fastboat/{order}', [FastboatController::class, 'show'])->name('fastboat.show');
     });
 
     // Blog
@@ -59,6 +61,7 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     Route::get('/page/{page:key}', [PageController::class, 'show'])->name('page.show');
 
     // Landing
+    Route::get('/accept-cookie', [LandingController::class, 'acceptCookie'])->name('accept.cookie');
     Route::get('/{locale?}',[LandingController::class, 'index'])->name('home.index')
         ->whereIn('locale', ['en', 'id']);
 });

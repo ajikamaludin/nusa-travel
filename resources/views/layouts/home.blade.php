@@ -15,8 +15,23 @@
         <!-- Styles -->
         @vite(['resources/js/frontpage.jsx'])
         @yield('css')
+        @livewireStyles
     </head>
     <body class="antialiased">
+        @if(request()->cookie('accept') == null)
+        <div class="fixed z-40 bottom-5 w-full" id="show-cookie">
+            <div class="p-4 bg-white shadow-2xl border-2 border-gray-100 rounded max-w-5xl mx-auto">
+                <div class="flex flex-row gap-2">
+                    <div class="font-bold text-lg">This site use cookies |</div>
+                    <div class="text-md flex-1">
+                        Some of them are essential white others used to serve you a customized holiday experience 
+                        <a href="{{  route('page.show', ['page' => 'cookiepolicy'])  }}" class="underline">Learn more.</a>
+                    </div>
+                    <button class="border-2 py-2 px-3" id="cookie">Got It</button>
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="loader-container">
             <div class="web-spinner"></div>
         </div>
@@ -37,6 +52,17 @@
                 mainContainer.style.display = 'block';
             }, 800);
         });
+
+        cookie = document.getElementById('cookie')
+        showcookie = document.getElementById('show-cookie')
+
+        if(cookie != undefined) {
+            cookie.addEventListener('click' , () => {
+                showcookie.style.display = 'none'
+                fetch("{{ route('accept.cookie') }}")
+            })
+        }
     </script>
+    @livewireScripts
     @yield('js')
 </html>

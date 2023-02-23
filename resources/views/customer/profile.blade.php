@@ -16,6 +16,7 @@
                     </ul>
                 </div>
             @endif
+            <p class="text-2xl font-bold mb-6 border-b-2 border-gray-200">Profile</p>
             <div class="grid gap-6 mb-2 md:grid-cols-2">
                 <div>
                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>

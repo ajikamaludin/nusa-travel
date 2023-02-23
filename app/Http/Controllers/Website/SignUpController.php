@@ -37,7 +37,7 @@ class SignUpController extends Controller
             "is_active" => Customer::DEACTIVE
         ]);
 
-        Loop::addTimer(0.1, async(function () use ($customer){
+        Loop::addTimer(1, async(function () use ($customer){
             Mail::to($customer->email)->send(new CustomerActivation($customer));
         }));
 

@@ -30,4 +30,10 @@ class LandingController extends Controller
             'images' => File::where('show_on', '!=', 0)->orderBy('show_on', 'asc')->get(),
         ]);
     }
+
+    public function acceptCookie()
+    {
+        $cookie = cookie('accept', 'agree');
+        return response('Ok')->cookie($cookie);
+    }
 }

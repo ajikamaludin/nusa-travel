@@ -44,7 +44,7 @@
                         <a href="{{ route('customer.profile') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
                     </li>
                     <li>
-                        <a href="{{ route('fastboat.mine') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Order</a>
+                        <a href="{{ route('customer.orders') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Order</a>
                     </li>
                     <li>
                         <form method="POST" action="{{ route('customer.logout') }}" id='form-logout'>
@@ -145,3 +145,4 @@
         </ul>
     </div>
 </div>
+
