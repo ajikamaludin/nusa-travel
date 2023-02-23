@@ -33,7 +33,7 @@ class LoginController extends Controller
                 ->with('message', ['type' => 'error', 'message' => 'Account is not actived']);
         }
 
-        $isAllowed = Auth::guard('customer')->attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => Customer::ACTIVE]);
+        $isAllowed = Auth::guard('customer')->attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => Customer::ACTIVE], $request->remember);
 
         if(!$isAllowed) {
             return redirect()->route('customer.login')

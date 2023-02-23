@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
 use App\Models\Faq;
 use App\Models\FastboatPlace;
 use App\Models\FastboatTrack;
@@ -23,6 +24,18 @@ class DummySeeder extends Seeder
      * @return void
      */
     public function run()
+    {
+        $this->setting();
+        $this->place();
+        $this->track();
+        $this->blog();
+        $this->page();
+        $this->faq();
+        $this->file();
+        $this->customer();
+    }
+
+    public function setting()
     {
         $setting = [
             ['id' => Str::uuid(), 'key' => 'G_SITE_NAME', 'value' => 'Nusa Travel', 'type' => 'text', 'label' => 'Site Name'],
@@ -60,7 +73,10 @@ class DummySeeder extends Seeder
         ];
 
         Setting::insert($setting);
+    }
 
+    public function place()
+    {
         $places = [
             ['id' => Str::uuid(), 'name' => 'SERANGAN'],
             ['id' => Str::uuid(), 'name' => 'LEMBONGAN'],
@@ -74,7 +90,10 @@ class DummySeeder extends Seeder
         ];
 
         FastboatPlace::insert($places);
+    }
 
+    public function track()
+    {
         $SERANGAN = FastboatPlace::where('name', 'SERANGAN')->first()->id;
         $LEMBONGAN = FastboatPlace::where('name', 'LEMBONGAN')->first()->id;
         $PENIDA = FastboatPlace::where('name', 'PENIDA')->first()->id;
@@ -320,7 +339,10 @@ class DummySeeder extends Seeder
         })->toArray();
 
         FastboatTrack::insert($tracks);
+    }
 
+    public function blog()
+    {
         $tags = [
             ['id' => Str::uuid(), 'name' => 'News'],
             ['id' => Str::uuid(), 'name' => 'Tours'],
@@ -330,6 +352,35 @@ class DummySeeder extends Seeder
 
         Tag::insert($tags);
 
+
+        $posts = [
+            ['title' => 'Uluwatu Kecak Fire and Dance Show Ticket in Bali	', 'file' => '/blog/post1.txt', 'image' => 'images/post1.webp'],
+            ['title' => 'Nusa Penida Day Tour from Bali	', 'file' => '/blog/post2.txt', 'image' => 'images/post2.webp'],
+            ['title' => 'Nusa Penida Instagram Tour from Bali', 'file' => '/blog/post3.txt', 'image' => 'images/post3.webp'],
+            ['title' => 'Tanjung Benoa Watersports in Bali by Bali Bintang Dive and Watersport	', 'file' => '/blog/post4.txt', 'image' => 'images/post4.webp'],
+        ];
+
+        foreach($posts as $p) {
+            // foreach(range(0, 4) as $r) {
+                $post = Post::create([
+                    'slug' => Str::slug($p['title']),
+                    'meta_tag' => '',
+                    'cover_image' => $p['image'],
+                    'is_publish' => Post::PUBLISH,
+                    'title' => $p['title'],
+                    'body' => file_get_contents(__DIR__.$p['file'])
+                ]);
+
+                PostTag::create([
+                    'post_id' => $post->id,
+                    'tag_id' => $tags[rand(0,3)]['id']
+                ]);
+            // }
+        }
+    }
+
+    public function page()
+    {
         $pages = [
             ['key' => 'term-of-service', 'title' => 'Term Of Service', 'file' => '/pages/termofservice.txt'],
             ['key' => 'privacy-policy', 'title' => 'Privacy Policy', 'file' => '/pages/privacypolicy.txt'],
@@ -346,7 +397,10 @@ class DummySeeder extends Seeder
                 'body' => file_get_contents(__DIR__.$page['file'])
             ]);
         }
+    }
 
+    public function faq()
+    {
         $faqs = [
             ['id' => Str::uuid(), 'question' => 'Why Nusa Travel ? ', 'answer' => "<div>
             <div>An Indonesia's leading provider of fast boat tickets, we offer the most reliable and</div>
@@ -360,32 +414,10 @@ class DummySeeder extends Seeder
         ];
 
         Faq::insert($faqs);
+    }
 
-        $posts = [
-            ['title' => 'Uluwatu Kecak Fire and Dance Show Ticket in Bali	', 'file' => '/blog/post1.txt', 'image' => 'images/post1.webp'],
-            ['title' => 'Nusa Penida Day Tour from Bali	', 'file' => '/blog/post2.txt', 'image' => 'images/post2.webp'],
-            ['title' => 'Nusa Penida Instagram Tour from Bali', 'file' => '/blog/post3.txt', 'image' => 'images/post3.webp'],
-            ['title' => 'Tanjung Benoa Watersports in Bali by Bali Bintang Dive and Watersport	', 'file' => '/blog/post4.txt', 'image' => 'images/post4.webp'],
-        ];
-
-        foreach($posts as $p) {
-            foreach(range(0, 4) as $r) {
-                $post = Post::create([
-                    'slug' => Str::slug($p['title']),
-                    'meta_tag' => '',
-                    'cover_image' => $p['image'],
-                    'is_publish' => Post::PUBLISH,
-                    'title' => $p['title'],
-                    'body' => file_get_contents(__DIR__.$page['file'])
-                ]);
-
-                PostTag::create([
-                    'post_id' => $post->id,
-                    'tag_id' => $tags[rand(0,3)]['id']
-                ]);
-            }
-        }
-
+    public function file()
+    {
         $files = [
             ['id' => Str::uuid(), 'name' => 'Pantai Gili Trawangank', 'path' => 'images/4.jpg', 'show_on' => File::MAIN_DISPLAY],
             ['id' => Str::uuid(), 'name' => 'Gili Trawangank 1', 'path' => 'images/1.jpg', 'show_on' => File::SIDE1_DISPLAY],
@@ -394,5 +426,19 @@ class DummySeeder extends Seeder
         ];
 
         File::insert($files);
+    }
+
+    public function customer()
+    {
+        Customer::create([
+            "name" => "Dummy User",
+            "email" => "user@mail.com",
+            "phone" => "083840745543",
+            "password" => bcrypt("password"),
+            "address" => "indonesia",
+            "nation" => Customer::WNA,
+            "is_active" => Customer::ACTIVE,
+            "email_varified_at" => now(),
+        ]);
     }
 }

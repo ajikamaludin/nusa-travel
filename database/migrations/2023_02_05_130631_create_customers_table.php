@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->string('password');
             $table->string('address')->nullable();
-            $table->string('nation')->nullable();
+            $table->string('nation')->nullable(); //WNA ? WNI
             $table->string('national_id')->unique()->nullable();
             $table->rememberToken();
             $table->string('reset_token')->nullable();
