@@ -14,7 +14,7 @@ class BlogController extends Controller
         $posts = Post::with(['tags'])->withCount(['visitors'])->where('is_publish', Post::PUBLISH)->orderBy('created_at', 'desc');
 
         return view('blog', [
-            'posts' => $posts->paginate()
+            'posts' => $posts->paginate(12)
         ]);
     }
 

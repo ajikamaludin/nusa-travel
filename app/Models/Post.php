@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
@@ -70,6 +71,13 @@ class Post extends Model
     {
         return Attribute::make(
             get: fn () => asset($this->cover_image),
+        );
+    }
+
+    protected function shortDesc(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Str::substr(strip_tags($this->body), 0, 100),
         );
     }
 }

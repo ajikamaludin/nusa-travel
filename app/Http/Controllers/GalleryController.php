@@ -55,10 +55,10 @@ class GalleryController extends Controller
             'image' => 'nullable|image'
         ]);
 
-        if($request->show_on != 0) {
-            $showOn = File::where('show_on', $request->show_on);
+        if($request->show_on != 0) { //2
+            $showOn = File::where('show_on', $request->show_on)->where('id', '<>', $file->id); //
             if($showOn->count() >= 1) {
-                $main = $showOn->update(['show_on' => 0]);
+                $showOn->update(['show_on' => 0]);//
             }
         }
 
