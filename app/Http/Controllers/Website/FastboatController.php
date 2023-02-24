@@ -11,56 +11,60 @@ class FastboatController extends Controller
 {
     public function index(Request $request)
     {
-        $query = FastboatTrack::query()->with(['source', 'destination']);
+        $trackOne = null;
 
-        if($request->from != '') {
-            $query->whereHas('source', function($query) use ($request) {
-                $query->where('name', '=', $request->from);
-            });
-        }
-
-        if($request->to != '') {
-            $query->whereHas('destination', function($query) use ($request) {
-                $query->where('name', '=', $request->to);
-            });
-        }
-
-        $query2 = null;
-
-        if ($request->ways == 2) {
-            $query2 = FastboatTrack::query()->with(['source', 'destination']);
+        if($request->ways == 1) {
+            $trackOne = FastboatTrack::query()->with(['source', 'destination']);
 
             if($request->from != '') {
-                $query2->whereHas('source', function($query) use ($request) {
+                $trackOne->whereHas('source', function($query) use ($request) {
+                    $query->where('name', '=', $request->from);
+                });
+            }
+
+            if($request->to != '') {
+                $trackOne->whereHas('destination', function($query) use ($request) {
+                    $query->where('name', '=', $request->to);
+                });
+            }
+        }
+
+        $trackBack = null;
+
+        if ($request->ways == 2) {
+            $trackBack = FastboatTrack::query()->with(['source', 'destination']);
+
+            if($request->from != '') {
+                $trackBack->whereHas('source', function($query) use ($request) {
                     $query->where('name', '=', $request->to);
                 });
             }
 
             if($request->to != '') {
-                $query2->whereHas('destination', function($query) use ($request) {
+                $trackBack->whereHas('destination', function($query) use ($request) {
                     $query->where('name', '=', $request->from);
                 });
             }
-
-            $query2 = $query2->paginate(20, '*', 'track_two');
         }
 
-        $date = $return_date = now()->format('Y-m-d');
-        if ($request->has('date')) {
-            $date = Carbon::createFromFormat('Y-m-d',$request->date)->format('Y-m-d');
+        $date = now();
+        if ($request->date != '') {
+            $date = Carbon::createFromFormat('Y-m-d',$request->date);
         }
+
+        $rdate = Carbon::parse($date)->addDays(2);
         if ($request->return_date != '') {
-            $return_date = Carbon::createFromFormat('Y-m-d',$request->return_date)->format('Y-m-d');
+            $rdate = Carbon::createFromFormat('Y-m-d',$request->return_date);
         }
 
         return view('fastboat', [
             'ways' => $request->ways ?? 1,
             'from' => $request->from,
             'to' => $request->to,
-            'date' => $date,
-            'return_date' => $return_date,
-            'tracks_one' => $query->paginate(20),
-            'tracks_two' => $query2,
+            'date' => $date->format('Y-m-d'),
+            'rdate' => $rdate->format('Y-m-d'),
+            'tracks_one' => $trackOne?->paginate(5),
+            'tracks_two' => $trackBack?->get(),
         ]);
     }
 

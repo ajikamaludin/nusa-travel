@@ -13,7 +13,7 @@
         <img src="{{asset('images/2.jpg')}}" class="w-full brightness-75 h-full rounded object-cover blur-[1px] absolute top-0" alt="...">
         <div class="md:block absolute z-40 -bottom-10 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto h-60"> 
             <div class="bg-white rounded-lg border-gray-200 shadow-lg px-8 py-6">
-                <livewire:fastboat-schedule :date="$date" :return_date="$return_date" :ways="$ways" :from="$from" :to="$to"/>
+                <x-fastboat-schedule :ways="$ways" :from="$from" :to="$to" :date="$date" :rdate="$rdate"/>
             </div>
         </div>
     </section>
@@ -42,7 +42,7 @@
         @endif
         <div class="flex flex-col">
         @foreach($tracks_two as $track)
-            <livewire:fastboat-item :track="$track" :date="$return_date"/>
+            <livewire:fastboat-item :track="$track" :date="$rdate"/>
         @endforeach
         </div>
     </div>

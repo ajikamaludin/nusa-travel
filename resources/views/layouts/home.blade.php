@@ -21,7 +21,7 @@
         @if(request()->cookie('accept') == null)
         <div class="fixed z-40 bottom-5 w-full" id="show-cookie">
             <div class="p-4 bg-white shadow-2xl border-2 border-gray-100 rounded max-w-5xl mx-auto">
-                <div class="flex flex-row gap-2">
+                <div class="flex flex-col md:flex-row gap-2">
                     <div class="font-bold text-lg">This site use cookies |</div>
                     <div class="text-md flex-1">
                         Some of them are essential white others used to serve you a customized holiday experience 
@@ -65,4 +65,5 @@
     </script>
     @livewireScripts
     @yield('js')
+    @stack('script')
 </html>

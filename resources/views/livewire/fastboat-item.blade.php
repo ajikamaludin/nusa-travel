@@ -15,7 +15,10 @@
     <div class="flex flex-col items-end w-full mr-10 gap-3">
         <p class="font-bold text-xl">{{ number_format($track->price, 0, ',', '.') }}</p>
             <div class="flex flex-row gap-2 justify-end">
-                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 add" wire:click="addCart">Add</button>
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 add" wire:click="addCart" wire:loading.remove>Add</button>
+                <div wire:loading.delay.long>
+                    adding...
+                </div>
             </div>
         <p class="text-xs text-gray-600 "><span class="font-medium">Availability: {{ $track->capacity }}</p>
     </div>
