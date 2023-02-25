@@ -2,16 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\FastboatPlace;
 use App\Models\FastboatTrack;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class FastboatItem extends Component
 {
     public $track;
+    public $ordered;
     public $date;
 
     public function render()
@@ -91,7 +90,7 @@ class FastboatItem extends Component
 
         $carts = [];
         foreach($cart->items()->get() as $item) {
-            $carts[$item['entity_id']] = $item['quantity'];
+            $carts[$item['entity_id']] = ['qty' => $item['quantity'], 'type' => FastboatTrack::class, 'date' => $this->date];
         }
 
         return $carts;

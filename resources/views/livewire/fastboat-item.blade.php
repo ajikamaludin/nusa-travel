@@ -20,6 +20,6 @@
                     adding...
                 </div>
             </div>
-        <p class="text-xs text-gray-600 "><span class="font-medium">Availability: {{ $track->capacity - $track->item_ordered_count }}</p>
+        <p class="text-xs text-gray-600 "><span class="font-medium">Availability: {{ $track->capacity - $ordered }}</p>
     </div>
 </div>

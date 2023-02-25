@@ -13,13 +13,13 @@ class FastboatTrack extends Model
     protected $ORDER_NAMES = ['source.name', 'destination.name']; // need to know if this works
 
     protected $fillable = [
-        "fastboat_source_id",
-        "fastboat_destination_id",
-        "price",
-        "capacity",
-        "arrival_time",
-        "departure_time",
-        "is_publish",
+        'fastboat_source_id',
+        'fastboat_destination_id',
+        'price',
+        'capacity',
+        'arrival_time',
+        'departure_time',
+        'is_publish',
     ];
 
     public function source() 

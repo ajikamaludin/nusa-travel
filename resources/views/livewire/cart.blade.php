@@ -45,6 +45,7 @@
                 <div class="w-full lg:flex-1">
                     <div class="shadow-lg p-4 border-2 rounded-lg">
                         <form wire:submit.prevent="submit">
+                            @if(!$isAuth)
                             <div>
                                 <div class="mt-2">
                                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
@@ -87,8 +88,9 @@
                                     @enderror
                                 </div>
                             </div>
+                            @endif
                             <div class="font-bold text-xl mt-5">Total : {{ number_format($total, '0', ',', '.') }}</div>
-                            <div class="w-full flex  mt-4">
+                            <div class="w-full flex my-5">
                                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ">Process Payment</button>
                             </div>
                         </form>

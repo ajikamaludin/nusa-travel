@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -20,6 +21,8 @@ class Cart extends Component
     public $nation;
     public $national_id;
 
+    public $isAuth = false;
+
     protected $rules = [
         'name' => 'required|string|max:255|min:3',
         'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:20',
@@ -30,6 +33,7 @@ class Cart extends Component
 
     public function mount() 
     {
+        $this->isAuth = auth('customer')->check();
         $this->updateTotal();
     }
     public function render()
@@ -39,9 +43,19 @@ class Cart extends Component
 
     public function submit()
     {
-        if(!Auth::guard('customer')->check()) {
+        if(!$this->isAuth) {
             $this->validate();
             $order = $this->createOrder();
+        } else {
+            $order = Order::where([
+                ['customer_id', '=', auth('customer')->user()->id],
+                ['order_type', '=', Order::TYPE_CART]
+            ])->first();
+
+            $order->update([
+                'total_amount' => $this->total,
+                'order_type' => Order::TYPE_ORDER
+            ]);
         }
 
         // redirect to payment
@@ -84,16 +98,25 @@ class Cart extends Component
 
     public function updateCart()
     {
-        if(Auth::guard('customer')->check()){
-            // 
-        } else {
-            $carts = [];
+        if($this->isAuth){
+            $order = Order::where([
+                ['customer_id', '=', auth('customer')->user()->id],
+                ['order_type', '=', Order::TYPE_CART]
+            ])->with(['items'])->first();
+
+            $order->items()->delete();
+
             foreach($this->carts as $cart) {
-                $carts = array_merge($carts, [
-                    $cart['id'] => ['qty' => $cart['qty'], 'type' => $cart['type'], 'date' => $cart['date']]
+                $order->items()->create([
+                    "entity_order" => $cart['type'],
+                    "entity_id" => $cart['id'],
+                    "amount" => $cart['price'],
+                    "quantity" => $cart['qty'],
+                    "date" => $cart['date']
                 ]);
             }
-            session(['carts' => $carts]);
+        } else {
+            session(['carts' => $this->carts]);
         }
         $this->updateTotal();
     }
@@ -138,7 +161,7 @@ class Cart extends Component
             'order_code' => Order::generateCode(),
             'customer_id' => $customer->id,
             'total_amount' => $this->total,
-            'order_type' => Order::TYPE_CART,
+            'order_type' => Order::TYPE_ORDER,
         ]);
 
         foreach($this->carts as $cart) {

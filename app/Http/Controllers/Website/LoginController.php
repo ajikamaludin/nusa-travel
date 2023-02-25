@@ -40,6 +40,7 @@ class LoginController extends Controller
                 ->with('message', ['type' => 'error', 'message' => 'Credential not valid']);
         }
 
-        return redirect()->route('customer.profile');
+        session()->remove('carts');
+        return redirect()->route('home.index');
     }
 }

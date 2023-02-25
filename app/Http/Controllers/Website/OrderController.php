@@ -14,29 +14,42 @@ class OrderController extends Controller
 {
     public function index()
     {
+        $cart = [];
         if(auth('customer')->check()) {
-            // user
-        } else {
-            if(session('carts') == null) { 
-                return redirect()->route('home.index');
-            }
-            $carts = collect(session('carts'))->map(function($cart, $id) {
-                $track = $cart['type']::find($id);
+            $order = Order::where([
+                ['customer_id', '=', auth('customer')->user()->id],
+                ['order_type', '=', Order::TYPE_CART]
+            ])->with(['items'])->first();
 
-                if($track instanceof FastboatTrack) {
-                    $detail = $track->detail($cart['date']);
+            if($order != null) {
+                foreach($order->items as $item) {
+                    $cart[$item['entity_id']] = ['qty' => $item['quantity'], 'type' => FastboatTrack::class, 'date' => $item['date']];
                 }
-                return [
-                    'id' => $track->id,
-                    'name' => $track->order_detail,
-                    'detail' => $detail,
-                    'price' => $track->price,
-                    'qty' => $cart['qty'],
-                    'type' => $cart['type'],
-                    'date' => $cart['date']
-                ];
-            });
+            }
+        } else {
+            $cart = session('carts');
         }
+
+        if($cart == null) { 
+            return redirect()->route('home.index');
+        }
+
+        $carts = collect($cart)->map(function($cart, $id) {
+            $track = $cart['type']::find($id);
+
+            if($track instanceof FastboatTrack) {
+                $detail = $track->detail($cart['date']);
+            }
+            return [
+                'id' => $track->id,
+                'name' => $track->order_detail,
+                'detail' => $detail,
+                'price' => $track->price,
+                'qty' => $cart['qty'],
+                'type' => $cart['type'],
+                'date' => $cart['date']
+            ];
+        });
 
         return view('cart', [
             'carts' => $carts
@@ -78,5 +91,10 @@ class OrderController extends Controller
         return view('order', [
             'order' => $order->load(['items', 'customer']),
         ]);
+    }
+
+    public function orders()
+    {
+        // 
     }
 }
