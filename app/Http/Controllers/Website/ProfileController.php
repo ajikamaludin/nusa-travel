@@ -21,10 +21,10 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|unique:customers,email,'.$request->user()->id,
-            'phone' => 'required|string',
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255',
             'address' => 'nullable|string',
             'nation' => 'nullable|string',
-            'national_id' => 'nullable|string',
+            'national_id' => 'nullable|numeric',
         ]);
 
         $customer = Customer::find($request->user()->id);

@@ -11,22 +11,18 @@ class FastboatController extends Controller
 {
     public function index(Request $request)
     {
-        $trackOne = null;
+        $trackOne = FastboatTrack::query()->with(['source', 'destination']);
 
-        if($request->ways == 1) {
-            $trackOne = FastboatTrack::query()->with(['source', 'destination']);
+        if($request->from != '') {
+            $trackOne->whereHas('source', function($query) use ($request) {
+                $query->where('name', '=', $request->from);
+            });
+        }
 
-            if($request->from != '') {
-                $trackOne->whereHas('source', function($query) use ($request) {
-                    $query->where('name', '=', $request->from);
-                });
-            }
-
-            if($request->to != '') {
-                $trackOne->whereHas('destination', function($query) use ($request) {
-                    $query->where('name', '=', $request->to);
-                });
-            }
+        if($request->to != '') {
+            $trackOne->whereHas('destination', function($query) use ($request) {
+                $query->where('name', '=', $request->to);
+            });
         }
 
         $trackBack = null;
@@ -51,32 +47,30 @@ class FastboatController extends Controller
         if ($request->date != '') {
             $date = Carbon::createFromFormat('Y-m-d',$request->date);
         }
+        $trackOne->withCount(['item_ordered' => function ($query) use($date) {
+            return $query->whereDate('date', $date);
+        }] );
 
         $rdate = Carbon::parse($date)->addDays(2);
         if ($request->return_date != '') {
             $rdate = Carbon::createFromFormat('Y-m-d',$request->return_date);
         }
+        $trackBack?->withCount(['item_ordered' => function ($query) use($rdate) {
+            return $query->whereDate('date', $rdate);
+        }] );
 
-        return view('fastboat', [
+        $data = [
             'ways' => $request->ways ?? 1,
             'from' => $request->from,
             'to' => $request->to,
             'date' => $date->format('Y-m-d'),
             'rdate' => $rdate->format('Y-m-d'),
-            'tracks_one' => $trackOne?->paginate(5),
-            'tracks_two' => $trackBack?->get(),
+        ];
+        return view('fastboat', [
+            ...$data,
+            'tracks_one' => $trackOne?->paginate(20, '*', 'page'),
+            'tracks_two' => $trackBack?->paginate(20, '*', 're_page'),
         ]);
-    }
-
-    public function add(Request $request)
-    {
-        $login = true;
-        if($login) {
-            // buatkan order 
-            // simpan item order
-        } else {
-            // simpan item di session
-        }
     }
 
     public function mine()

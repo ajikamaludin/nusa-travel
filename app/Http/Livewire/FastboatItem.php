@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\FastboatPlace;
 use App\Models\FastboatTrack;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
@@ -37,13 +38,13 @@ class FastboatItem extends Component
             try{
                 $isExists = $carts[$this->track->id];
                 if($isExists != null) {
-                    $carts[$this->track->id] += 1;
+                    $carts[$this->track->id]['qty'] += 1;
                 }
             } catch (\Exception $e) {
-                $carts = array_merge($carts, [$this->track->id => 1]);
+                $carts = array_merge($carts, [$this->track->id => ['qty' => 1, 'type' => FastboatTrack::class, 'date' => $this->date]]);
             }
         } else {
-            $carts = [$this->track->id => 1];
+            $carts = [$this->track->id => ['qty' => 1, 'type' => FastboatTrack::class, 'date' => $this->date]];
         }
         
         session(['carts' => $carts]);
@@ -74,7 +75,7 @@ class FastboatItem extends Component
             }
         } else {
             $cart = Order::create([
-                "order_code" => Str::random(7).now()->format('dmy'),
+                "order_code" => Order::generateCode(),
                 "customer_id" => auth('customer')->user()->id,
                 "order_type" => Order::TYPE_CART,
             ]);

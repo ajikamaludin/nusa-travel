@@ -2,7 +2,7 @@
 namespace App\Services;
 
 use App\Models\Customer;
-use App\Models\FastboatOrder;
+use App\Models\Order;
 use Midtrans\Config;
 use Midtrans\Snap;
 
@@ -10,7 +10,7 @@ class MidtransService
 {
     protected $order;
 
-    public function __construct(FastboatOrder $order, $serverKey)
+    public function __construct(Order $order, $serverKey)
     {
         Config::$serverKey = $serverKey;
         Config::$isProduction = app()->isProduction();
@@ -22,19 +22,21 @@ class MidtransService
 
     public function getSnapToken()
     {
+        $items = $this->order->items->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'price' => $item->amount,
+                'quantity' => $item->quantity,
+                'name' => $item->item->order_detail,
+            ];
+        })->toArray();
+
         $params = [
             'transaction_details' => [
-                'order_id' => $this->order->id,
-                'gross_amount' => $this->order->amount * $this->order->quantity,
+                'order_id' => $this->order->order_code,
+                'gross_amount' => $this->order->total_amount,
             ],
-            'item_details' => [
-                [
-                    'id' => $this->order->id,
-                    'price' => $this->order->amount,
-                    'quantity' => $this->order->quantity,
-                    'name' => $this->order->track_name,
-                ],
-            ],
+            'item_details' => $items,
             'customer_details' => [
                 'name' => $this->order->customer->name,
                 'email' => $this->order->customer->email,

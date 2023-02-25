@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 class OrderItem extends Model
 {
     protected $fillable = [
@@ -18,6 +20,20 @@ class OrderItem extends Model
 
     public function item()
     {
-        return $this->belongsTo($this->entity_order, 'entity_id');
+        return $this->belongsTo((string) $this->entity_order, 'entity_id');
+    }
+
+    protected function detail(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $detail = '';
+                if($this->item instanceof FastboatTrack) {
+                    $detail = $this->item->detail($this->date);
+                }
+
+                return $detail;
+            },
+        );
     }
 }

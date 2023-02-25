@@ -45,6 +45,6 @@ class Setting extends Model
 
     public static function getByKey($key)
     {
-        return Setting::where('key', $key)->first()?->value;
+        return Setting::where('key', $key)->value('value');
     }
 }

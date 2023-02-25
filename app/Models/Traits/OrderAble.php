@@ -6,14 +6,21 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 trait OrderAble
 {
-    protected function orderName(): Attribute
+    public function orderDetail(): Attribute
     {
         return Attribute::make(
             get: function () {
                 $name = '';
                 foreach ($this->ORDER_NAMES as $order) {
-                    $name .=  $this->{$order};
+                    $arr = explode(".", $order);
+                    if(count($arr) >= 2) {
+                        $name .=  $this->{$arr[0]}->{$arr[1]} . ' - ';
+                    } else {
+                        $name .=  $this->{$order};
+                    }
                 }
+                $name = trim($name, ' - ');
+                return $name;
             },
         );
     }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Website\BlogController;
 use App\Http\Controllers\Website\FastboatController;
 use App\Http\Controllers\Website\LandingController;
 use App\Http\Controllers\Website\LoginController;
+use App\Http\Controllers\Website\OrderController;
 use App\Http\Controllers\Website\SignUpController;
 use App\Http\Controllers\Website\PageController;
 use App\Http\Controllers\Website\ProfileController as CustomerProfileController;
@@ -29,10 +30,10 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     Route::get('/fastboat',[FastboatController::class, 'index'])->name('fastboat.index');
     
     // Order
-    Route::get('/carts', [FastboatController::class, 'mine'])->name('orders.mine');
-    // Route::get('/orders', [FastboatController::class, 'mine'])->name('orders.mine');
-    Route::post('/orders',[FastboatController::class, 'index'])->name('customer.orders');
-    // Route::get('/orders/{order}', [FastboatController::class, 'show'])->name('orders.show');
+    Route::get('/carts', [OrderController::class, 'index'])->name('customer.cart');
+    Route::get('/carts/process-payment/{order}', [OrderController::class, 'payment'])->name('customer.process-payment');
+    // Route::post('/orders',[FastboatController::class, 'index'])->name('customer.orders');
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('customer.order');
 
     // Login / Register
     Route::middleware('guest:customer')->group(function(){

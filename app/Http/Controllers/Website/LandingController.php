@@ -33,7 +33,7 @@ class LandingController extends Controller
 
     public function acceptCookie()
     {
-        $cookie = cookie('accept', 'agree');
+        $cookie = cookie('accept', 'agree', 1 * (24 * 60 * 365));
         return response('Ok')->cookie($cookie);
     }
 }

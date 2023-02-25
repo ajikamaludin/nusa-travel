@@ -33,11 +33,10 @@ class FastboatCart extends Component
     public function guest() 
     {
         $carts = session('carts') ?? [];
-
         $count = 0;
         if($carts != []) {
-            foreach($carts as $id => $c) {
-                $count += $c;
+            foreach($carts as $id => $value) {
+                $count += $value['qty'];
             }
         }
 

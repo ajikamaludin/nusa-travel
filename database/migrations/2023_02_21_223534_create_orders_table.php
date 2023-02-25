@@ -20,6 +20,7 @@ return new class extends Migration
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->string('order_type');
+            $table->string('payment_token')->nullable();
             $table->string('payment_status')->nullable();
             $table->text('payment_response')->nullable();
             $table->string('payment_channel')->nullable();

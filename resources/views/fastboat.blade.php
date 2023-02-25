@@ -8,7 +8,6 @@
 @endsection
 
 @section('content')
-    <!-- Hero Blog -->
     <section class="w-full min-h-[250px] relative flex flex-col items-center justify-center">
         <img src="{{asset('images/2.jpg')}}" class="w-full brightness-75 h-full rounded object-cover blur-[1px] absolute top-0" alt="...">
         <div class="md:block absolute z-40 -bottom-10 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto h-60"> 
@@ -17,11 +16,11 @@
             </div>
         </div>
     </section>
-    @if($tracks_one != null)
-    <div class="w-full max-w-5xl mx-auto mt-10 px-2">
+    <div class="w-full max-w-5xl mx-auto pt-72 md:pt-20">
         <livewire:fastboat-cart/>
     </div>
-    <div class="w-full max-w-5xl mx-auto pt-3 md:pt-12 px-2 {{ $tracks_two == null ? 'pb-10' : '' }}">
+    @if($tracks_one != null)
+    <div class="w-full max-w-5xl mx-auto pt-3 md:pt-12 px-2">
         @if($from != '' && $to != '')
             <div class="pb-2 text-xl font-bold"> Trip from {{ $from }} to {{ $to }} </div>
         @endif
@@ -31,10 +30,13 @@
             @endforeach
             </div>
     </div>
+    <div class=" max-w-5xl mx-auto px-1 {{ $tracks_two == null ? 'pb-10' : '' }}">
+        {{$tracks_one->withQueryString()->links()}}
+    </div>
     @endif
 
     @if($tracks_two != null)
-    <div class="w-full max-w-5xl mx-auto pt-3 md:pt-10 px-2 b-10 pb-5">
+    <div class="w-full max-w-5xl mx-auto pt-3 md:pt-10 px-2">
         @if($from != '' && $to != '')
         <div class="flex flex-row justify-between mb-1">
             <div class="pb-2 text-xl font-bold"> Trip from {{ $to }} to {{ $from }} </div>
@@ -46,8 +48,11 @@
         @endforeach
         </div>
     </div>
+    <div class=" max-w-5xl mx-auto px-1 {{ $tracks_two == null ? 'pb-10' : '' }}">
+        {{$tracks_two->withQueryString()->links()}}
+    </div>
     @endif
-    <div class="py-10" id="test" data-id="test-hai"></div>
+    <div class="py-10"></div>
 @endsection
 
 @section('js')
