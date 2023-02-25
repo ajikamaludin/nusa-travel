@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class Order extends Model
@@ -68,6 +69,15 @@ class Order extends Model
                     3 => 'PENDING',
                     '' => 'UNPAID',
                 ][$this->payment_status];
+            },
+        );
+    }
+
+    protected function orderDateFormated(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return Carbon::parse($this->date)->format('d-m-Y');
             },
         );
     }

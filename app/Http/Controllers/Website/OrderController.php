@@ -9,6 +9,7 @@ use App\Models\Setting;
 use App\Services\MidtransService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -95,6 +96,10 @@ class OrderController extends Controller
 
     public function orders()
     {
-        // 
+        $user = Auth::guard('customer')->user();
+        $orders = Order::where('customer_id', $user->id);
+        return view('customer.order', [
+            'orders' => $orders->orderBy('payment_status', 'desc')->orderBy('created_at', 'desc')->paginate(), 
+        ]);
     }
 }

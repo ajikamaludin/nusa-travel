@@ -54,7 +54,8 @@ class Cart extends Component
 
             $order->update([
                 'total_amount' => $this->total,
-                'order_type' => Order::TYPE_ORDER
+                'order_type' => Order::TYPE_ORDER,
+                'date' => now(),
             ]);
         }
 
