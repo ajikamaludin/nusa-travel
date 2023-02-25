@@ -44,7 +44,7 @@
         @endif
         <div class="flex flex-col">
         @foreach($tracks_two as $track)
-            <livewire:fastboat-item :track="$track" :date="$rdate"/>
+            <livewire:fastboat-item :track="$track" :date="$rdate" :ordered="$track->item_ordered_count"/>
         @endforeach
         </div>
     </div>
