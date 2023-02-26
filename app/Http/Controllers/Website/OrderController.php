@@ -7,6 +7,7 @@ use App\Models\CarRental;
 use App\Models\FastboatTrack;
 use App\Models\Order;
 use App\Models\Setting;
+use App\Models\TourPackage;
 use App\Services\MidtransService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -25,7 +26,12 @@ class OrderController extends Controller
 
             if($order != null) {
                 foreach($order->items as $item) {
-                    $cart[$item['entity_id']] = ['qty' => $item['quantity'], 'type' => FastboatTrack::class, 'date' => $item['date']];
+                    $cart[$item['entity_id']] = [
+                        'qty' => $item['quantity'], 
+                        'type' => $item['type'], 
+                        'date' => $item['date'],
+                        'price' => $item['price']
+                    ];
                 }
             }
         } else {
@@ -40,15 +46,21 @@ class OrderController extends Controller
             $entity = $cart['type']::find($id);
             if($entity instanceof FastboatTrack) {
                 $detail = $entity->detail($cart['date']);
+                $price = $entity->price;
             }
             if($entity instanceof CarRental) {
                 $detail = $entity->detail($cart['date']);
+                $price = $entity->price;
+            }
+            if($entity instanceof TourPackage) {
+                $detail = $entity->detail($cart['date'], $cart['price']);
+                $price = $cart['price'];
             }
             return [
                 'id' => $entity->id,
                 'name' => $entity->order_detail,
                 'detail' => $detail,
-                'price' => $entity->price,
+                'price' => $price,
                 'qty' => $cart['qty'],
                 'type' => $cart['type'],
                 'date' => $cart['date'],

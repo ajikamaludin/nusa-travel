@@ -19,6 +19,8 @@ class TourPackageController extends Controller
 
     public function show(TourPackage $package)
     {
-        // 
+        return view('package-detail', [
+            'package' => $package->load(['images', 'prices'])
+        ]);
     }
 }

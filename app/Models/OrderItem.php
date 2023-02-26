@@ -36,6 +36,9 @@ class OrderItem extends Model
                 if($this->item instanceof CarRental) {
                     $detail = $this->item->detail($this->date);
                 }
+                if($this->item instanceof TourPackage) {
+                    $detail = $this->item->detail($this->date, $this->amount);
+                }
 
                 return $detail;
             },

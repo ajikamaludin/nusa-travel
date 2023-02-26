@@ -37,12 +37,12 @@ class TourPackage extends Model
         );
     }
 
-    public function detail($date)
+    public function detail($date, $price)
     {
         return "<p> $this->name ( Tour Packages )</p>
         <p>$this->title</p>
-        <p>". Carbon::parse($date)->format('d-m-Y') ."</p>";
-        // <p>@ ". number_format($this->price, '0', ',' ,' .') ."</p>";
+        <p>". Carbon::parse($date)->format('d-m-Y') ."</p>
+        <p>@ ". number_format($price, '0', ',' ,' .') ."</p>";
     }
 
     public function images() 

@@ -24,10 +24,8 @@ class CarItem extends Component
         } else {
             $this->guest();
         }
-
-        // just redirect
+        
         redirect()->route('customer.cart');
-        // $this->emit('addCart');
     }
 
     public function guest() 
