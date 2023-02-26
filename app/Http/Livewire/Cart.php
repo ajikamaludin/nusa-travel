@@ -4,8 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Customer;
 use App\Models\Order;
-use App\Models\OrderItem;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -70,7 +68,7 @@ class Cart extends Component
                 $cart['qty'] += 1;
             }
             return $cart;
-        });
+        })->toArray();
         $this->updateCart();
     }
 
@@ -81,7 +79,7 @@ class Cart extends Component
                 $cart['qty'] -= 1;
             }
             return $cart;
-        });
+        })->toArray();
         $this->updateCart();
     }
 

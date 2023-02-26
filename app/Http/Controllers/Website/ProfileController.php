@@ -21,7 +21,7 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|unique:customers,email,'.$request->user()->id,
-            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255',
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255|unique:customers,phone,'.$request->user()->id,
             'address' => 'nullable|string',
             'nation' => 'nullable|string',
             'national_id' => 'nullable|numeric',

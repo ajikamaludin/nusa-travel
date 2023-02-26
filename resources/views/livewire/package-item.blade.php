@@ -4,17 +4,17 @@
         Total: IDR {{ number_format($total, '0', ',', '.') }}
     </div>
     <div class="flex flex-row justify-around text-2xl gap-2 items-center">
-        <div class="text-gray-700 hover:text-gray-500" wire:click="increment">
+        <div class="text-gray-700 hover:text-gray-500" wire:click="decrement">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
         </div>
         <div>
             {{ $quantity }}
         </div>
-        <div class="text-gray-700 hover:text-gray-500" wire:click="decrement">
+        <div class="text-gray-700 hover:text-gray-500" wire:click="increment">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
         </div>
     </div>

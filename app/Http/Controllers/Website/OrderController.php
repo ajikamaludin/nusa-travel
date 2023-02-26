@@ -106,7 +106,7 @@ class OrderController extends Controller
     {
         $order = Order::where('id', $request->order_id)->first();
 
-        if($order != null) {
+        if($order != null && $order->payment_status != Order::PAYMENT_SUCESS) {
             $order->fill([
                 'payment_response' => json_encode($request->all()),
                 'payment_type' => $request->result['payment_type'],
