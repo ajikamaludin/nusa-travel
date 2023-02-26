@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-full flex flex-row justify-end mt-2">
+        <div class="w-full flex flex-row justify-end mt-2 gap-2">
             <p class="text-sm text-gray-600 "><span class="font-medium">Seats: {{ $car->capacity}} | </p>
             <p class="text-sm text-gray-600 "><span class="font-medium">Luggage: {{ $car->luggage }} | </p>
             <p class="text-sm text-gray-600 "><span class="font-medium">Transmision: {{ $car->transmission }}</p>

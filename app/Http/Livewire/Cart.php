@@ -139,7 +139,7 @@ class Cart extends Component
             Customer::withTrashed()->where('phone', 'like', "%$phone%")->first(),
         ];
         
-        $customer = array_filter($customers, function($v) {
+        $customer = collect($customers)->filter(function($v) {
             return $v != null;
         });
 
@@ -154,7 +154,7 @@ class Cart extends Component
                 'password' => bcrypt(Str::random(10))
             ]);
         } else {
-            $customer = $customer[0];
+            $customer = $customer->first();
         }
 
         DB::beginTransaction();
