@@ -4,7 +4,7 @@
     <div class="flex flex-row border-b-2 border-gray-100 pt-4 pb-2 px-2 lg:px-10">
         <div class="flex flex-row max-w-7xl mx-auto w-full justify-between items-center ">
             <a href="{{ route('home.index') }}" class="flex items-center">
-                <img src="{{ asset($setting->getValue('G_SITE_LOGO')) }}" class="h-10 w-auto"/>
+                <img src="{{ asset($setting->getValue('G_SITE_LOGO')) }}" class="h-10 w-auto" alt="company logo"/>
             </a>
             <div class="lang-container flex-row gap-1 items-center">
                 <div>
@@ -144,7 +144,7 @@
             </li>
             <li>
                 @guest
-                <div class="grid grid-cols-2">
+                <div class="grid grid-cols-2 gap-1">
                     <a href="{{ route('customer.signup') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 border-2">
                     <span class="ml-3">{{ __('website.Sign Up') }}</span>
                     </a>
@@ -154,9 +154,9 @@
                 </div>
                 @endguest
                 @auth
-                <div class="grid grid-cols-2">
+                <div class="grid grid-cols-2 gap-1">
                     <a href="{{ route('customer.profile') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 border-2">
-                        <span class="ml-3">{{ __('website.Logout') }}</span>
+                        <span class="ml-3">{{ 'Profile' }}</span>
                     </a>
                     <a href="{{ route('customer.orders') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 border-2">
                         <span class="ml-3">{{ 'Order' }}</span>

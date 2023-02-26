@@ -33,7 +33,7 @@
     </div>
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row w-full justify-between items-center py-5 px-6">
         <div>
-            <img src="{{asset($setting->getValue('G_SITE_LOGO'))}}" class="h-5 w-auto"/>
+            <img src="{{asset($setting->getValue('G_SITE_LOGO'))}}" class="h-5 w-auto" alt="company logo"/>
         </div>
         <div class="py-2">
             &copy; {{now()->format('Y')}} {{$setting->getValue('G_SITE_NAME')}}. All Rights Reserved.

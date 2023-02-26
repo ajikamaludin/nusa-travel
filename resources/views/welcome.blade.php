@@ -140,7 +140,7 @@
                             <input type="text" id="to-m" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" placeholder="To" name="to" autocomplete="off">
                         </div>
                         <div>
-                            <input type="date" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Date" required autocomplete="off" name="date" min="{{ now()->format('Y-m-d') }}">
+                            <input type="date" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Date" required autocomplete="off" name="date" min="{{ now()->format('Y-m-d') }}" value="{{ now()->format('Y-m-d') }}">
                         </div>
                     </div>
                     <div class="w-full flex flex-row justify-end pt-2">

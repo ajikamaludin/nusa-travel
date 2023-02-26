@@ -16,6 +16,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\TourPackageController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('travel')->group(function() {
@@ -71,9 +72,13 @@ Route::prefix('travel')->group(function() {
         Route::get('/pages/{page:key}', [PageController::class, 'edit'])->name('page.edit');
         Route::post('/pages/{page}', [PageController::class, 'update'])->name('page.update');
 
-        // Setting
-
         // Package Tours
+        Route::get('/packages', [TourPackageController::class, 'index'])->name('packages.index');
+        Route::get('/packages/create', [TourPackageController::class, 'create'])->name('packages.create');
+        Route::post('/packages', [TourPackageController::class, 'store'])->name('packages.store');
+        Route::get('/packages/{package}', [TourPackageController::class, 'edit'])->name('packages.edit');
+        Route::post('/packages/{package}', [TourPackageController::class, 'update'])->name('packages.update');
+        Route::delete('/packages/{package}', [TourPackageController::class, 'destroy'])->name('packages.destroy');
 
         // Car Rentals
         Route::get('/car-rentals', [CarRentalController::class, 'index'])->name('car-rental.index');
