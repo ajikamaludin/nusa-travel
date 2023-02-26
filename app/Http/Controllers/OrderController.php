@@ -44,7 +44,7 @@ class OrderController extends Controller
         if ($order->payment_status != $request->payment_status) {
             $order->fill([
                 'payment_status' => $request->payment_status,
-                'payment_type' => 'Manual | ' . $order->payment_type
+                'payment_type' => 'Manual|' . $order->payment_type
             ]);
         }
 

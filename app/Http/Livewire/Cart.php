@@ -134,9 +134,9 @@ class Cart extends Component
     {
         $phone = str_replace([' ', '+'], ['', ''], $this->phone);
         $customers = [
-            Customer::where('national_id', $this->national_id)->first(),
-            Customer::where('email', $this->email)->first(),
-            Customer::where('phone', 'like', "%$phone%")->first(),
+            Customer::withTrashed()->where('national_id', $this->national_id)->first(),
+            Customer::withTrashed()->where('email', $this->email)->first(),
+            Customer::withTrashed()->where('phone', 'like', "%$phone%")->first(),
         ];
         
         $customer = array_filter($customers, function($v) {

@@ -89,6 +89,12 @@ export default function Index(props) {
                                                 Name
                                             </th>
                                             <th scope="col" className="py-3 px-6">
+                                                Phone
+                                            </th>
+                                            <th scope="col" className="py-3 px-6">
+                                                Email
+                                            </th>
+                                            <th scope="col" className="py-3 px-6">
                                                 Email Verified 
                                             </th>
                                             <th scope="col" className="py-3 px-6"/>
@@ -99,6 +105,12 @@ export default function Index(props) {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={customer.id}>
                                                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                                     {customer.name}
+                                                </td>
+                                                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                    {customer.phone}
+                                                </td>
+                                                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                    {customer.email}
                                                 </td>
                                                 <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                                     {+customer.is_active === 1 ? 'Yes' : 'No'}
