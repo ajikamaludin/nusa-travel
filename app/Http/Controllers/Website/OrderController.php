@@ -28,9 +28,9 @@ class OrderController extends Controller
                 foreach($order->items as $item) {
                     $cart[$item['entity_id']] = [
                         'qty' => $item['quantity'], 
-                        'type' => $item['type'], 
+                        'type' => $item['entity_order'], 
                         'date' => $item['date'],
-                        'price' => $item['price']
+                        'price' => $item['amount']
                     ];
                 }
             }

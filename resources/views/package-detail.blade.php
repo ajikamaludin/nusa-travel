@@ -50,7 +50,7 @@
         </div>
         <div class="w-full md:w-2/6 lg:w-1/4">
             <div class="top-32 sticky z-[30] px-2 space-y-2">
-                @if($package->prices != null)
+                @if($package->prices->count() > 0)
                 <div class="w-full p-4 shadow-lg border-2 rounded-lg">
                     <div class="font-bold text-lg">Prices</div>
                     @foreach($package->prices as $price)
@@ -62,6 +62,10 @@
                         </ul>
                     </div>
                     @endforeach
+                </div>
+                @else
+                <div class="w-full p-4 shadow-lg border-2 rounded-lg">
+                    <div class="font-bold text-lg">Prices: {{ number_format($package->price, '0', ',', '.') }}</div>
                 </div>
                 @endif
                 <livewire:package-item :package="$package"/>

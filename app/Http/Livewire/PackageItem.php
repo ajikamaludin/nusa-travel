@@ -46,10 +46,14 @@ class PackageItem extends Component
     public function checkTotal()
     {
         $prices = $this->package->prices;
-        foreach($prices as $price) {
-            if($this->quantity >= $price->quantity) {
-                $this->price = $price->price;
+        if($prices->count() > 0) {
+            foreach($prices as $price) {
+                if($this->quantity >= $price->quantity) {
+                    $this->price = $price->price;
+                }
             }
+        } else {
+            $this->price = $this->package->price;
         }
         $this->total = $this->price * $this->quantity;
     }
@@ -76,7 +80,11 @@ class PackageItem extends Component
         if($cart != null) {
             $item = $cart->items->where('entity_id', $this->package->id)->first();
             if($item != null) {
-                $item->update(['quantity' => $this->quantity]);
+                $item->update([
+                    'quantity' => $this->quantity,
+                    "amount" => $this->price,
+                    "date" => $this->date
+                ]);
             } else {
                 $cart->items()->create([
                     "entity_order" => TourPackage::class,
