@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Website\CarRentalController;
 use App\Http\Controllers\Website\BlogController;
 use App\Http\Controllers\Website\FastboatController;
 use App\Http\Controllers\Website\LandingController;
@@ -26,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function () {
     // Package Tours
     // Car Rentals
+    Route::get('/car-rentals',[CarRentalController::class, 'index'])->name('car.index');
+
     // Fastboat
     Route::get('/fastboat',[FastboatController::class, 'index'])->name('fastboat.index');
     

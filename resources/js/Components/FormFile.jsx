@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 
 export default function FormFile({ label, onChange, error, preview, inputRef = useRef() }) {
     return (
-        <div className='mt-2'>
+        <div className='my-4'>
             {label !== '' && (
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{label}</label>
             )}

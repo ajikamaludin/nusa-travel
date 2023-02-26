@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\CarRental;
 use App\Models\FastboatTrack;
 use App\Models\Order;
 use App\Models\Setting;
@@ -36,15 +37,18 @@ class OrderController extends Controller
         }
 
         $carts = collect($cart)->map(function($cart, $id) {
-            $track = $cart['type']::find($id);
-            if($track instanceof FastboatTrack) {
-                $detail = $track->detail($cart['date']);
+            $entity = $cart['type']::find($id);
+            if($entity instanceof FastboatTrack) {
+                $detail = $entity->detail($cart['date']);
+            }
+            if($entity instanceof CarRental) {
+                $detail = $entity->detail($cart['date']);
             }
             return [
-                'id' => $track->id,
-                'name' => $track->order_detail,
+                'id' => $entity->id,
+                'name' => $entity->order_detail,
                 'detail' => $detail,
-                'price' => $track->price,
+                'price' => $entity->price,
                 'qty' => $cart['qty'],
                 'type' => $cart['type'],
                 'date' => $cart['date'],

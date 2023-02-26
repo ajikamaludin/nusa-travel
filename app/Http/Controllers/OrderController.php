@@ -12,7 +12,10 @@ class OrderController extends Controller
         $query = Order::query()->with(['customer'])->where('order_type', Order::TYPE_ORDER);
 
         if($request->has('q')) {
-            $query->where('order_code', 'like', "%{$request->q}%");
+            $query->where('order_code', 'like', "%{$request->q}%")
+                ->orWhereHas('customer', function($q) use ($request){
+                    $q->where('name', 'like', "%$request->q%");
+                });
         }
 
         return inertia('Order/Index', [

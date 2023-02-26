@@ -6,7 +6,7 @@ use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class FastboatCart extends Component
+class OrderCart extends Component
 {
     public $cart = 0;
     protected $listeners = ['addCart' => 'countCart'];
@@ -18,7 +18,7 @@ class FastboatCart extends Component
 
     public function render()
     {
-        return view('livewire.fastboat-cart');
+        return view('livewire.order-cart');
     }
 
     public function countCart()

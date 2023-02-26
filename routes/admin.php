@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\CarRentalController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FastboatPlaceController;
@@ -75,6 +76,10 @@ Route::prefix('travel')->group(function() {
         // Package Tours
 
         // Car Rentals
+        Route::get('/car-rentals', [CarRentalController::class, 'index'])->name('car-rental.index');
+        Route::post('/car-rentals', [CarRentalController::class, 'store'])->name('car-rental.store');
+        Route::put('/car-rentals/{car}', [CarRentalController::class, 'update'])->name('car-rental.update');
+        Route::delete('/car-rentals/{car}', [CarRentalController::class, 'destroy'])->name('car-rental.destroy');
 
         // Fastboat Place
         Route::get('/fastboat/places', [FastboatPlaceController::class, 'index'])->name('fastboat.place.index');

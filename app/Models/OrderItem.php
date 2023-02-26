@@ -33,6 +33,9 @@ class OrderItem extends Model
                 if($this->item instanceof FastboatTrack) {
                     $detail = $this->item->detail($this->date);
                 }
+                if($this->item instanceof CarRental) {
+                    $detail = $this->item->detail($this->date);
+                }
 
                 return $detail;
             },

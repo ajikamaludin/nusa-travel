@@ -58,7 +58,7 @@ class FastboatTrack extends Model
 
     public function detail($date)
     {
-        return "<p>$this->order_detail</p>
+        return "<p>$this->order_detail (Fastboat)</p>
         <p>$this->arrival_time - $this->departure_time</p>
         <p>". Carbon::parse($date)->format('d-m-Y') ."</p>
         <p>@ ". number_format($this->price, '0', ',' ,' .') ."</p>";

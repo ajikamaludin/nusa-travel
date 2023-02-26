@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CarRental;
 use App\Models\Customer;
 use App\Models\Faq;
 use App\Models\FastboatPlace;
@@ -34,6 +35,7 @@ class DummySeeder extends Seeder
         $this->faq();
         $this->file();
         $this->customer();
+        $this->car_rentals();
     }
 
     public function setting()
@@ -442,5 +444,133 @@ class DummySeeder extends Seeder
             "is_active" => Customer::ACTIVE,
             "email_varified_at" => now(),
         ]);
+    }
+    public function car_rentals()
+    {
+        $cars = [
+            [
+                'id' => Str::uuid(),
+                'name' => 'Avanza',
+                'price' => '150000',
+                'description' => 'SERANGAN PORT - HOTEL (Kuta, Seminyak, Nusa dua)',
+                'capacity' => '4',
+                'luggage' => '2',
+                'transmission' => 'Manual',
+                'cover_image' => 'images/avanza.png',
+                'is_publish' => CarRental::READY,
+                'car_owned' => '4',
+            ],
+            [
+                'id' => Str::uuid(),
+                'name' => 'Elf Shot',
+                'price' => '225000',
+                'description' => 'SERANGAN PORT - HOTEL (Kuta, Seminyak, Nusa dua)',
+                'capacity' => '10',
+                'luggage' => '5',
+                'transmission' => 'Manual',
+                'cover_image' => 'images/elf_short.jpg',
+                'is_publish' => CarRental::READY,
+                'car_owned' => '4',
+            ],
+            [
+                'id' => Str::uuid(),
+                'name' => 'Long Elf / Hiace',
+                'price' => '350000',
+                'description' => 'SERANGAN PORT - HOTEL (Kuta, Seminyak, Nusa dua)',
+                'capacity' => '14',
+                'luggage' => '6',
+                'transmission' => 'Manual',
+                'cover_image' => 'images/hiace.png',
+                'is_publish' => CarRental::READY,
+                'car_owned' => '4',
+            ],
+            [
+                'id' => Str::uuid(),
+                'name' => 'Bus',
+                'price' => '600000',
+                'description' => 'SERANGAN PORT - HOTEL (Kuta, Seminyak, Nusa dua)',
+                'capacity' => '28',
+                'luggage' => '20',
+                'transmission' => 'Manual',
+                'cover_image' => 'images/bus.png',
+                'is_publish' => CarRental::READY,
+                'car_owned' => '1',
+            ],
+            [
+                'id' => Str::uuid(),
+                'name' => 'Bus',
+                'price' => '700000',
+                'description' => 'SERANGAN PORT - HOTEL (Kuta, Seminyak, Nusa dua)',
+                'capacity' => '35',
+                'luggage' => '30',
+                'transmission' => 'Manual',
+                'cover_image' => 'images/bus.png',
+                'is_publish' => CarRental::READY,
+                'car_owned' => '1',
+            ],
+            // 
+            [
+                'id' => Str::uuid(),
+                'name' => 'Avanza',
+                'price' => '250000',
+                'description' => 'SERANGAN PORT - HOTEL (Ubud / Tanah Lot)',
+                'capacity' => '4',
+                'luggage' => '2',
+                'transmission' => 'Manual',
+                'cover_image' => 'images/avanza.png',
+                'is_publish' => CarRental::READY,
+                'car_owned' => '4',
+            ],
+            [
+                'id' => Str::uuid(),
+                'name' => 'Elf Shot',
+                'price' => '350000',
+                'description' => 'SERANGAN PORT - HOTEL (Ubud / Tanah Lot)',
+                'capacity' => '10',
+                'luggage' => '5',
+                'transmission' => 'Manual',
+                'cover_image' => 'images/elf_short.jpg',
+                'is_publish' => CarRental::READY,
+                'car_owned' => '4',
+            ],
+            [
+                'id' => Str::uuid(),
+                'name' => 'Long Elf / Hiace',
+                'price' => '450000',
+                'description' => 'SERANGAN PORT - HOTEL (Ubud / Tanah Lot)',
+                'capacity' => '14',
+                'luggage' => '6',
+                'transmission' => 'Manual',
+                'cover_image' => 'images/hiace.png',
+                'is_publish' => CarRental::READY,
+                'car_owned' => '4',
+            ],
+            [
+                'id' => Str::uuid(),
+                'name' => 'Bus',
+                'price' => '900000',
+                'description' => 'SERANGAN PORT - HOTEL (Ubud / Tanah Lot)',
+                'capacity' => '28',
+                'luggage' => '20',
+                'transmission' => 'Manual',
+                'cover_image' => 'images/bus.png',
+                'is_publish' => CarRental::READY,
+                'car_owned' => '1',
+            ],
+            [
+                'id' => Str::uuid(),
+                'name' => 'Bus',
+                'price' => '1000000',
+                'description' => 'SERANGAN PORT - HOTEL (Ubud / Tanah Lot)',
+                'capacity' => '35',
+                'luggage' => '30',
+                'transmission' => 'Manual',
+                'cover_image' => 'images/bus.png',
+                'is_publish' => CarRental::READY,
+                'car_owned' => '1',
+            ],
+        ];
+
+        CarRental::insert($cars);
     }
 }

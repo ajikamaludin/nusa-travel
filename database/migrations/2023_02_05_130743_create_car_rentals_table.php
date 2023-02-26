@@ -21,7 +21,8 @@ return new class extends Migration
             $table->integer('capacity')->default(0);
             $table->integer('luggage')->default(0);
             $table->string('transmission')->nullable();
-            $table->uuid('cover_img_id')->nullable();
+            $table->string('cover_image')->nullable();
+            $table->smallInteger('car_owned')->default(0);
             $table->smallInteger('is_publish');
             $table->timestamps();
             $table->softDeletes();

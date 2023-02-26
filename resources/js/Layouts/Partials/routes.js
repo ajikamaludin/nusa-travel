@@ -61,8 +61,8 @@ export default [
         name: "Car Rentals",
         show: true,
         icon: HiOutlineTruck,
-        route: route("in.dev"),
-        active: "car-rental.indedx",
+        route: route("car-rental.index"),
+        active: "car-rental.index",
         permission: "view-customer",
     },
     {
