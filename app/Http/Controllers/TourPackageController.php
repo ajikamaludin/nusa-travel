@@ -55,7 +55,7 @@ class TourPackageController extends Controller
         }
 
         $package = TourPackage::create([
-            'slug' => Str::slug($request->title),
+            'slug' => Str::slug($request->title.Str::random(4)),
             'name' => $request->name,
             'title' => $request->title,
             'body' => $request->body,

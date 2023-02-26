@@ -13,6 +13,7 @@ use App\Models\Post;
 use App\Models\PostTag;
 use App\Models\Setting;
 use App\Models\Tag;
+use App\Models\TourPackage;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -36,6 +37,7 @@ class DummySeeder extends Seeder
         $this->file();
         $this->customer();
         $this->car_rentals();
+        $this->tour_packages();
     }
 
     public function setting()
@@ -445,6 +447,7 @@ class DummySeeder extends Seeder
             "email_varified_at" => now(),
         ]);
     }
+
     public function car_rentals()
     {
         $cars = [
@@ -572,5 +575,227 @@ class DummySeeder extends Seeder
         ];
 
         CarRental::insert($cars);
+    }
+
+    public function tour_packages() 
+    {
+        $packages = [
+            [
+                'name' => 'PENIDA DAY TOUR ( WEST )',
+                'title' => 'PENIDA DAY TOUR ( WEST )',
+                'body' => file_get_contents(__DIR__."/packages/1.txt"),
+                'meta_tag' => 'PENIDA DAY TOUR ( WEST )',
+                'price' => '475000',
+                'cover_image' => 'images/post4.webp',
+                'is_publish' => TourPackage::PUBLISH,
+                'prices' => [
+                    [
+                        'quantity' => 1,
+                        'price' => 635000
+                    ],
+                    [
+                        'quantity' => 3,
+                        'price' => 560000
+                    ],
+                    [
+                        'quantity' => 4,
+                        'price' => 510000
+                    ],
+                    [
+                        'quantity' => 5,
+                        'price' => 485000
+                    ],
+                    [
+                        'quantity' => 8,
+                        'price' => 475000
+                    ],
+                ], 
+            ],
+            [
+                'name' => 'PENIDA DAY TOUR ( EAST )',
+                'title' => 'PENIDA DAY TOUR ( EAST )',
+                'body' => file_get_contents(__DIR__."/packages/2.txt"),
+                'meta_tag' => 'PENIDA DAY TOUR ( EAST )',
+                'price' => '475000',
+                'cover_image' => 'images/post3.webp',
+                'is_publish' => TourPackage::PUBLISH,
+                'prices' => [
+                    [
+                        'quantity' => 1,
+                        'price' => 635000
+                    ],
+                    [
+                        'quantity' => 3,
+                        'price' => 560000
+                    ],
+                    [
+                        'quantity' => 4,
+                        'price' => 510000
+                    ],
+                    [
+                        'quantity' => 5,
+                        'price' => 485000
+                    ],
+                    [
+                        'quantity' => 8,
+                        'price' => 475000
+                    ],
+                ], 
+            ],
+            [
+                'name' => 'PENIDA DAY TOUR ( WEST - EAST )',
+                'title' => 'PENIDA DAY TOUR ( WEST - EAST )',
+                'body' => file_get_contents(__DIR__."/packages/3.txt"),
+                'meta_tag' => 'PENIDA DAY TOUR ( WEST - EAST )',
+                'price' => '540000',
+                'cover_image' => 'images/post3.webp',
+                'is_publish' => TourPackage::PUBLISH,
+                'prices' => [
+                    [
+                        'quantity' => 1,
+                        'price' => 725000
+                    ],
+                    [
+                        'quantity' => 3,
+                        'price' => 660000
+                    ],
+                    [
+                        'quantity' => 4,
+                        'price' => 600000
+                    ],
+                    [
+                        'quantity' => 5,
+                        'price' => 570000
+                    ],
+                    [
+                        'quantity' => 8,
+                        'price' => 540000
+                    ],
+                ], 
+            ],
+            [
+                'name' => 'PENIDA WEST TOUR - LEMBONGAN TOUR',
+                'title' => 'PENIDA WEST TOUR - LEMBONGAN TOUR',
+                'body' => file_get_contents(__DIR__."/packages/4.txt"),
+                'meta_tag' => 'PENIDA WEST TOUR - LEMBONGAN TOUR',
+                'price' => '590000',
+                'cover_image' => 'images/post2.webp',
+                'is_publish' => TourPackage::PUBLISH,
+                'prices' => [
+                    [
+                        'quantity' => 1,
+                        'price' => 880000
+                    ],
+                    [
+                        'quantity' => 3,
+                        'price' => 750000
+                    ],
+                    [
+                        'quantity' => 4,
+                        'price' => 670000
+                    ],
+                    [
+                        'quantity' => 5,
+                        'price' => 625000
+                    ],
+                    [
+                        'quantity' => 8,
+                        'price' => 590000
+                    ],
+                ], 
+            ],
+            [
+                'name' => 'PENIDA WEST TOUR - SNORKLING ( at QUICKSILVER MEGA PONTON)',
+                'title' => 'PENIDA WEST TOUR - SNORKLING ( at QUICKSILVER MEGA PONTON)',
+                'body' => file_get_contents(__DIR__."/packages/5.txt"),
+                'meta_tag' => 'PENIDA WEST TOUR - SNORKLING ( at QUICKSILVER MEGA PONTON)',
+                'price' => '580000',
+                'cover_image' => 'images/post1.webp',
+                'is_publish' => TourPackage::PUBLISH,
+                'prices' => [
+                    [
+                        'quantity' => 1,
+                        'price' => 740000
+                    ],
+                    [
+                        'quantity' => 3,
+                        'price' => 665000
+                    ],
+                    [
+                        'quantity' => 4,
+                        'price' => 615000
+                    ],
+                    [
+                        'quantity' => 5,
+                        'price' => 590000
+                    ],
+                    [
+                        'quantity' => 8,
+                        'price' => 580000
+                    ],
+                ], 
+            ],
+            [
+                'name' => 'LEMBONGAN ISLAND TOUR',
+                'title' => 'LEMBONGAN ISLAND TOUR',
+                'body' => file_get_contents(__DIR__."/packages/6.txt"),
+                'meta_tag' => 'LEMBONGAN ISLAND TOUR',
+                'price' => '475000',
+                'cover_image' => 'images/post1.webp',
+                'is_publish' => TourPackage::PUBLISH,
+                'prices' => [
+                    [
+                        'quantity' => 1,
+                        'price' => 635000
+                    ],
+                    [
+                        'quantity' => 3,
+                        'price' => 560000
+                    ],
+                    [
+                        'quantity' => 4,
+                        'price' => 510000
+                    ],
+                    [
+                        'quantity' => 5,
+                        'price' => 485000
+                    ],
+                    [
+                        'quantity' => 8,
+                        'price' => 475000
+                    ],
+                ], 
+            ],
+        ];
+
+        $images = collect();
+        foreach(range(1,4) as $img) {
+            $images->add(File::create([
+                'path' => 'images/post'.$img.'.webp'
+            ]));
+        }
+
+        foreach($packages as $pkg) {
+            $package = TourPackage::create([
+                'slug' => Str::slug($pkg['title']),
+                'name' => $pkg['name'],
+                'title' => $pkg['title'],
+                'body' => $pkg['body'],
+                'meta_tag' => $pkg['meta_tag'],
+                'price' => $pkg['price'],
+                'cover_image' => $pkg['cover_image'],
+                'is_publish' => $pkg['is_publish'],
+            ]);
+
+            foreach($pkg['prices'] as $price) {
+                $package->prices()->create($price);
+            }
+
+            foreach($images as $img) {
+                $package->images()->create([
+                    'file_id' => $img->id,
+                ]);
+            }
+        }
     }
 }

@@ -183,33 +183,33 @@
             <div class="flex flex-row justify-between">
                 <div class="text-3xl font-bold pb-1">Popular Tours</div>
                 <div class="see-more-container mt-1">
-                    <div type="button" class="inline-flex text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 items-center">
+                    <a href="{{ route('tour-packages.index') }}" class="inline-flex text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 items-center">
                         See More
                         <svg aria-hidden="true" class="w-5 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-2 px-1">
-                @foreach($posts as $a)
+                @foreach($packages as $package)
                 <div class="hover:-translate-y-2 ease-in duration-150 shadow first-letter:max-w-sm bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-                    <a href="{{ route('blog.post', $a) }}">
-                        <img class="rounded-t-lg" src="{{asset($a->cover_image)}}" alt="" />
+                    <a href="{{ route('tour-packages.show', $package) }}">
+                        <img class="rounded-t-lg" src="{{asset( $package->cover_image )}}" alt="" />
                     </a>
                     <div class="p-5">
-                        <a href="#">
-                            <h5 class="mb-1 tracking-tight font-bold text-gray-900 line-clamp-1 dark:text-white">{{ $a->title }}</h5>
+                        <a href="{{ route('tour-packages.show', $package) }}">
+                            <h5 class="mb-1 tracking-tight font-bold text-gray-900 line-clamp-1 dark:text-white">{{ $package->title }}</h5>
                         </a>
                         <span class="mb-3 py-1 px-2 text-xs font-bold rounded bg-gray-200 text-gray-700 dark:text-gray-400">Instant Confirmation</span>
                         <div class="pt-5">
                             From
-                            <span class="text-base font-bold">Rp 562.000</span>
+                            <span class="text-base font-bold">Rp. {{ number_format($package->price, '0', ',', '.') }}</span>
                         </div>
                     </div>
                 </div>
                 @endforeach
             </div>
             <div class="md:hidden w-full flex flex-row justify-center pt-2">
-                <div type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">See More...</div>
+                <a href="{{ route('tour-packages.index') }}" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">See More...</a>
             </div>
         </div>
     </div>

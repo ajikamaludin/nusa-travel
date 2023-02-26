@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Http\Controllers\Website;
+
+use App\Http\Controllers\Controller;
+use App\Models\TourPackage;
+use Illuminate\Http\Request;
+
+class TourPackageController extends Controller
+{
+    public function index(Request $request)
+    {
+        $query = TourPackage::where('is_publish', TourPackage::PUBLISH)->orderBy('updated_at', 'desc');
+        
+        return view('packages', [
+            'packages' => $query->paginate(),
+        ]);
+    }
+
+    public function show(TourPackage $package)
+    {
+        // 
+    }
+}

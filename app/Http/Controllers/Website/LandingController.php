@@ -7,6 +7,7 @@ use App\Models\Faq;
 use App\Models\FastboatPlace;
 use App\Models\File;
 use App\Models\Post;
+use App\Models\TourPackage;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,7 @@ class LandingController extends Controller
             'posts' => $posts,
             'faqs' => Faq::orderBy('order', 'asc')->limit(4)->get(),
             'images' => File::where('show_on', '!=', 0)->orderBy('show_on', 'asc')->get(),
+            'packages' => TourPackage::where('is_publish', TourPackage::PUBLISH)->orderBy('updated_at', 'desc')->limit(4)->get()
         ]);
     }
 

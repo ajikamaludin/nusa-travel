@@ -9,6 +9,7 @@ use App\Http\Controllers\Website\OrderController;
 use App\Http\Controllers\Website\SignUpController;
 use App\Http\Controllers\Website\PageController;
 use App\Http\Controllers\Website\ProfileController as CustomerProfileController;
+use App\Http\Controllers\Website\TourPackageController;
 use App\Http\Middleware\GuardCustomer;
 use App\Http\Middleware\VisitorCounter;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function () {
     // Package Tours
+    Route::get('/tour-packages',[TourPackageController::class, 'index'])->name('tour-packages.index');
+    Route::get('/tour-packages/{package:slug}',[TourPackageController::class, 'show'])->name('tour-packages.show');
+
     // Car Rentals
     Route::get('/car-rentals',[CarRentalController::class, 'index'])->name('car.index');
 
