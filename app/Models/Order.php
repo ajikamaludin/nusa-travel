@@ -15,6 +15,8 @@ class Order extends Model
     const PAYMENT_ERROR = 2;
     const PAYMENT_PENDING = 3;
 
+    protected $cascadeDeletes = [];
+
     protected $fillable = [
         'order_code',
         'customer_id',
@@ -28,7 +30,10 @@ class Order extends Model
         'payment_response',
         'payment_channel',
         'payment_type',
+        'description'
     ];
+
+    protected $appends = ['order_date_formated', 'payment_status_text', 'payment_status_color'];
 
     public function customer()
     {

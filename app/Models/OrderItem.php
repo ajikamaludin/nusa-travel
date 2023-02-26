@@ -18,6 +18,8 @@ class OrderItem extends Model
         'end_date',
     ];
 
+    protected $appends = ['detail'];
+
     public function item()
     {
         return $this->belongsTo((string) $this->entity_order, 'entity_id');

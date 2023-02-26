@@ -37,7 +37,6 @@ class OrderController extends Controller
 
         $carts = collect($cart)->map(function($cart, $id) {
             $track = $cart['type']::find($id);
-
             if($track instanceof FastboatTrack) {
                 $detail = $track->detail($cart['date']);
             }
@@ -48,7 +47,7 @@ class OrderController extends Controller
                 'price' => $track->price,
                 'qty' => $cart['qty'],
                 'type' => $cart['type'],
-                'date' => $cart['date']
+                'date' => $cart['date'],
             ];
         });
 
@@ -87,6 +86,34 @@ class OrderController extends Controller
         ]);
     }
 
+    public function payment_notification(Request $request)
+    {
+        $order = Order::where('id', $request->order_id)->first();
+
+        if($order != null) {
+            $order->fill([
+                'payment_response' => json_encode($request->all()),
+                'payment_type' => $request->result['payment_type'],
+                'payment_channel' => $request->result['transaction_status'],
+            ]);
+
+            if ($request->transaction_status == 'settlement' || $request->transaction_status == 'capture') {
+                $order->fill(['payment_status' => Order::PAYMENT_SUCESS]);
+            } elseif ($request->transaction_status == 'pending') {
+                $order->fill(['payment_status' => Order::PAYMENT_PENDING]);
+            } else {
+                $order->fill(['payment_status' => Order::PAYMENT_ERROR]);
+            }
+
+            $order->save();
+        }
+
+        return response()->json([
+            'status' => 'ok',
+            'order'=> $order
+        ]);
+    }
+
     public function show(Order $order)
     {
         return view('order', [
@@ -97,7 +124,7 @@ class OrderController extends Controller
     public function orders()
     {
         $user = Auth::guard('customer')->user();
-        $orders = Order::where('customer_id', $user->id);
+        $orders = Order::where('customer_id', $user->id)->where('order_type', Order::TYPE_ORDER);
         return view('customer.order', [
             'orders' => $orders->orderBy('payment_status', 'desc')->orderBy('created_at', 'desc')->paginate(), 
         ]);

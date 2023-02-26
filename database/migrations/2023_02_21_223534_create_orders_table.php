@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('payment_response')->nullable();
             $table->string('payment_channel')->nullable();
             $table->string('payment_type')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by')->nullable();

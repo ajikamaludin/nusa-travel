@@ -8,7 +8,7 @@
             </a>
             <div class="lang-container flex-row gap-1 items-center">
                 <div>
-                    <div id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="px-2.5 py-2.5 cursor-pointer text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 flex flex-row gap-2 items-center">
+                    <div id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="px-2.5 py-2.5 cursor-pointer text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white flex flex-row gap-2 items-center">
                         @if(session('locale') == 'en')
                         <img src="{{asset('images/flag_usa.png')}}" class="h-3 w-auto" alt="nation"/>
                         @else
@@ -57,7 +57,7 @@
                 </div>
 
                 @else
-                <a href="{{ route('customer.signup') }}" class="px-5 py-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">{{__('website.Sign Up')}}</a>
+                <a href="{{ route('customer.signup') }}" class="px-5 py-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white">{{__('website.Sign Up')}}</a>
                 <a href="{{ route('customer.login') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{__('website.Login')}}</a>
                 @endif
             </div>
@@ -73,25 +73,25 @@
     <!-- Menu -->
     <div class="menu-container flex-row gap-2 items-center border-b-2 border-gray-100 px-2 lg:px-16 overflow-auto">
         <div class="flex flex-row max-w-7xl mx-auto w-full items-center font-bold">
-            <a href="{{ route('home.index') }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
+            <a href="{{ route('home.index') }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white">
                 Home
             </a>
-            <div class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
+            <div class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white">
                 Tour Packages
             </div>
-            <a href="{{ route('fastboat.index') }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
+            <a href="{{ route('fastboat.index') }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white">
                 Fastboat
             </a>
-            <div class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
+            <div class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white">
                 Car Rentals
             </div>
-            <a href="{{ route('blog.index') }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
+            <a href="{{ route('blog.index') }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white">
                 Blog
             </a>
-            <a href="{{ route('page.faq') }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
+            <a href="{{ route('page.faq') }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white">
                 FAQ
             </a>
-            <a href="{{ route('page.show', ['page' => 'aboutus']) }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
+            <a href="{{ route('page.show', ['page' => 'aboutus']) }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white">
                 About Us
             </a>
         </div>
@@ -108,39 +108,61 @@
     <div class="py-4 overflow-y-auto">
         <ul>
             <li>
-                <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="{{ route('home.index') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
                 <span class="ml-3">Home</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
                 <span class="ml-3">Tour Packages</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="{{ route('fastboat.index') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
                 <span class="ml-3">Fastboat</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="#" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
                 <span class="ml-3">Car Rentals</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('blog.index') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="{{ route('blog.index') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
                 <span class="ml-3">Blog</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('page.faq') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="{{ route('page.faq') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
                 <span class="ml-3">FAQ</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('page.show', ['page' => 'aboutus']) }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="{{ route('page.show', ['page' => 'aboutus']) }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
                 <span class="ml-3">About us</span>
                 </a>
+            </li>
+            <li>
+                @guest
+                <div class="grid grid-cols-2">
+                    <a href="{{ route('customer.signup') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 border-2">
+                    <span class="ml-3">{{ __('website.Sign Up') }}</span>
+                    </a>
+                    <a href="{{ route('customer.login') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 border-2">
+                    <span class="ml-3">{{ __('website.Login') }}</span>
+                    </a>
+                </div>
+                @endguest
+                @auth
+                <div class="grid grid-cols-2">
+                    <a href="{{ route('customer.profile') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 border-2">
+                        <span class="ml-3">{{ __('website.Logout') }}</span>
+                    </a>
+                    <a href="{{ route('customer.orders') }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 border-2">
+                        <span class="ml-3">{{ 'Order' }}</span>
+                    </a>
+                </div>
+                @endauth
             </li>
         </ul>
     </div>

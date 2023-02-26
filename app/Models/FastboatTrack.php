@@ -10,7 +10,7 @@ class FastboatTrack extends Model
 {
     use OrderAble;
 
-    protected $ORDER_NAMES = ['source.name', 'destination.name']; // need to know if this works
+    protected $ORDER_NAMES = ['source.name', 'destination.name'];
 
     protected $fillable = [
         'fastboat_source_id',

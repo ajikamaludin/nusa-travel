@@ -5,7 +5,7 @@ import Button from '@/Components/Button';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function Payment(props) {
-    const { setting } = props
+    const { setting, notification_url } = props
     
     const {data, setData, post, processing, errors} = useForm({
         midtrans_client_key: setting[0].midtrans_client_key,
@@ -55,6 +55,11 @@ export default function Payment(props) {
                             onChange={handleOnChange}
                             label="Midtrans Merchant ID"
                             error={errors.midtrans_merchant_id}
+                        />
+                        <FormInput
+                            value={notification_url}
+                            label="Notification URL"
+                            readOnly={true}
                         />
                         <div className='mt-2'>
                             <Button

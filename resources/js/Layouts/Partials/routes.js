@@ -77,8 +77,8 @@ export default [
         name: "Order",
         show: true,
         icon: HiOutlineCash,
-        route: route("in.dev"),
-        active: "order.index",
+        route: route("order.index"),
+        active: "order.*",
         permission: "view-order",
     },
     {
@@ -165,7 +165,7 @@ export default [
         show: true,
         icon: HiViewGrid,
         route: route("gallery.index"),
-        active: "order.index",
+        active: "gallery.index",
         permission: "view-gallery",
     },
     {

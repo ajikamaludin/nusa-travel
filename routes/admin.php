@@ -7,6 +7,7 @@ use App\Http\Controllers\FastboatPlaceController;
 use App\Http\Controllers\FastboatTrackController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
@@ -108,5 +109,10 @@ Route::prefix('travel')->group(function() {
         Route::resource('/roles', RoleController::class);
 
         // Order
+        Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+        Route::get('/orders/{order}', [OrderController::class, 'show'])->name('order.show');
+        Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('order.edit');
+        Route::put('/orders/{order}', [OrderController::class, 'update'])->name('order.update');
+        Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
     });
 });

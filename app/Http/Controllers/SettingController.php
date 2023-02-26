@@ -90,6 +90,7 @@ class SettingController extends Controller
 
         return inertia('Setting/Payment', [
             'setting' => (object) $setting,
+            'notification_url' => route('api.notification.payment')
         ]);
     }
 

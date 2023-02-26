@@ -10,7 +10,7 @@
 @section('content')
     <section class="w-full min-h-[250px] relative flex flex-col items-center justify-center">
         <img src="{{asset('images/2.jpg')}}" class="w-full brightness-75 h-full rounded object-cover blur-[1px] absolute top-0" alt="...">
-        <div class="md:block absolute z-40 -bottom-10 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto h-60"> 
+        <div class="md:block absolute z-40 -bottom-10 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto max-w-5xl h-60"> 
             <div class="bg-white rounded-lg border-gray-200 shadow-lg px-8 py-6">
                 <x-fastboat-schedule :ways="$ways" :from="$from" :to="$to" :date="$date" :rdate="$rdate"/>
             </div>

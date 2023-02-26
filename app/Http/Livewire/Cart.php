@@ -163,6 +163,7 @@ class Cart extends Component
             'customer_id' => $customer->id,
             'total_amount' => $this->total,
             'order_type' => Order::TYPE_ORDER,
+            'date' => now()
         ]);
 
         foreach($this->carts as $cart) {

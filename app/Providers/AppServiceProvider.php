@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
                     [
                         'bindings' => $query->bindings,
                         'time' => $query->time,
-                        'connectionName' => $query->connectionName
+                        'connectionName' => $query->connectionName,
                     ]
                 );
             });

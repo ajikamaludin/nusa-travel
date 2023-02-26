@@ -66,7 +66,7 @@ class FastboatItem extends Component
                 $cart->items()->create([
                     "entity_order" => FastboatTrack::class,
                     "entity_id" => $this->track->id,
-                    "description" => "",
+                    "description" => $this->track->order_detail,
                     "amount" => $this->track->price,
                     "quantity" => 1,
                     "date" => $this->date
@@ -81,7 +81,7 @@ class FastboatItem extends Component
             $cart->items()->create([
                 "entity_order" => FastboatTrack::class,
                 "entity_id" => $this->track->id,
-                "description" => "",
+                "description" => $this->track->order_detail,
                 "amount" => $this->track->price,
                 "quantity" => 1,
                 "date" => $this->date
