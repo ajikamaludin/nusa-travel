@@ -12,6 +12,7 @@ use App\Models\Post;
 use App\Models\PostTag;
 use App\Models\Setting;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -368,7 +369,8 @@ class DummySeeder extends Seeder
                     'cover_image' => $p['image'],
                     'is_publish' => Post::PUBLISH,
                     'title' => $p['title'],
-                    'body' => file_get_contents(__DIR__.$p['file'])
+                    'body' => file_get_contents(__DIR__.$p['file']),
+                    'created_by' => User::first()->id,
                 ]);
 
                 PostTag::create([

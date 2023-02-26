@@ -21,7 +21,10 @@ class BlogController extends Controller
     public function show(Post $post)
     {
         Visitor::track([Post::class, $post->id]);
+        $post = $post->loadCount(['visitors']);
 
-        return view('blog-post', ['post' => $post]);
+        return view('blog-post', [
+            'post' => $post
+        ]);
     }
 }

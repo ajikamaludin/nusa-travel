@@ -67,6 +67,13 @@ class Post extends Model
         );
     }
 
+    protected function publishAtHuman(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->created_at->format('d F Y'),
+        );
+    }
+
     protected function imageUrl(): Attribute
     {
         return Attribute::make(
