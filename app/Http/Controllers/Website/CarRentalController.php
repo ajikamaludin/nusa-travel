@@ -11,7 +11,7 @@ class CarRentalController extends Controller
 {
     public function index(Request $request) 
     {
-        $query = CarRental::query();
+        $query = CarRental::query()->where('is_publish', CarRental::READY);
 
         if($request->person != '') {
             $query->where('capacity', '>=', $request->person);
