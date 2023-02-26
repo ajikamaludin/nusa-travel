@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('tour_package_id');
             $table->integer('quantity')->default(0);
+            $table->string('quantity_name')->nullable();
             $table->decimal('price', 14, 2)->default(0);
             $table->timestamps();
             $table->softDeletes();

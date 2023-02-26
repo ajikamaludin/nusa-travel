@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('tour_packages', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
+            $table->string('slug')->nullable();
             $table->string('title')->nullable();
             $table->text('body')->nullable();
             $table->string('meta_tag')->nullable();
             $table->decimal('price', 14, 2)->default(0);
-            $table->uuid('cover_img_id')->nullable();
+            $table->string('cover_image')->nullable();
             $table->smallInteger('is_publish')->default(0);
             $table->timestamps();
             $table->softDeletes();

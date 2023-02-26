@@ -24,11 +24,15 @@ class GeneralController extends Controller
         $file = $request->file('image');
         $file->store('uploads', 'public');
 
-        File::create([
+        $uploaded = File::create([
             'name' => $file->getClientOriginalName(),
             'path' => $file->hashName('uploads')
         ]);
 
-        return response()->json(['url' => asset($file->hashName('uploads'))]);
+        return response()->json([
+            'id' => $uploaded->id,
+            'name' => $uploaded->name,
+            'url' => asset($file->hashName('uploads'))
+        ]);
     }
 }

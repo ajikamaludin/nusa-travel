@@ -53,9 +53,9 @@ export default [
         name: "Tour Packages",
         show: true,
         icon: HiOutlineCube,
-        route: route("in.dev"),
-        active: "tour-package.index",
-        permission: "view-customer",
+        route: route("packages.index"),
+        active: "packages.*",
+        permission: "view-tour-package",
     },
     {
         name: "Car Rentals",
@@ -63,7 +63,7 @@ export default [
         icon: HiOutlineTruck,
         route: route("car-rental.index"),
         active: "car-rental.index",
-        permission: "view-customer",
+        permission: "view-car-rental",
     },
     {
         name: "Customer",
