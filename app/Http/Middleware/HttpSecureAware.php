@@ -17,7 +17,7 @@ class HttpSecureAware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(app()->isProduction() && !$request->secure()) {
+        if(env('HTTPS_AWARE', false)) {
             URL::forceScheme('https');
             $request->server->set('HTTPS','on');
         }
