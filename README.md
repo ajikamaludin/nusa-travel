@@ -2,3 +2,5 @@
 
 ### TODO
 - sitemap ?
+- email order 
+- etc
