@@ -5,8 +5,10 @@ namespace Database\Seeders;
 use App\Models\CarRental;
 use App\Models\Customer;
 use App\Models\Faq;
+use App\Models\Fastboat;
 use App\Models\FastboatPlace;
 use App\Models\FastboatTrack;
+use App\Models\FastboatTrackGroup;
 use App\Models\File;
 use App\Models\Page;
 use App\Models\Post;
@@ -30,7 +32,7 @@ class DummySeeder extends Seeder
     {
         $this->setting();
         $this->place();
-        $this->track();
+        // $this->track();
         $this->blog();
         $this->page();
         $this->faq();
@@ -75,6 +77,8 @@ class DummySeeder extends Seeder
             ['id' => Str::uuid(), 'key' => 'midtrans_server_key', 'value' => 'SB-Mid-server-UA0LQbY4aALV0CfLLX1v7xs8', 'type' => 'text', 'label' => 'Midtrans Server Key'],
             ['id' => Str::uuid(), 'key' => 'midtrans_client_key', 'value' => 'SB-Mid-client-xqqkspzoZOM10iUG', 'type' => 'text', 'label' => 'Midtrans Client Key'],
             ['id' => Str::uuid(), 'key' => 'midtrans_merchant_id', 'value' => 'G561244367', 'type' => 'text', 'label' => 'Midtrans Merchatn Id'],
+            ['id' => Str::uuid(), 'key' => 'WHATSAPP_FLOAT_ENABLE', 'value' => 'true', 'type' => 'checkbox', 'label' => 'Whatsapp Float Button Enable'],
+            ['id' => Str::uuid(), 'key' => 'WHATSAPP_URL', 'value' => 'https://wa.me/6287820231626', 'type' => 'text', 'label' => 'Whatsapp Url'],
         ];
 
         Setting::insert($setting);
@@ -97,8 +101,23 @@ class DummySeeder extends Seeder
         FastboatPlace::insert($places);
     }
 
+    public function fastboat()
+    {
+        $fastboats = [
+            ['id' => Str::uuid(), 'number' => 'CCX1', 'name' => 'Fastboat 1', 'capacity' => '35'],
+            ['id' => Str::uuid(), 'number' => 'XXC2', 'name' => 'Fastboat 2', 'capacity' => '35'],
+        ];
+
+        Fastboat::insert($fastboats);
+    }
+
     public function track()
     {
+        // TODO: ?
+        // $fastboats = Fastboat::all();
+        // $fastboat1 = $fastboats->first();
+        // $fastboat2 = $fastboats->last();
+
         $SERANGAN = FastboatPlace::where('name', 'SERANGAN')->first()->id;
         $LEMBONGAN = FastboatPlace::where('name', 'LEMBONGAN')->first()->id;
         $PENIDA = FastboatPlace::where('name', 'PENIDA')->first()->id;
@@ -108,6 +127,15 @@ class DummySeeder extends Seeder
         $AIR = FastboatPlace::where('name', 'AIR')->first()->id;
         $BANGSAL = FastboatPlace::where('name', 'BANGSAL')->first()->id;
         $SENGGIGI = FastboatPlace::where('name', 'SENGGIGI')->first()->id;
+
+        // $groups = [
+        //     [
+        //         'fastboat_id' => $fastboat1->id,
+        //         'name' => ''
+        //     ]
+        // ];
+
+        // FastboatTrackGroup::create();
 
         $tracks = [
             [
@@ -336,7 +364,6 @@ class DummySeeder extends Seeder
             return [
                 ...$track,
                 "id" => Str::uuid(),
-                "capacity" => "100",
                 "arrival_time" => "10:00",
                 "departure_time" => "11:00",
                 "is_publish" => "1",

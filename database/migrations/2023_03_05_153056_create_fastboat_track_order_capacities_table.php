@@ -8,20 +8,16 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('fastboat_tracks', function (Blueprint $table) {
+        Schema::create('fastboat_track_order_capacities', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('fastboat_track_group_id')->nullable();
             $table->uuid('fastboat_source_id')->nullable();
             $table->uuid('fastboat_destination_id')->nullable();
-            $table->time('arrival_time')->nullable();
-            $table->time('departure_time')->nullable();
-            $table->decimal('price', 14, 2)->default(0);
-            $table->smallInteger('is_publish')->default(0);
+            $table->date('date')->nullable();
+            $table->integer('capacity')->default(0);
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by')->nullable();
@@ -32,11 +28,9 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('fastboat_tracks');
+        Schema::dropIfExists('fastboat_track_order_capacities');
     }
 };

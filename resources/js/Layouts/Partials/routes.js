@@ -32,6 +32,14 @@ export default [
         icon: HiPaperAirplane,
         items: [
             {
+                name: "Dropoff",
+                show: true,
+                icon: HiClipboardList,
+                route: route("fastboat.dropoff.index"),
+                active: "fastboat.dropoff.*",
+                permission: "view-fastboat-dropoff",
+            },
+            {
                 name: "Dock",
                 show: true,
                 icon: HiClipboardList,

@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CarRentalController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FastboatDropoffController;
 use App\Http\Controllers\FastboatPlaceController;
 use App\Http\Controllers\FastboatTrackController;
 use App\Http\Controllers\GalleryController;
@@ -17,9 +18,10 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\TourPackageController;
+use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('travel')->group(function() {
+Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(function() {
     Route::get('/', fn() => redirect()->route('login'));
 
     Route::get('in-dev', [GeneralController::class, 'indev'])->name('in.dev');
@@ -85,6 +87,12 @@ Route::prefix('travel')->group(function() {
         Route::post('/car-rentals', [CarRentalController::class, 'store'])->name('car-rental.store');
         Route::put('/car-rentals/{car}', [CarRentalController::class, 'update'])->name('car-rental.update');
         Route::delete('/car-rentals/{car}', [CarRentalController::class, 'destroy'])->name('car-rental.destroy');
+
+        // Fastboat Dropoff
+        Route::get('/fastboat/dropoff', [FastboatDropoffController::class, 'index'])->name('fastboat.dropoff.index');
+        Route::post('/fastboat/dropoff', [FastboatDropoffController::class, 'store'])->name('fastboat.dropoff.store');
+        Route::put('/fastboat/dropoff/{dropoff}', [FastboatDropoffController::class, 'update'])->name('fastboat.dropoff.update');
+        Route::delete('/fastboat/dropoff/{dropoff}', [FastboatDropoffController::class, 'destroy'])->name('fastboat.dropoff.destroy');
 
         // Fastboat Place
         Route::get('/fastboat/places', [FastboatPlaceController::class, 'index'])->name('fastboat.place.index');

@@ -15,6 +15,7 @@
         <!-- Styles -->
         @vite(['resources/js/frontpage.jsx'])
         @yield('css')
+        @stack('style')
         @livewireStyles
     </head>
     <body class="antialiased">

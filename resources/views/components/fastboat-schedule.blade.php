@@ -1,3 +1,10 @@
+@push('style')
+    <!-- css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tomik23/autocomplete@1.8.6/dist/css/autocomplete.min.css"/>
+    <!-- js -->
+    <script src="https://cdn.jsdelivr.net/gh/tomik23/autocomplete@1.8.6/dist/js/autocomplete.min.js"></script>
+@endpush
+
 <form method="GET" action="{{ route('fastboat.index') }}">
     <!-- @csrf -->
     <div class="flex flex-row w-full">
@@ -64,5 +71,40 @@
             });
         });
     }
+</script>
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        const options = {
+            showAllValues: true,
+            onSearch: ({ currentValue }) => {
+                const api = `{{ route('api.fastboat.place.index') }}?q=${encodeURI(
+                    currentValue
+                )}`;
+                return new Promise((resolve) => {
+                fetch(api)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        resolve(data);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                });
+            },
+
+            onResults: ({ matches }) => {
+                return matches
+                    .map((el) => {
+                    return `
+                        <li>${el.name}</li>`;
+                    })
+                    .join('');
+                },
+        }
+
+        // 'local' is the 'id' of input element
+        new Autocomplete('from', options);
+        new Autocomplete('to', options);
+    });
 </script>
 @endpush

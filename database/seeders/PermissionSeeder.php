@@ -76,6 +76,11 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'View Fastboat Track', 'name' => 'view-fastboat-track'],
             ['id' => Str::uuid(), 'label' => 'Delete Fastboat Track', 'name' => 'delete-fastboat-track'],
 
+            ['id' => Str::uuid(), 'label' => 'Create Fastboat Dropoff', 'name' => 'create-fastboat-dropoff'],
+            ['id' => Str::uuid(), 'label' => 'Update Fastboat Dropoff', 'name' => 'update-fastboat-dropoff'],
+            ['id' => Str::uuid(), 'label' => 'View Fastboat Dropoff', 'name' => 'view-fastboat-dropoff'],
+            ['id' => Str::uuid(), 'label' => 'Delete Fastboat Dropoff', 'name' => 'delete-fastboat-dropoff'],
+
             ['id' => Str::uuid(), 'label' => 'Create User', 'name' => 'create-user'],
             ['id' => Str::uuid(), 'label' => 'Update User', 'name' => 'update-user'],
             ['id' => Str::uuid(), 'label' => 'View User', 'name' => 'view-user'],
