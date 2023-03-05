@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CarRentalController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FastboatController;
 use App\Http\Controllers\FastboatDropoffController;
 use App\Http\Controllers\FastboatPlaceController;
 use App\Http\Controllers\FastboatTrackController;
@@ -87,6 +88,14 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::post('/car-rentals', [CarRentalController::class, 'store'])->name('car-rental.store');
         Route::put('/car-rentals/{car}', [CarRentalController::class, 'update'])->name('car-rental.update');
         Route::delete('/car-rentals/{car}', [CarRentalController::class, 'destroy'])->name('car-rental.destroy');
+
+        // Faq
+        Route::get('/fastboat', [FastboatController::class, 'index'])->name('fastboat.index');
+        Route::get('/fastboat/create', [FastboatController::class, 'create'])->name('fastboat.create');
+        Route::post('/fastboat', [FastboatController::class, 'store'])->name('fastboat.store');
+        Route::get('/fastboat/{fastboat}', [FastboatController::class, 'edit'])->name('fastboat.edit');
+        Route::post('/fastboat/{fastboat}', [FastboatController::class, 'update'])->name('fastboat.update');
+        Route::delete('/fastboat/{fastboat}', [FastboatController::class, 'destroy'])->name('fastboat.destroy');
 
         // Fastboat Dropoff
         Route::get('/fastboat/dropoff', [FastboatDropoffController::class, 'index'])->name('fastboat.dropoff.index');

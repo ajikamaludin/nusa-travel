@@ -26,7 +26,7 @@
             <div class="md:px-2">
                 <div class="text-lg md:text-xl font-bold pb-2">Products</div>
                 <div><a href="{{route('tour-packages.index')}}">Tour Travels</a></div>
-                <div><a href="{{route('fastboat.index')}}">Fastboat</a></div>
+                <div><a href="{{route('fastboat')}}">Fastboat</a></div>
                 <div><a href="{{route('car.index')}}">Car Rentals</a></div>
             </div>
         </div>

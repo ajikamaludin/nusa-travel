@@ -84,5 +84,7 @@ class FaqController extends Controller
     public function destroy(Faq $faq)
     {
         $faq->delete();
+
+        session()->flash('message', ['type' => 'success', 'message' => 'Faq has beed deleted']); 
     }
 }

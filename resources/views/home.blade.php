@@ -78,7 +78,7 @@
                 </ul>
             </div>
             <div class="bg-white rounded-b-lg rounded-r-lg border-gray-200 shadow-lg px-8 py-6">
-                <form method="GET" action="{{ route('fastboat.index') }}">
+                <form method="GET" action="{{ route('fastboat') }}">
                     <div class="flex flex-row w-full ">
                         <ul class="grid w-full gap-1 grid-cols-2">
                             <li>

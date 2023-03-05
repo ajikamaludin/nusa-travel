@@ -66,6 +66,11 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'View Car Rental', 'name' => 'view-car-rental'],
             ['id' => Str::uuid(), 'label' => 'Delete Car Rental', 'name' => 'delete-car-rental'],
 
+            ['id' => Str::uuid(), 'label' => 'Create Fastboat', 'name' => 'create-fastboat'],
+            ['id' => Str::uuid(), 'label' => 'Update Fastboat', 'name' => 'update-fastboat'],
+            ['id' => Str::uuid(), 'label' => 'View Fastboat', 'name' => 'view-fastboat'],
+            ['id' => Str::uuid(), 'label' => 'Delete Fastboat', 'name' => 'delete-fastboat'],
+
             ['id' => Str::uuid(), 'label' => 'Create Fastboat Place', 'name' => 'create-fastboat-place'],
             ['id' => Str::uuid(), 'label' => 'Update Fastboat Place', 'name' => 'update-fastboat-place'],
             ['id' => Str::uuid(), 'label' => 'View Fastboat Place', 'name' => 'view-fastboat-place'],

@@ -5,7 +5,7 @@
     <script src="https://cdn.jsdelivr.net/gh/tomik23/autocomplete@1.8.6/dist/js/autocomplete.min.js"></script>
 @endpush
 
-<form method="GET" action="{{ route('fastboat.index') }}">
+<form method="GET" action="{{ route('fastboat') }}">
     <!-- @csrf -->
     <div class="flex flex-row w-full">
         <ul class="items-center w-full md:w-1/2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">

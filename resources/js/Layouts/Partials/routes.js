@@ -48,6 +48,14 @@ export default [
                 permission: "view-fastboat-place",
             },
             {
+                name: "Fastboat",
+                show: true,
+                icon: HiClipboardList,
+                route: route("fastboat.index"),
+                active: "fastboat.*",
+                permission: "view-fastboat",
+            },
+            {
                 name: "Track",
                 show: true,
                 icon: HiClipboardList,
