@@ -57,6 +57,7 @@ class FastboatSeeder extends Seeder
         $fastboats = [
             ['id' => Str::uuid(), 'number' => 'CCX1', 'name' => 'Fastboat 1', 'capacity' => '20'],
             ['id' => Str::uuid(), 'number' => 'XXC2', 'name' => 'Fastboat 2', 'capacity' => '50'],
+            ['id' => Str::uuid(), 'number' => 'CCC3', 'name' => 'Fastboat 3', 'capacity' => '100'],
         ];
 
         Fastboat::insert($fastboats);
