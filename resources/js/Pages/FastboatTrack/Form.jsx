@@ -100,7 +100,7 @@ export default function Form(props) {
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden p-4 shadow-sm sm:rounded-lg bg-white dark:bg-gray-800 flex flex-col ">
-                        <div className='text-xl font-bold mb-4'>{"Track"}</div>
+                        <div className='text-xl font-bold mb-4'>{"Fastboat Track"}</div>
                         <FastboatSelectionInput
                             label="Fastboat"
                             itemSelected={data.fastboat_id}
