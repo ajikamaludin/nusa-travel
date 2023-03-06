@@ -23,15 +23,16 @@ class Setting extends Model
     {
         if (self::$instance == null) {
             self::$instance = new Setting();
+            // TODO: make this cached
             self::$instance->setting = Setting::all();
         }
         return self::$instance;
     }
 
-    public function getValue($key): string
+    public function getValue($key): string|null
     {
         $v = self::getInstance();
-        return $v->setting->where('key', $key)->first()->value;
+        return $v->setting->where('key', $key)->value('value');
     }
 
     public function getSlides(): array

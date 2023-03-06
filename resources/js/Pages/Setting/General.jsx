@@ -5,6 +5,7 @@ import Button from '@/Components/Button';
 import { Head, useForm } from '@inertiajs/react';
 import TextArea from '@/Components/TextArea';
 import FormFile from '@/Components/FormFile';
+import Checkbox from '@/Components/Checkbox';
 
 const extractValue = (set, key) => {
     const find = set.find(s => s.key === key)
@@ -25,6 +26,9 @@ export default function General(props) {
         site_subwelcome: extractValue(props.setting, 'G_SITE_SUBWELCOME'),
         site_meta_desc: extractValue(props.setting, 'G_SITE_META_DESC'),
         site_meta_keyword: extractValue(props.setting, 'G_SITE_META_KEYWORD'),
+        whatsapp_float_enable: extractValue(props.setting, 'G_WHATSAPP_FLOAT_ENABLE'),
+        whatsapp_url: extractValue(props.setting, 'G_WHATSAPP_URL'),
+        whatsapp_text: extractValue(props.setting, 'G_WHATSAPP_TEXT'),
         logo: null,
         site_logo: extractValue(props.setting, 'G_SITE_LOGO'),
         slide1: null,
@@ -42,8 +46,8 @@ export default function General(props) {
 
     const handleSubmit = () => {
         post(route('setting.update-general'), {
-            onFinish: () => {
-                location.reload()
+            onSuccess: () => {
+                setTimeout(() => location.reload(), 3000)
             }
         })
     }
@@ -54,9 +58,9 @@ export default function General(props) {
             errors={props.errors}
             flash={props.flash}
             page={"Setting"}
-            action={"Payment"}
+            action={"General"}
         >
-            <Head title="Payment" />
+            <Head title="General" />
 
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8">
@@ -139,7 +143,31 @@ export default function General(props) {
                                     <img src={`${data.site_slide3}`} className="w-full h-32 object-cover mb-1" alt="site logo"/>
                                 }
                             />
-                        <div className='mt-2'>
+                            <div className='border-2 rounded-lg p-2'>
+                                <FormInput
+                                    name="whatsapp_text"
+                                    value={data.whatsapp_text}
+                                    onChange={handleOnChange}
+                                    label="Whatsapp Text"
+                                    error={errors.whatsapp_text}
+                                />
+                                <FormInput
+                                    name="whatsapp_url"
+                                    value={data.whatsapp_url}
+                                    onChange={handleOnChange}
+                                    label="Whatsapp URL"
+                                    placeholder="http://wa.me/6283840745543"
+                                    error={errors.whatsapp_url}
+                                />
+                                <Checkbox
+                                    name="whatsapp_float_enable"
+                                    value={+data.whatsapp_float_enable === 1}
+                                    onChange={handleOnChange}
+                                    label="Show"
+                                    error={errors.whatsapp_float_enable}
+                                />
+                            </div>
+                        <div className='mt-4'>
                             <Button
                                 onClick={handleSubmit}
                                 processing={processing} 

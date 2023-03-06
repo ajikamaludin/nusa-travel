@@ -35,6 +35,9 @@ class SettingController extends Controller
             'site_subwelcome' => 'required|string',
             'site_meta_desc' => 'required|string',
             'site_meta_keyword' => 'required|string',
+            'whatsapp_float_enable' => 'required|in:0,1',
+            'whatsapp_url' => 'required|url',
+            'whatsapp_text' => 'required|string',
             'logo' => 'nullable|image',
             'slide1' => 'nullable|image',
             'slide2' => 'nullable|image',
@@ -48,6 +51,9 @@ class SettingController extends Controller
         Setting::where('key', 'G_SITE_SUBWELCOME')->update(['value' => $request->site_subwelcome]);
         Setting::where('key', 'G_SITE_META_DESC')->update(['value' => $request->site_meta_desc]);
         Setting::where('key', 'G_SITE_META_KEYWORD')->update(['value' => $request->site_meta_keyword]);
+        Setting::where('key', 'G_WHATSAPP_FLOAT_ENABLE')->update(['value' => $request->whatsapp_float_enable]);
+        Setting::where('key', 'G_WHATSAPP_URL')->update(['value' => $request->whatsapp_url]);
+        Setting::where('key', 'G_WHATSAPP_TEXT')->update(['value' => $request->whatsapp_text]);
 
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');

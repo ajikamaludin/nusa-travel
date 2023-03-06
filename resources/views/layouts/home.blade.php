@@ -20,7 +20,7 @@
     </head>
     <body class="antialiased">
         @if(request()->cookie('accept') == null)
-        <div class="fixed z-40 bottom-5 w-full" id="show-cookie">
+        <div class="fixed z-40 bottom-16 w-full" id="show-cookie">
             <div class="p-4 bg-white shadow-2xl border-2 border-gray-100 rounded max-w-5xl mx-auto">
                 <div class="flex flex-col md:flex-row gap-2">
                     <div class="font-bold text-lg">This site use cookies |</div>
@@ -31,6 +31,14 @@
                     <button class="border-2 py-2 px-3" id="cookie">Got It</button>
                 </div>
             </div>
+        </div>
+        @endif
+        @if($setting->getValue('G_WHATSAPP_FLOAT_ENABLE') == 1)
+        <div class="fixed z-10 bottom-2 right-5">
+            <a href="{{ $setting->getValue('G_WHATSAPP_URL') }}" target="_blank" class="flex flex-row items-center justify-center gap-2 bg-green-500 rounded-2xl px-4 py-2 scale-100 hover:scale-110 text-white">
+                <img src="{{ asset('images/wa_logo.png') }}" alt="action to call whatsapp" class="w-7 h-7">
+                <p>{{ $setting->getValue('G_WHATSAPP_TEXT') }}</p>
+            </a>
         </div>
         @endif
         <div class="loader-container">

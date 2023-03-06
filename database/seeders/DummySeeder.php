@@ -77,8 +77,9 @@ class DummySeeder extends Seeder
             ['id' => Str::uuid(), 'key' => 'midtrans_server_key', 'value' => 'SB-Mid-server-UA0LQbY4aALV0CfLLX1v7xs8', 'type' => 'text', 'label' => 'Midtrans Server Key'],
             ['id' => Str::uuid(), 'key' => 'midtrans_client_key', 'value' => 'SB-Mid-client-xqqkspzoZOM10iUG', 'type' => 'text', 'label' => 'Midtrans Client Key'],
             ['id' => Str::uuid(), 'key' => 'midtrans_merchant_id', 'value' => 'G561244367', 'type' => 'text', 'label' => 'Midtrans Merchatn Id'],
-            ['id' => Str::uuid(), 'key' => 'WHATSAPP_FLOAT_ENABLE', 'value' => 'true', 'type' => 'checkbox', 'label' => 'Whatsapp Float Button Enable'],
-            ['id' => Str::uuid(), 'key' => 'WHATSAPP_URL', 'value' => 'https://wa.me/6287820231626', 'type' => 'text', 'label' => 'Whatsapp Url'],
+            ['id' => Str::uuid(), 'key' => 'G_WHATSAPP_FLOAT_ENABLE', 'value' => '1', 'type' => 'checkbox', 'label' => 'Whatsapp Float Button Enable'],
+            ['id' => Str::uuid(), 'key' => 'G_WHATSAPP_URL', 'value' => 'https://wa.me/6287820231626', 'type' => 'text', 'label' => 'Whatsapp Url'],
+            ['id' => Str::uuid(), 'key' => 'G_WHATSAPP_TEXT', 'value' => 'How can I help you ?', 'type' => 'text', 'label' => 'Whatsapp Text'],
         ];
 
         Setting::insert($setting);

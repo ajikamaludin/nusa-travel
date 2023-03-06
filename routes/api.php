@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\FastboatController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\FastboatPlaceController;
 use App\Http\Controllers\Api\TagController;
@@ -23,7 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/roles', [RoleController::class, 'index'])->name('api.role.index');
 Route::get('/fastboat/places', [FastboatPlaceController::class, 'index'])->name('api.fastboat.place.index');
+Route::get('/tags', [TagController::class, 'index'])->name('api.tag.index');
+Route::get('/fastboats', [FastboatController::class, 'index'])->name('api.fastboat.index');
+
+// for payment
 Route::put('/carts/process-payment/{order}', [OrderController::class, 'payment_update'])->name('api.order.update');
 Route::post('/notification-payment', [OrderController::class, 'payment_notification'])->name('api.notification.payment');
 
-Route::get('/tags', [TagController::class, 'index'])->name('api.tag.index');
+
