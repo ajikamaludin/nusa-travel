@@ -55,7 +55,7 @@ class FastboatController extends Controller
             'cover_image' => $file->hashName('uploads')
         ]);
 
-        return redirect()->route('fastboat.index')
+        return redirect()->route('fastboat.fastboat.index')
             ->with('message', ['type' => 'success', 'message' => 'Fastboat has beed saved']); 
     }
 
@@ -93,7 +93,7 @@ class FastboatController extends Controller
             'capacity' => $request->capacity,
         ]);
 
-        return redirect()->route('fastboat.index')
+        return redirect()->route('fastboat.fastboat.index')
             ->with('message', ['type' => 'success', 'message' => 'Fastboat has beed updated']); 
     }
 

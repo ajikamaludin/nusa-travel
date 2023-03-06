@@ -27,10 +27,10 @@ export default function Form(props) {
 
     const handleSubmit = () => {
         if(isEmpty(fastboat) === false) {
-            post(route('fastboat.update', fastboat))
+            post(route('fastboat.fastboat.update', fastboat))
             return
         }
-        post(route('fastboat.store'))
+        post(route('fastboat.fastboat.store'))
     }
 
     useEffect(() => {

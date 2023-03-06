@@ -103,9 +103,11 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
 
         // Fastboat Track
         Route::get('/fastboat/tracks', [FastboatTrackController::class, 'index'])->name('fastboat.track.index');
+        Route::get('/fastboat/tracks/create', [FastboatTrackController::class, 'create'])->name('fastboat.track.create');
         Route::post('/fastboat/tracks', [FastboatTrackController::class, 'store'])->name('fastboat.track.store');
-        Route::put('/fastboat/tracks/{track}', [FastboatTrackController::class, 'update'])->name('fastboat.track.update');
-        Route::delete('/fastboat/tracks/{track}', [FastboatTrackController::class, 'destroy'])->name('fastboat.track.destroy');
+        Route::get('/fastboat/tracks/{group}', [FastboatTrackController::class, 'edit'])->name('fastboat.track.edit');
+        Route::put('/fastboat/tracks/{group}', [FastboatTrackController::class, 'update'])->name('fastboat.track.update');
+        Route::delete('/fastboat/tracks/{group}', [FastboatTrackController::class, 'destroy'])->name('fastboat.track.destroy');
 
         // Fastboat
         Route::get('/fastboat', [FastboatController::class, 'index'])->name('fastboat.fastboat.index');
