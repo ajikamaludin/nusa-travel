@@ -36,7 +36,7 @@ export default [
                 show: true,
                 icon: HiClipboardList,
                 route: route("fastboat.dropoff.index"),
-                active: "fastboat.dropoff.*",
+                active: "fastboat.dropoff.index",
                 permission: "view-fastboat-dropoff",
             },
             {
@@ -44,15 +44,15 @@ export default [
                 show: true,
                 icon: HiClipboardList,
                 route: route("fastboat.place.index"),
-                active: "fastboat.place.*",
+                active: "fastboat.place.index",
                 permission: "view-fastboat-place",
             },
             {
                 name: "Fastboat",
                 show: true,
                 icon: HiClipboardList,
-                route: route("fastboat.index"),
-                active: "fastboat.*",
+                route: route("fastboat.fastboat.index"),
+                active: "fastboat.fastboat.*",
                 permission: "view-fastboat",
             },
             {

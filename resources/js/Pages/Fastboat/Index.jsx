@@ -27,7 +27,7 @@ export default function Index(props) {
 
     const onDelete = () => {
         if(confirmModal.data !== null) {
-            router.delete(route('fastboat.destroy', confirmModal.data.id))
+            router.delete(route('fastboat.fastboat.destroy', confirmModal.data.id))
         }
     }
 
@@ -64,7 +64,7 @@ export default function Index(props) {
                     <div className="p-6 overflow-hidden shadow-sm sm:rounded-lg bg-gray-200 dark:bg-gray-800 space-y-4">
                         <div className='flex justify-between'>
                             {canCreate && (
-                                <Link href={route("fastboat.create")} className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>Tambah</Link>
+                                <Link href={route("fastboat.fastboat.create")} className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>Tambah</Link>
                             )}
                             <div className="flex items-center">
                                 <SearchInput
@@ -112,7 +112,7 @@ export default function Index(props) {
                                                     >
                                                         {canUpdate && (
                                                             <Dropdown.Item>
-                                                                <Link href={route('fastboat.edit', fastboat)} className='flex space-x-1 items-center'>
+                                                                <Link href={route('fastboat.fastboat.edit', fastboat)} className='flex space-x-1 items-center'>
                                                                     <HiPencil/> 
                                                                     <div>Ubah</div>
                                                                 </Link>

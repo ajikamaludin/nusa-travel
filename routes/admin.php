@@ -89,14 +89,6 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::put('/car-rentals/{car}', [CarRentalController::class, 'update'])->name('car-rental.update');
         Route::delete('/car-rentals/{car}', [CarRentalController::class, 'destroy'])->name('car-rental.destroy');
 
-        // Faq
-        Route::get('/fastboat', [FastboatController::class, 'index'])->name('fastboat.index');
-        Route::get('/fastboat/create', [FastboatController::class, 'create'])->name('fastboat.create');
-        Route::post('/fastboat', [FastboatController::class, 'store'])->name('fastboat.store');
-        Route::get('/fastboat/{fastboat}', [FastboatController::class, 'edit'])->name('fastboat.edit');
-        Route::post('/fastboat/{fastboat}', [FastboatController::class, 'update'])->name('fastboat.update');
-        Route::delete('/fastboat/{fastboat}', [FastboatController::class, 'destroy'])->name('fastboat.destroy');
-
         // Fastboat Dropoff
         Route::get('/fastboat/dropoff', [FastboatDropoffController::class, 'index'])->name('fastboat.dropoff.index');
         Route::post('/fastboat/dropoff', [FastboatDropoffController::class, 'store'])->name('fastboat.dropoff.store');
@@ -114,6 +106,14 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::post('/fastboat/tracks', [FastboatTrackController::class, 'store'])->name('fastboat.track.store');
         Route::put('/fastboat/tracks/{track}', [FastboatTrackController::class, 'update'])->name('fastboat.track.update');
         Route::delete('/fastboat/tracks/{track}', [FastboatTrackController::class, 'destroy'])->name('fastboat.track.destroy');
+
+        // Fastboat
+        Route::get('/fastboat', [FastboatController::class, 'index'])->name('fastboat.fastboat.index');
+        Route::get('/fastboat/create', [FastboatController::class, 'create'])->name('fastboat.fastboat.create');
+        Route::post('/fastboat', [FastboatController::class, 'store'])->name('fastboat.fastboat.store');
+        Route::get('/fastboat/{fastboat}', [FastboatController::class, 'edit'])->name('fastboat.fastboat.edit');
+        Route::post('/fastboat/{fastboat}', [FastboatController::class, 'update'])->name('fastboat.fastboat.update');
+        Route::delete('/fastboat/{fastboat}', [FastboatController::class, 'destroy'])->name('fastboat.fastboat.destroy');
 
         // User Profile
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
