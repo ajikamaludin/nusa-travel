@@ -61,22 +61,22 @@
     <div class="w-full max-w-7xl mx-auto pt-80 md:mt-20 md:mt-5 md:pt-5 px-2 text-center">
         <div class="grid grid-cols-1 md:grid-cols-4 space-y-4 md:space-y-0 md:gap-2 py-2">
             <div class="py-2 px-2">
-                <img class=" w-full aspect-video" src="{{asset('images/undraw_Travel.png')}}" alt="" />
+                <img class=" w-full aspect-video" src="{{asset('images/undraw_Travel.png')}}" alt="Hassle-Free" />
                 <h3 class="font-bold text-2xl pb-2">Hassle-Free</h3>
                 <span class=" text-lg leading-tight">We are dedicated to providing seamless and convenient travel experiences to our clients</span>
             </div>
             <div class="py-2 px-2">
-                <img class=" w-full aspect-video" src="{{asset('images/undraw_Yacht.png')}}" alt="" />
+                <img class=" w-full aspect-video" src="{{asset('images/undraw_Yacht.png')}}" alt="Service You Can Trust" />
                 <h3 class="font-bold text-2xl pb-2">Service You Can Trust</h3>
                 <span class=" text-lg leading-tight">We offer the most reliable and efficient transport options</span>
             </div>
             <div class="py-2 px-2">
-                <img class=" w-full aspect-video" src="{{asset('images/undraw_adventure.png')}}" alt="" />
+                <img class=" w-full aspect-video" src="{{asset('images/undraw_adventure.png')}}" alt="Expertise" />
                 <h3 class="font-bold text-2xl pb-2">Expertise</h3>
                 <span class=" text-lg leading-tight">Our experts are here to help you plan your trip and make the most of your adventure</span>
             </div>
             <div class="py-2 px-2">
-                <img class=" w-full aspect-video" src="{{asset('images/undraw_Trip.png')}}" alt="" />
+                <img class=" w-full aspect-video" src="{{asset('images/undraw_Trip.png')}}" alt="Get packages" />
                 <h3 class="font-bold text-2xl pb-2">Get packages</h3>
                 <span class=" text-lg leading-tight">Our tour packages are designed to offer a comprehensive and immersive travel experience</span>
             </div>
@@ -99,7 +99,7 @@
                 @foreach($packages as $package)
                 <div class="hover:-translate-y-2 ease-in duration-150 shadow first-letter:max-w-sm bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                     <a href="{{ route('tour-packages.show', $package) }}">
-                        <img class="rounded-t-lg" src="{{asset( $package->cover_image )}}" alt="" />
+                        <img class="rounded-t-lg" src="{{asset( $package->cover_image )}}" alt="{{ $package->title }}" />
                     </a>
                     <div class="p-5">
                         <a href="{{ route('tour-packages.show', $package) }}">
@@ -138,7 +138,7 @@
             <div class="px-2 pt-2 grid grid-cols-1 gap-2 md:gap-4 md:grid-cols-3">
                 @foreach($images as $image)
                     <div class="{{$image->show_on == 1 ? 'md:col-span-2 md:row-span-2' : ''}} transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0 scale-100 hover:scale-105 hover:z-10">
-                        <img class="object-fill w-full {{$image->show_on == 1 ? 'h-auto' : 'h-full'}} rounded-lg" src="{{ $image->path_url }}" alt=""/>
+                        <img class="object-fill w-full {{$image->show_on == 1 ? 'h-auto' : 'h-full'}} rounded-lg" src="{{ $image->path_url }}" alt="{{ $image->name }}"/>
                         <div class="absolute px-4 text-xl {{$image->show_on == 1 ? 'md:text-4xl' : 'md:text-2xl'}} font-bold text-white bottom-10 md:left-10">
                             <p>{{ $image->name }}</p>
                         </div>
@@ -167,7 +167,7 @@
                 @foreach($posts as $post)
                 <div class="hover:-translate-y-2 ease-in duration-150 shadow bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                     <a href="{{ route('blog.post', $post) }}">
-                        <img class="rounded-t-lg" src="{{asset($post->cover_image)}}" alt="" />
+                        <img class="rounded-t-lg" src="{{asset($post->cover_image)}}" alt="{{ $post->title }}" />
                     </a>
                     <div class="p-3 md:p-5 space-y-1">
                         <a href="{{ route('blog.post', $post) }}">
