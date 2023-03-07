@@ -1,12 +1,5 @@
 @extends('layouts.home')
 
-@section('css')
-    <!-- css -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tomik23/autocomplete@1.8.6/dist/css/autocomplete.min.css"/>
-    <!-- js -->
-    <script src="https://cdn.jsdelivr.net/gh/tomik23/autocomplete@1.8.6/dist/js/autocomplete.min.js"></script>
-@endsection
-
 @section('content')
     <!-- slide images -->
     <div class="w-full mx-auto">
@@ -17,16 +10,16 @@
                 <!-- Item 1 -->
                 <div class="hidden brightness-90 duration-700 ease-in-out" data-carousel-item>
                     <span class="absolute text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 sm:text-3xl dark:text-gray-800">First Slide</span>
-                    <img src="{{asset($slide)}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                    <img src="{{asset($slide)}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover h-full" alt="...">
                 </div>
                 @endforeach
             </div>
             <!-- Slider indicators -->
-            <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
+            <!-- <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
                 @foreach($setting->getSlides() as $slide)
                     <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 1" data-carousel-slide-to="0"></button>
                 @endforeach
-            </div>
+            </div> -->
             <!-- Slider controls -->
             <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
                 <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
@@ -46,9 +39,9 @@
                 <div class="text-center md:text-left text-xl font-light text-white text-opacity-80">{{$setting->getValue('G_SITE_SUBWELCOME')}}</div>
             </div>
 
-            <div class="hero-container absolute z-40 -bottom-10 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto h-60 ">
+            <div class="absolute z-40 -bottom-44 md:bottom-24 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto h-60 ">
                 <div>
-                    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500">
                         <li class="">
                             <a href="#" aria-current="page" class="inline-block p-3 font-bold bg-blue-600 text-white rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">Fastboat</a>
                         </li>
@@ -57,69 +50,15 @@
                         </li>
                     </ul>
                 </div>
-                <div class="bg-white rounded-b-lg rounded-r-lg border-gray-200 shadow-lg px-8 py-6">
+                <div class="bg-white rounded-b-xl rounded-r-xl border-gray-200 shadow-xl px-8 py-6">
                     <x-fastboat-schedule ways="1" from="" to="" :date="now()->format('Y-m-d')" :rdate="now()->addDays(2)->format('Y-m-d')"/>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- mobile order -->
-    <div class="w-full max-w-7xl mx-auto pt-5 px-2">
-        <div class="md:hidden block w-full mx-auto">
-            <div>
-                <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-                    <li class="">
-                        <a href="#" aria-current="page" class="inline-block p-3 font-bold bg-blue-600 text-white rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">Fastboat</a>
-                    </li>
-                    <li class="">
-                        <a href="{{ route('car.index') }}" class="inline-block p-3 font-bold rounded-t-lg bg-gray-100 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Car Rentals</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="bg-white rounded-b-lg rounded-r-lg border-gray-200 shadow-lg px-8 py-6">
-                <form method="GET" action="{{ route('fastboat') }}">
-                    <div class="flex flex-row w-full ">
-                        <ul class="grid w-full gap-1 grid-cols-2">
-                            <li>
-                                <input type="radio" checked id="hosting-small" value="1" name="ways" class="hidden peer" required>
-                                <label for="hosting-small" class="inline-flex items-center justify-between w-full px-5 py-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                    <div class="block">
-                                        <div class="w-full text-base font-semibold">One Way</div>
-                                    </div>
-                                </label>
-                            </li>
-                            <li>
-                                <input type="radio" id="hosting-big" value="2" name="ways" class="hidden peer" required>
-                                <label for="hosting-big" class="inline-flex items-center justify-between w-full px-5 py-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                    <div class="block">
-                                        <div class="w-full text-base font-semibold">Round Trip</div>
-                                    </div>
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="grid grid-cols-1 pt-4 gap-2">
-                    <div class="auto-search-wrapper">
-                            <input type="text" id="from-m" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" placeholder="From" name="from" autocomplete="off">
-                        </div>
-                        <div class="auto-search-wrapper">
-                            <input type="text" id="to-m" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" placeholder="To" name="to" autocomplete="off">
-                        </div>
-                        <div>
-                            <input type="date" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Date" required autocomplete="off" name="date" min="{{ now()->format('Y-m-d') }}" value="{{ now()->format('Y-m-d') }}">
-                        </div>
-                    </div>
-                    <div class="w-full flex flex-row justify-end pt-2">
-                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- why NT -->
-    <div class="w-full max-w-7xl mx-auto pt-3 md:pt-20 px-2 text-center">
+    <div class="w-full max-w-7xl mx-auto pt-96 mt-5 md:pt-5 px-2 text-center">
         <div class="grid grid-cols-1 md:grid-cols-4 space-y-4 md:space-y-0 md:gap-2 py-2">
             <div class="py-2 px-2">
                 <img class=" w-full aspect-video" src="{{asset('images/undraw_Travel.png')}}" alt="" />
@@ -236,9 +175,6 @@
                         </a>
                         <span class="line-clamp-1 text-sm text-gray-500">{{ $post->short_desc }}</span>
                         <div class="flex items-center space-x-2">
-                            <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-yellow-300">
-                                <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                            </svg> -->
                             <span class="text-sm text-gray-500">
                                 {{ $post->visitors_count }} views
                             </span>
@@ -292,45 +228,5 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('js')
-    <script>
-        window.addEventListener('DOMContentLoaded', function () {
-            const options = {
-                showAllValues: true,
-                onSearch: ({ currentValue }) => {
-                    const api = `{{ route('api.fastboat.place.index') }}?q=${encodeURI(
-                        currentValue
-                    )}`;
-                    return new Promise((resolve) => {
-                    fetch(api)
-                        .then((response) => response.json())
-                        .then((data) => {
-                            resolve(data);
-                        })
-                        .catch((error) => {
-                            console.error(error);
-                        });
-                    });
-                },
-
-                onResults: ({ matches }) => {
-                    return matches
-                        .map((el) => {
-                        return `
-                            <li>${el.name}</li>`;
-                        })
-                        .join('');
-                    },
-            }
-
-            // 'local' is the 'id' of input element
-            new Autocomplete('from', options);
-            new Autocomplete('to', options);
-            new Autocomplete('from-m', options);
-            new Autocomplete('to-m', options);
-        });
-    </script>
 @endsection
 

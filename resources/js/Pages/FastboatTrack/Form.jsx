@@ -1,10 +1,4 @@
-// TODO: what is this 
-// create a form with :
-// select fastboat_id
-// tracks (some of places) miminal is 2 place 
-// 
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty } from 'lodash';
 
 import { Head, router, useForm } from '@inertiajs/react';
@@ -32,14 +26,14 @@ export default function Form(props) {
     })
 
     const addPlace = (place) => {
-        const isExists = data.places.find(p => p.id === place.id)
+        const isExists = data.places.find(p => p.place.id === place.id)
         if(!isExists) {
             let places = data.places.concat({
                 place: place,
                 fastboat_place_id: place.id,
                 order: (data.places.length + 1)
             })
-            let tracks = generateTrack(places)
+            let tracks = generateTrack(places, data.tracks)
             setData({ ...data, places, tracks })
         }
     }
@@ -52,7 +46,7 @@ export default function Form(props) {
                 order: (i + 1)
             }
         })
-        let tracks = generateTrack(places)
+        let tracks = generateTrack(places, data.tracks)
         setData({ ...data, places, tracks })
     }
 
@@ -109,7 +103,7 @@ export default function Form(props) {
                         />
 
                         <p className='mt-4'>Place</p>
-                        <div className='border-2 rounded-lg px-4 py-2'>
+                        <div className='border-2 rounded-lg p-2'>
                             <Button size="sm" onClick={placeSelectionModal.toggle}>Tambah</Button>
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -144,7 +138,7 @@ export default function Form(props) {
                         </div>
 
                         <p className='mt-4'>Track</p>
-                        <div className='border-2 rounded-lg px-4 py-2'>
+                        <div className='border-2 rounded-lg p-2'>
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>

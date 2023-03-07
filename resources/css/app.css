@@ -260,7 +260,7 @@
 
 @media (min-width: 768px) {
     .md\:h-99 {
-        height: 30rem/* 384px */;
+        height: 40rem/* 384px */;
     }
 }
 

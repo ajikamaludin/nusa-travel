@@ -11,9 +11,10 @@ class FastboatController extends Controller
 {
     public function index(Request $request)
     {
-        $trackOne = FastboatTrack::query()->with(['source', 'destination']);
+        $trackOne = null;
 
         if($request->from != '') {
+            $trackOne = FastboatTrack::query()->with(['source', 'destination']);
             $trackOne->whereHas('source', function($query) use ($request) {
                 $query->where('name', '=', $request->from);
             });
@@ -47,7 +48,7 @@ class FastboatController extends Controller
         if ($request->date != '') {
             $date = Carbon::createFromFormat('Y-m-d',$request->date);
         }
-        $trackOne->withCount(['item_ordered' => function ($query) use($date) {
+        $trackOne?->withCount(['item_ordered' => function ($query) use($date) {
             return $query->whereDate('date', $date);
         }] );
 
@@ -66,13 +67,11 @@ class FastboatController extends Controller
             'date' => $date->format('Y-m-d'),
             'rdate' => $rdate->format('Y-m-d'),
         ];
+
         return view('fastboat', [
             ...$data,
             'tracks_one' => $trackOne?->paginate(20, '*', 'page'),
             'tracks_two' => $trackBack?->paginate(20, '*', 're_page'),
         ]);
     }
-
-    public function mine()
-    {}
 }

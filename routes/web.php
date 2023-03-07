@@ -35,7 +35,7 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
 
     // Fastboat
     Route::get('/fastboat',[FastboatController::class, 'index'])->name('fastboat');
-    
+
     // Order
     Route::get('/carts', [OrderController::class, 'index'])->name('customer.cart');
     Route::get('/carts/process-payment/{order}', [OrderController::class, 'payment'])->name('customer.process-payment');
