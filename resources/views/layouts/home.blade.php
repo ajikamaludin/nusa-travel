@@ -17,6 +17,8 @@
         @yield('css')
         @stack('style')
         @livewireStyles
+        <wireui:scripts />
+        <script src="//unpkg.com/alpinejs" defer></script>
     </head>
     <body class="antialiased">
         @if(request()->cookie('accept') == null)

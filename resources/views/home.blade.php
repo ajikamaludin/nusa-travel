@@ -39,7 +39,7 @@
                 <div class="text-center md:text-left text-xl font-light text-white text-opacity-80">{{$setting->getValue('G_SITE_SUBWELCOME')}}</div>
             </div>
 
-            <div class="absolute z-40 -bottom-44 md:bottom-24 left-1/2 -translate-x-1/2 w-full lg:w-2/3 mx-auto h-60 ">
+            <div class="block mt-5 md:absolute z-40 md:-bottom-44 md:bottom-24 md:left-1/2 md:-translate-x-1/2 w-full lg:w-2/3 mx-auto h-60 ">
                 <div>
                     <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500">
                         <li class="">
@@ -51,14 +51,14 @@
                     </ul>
                 </div>
                 <div class="bg-white rounded-b-xl rounded-r-xl border-gray-200 shadow-xl px-8 py-6">
-                    <x-fastboat-schedule ways="1" from="" to="" :date="now()->format('Y-m-d')" :rdate="now()->addDays(2)->format('Y-m-d')"/>
+                    <x-fastboat-schedule ways="1" from="" to="" :date="now()->format('Y-m-d')" :rdate="now()->addDays(2)->format('Y-m-d')" passengers=''/>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- why NT -->
-    <div class="w-full max-w-7xl mx-auto pt-96 mt-5 md:pt-5 px-2 text-center">
+    <div class="w-full max-w-7xl mx-auto pt-80 md:mt-20 md:mt-5 md:pt-5 px-2 text-center">
         <div class="grid grid-cols-1 md:grid-cols-4 space-y-4 md:space-y-0 md:gap-2 py-2">
             <div class="py-2 px-2">
                 <img class=" w-full aspect-video" src="{{asset('images/undraw_Travel.png')}}" alt="" />

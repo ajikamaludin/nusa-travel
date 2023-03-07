@@ -46,15 +46,18 @@ class FastboatController extends Controller
 
         $date = now();
         if ($request->date != '') {
-            $date = Carbon::createFromFormat('Y-m-d',$request->date);
+            $date = Carbon::createFromFormat('m/d/Y',$request->date);
         }
+
+        $trackOne?->whereTime('arrival_time', '>=',now());
+
         $trackOne?->withCount(['item_ordered' => function ($query) use($date) {
             return $query->whereDate('date', $date);
         }] );
 
         $rdate = Carbon::parse($date)->addDays(2);
         if ($request->return_date != '') {
-            $rdate = Carbon::createFromFormat('Y-m-d',$request->return_date);
+            $rdate = Carbon::createFromFormat('m/d/Y',$request->return_date);
         }
         $trackBack?->withCount(['item_ordered' => function ($query) use($rdate) {
             return $query->whereDate('date', $rdate);
@@ -66,6 +69,7 @@ class FastboatController extends Controller
             'to' => $request->to,
             'date' => $date->format('Y-m-d'),
             'rdate' => $rdate->format('Y-m-d'),
+            'no_passengers' => $request->no_passengers ?? '',
         ];
 
         return view('fastboat', [

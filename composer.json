@@ -14,7 +14,8 @@
         "livewire/livewire": "^2.12",
         "midtrans/midtrans-php": "^2.5",
         "react/async": "^4",
-        "tightenco/ziggy": "^1.0"
+        "tightenco/ziggy": "^1.0",
+        "wireui/wireui": "^1.17"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.9",

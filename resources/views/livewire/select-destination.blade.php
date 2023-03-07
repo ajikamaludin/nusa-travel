@@ -1,0 +1,13 @@
+<div>
+    <label>Destination</label>
+    <x-select
+        wire:model="dest"
+        placeholder="Destination"
+        :options="$places"
+        :min-items-for-search="5"
+        option-label="name"
+        option-value="name"
+        name="to"
+        required="true"
+    />
+</div>
