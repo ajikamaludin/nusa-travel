@@ -26,24 +26,24 @@
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 pt-4 gap-2" id="form-wrapper">
         <div class="col-span-2">
-            <div class="grid grid-cols-2 gap-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
-                    <label>From</label>
+                    <label>Origin</label>
                     <div class="auto-search-wrapper">
-                        <input type="text" id="from" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" required placeholder="From" name="from" autocomplete="off" value="{{ $from }}">
+                        <input type="text" id="from" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" required placeholder="Origin" name="from" autocomplete="off" value="{{ $from }}">
                     </div>
                 </div>
                 <div>
-                    <label>To</label>
+                    <label>Destination</label>
                     <div class="auto-search-wrapper">
-                        <input type="text" id="to" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" required placeholder="To" name="to" autocomplete="off" value="{{ $to }}">
+                        <input type="text" id="to" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" required placeholder="Destination" name="to" autocomplete="off" value="{{ $to }}">
                     </div>
                 </div>
                 <div>
                     <label>Departure Date</label>
                     <input type="date" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Date" required autocomplete="off" name="date" value="{{ $date }}" min="{{ now()->format('Y-m-d') }}">
                 </div>
-                <div class="hidden" id="rdate">
+                <div class="{{ $ways == 1 ? 'hidden' : ''}}" id="rdate">
                     <label>Return Date</label>
                     <input type="date" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Date" required autocomplete="off" name="return_date" value="{{ $rdate }}" min="{{ now()->format('Y-m-d') }}">
                 </div>

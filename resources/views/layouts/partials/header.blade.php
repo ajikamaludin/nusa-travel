@@ -7,13 +7,13 @@
                 <img src="{{ asset($setting->getValue('G_SITE_LOGO')) }}" class="h-10 w-auto" alt="company logo"/>
             </a>
             <div class="lang-container flex-row gap-1 items-center">
-            
-            <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                    </svg>
-                </div>    
-            <div>
+                <div>
+                    <livewire:cart-icon/>
+                </div>
+                <div class="border-l-2 h-6 border-gray-700 opacity-50 mx-2">
+                    <!-- | -->
+                </div>
+                <div>
                     <div id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="px-2.5 py-2.5 cursor-pointer text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white flex flex-row gap-2 items-center">
                         @if(session('locale') == 'en')
                         <img src="{{asset('images/flag_usa.png')}}" class="h-3 w-auto" alt="nation"/>
@@ -67,10 +67,15 @@
                 @endif
             </div>
 
-            <div class="space-y-2 md:hidden" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
-                <span class="block w-8 h-0.5 bg-gray-600"></span>
-                <span class="block w-8 h-0.5 bg-gray-600"></span>
-                <span class="block w-5 h-0.5 bg-gray-600"></span>
+            <div class="space-y-2 md:hidden flex-none flex flex-row gap-2" >
+                <div>
+                    <livewire:cart-icon/>
+                </div>
+                <div class="flex flex-col gap-2" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
+                    <span class="block w-8 h-0.5 bg-gray-600"></span>
+                    <span class="block w-8 h-0.5 bg-gray-600"></span>
+                    <span class="block w-5 h-0.5 bg-gray-600"></span>
+                </div>
             </div>
         </div>
     </div>

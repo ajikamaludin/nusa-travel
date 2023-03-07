@@ -6,8 +6,10 @@ use App\Models\Fastboat;
 use App\Models\FastboatDropoff;
 use App\Models\FastboatPlace;
 use App\Models\FastboatTrack;
+use App\Models\FastboatTrackGroup;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class FastboatSeeder extends Seeder
@@ -20,7 +22,7 @@ class FastboatSeeder extends Seeder
         $this->dropoff();
         $this->place();
         $this->fastboat();
-        // $this->track();
+        $this->track();
     }
 
 
@@ -65,263 +67,51 @@ class FastboatSeeder extends Seeder
 
     public function track()
     {
-        // TODO: ?
-        // $fastboats = Fastboat::all();
-        // $fastboat1 = $fastboats->first();
-        // $fastboat2 = $fastboats->last();
+        $fastboats = Fastboat::get();
 
-        $SERANGAN = FastboatPlace::where('name', 'SERANGAN')->first()->id;
-        $LEMBONGAN = FastboatPlace::where('name', 'LEMBONGAN')->first()->id;
-        $PENIDA = FastboatPlace::where('name', 'PENIDA')->first()->id;
-        $PADANGBAI = FastboatPlace::where('name', 'PADANGBAI')->first()->id;
-        $GILI = FastboatPlace::where('name', 'GILI TRAWANGAN')->first()->id;
-        $MENO = FastboatPlace::where('name', 'MENO')->first()->id;
-        $AIR = FastboatPlace::where('name', 'AIR')->first()->id;
-        $BANGSAL = FastboatPlace::where('name', 'BANGSAL')->first()->id;
-        $SENGGIGI = FastboatPlace::where('name', 'SENGGIGI')->first()->id;
+        $SENGGIGI = FastboatPlace::where('name', 'SENGGIGI')->first();
+        $BANGSAL = FastboatPlace::where('name', 'BANGSAL')->first();
+        $SERANGAN = FastboatPlace::where('name', 'SERANGAN')->first();
 
-        // $groups = [
-        //     [
-        //         'fastboat_id' => $fastboat1->id,
-        //         'name' => ''
-        //     ]
-        // ];
-
-        // FastboatTrackGroup::create();
-
-        $tracks = [
+        $places = [$SENGGIGI, $BANGSAL, $SERANGAN];
+        $groups = [
             [
-                "fastboat_source_id" => $SERANGAN,
-                "fastboat_destination_id" => $LEMBONGAN,
-                "price" => "170000",
+                'fastboat_id' => $fastboats->first()->id,
+                'name' => $SENGGIGI->name .' - '. $SERANGAN->name
             ],
             [
-                "fastboat_source_id" => $PADANGBAI,
-                "fastboat_destination_id" => $LEMBONGAN,
-                "price" => "170000",
-            ],
-            [
-                "fastboat_source_id" => $SERANGAN,
-                "fastboat_destination_id" => $PENIDA,
-                "price" => "170000",
-            ],
-            [
-                "fastboat_source_id" => $PADANGBAI,
-                "fastboat_destination_id" => $PENIDA,
-                "price" => "170000",
-            ],
-            [
-                "fastboat_source_id" => $SERANGAN,
-                "fastboat_destination_id" => $GILI,
-                "price" => "560000",
-            ],
-            [
-                "fastboat_source_id" => $SERANGAN,
-                "fastboat_destination_id" => $MENO,
-                "price" => "560000",
-            ],
-            [
-                "fastboat_source_id" => $SERANGAN,
-                "fastboat_destination_id" => $AIR,
-                "price" => "560000",
-            ],
-            [
-                "fastboat_source_id" => $SERANGAN,
-                "fastboat_destination_id" => $BANGSAL,
-                "price" => "560000",
-            ],
-            [
-                "fastboat_source_id" => $SERANGAN,
-                "fastboat_destination_id" => $SENGGIGI,
-                "price" => "560000",
-            ],
-            [
-                "fastboat_source_id" => $GILI,
-                "fastboat_destination_id" => $SERANGAN,
-                "price" => "560000",
-            ],
-            [
-                "fastboat_source_id" => $MENO,
-                "fastboat_destination_id" => $SERANGAN,
-                "price" => "560000",
-            ],
-            [
-                "fastboat_source_id" => $AIR,
-                "fastboat_destination_id" => $SERANGAN,
-                "price" => "560000",
-            ],
-            [
-                "fastboat_source_id" => $BANGSAL,
-                "fastboat_destination_id" => $SERANGAN,
-                "price" => "560000",
-            ],
-            [
-                "fastboat_source_id" => $SENGGIGI,
-                "fastboat_destination_id" => $SERANGAN,
-                "price" => "560000",
-            ],
-            [
-                "fastboat_source_id" => $PENIDA,
-                "fastboat_destination_id" => $GILI,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $PENIDA,
-                "fastboat_destination_id" => $MENO,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $PENIDA,
-                "fastboat_destination_id" => $AIR,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $PENIDA,
-                "fastboat_destination_id" => $BANGSAL,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $PENIDA,
-                "fastboat_destination_id" => $SENGGIGI,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $GILI,
-                "fastboat_destination_id" => $PENIDA,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $MENO,
-                "fastboat_destination_id" => $PENIDA,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $AIR,
-                "fastboat_destination_id" => $PENIDA,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $BANGSAL,
-                "fastboat_destination_id" => $PENIDA,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $SENGGIGI,
-                "fastboat_destination_id" => $PENIDA,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $LEMBONGAN,
-                "fastboat_destination_id" => $GILI,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $LEMBONGAN,
-                "fastboat_destination_id" => $MENO,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $LEMBONGAN,
-                "fastboat_destination_id" => $AIR,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $LEMBONGAN,
-                "fastboat_destination_id" => $BANGSAL,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $LEMBONGAN,
-                "fastboat_destination_id" => $SENGGIGI,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $GILI,
-                "fastboat_destination_id" => $LEMBONGAN,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $MENO,
-                "fastboat_destination_id" => $LEMBONGAN,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $AIR,
-                "fastboat_destination_id" => $LEMBONGAN,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $BANGSAL,
-                "fastboat_destination_id" => $LEMBONGAN,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $SENGGIGI,
-                "fastboat_destination_id" => $LEMBONGAN,
-                "price" => "510000",
-            ],
-            [
-                "fastboat_source_id" => $PADANGBAI,
-                "fastboat_destination_id" => $GILI,
-                "price" => "310000",
-            ],
-            [
-                "fastboat_source_id" => $PADANGBAI,
-                "fastboat_destination_id" => $MENO,
-                "price" => "310000",
-            ],
-            [
-                "fastboat_source_id" => $PADANGBAI,
-                "fastboat_destination_id" => $AIR,
-                "price" => "310000",
-            ],
-            [
-                "fastboat_source_id" => $PADANGBAI,
-                "fastboat_destination_id" => $BANGSAL,
-                "price" => "310000",
-            ],
-            [
-                "fastboat_source_id" => $GILI,
-                "fastboat_destination_id" => $PADANGBAI,
-                "price" => "360000",
-            ],
-            [
-                "fastboat_source_id" => $MENO,
-                "fastboat_destination_id" => $PADANGBAI,
-                "price" => "360000",
-            ],
-            [
-                "fastboat_source_id" => $AIR,
-                "fastboat_destination_id" => $PADANGBAI,
-                "price" => "360000",
-            ],
-            [
-                "fastboat_source_id" => $BANGSAL,
-                "fastboat_destination_id" => $PADANGBAI,
-                "price" => "360000",
-            ],
-            [
-                "fastboat_source_id" => $PADANGBAI,
-                "fastboat_destination_id" => $SENGGIGI,
-                "price" => "360000",
-            ],
-            [
-                "fastboat_source_id" => $SENGGIGI,
-                "fastboat_destination_id" => $PADANGBAI,
-                "price" => "360000",
+                'fastboat_id' => $fastboats->last()->id,
+                'name' => $SERANGAN->name .' - '. $SENGGIGI->name,
             ],
         ];
 
-        $tracks = collect($tracks)->map(function ($track) {
-            return [
-                ...$track,
-                "id" => Str::uuid(),
-                "arrival_time" => "10:00",
-                "departure_time" => "11:00",
-                "is_publish" => "1",
-            ];
-        })->toArray();
+        DB::beginTransaction();
+        foreach($groups as $g => $group) {
+            $group = FastboatTrackGroup::create($group);
+            foreach($places as $index => $place) {
+                $group->places()->create([
+                    'fastboat_place_id' => $place->id,
+                    'order' => $index + 1,
+                ]);
+            }
 
-        FastboatTrack::insert($tracks);
+            // tracks
+            if($g == 1) {
+                $places = array_reverse($places);
+            }
+            foreach($places as $i => $place) {
+                for($j = $i + 1; $j < count($places); $j++){
+                    $group->tracks()->create([
+                        'fastboat_source_id' => $place->id,
+                        'fastboat_destination_id' => $places[$j]->id,
+                        'price' => $i == 0 && $j == 2 ? 100000 : 50000,
+                        'arrival_time' => $i == 0 && $j == 2 ? '11:00:00' : 10+$j+$g.":00:00",
+                        'departure_time' => $i == 0 && $j == 2 ? '13:00:00' : 11+$j+$g.":00:00",
+                        'is_publish' => 1,
+                    ]);
+                }
+            }
+        }
+        DB::commit();
     }
 }

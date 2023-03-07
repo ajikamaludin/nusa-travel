@@ -10,7 +10,7 @@
         </div>
     </section>
     <div class="w-full max-w-5xl mx-auto pt-72 md:pt-20">
-        <livewire:order-cart/>
+        <!--  -->
     </div>
     @if($tracks_one != null)
     <div class="w-full max-w-5xl mx-auto pt-3 md:pt-12 px-2">
