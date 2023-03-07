@@ -1,4 +1,4 @@
-<div class="px-6 py-4 mb-1 shadow items-center grid grid-cols-2 border-2 border-gray-200 rounded scale-100 hover:scale-110">
+<div class="px-6 py-4 mb-1 shadow items-center grid grid-cols-2 border-2 border-gray-200 rounded">
     <div class="flex flex-row gap-5 justify-around">
         <div class="flex flex-col">
             <p class="font-bold">{{ $track->source->name }}</p>
