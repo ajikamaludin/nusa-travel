@@ -18,7 +18,7 @@
         </ul>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 pt-4 gap-2" id="form-wrapper">
-        <div class="col-span-2">
+        <div class="md:col-span-2">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <livewire:select-origin :origin="$to" :dest="$from"/>
                 <livewire:select-destination :dest="$from" :origin="$to"/>

@@ -12,6 +12,8 @@ class FastboatItem extends Component
     public $track;
     public $ordered;
     public $date;
+    public $type;
+    public $quantity;
 
     public function render()
     {
@@ -20,13 +22,21 @@ class FastboatItem extends Component
 
     public function addCart()
     {
-        if(Auth::guard('customer')->check()) {
-            $this->user();
-        } else {
-            $this->guest();
-        }
+        // TODO: add cart is only save id to emit save ordered
+        session(['fastboat_cart_'.$this->type => [
+            'track_id' => $this->track->id, 
+            'qty' => $this->quantity,
+            'date' => $this->date
+        ]]);
 
-        $this->emit('addCart');
+        $this->emit('choosedDepartureFastboat', $this->track);
+
+        // if(Auth::guard('customer')->check()) {
+        //     $this->user();
+        // } else {
+        //     $this->guest();
+        // }
+        // $this->emit('addCart');
     }
 
     public function guest() 

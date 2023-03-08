@@ -22,6 +22,11 @@ class FastboatTrack extends Model
         'is_publish',
     ];
 
+    public function group()
+    {
+        return $this->belongsTo(FastboatTrackGroup::class, 'fastboat_track_group_id');
+    }
+
     public function source() 
     {
         return $this->belongsTo(FastboatPlace::class, 'fastboat_source_id');

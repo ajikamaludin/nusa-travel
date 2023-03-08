@@ -14,8 +14,8 @@ class SelectPassenger extends Component
         return view('livewire.select-passenger');
     }
 
-    public function changes($value)
+    public function updatedPassangers($value)
     {
-        $this->passengers = $value;
+        $this->emit('changePassengers', $value);
     }
 }

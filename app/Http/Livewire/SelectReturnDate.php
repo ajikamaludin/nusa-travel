@@ -22,11 +22,18 @@ class SelectReturnDate extends Component
         return view('livewire.select-return-date');
     }
 
+    public function updatedRdate($value)
+    {
+        $this->emit('changeRdate', $value);
+    }
+
     public function updateMinDate($value)
     {
-        $date = Carbon::createFromFormat('Y-m-d', $value);
-        $this->min = $date;
-        $this->rdate = $date->addDays(2);
+        if($value != '') {
+            $date = Carbon::createFromFormat('Y-m-d', $value);
+            $this->min = $date;
+            $this->rdate = $date;
+        }
     }
 
 }
