@@ -10,6 +10,7 @@ use Livewire\Component;
 class FastboatItem extends Component
 {
     public $track;
+    public $ordered;
     public $date;
 
     public function render()
