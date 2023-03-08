@@ -17,7 +17,7 @@ class SelectOrigin extends Component
 
     public function mount()
     {
-        $this->places = FastboatPlace::where('name', '!=', $this->dest)->get();
+        $this->places = FastboatPlace::where('name', '!=', $this->dest)->orderBy('name', 'asc')->get();
     }
     
     public function render()
@@ -33,6 +33,6 @@ class SelectOrigin extends Component
 
     public function updatePlaces($origin)
     {
-        $this->places = FastboatPlace::where('name', '!=', $origin)->get();
+        $this->places = FastboatPlace::where('name', '!=', $origin)->orderBy('name', 'asc')->get();
     }
 }

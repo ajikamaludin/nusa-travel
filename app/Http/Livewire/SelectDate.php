@@ -18,4 +18,9 @@ class SelectDate extends Component
     {
         return view('livewire.select-date');
     }
+
+    public function updatedDate($value) 
+    {
+        $this->emit('changeDate', $value);
+    }
 }

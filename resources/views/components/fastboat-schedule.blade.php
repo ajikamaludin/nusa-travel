@@ -1,10 +1,3 @@
-@push('style')
-    <!-- css -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tomik23/autocomplete@1.8.6/dist/css/autocomplete.min.css"/>
-    <!-- js -->
-    <script src="https://cdn.jsdelivr.net/gh/tomik23/autocomplete@1.8.6/dist/js/autocomplete.min.js"></script>
-@endpush
-
 <form method="GET" action="{{ route('fastboat') }}">
     <!-- @csrf -->
     <div class="flex flex-row w-full">
@@ -31,14 +24,16 @@
                 <livewire:select-destination :dest="$from" :origin="$to"/>
                 <livewire:select-date :date="$date" />
                 <div class="{{ $ways == 1 ? 'hidden' : ''}}" id="rdate">
-                    <livewire:select-return-date :rdate="$rdate" />
+                    <livewire:select-return-date :rdate="$rdate" :date="$date"/>
                 </div>
             </div>
         </div>
         <livewire:select-passenger :passengers="$passengers"/>
     </div>
     <div class="w-full flex flex-row justify-end pt-2">
-        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">{{ __('website.Search') }}</button>
+        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">
+            {{ __('website.Search') }}
+        </button>
     </div>
 </form>
 

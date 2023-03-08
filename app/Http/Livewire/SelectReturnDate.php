@@ -2,20 +2,31 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class SelectReturnDate extends Component
 {
+    protected $listeners = ['changeDate' => 'updateMinDate'];
+
     public $rdate;
     public $min;
 
-    public function mount()
+    public function mount($date)
     {
-        $this->min = now();
+        $this->min = $date;
     }
 
     public function render()
     {
         return view('livewire.select-return-date');
     }
+
+    public function updateMinDate($value)
+    {
+        $date = Carbon::createFromFormat('Y-m-d', $value);
+        $this->min = $date;
+        $this->rdate = $date->addDays(2);
+    }
+
 }
