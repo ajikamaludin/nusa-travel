@@ -39,9 +39,11 @@
             <div class="web-spinner"></div>
         </div>
         <div class="w-full justify-center flex flex-col main-content">
+
             @include('layouts.partials.header')
             @yield('content')
             @include('layouts.partials.footer')
+
             @if($setting->getValue('G_WHATSAPP_FLOAT_ENABLE') == 1)
             <div class="fixed z-10 bottom-2 right-5">
                 <a href="{{ $setting->getValue('G_WHATSAPP_URL') }}" target="_blank" class="flex flex-row items-center justify-center gap-2 bg-green-500 rounded-2xl px-4 py-2 scale-100 hover:scale-110 text-white">

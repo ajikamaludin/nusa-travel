@@ -10,6 +10,7 @@ use App\Http\Controllers\Website\SignUpController;
 use App\Http\Controllers\Website\PageController;
 use App\Http\Controllers\Website\ProfileController as CustomerProfileController;
 use App\Http\Controllers\Website\TourPackageController;
+use App\Http\Livewire\FastboatCart;
 use App\Http\Middleware\GuardCustomer;
 use App\Http\Middleware\VisitorCounter;
 use Illuminate\Support\Facades\Route;
@@ -38,7 +39,7 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
 
     // Order
     Route::get('/carts', [OrderController::class, 'index'])->name('customer.cart');
-    Route::get('/carts/fastboat', [OrderController::class, 'fastboat'])->name('customer.cart.fastboat');
+    Route::get('/carts/fastboat', FastboatCart::class)->name('customer.cart.fastboat'); //livewire
     Route::get('/carts/process-payment/{order}', [OrderController::class, 'payment'])->name('customer.process-payment');
     Route::get('/orders',[OrderController::class, 'orders'])->name('customer.orders');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('customer.order');

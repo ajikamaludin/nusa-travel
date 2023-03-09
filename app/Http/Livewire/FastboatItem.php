@@ -26,7 +26,7 @@ class FastboatItem extends Component
         // dump($this->type);
         // check cart is null
         // TODO: add cart is only save id to emit save ordered
-        session(['fastboat_cart'.$this->type => [
+        session(['fastboat_cart_'.$this->type => [
             'track_id' => $this->track->id, 
             'qty' => $this->quantity,
             'date' => $this->date
