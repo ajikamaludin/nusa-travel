@@ -6,10 +6,11 @@ use App\Models\FastboatTrack;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
+use WireUi\Traits\Actions;
 
 class FastboatTrackAvailable extends Component
 {
-    use WithPagination;
+    use WithPagination, Actions;
 
     protected $listeners = [
         'showAvailableRoute' => 'showAvailableRoute',
@@ -53,18 +54,28 @@ class FastboatTrackAvailable extends Component
 
     public function toggle()
     {
-        $this->show = ! $this->show;
+        $this->trackDepartureChoosed = null;
+        $this->show = false;
     }
 
     public function showAvailableRoute($data)
     {
+        if($data['from'] == null || $data['to'] == null) {
+            $this->notification()->error(
+                $title = 'Error !!!',
+                $description = 'Origin and destination cant be empty'
+            );
+            return;
+        }
+
         $this->from = $data['from'];
         $this->to = $data['to'];
         $this->ways = $data['ways'];
         $this->date = $data['date'];
         $this->rdate = $data['rdate'];
         $this->passengers = $data['passengers'];
-        $this->fetch();
+
+        // $this->fetch();
     }
 
     public function choosedDepartureFastboat($value)
@@ -84,11 +95,14 @@ class FastboatTrackAvailable extends Component
     public function changeDepartureFastboat()
     {
         $this->trackDepartureChoosed = null;
+
+        session()->remove('carts');
+        $this->emit('addCart');
     }
 
     public function fetch()
     {
-        if ($this->from != '' && $this->to != '') {
+        if ($this->from != null && $this->to != null) {
             $this->show = true;
             $queryDeparture = FastboatTrack::with(['source', 'destination', 'group.fastboat'])
             ->whereHas('source', function ($query) {

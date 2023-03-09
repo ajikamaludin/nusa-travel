@@ -1,6 +1,6 @@
 <x-modal 
     blur 
-    wire:model.defer="show"
+    wire:model="show"
     spacing="p-0"
     align="center"
 >
@@ -13,6 +13,7 @@
                     <div wire:loading.delay.long>
                         <h3 class="text-xl font-semibold text-gray-900">loading...</h3>
                     </div>
+                    <!-- header tracks from -> to -->
                     <h3 class="text-xl font-semibold text-gray-900 flex flex-row items-center gap-2" wire:loading.remove>
                     @if($trackDepartureChoosed == null)
                         <div>{{ $from }}</div>
@@ -39,6 +40,8 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
+
+            <!-- choosed departure if 2 ways -->
             @if($trackDepartureChoosed != null)
             <div class="w-full max-w-5xl mx-auto px-4 py-2 border-b-2">
                 <div class="flex flex-row justify-between items-center">
@@ -56,12 +59,15 @@
                 </div>
             </div>
             @endif
+
+            <!-- no choosed departure -->
             @if($trackDepartureChoosed == null)
             <div class="w-full text-center max-w-5xl text-sm font-light mx-auto px-4 py-2 border-b-2">
                 <p>Choose departure fastboat</p>
             </div>
             @endif
 
+            <!-- tracks  -->
             @if($trackDepartures != null)
                 @if($trackDepartureChoosed == null)
                 <div class="w-full max-w-5xl mx-auto p-2">
@@ -90,8 +96,10 @@
                 </div>
                 @endif
             @endif
-            @if($trackDepartures == null)
-                <p class="w-full text-center py-20"> no fastboat schedule found </p>
+
+            <!-- no route found -->
+            @if($trackDepartures?->count() <= 0)
+                <p class="w-full text-center py-20">no fastboat schedule found</p>
             @endif
         </div>
     </div>

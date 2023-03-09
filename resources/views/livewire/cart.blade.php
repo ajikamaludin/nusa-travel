@@ -44,56 +44,63 @@
                 </div>
                 <div class="w-full lg:flex-1">
                     <div class="shadow-lg p-4 border-2 rounded-lg">
-                        <form wire:submit.prevent="submit">
-                            @if(!$isAuth)
-                            <div class="mb-5">
-                                <div class="mt-2">
-                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                    <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Doe" wire:model.defer="name" autocomplete="off">
-                                    @error('name') 
-                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
-                                    @enderror
+                            @if($isFastboat)
+                                <div class="w-full flex">
+                                    <a href="{{ route('customer.cart.fastboat') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full text-center">Process Order</a>
                                 </div>
-                                
-                                <div class="mt-2">
-                                    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
-                                    <input type="text" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+184567887" wire:model.defer="phone" autocomplete="off">
-                                    @error('phone') 
-                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
-                                    @enderror
+                            @else
+                            <form wire:submit.prevent="submit">
+                                @if(!$isAuth)
+                                    <div class="mb-5">
+                                        <div class="mt-2">
+                                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                            <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Doe" wire:model.defer="name" autocomplete="off">
+                                            @error('name') 
+                                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        
+                                        <div class="mt-2">
+                                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                                            <input type="text" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+184567887" wire:model.defer="phone" autocomplete="off">
+                                            @error('phone') 
+                                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2">
+                                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nation</label>
+                                            <select id="nation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model.defer="nation">
+                                                <option value=""></option>
+                                                <option value="WNA">WNA (Foreign Nationals)</option>
+                                                <option value="WNI">WNI (Indonesian)</option>
+                                            </select>
+                                            @error('nation') 
+                                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2">
+                                            <label for="national_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">National ID</label>
+                                            <input type="number" min="10" id="national_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" wire:model.defer="national_id" autocomplete="off">
+                                            @error('national_id') 
+                                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2">
+                                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                            <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="user@mail.com" wire:model.defer="email" autocomplete="off">
+                                            @error('email') 
+                                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                @endif
+                                <div class="font-bold text-xl">Total : {{ number_format($total, '0', ',', '.') }}</div>
+                                <div class="w-full flex my-5 ">
+                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ">Process Payment</button>
                                 </div>
-                                <div class="mt-2">
-                                    <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nation</label>
-                                    <select id="nation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model.defer="nation">
-                                        <option value=""></option>
-                                        <option value="WNA">WNA (Foreign Nationals)</option>
-                                        <option value="WNI">WNI (Indonesian)</option>
-                                    </select>
-                                    @error('nation') 
-                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="mt-2">
-                                    <label for="national_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">National ID</label>
-                                    <input type="number" min="10" id="national_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" wire:model.defer="national_id" autocomplete="off">
-                                    @error('national_id') 
-                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="mt-2">
-                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                    <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="user@mail.com" wire:model.defer="email" autocomplete="off">
-                                    @error('email') 
-                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
+                            </form>
                             @endif
-                            <div class="font-bold text-xl">Total : {{ number_format($total, '0', ',', '.') }}</div>
-                            <div class="w-full flex my-5 ">
-                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ">Process Payment</button>
-                            </div>
-                        </form>
+                        
                     </div>
                 </div>
                 </div>

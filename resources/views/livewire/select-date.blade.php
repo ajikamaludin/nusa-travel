@@ -5,6 +5,7 @@
         wire:model="date"
         :min="$min"
         :without-time="true"
+        :clearable="false"
         name="date"
     />
 </div>

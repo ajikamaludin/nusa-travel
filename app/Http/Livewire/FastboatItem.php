@@ -26,15 +26,12 @@ class FastboatItem extends Component
 
     public function addCart()
     {
-        // $carts = collect(session('fastboat_carts') ?? []);
-        // dump($this->type);
-        // check cart is null
-        // TODO: add cart is only save id to emit save ordered
         session(['fastboat_cart_'.$this->type => [
             'track_id' => $this->track->id,
             'qty' => $this->quantity,
             'date' => $this->date,
         ]]);
+        $this->addToGuestCart();
 
         $this->emit('choosedDepartureFastboat', ['type' => $this->type]);
 
@@ -43,7 +40,40 @@ class FastboatItem extends Component
         // } else {
         //     $this->guest();
         // }
-        // $this->emit('addCart');
+        $this->emit('addCart');
+    }
+
+    public function addToGuestCart()
+    {
+        $carts = session('carts') ?? [];
+
+        if (count($carts) > 0) {
+            $carts = collect($carts)->filter(function ($cart) {
+                if (array_key_exists('fastboat_cart', $cart) && $cart['fastboat_cart'] != $this->type) {
+                    return $cart;
+                }
+            })->toArray();
+            
+            $carts = array_merge($carts, [
+                $this->track->id => [
+                    'qty' => $this->quantity, 
+                    'type' => FastboatTrack::class, 
+                    'date' => $this->date,
+                    'fastboat_cart' => $this->type
+                ]
+            ]);
+        } else {
+            $carts = [
+                $this->track->id => [
+                    'qty' => $this->quantity, 
+                    'type' => FastboatTrack::class, 
+                    'date' => $this->date,
+                    'fastboat_cart' => $this->type
+                ]
+            ];
+        }
+
+        session(['carts' => $carts]);
     }
 
     public function guest()

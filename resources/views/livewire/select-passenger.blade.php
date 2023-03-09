@@ -6,5 +6,7 @@
         name="no_passengers" 
         wire:model="passengers"
         required="true"
+        min="1"
+        right-icon="user"
     />
 </div>

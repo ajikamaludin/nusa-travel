@@ -150,6 +150,6 @@ class OrderController extends Controller
 
     public function fastboat()
     {
-        //
+        return view('fastboat-cart');
     }
 }

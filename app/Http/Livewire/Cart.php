@@ -26,6 +26,8 @@ class Cart extends Component
 
     public $isAuth = false;
 
+    public $isFastboat = false;
+
     protected $rules = [
         'name' => 'required|string|max:255|min:3',
         'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:20',
@@ -36,6 +38,7 @@ class Cart extends Component
 
     public function mount()
     {
+        $this->isFastboat = $this->isFastboat();
         $this->isAuth = auth('customer')->check();
         $this->updateTotal();
     }
@@ -188,5 +191,24 @@ class Cart extends Component
         // TODO: send email that order created ans has a link todo payment
 
         return $order;
+    }
+
+    public function isFastboat()
+    {
+        $carts = session('carts') ?? [];
+
+        if (count($carts) > 0) {
+            $carts = collect($carts)->filter(function ($cart) {
+                if (array_key_exists('fastboat_cart', $cart)) {
+                    return $cart;
+                }
+            })->count();
+
+            if($carts > 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

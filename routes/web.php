@@ -39,7 +39,7 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
 
     // Order
     Route::get('/carts', [OrderController::class, 'index'])->name('customer.cart');
-    Route::get('/carts/fastboat', FastboatCart::class)->name('customer.cart.fastboat'); //livewire
+    Route::get('/carts/fastboat', [OrderController::class, 'fastboat'])->name('customer.cart.fastboat');
     Route::get('/carts/process-payment/{order}', [OrderController::class, 'payment'])->name('customer.process-payment');
     Route::get('/orders', [OrderController::class, 'orders'])->name('customer.orders');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('customer.order');

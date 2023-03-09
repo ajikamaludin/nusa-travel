@@ -5,6 +5,7 @@
         wire:model="rdate"
         :min="$min"
         :without-time="true"
+        :clearable="false"
         name="return_date"
     />
 </div>
