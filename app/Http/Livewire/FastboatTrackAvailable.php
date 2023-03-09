@@ -75,14 +75,13 @@ class FastboatTrackAvailable extends Component
         $this->rdate = $data['rdate'];
         $this->passengers = $data['passengers'];
 
-        // $this->fetch();
+        $this->fetch();
     }
 
     public function choosedDepartureFastboat($value)
     {
-        $track = session()->get('fastboat_cart_'.$value['type']);
         if ($value['type'] == 1) {
-            $this->trackDepartureChoosed = FastboatTrack::find($track['track_id']);
+            $this->trackDepartureChoosed = FastboatTrack::find($value['track_id']);
             if ($this->ways == 1) {
                 redirect()->route('customer.cart.fastboat');
             }

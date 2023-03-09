@@ -8,7 +8,7 @@
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow items-center h-full md:h-auto">
             <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <div class="flex items-center justify-between p-4 border-b rounded-t">
                 <div class="flex flex-col">
                     <div wire:loading.delay.long>
                         <h3 class="text-xl font-semibold text-gray-900">loading...</h3>

@@ -26,14 +26,9 @@ class FastboatItem extends Component
 
     public function addCart()
     {
-        session(['fastboat_cart_'.$this->type => [
-            'track_id' => $this->track->id,
-            'qty' => $this->quantity,
-            'date' => $this->date,
-        ]]);
         $this->addToGuestCart();
 
-        $this->emit('choosedDepartureFastboat', ['type' => $this->type]);
+        $this->emit('choosedDepartureFastboat', ['type' => $this->type, 'track_id' => $this->track->id,]);
 
         // if(Auth::guard('customer')->check()) {
         //     $this->user();
