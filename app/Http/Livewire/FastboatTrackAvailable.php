@@ -31,7 +31,7 @@ class FastboatTrackAvailable extends Component
 
     public $show = false;
 
-    public function mount() 
+    public function booted()
     {
         $this->fetch();
     }
@@ -60,10 +60,22 @@ class FastboatTrackAvailable extends Component
         $this->fetch();
     }
 
-    public function choosedDepartureFastboat(FastboatTrack $value)
+    public function choosedDepartureFastboat($value)
     {
-        dump($value);
-        $this->trackDepartureChoosed = $value;
+            $track = session()->get('fastboat_cart_'.$value['type']);
+            if($value['type'] == 1) {
+                $this->trackDepartureChoosed = FastboatTrack::find($track['track_id']);
+                if($this->ways == 1) {
+                    redirect()->route('customer.cart.fastboat');
+                }
+                return;
+            }
+            redirect()->route('customer.cart.fastboat');
+    }
+
+    public function changeDepartureFastboat()
+    {
+        $this->trackDepartureChoosed = null;
     }
 
     public function fetch()

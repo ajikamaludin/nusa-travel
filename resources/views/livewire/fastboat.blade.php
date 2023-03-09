@@ -23,8 +23,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 pt-4 gap-2" id="form-wrapper">
                     <div class="md:col-span-2">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <livewire:select-origin :origin="$to" :dest="$from"/>
-                            <livewire:select-destination :dest="$from" :origin="$to"/>
+                            <livewire:select-origin :origin="$from" :dest="$to"/>
+                            <livewire:select-destination :dest="$to" :origin="$from"/>
                             <livewire:select-date :date="$date" />
                             <div class="{{ $ways == 1 ? 'hidden' : ''}}" id="rdate">
                                 <livewire:select-return-date :rdate="$rdate" :date="$date"/>

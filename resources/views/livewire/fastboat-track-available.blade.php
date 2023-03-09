@@ -11,14 +11,22 @@
             <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <div class="flex flex-col">
                     <h3 class="text-xl font-semibold text-gray-900 flex flex-row items-center gap-2">
+                    @if($trackDepartureChoosed == null)
                         <div>{{ $from }}</div>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                         </svg>
                         <div> {{ $to }} </div>
+                    @else 
+                        <div>{{ $to }}</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        </svg>
+                        <div> {{ $from }} </div>
+                    @endif 
                     </h3>
                     <div class="flex flex-row gap-2">
-                        <p>{{ $date }}</p>
+                        <p>{{ $trackDepartureChoosed != null ? $rdate : $date }}</p>
                         <div>|</div>
                         <p>{{ $passengers }} passengers</p>
                     </div>
@@ -39,7 +47,7 @@
                             <p>Rp {{ number_format($trackDepartureChoosed->price, 0, ',', '.') }}</p>
                         </div>
                     </div>
-                    <div class="text-blue-600">
+                    <div class="text-blue-600" wire:click="changeDepartureFastboat">
                         Change
                     </div>
                 </div>
@@ -52,21 +60,25 @@
             @endif
 
             @if($trackDepartures != null)
-            <div class="w-full max-w-5xl mx-auto p-2">
-                <div class="flex flex-col">
-                @foreach($trackDepartures as $track)
-                    <livewire:fastboat-item :track="$track" :date="$date" ordered="0" :quantity="$passengers" type='1'/>
-                @endforeach
+                @if($trackDepartureChoosed == null)
+                <div class="w-full max-w-5xl mx-auto p-2">
+                    <div class="flex flex-col">
+                    @foreach($trackDepartures as $track)
+                        <livewire:fastboat-item :track="$track" :date="$date" ordered="0" :quantity="$passengers" :type='1'/>
+                    @endforeach
+                    </div>
                 </div>
-            </div>
-            <div class=" max-w-5xl mx-auto px-1 {{ $trackDepartures == null ? 'pb-10' : '' }}">
-                {{$trackDepartures->withQueryString()->links()}}
-            </div>
+                <div class=" max-w-5xl mx-auto px-1 {{ $trackDepartures == null ? 'pb-10' : '' }}">
+                    {{$trackDepartures->withQueryString()->links()}}
+                </div>
+                @endif
+
+                <!-- route return -->
                 @if($trackReturns != null && $trackDepartureChoosed != null)
-                <div class="w-full max-w-5xl mx-auto px-2">
+                <div class="w-full max-w-5xl mx-auto p-2">
                     <div class="flex flex-col">
                     @foreach($trackReturns as $track)
-                        <livewire:fastboat-item :track="$track" :date="$rdate" ordered="0" :quantity="$passengers" type='2'/>
+                        <livewire:fastboat-item :track="$track" :date="$rdate" ordered="0" :quantity="$passengers" :type='2'/>
                     @endforeach
                     </div>
                 </div>
@@ -78,7 +90,6 @@
             @if($trackDepartures == null)
                 <p class="w-full text-center py-20"> no fastboat schedule found </p>
             @endif
-
         </div>
     </div>
 </x-modal>

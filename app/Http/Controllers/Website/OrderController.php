@@ -145,4 +145,9 @@ class OrderController extends Controller
             'orders' => $orders->orderBy('payment_status', 'desc')->orderBy('created_at', 'desc')->paginate(), 
         ]);
     }
+
+    public function fastboat()
+    {
+        // 
+    }
 }

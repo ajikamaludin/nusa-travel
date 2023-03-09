@@ -22,14 +22,17 @@ class FastboatItem extends Component
 
     public function addCart()
     {
+        // $carts = collect(session('fastboat_carts') ?? []);
+        // dump($this->type);
+        // check cart is null
         // TODO: add cart is only save id to emit save ordered
-        session(['fastboat_cart_'.$this->type => [
+        session(['fastboat_cart'.$this->type => [
             'track_id' => $this->track->id, 
             'qty' => $this->quantity,
             'date' => $this->date
         ]]);
 
-        $this->emit('choosedDepartureFastboat', $this->track);
+        $this->emit('choosedDepartureFastboat', ['type' => $this->type]);
 
         // if(Auth::guard('customer')->check()) {
         //     $this->user();

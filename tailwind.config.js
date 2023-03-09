@@ -5,7 +5,7 @@ module.exports = {
     presets: [require("./vendor/wireui/wireui/tailwind.config.js")],
     content: [
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
-        "./storage/framework/views/*.php",
+        // "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.jsx",
         "./node_modules/flowbite/**/*.js",
