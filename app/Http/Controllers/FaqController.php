@@ -14,7 +14,7 @@ class FaqController extends Controller
     {
         $query = Faq::query();
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $query->where('question', 'like', "%{$request->q}%");
         }
 
@@ -38,17 +38,17 @@ class FaqController extends Controller
     {
         $request->validate([
             'question' => 'required|string|max:255',
-            'answer' => 'nullable'
+            'answer' => 'nullable',
         ]);
 
         Faq::create([
             'question' => $request->question,
             'answer' => $request->answer,
-            'order' => Faq::count() + 1
+            'order' => Faq::count() + 1,
         ]);
 
         return redirect()->route('faq.index')
-            ->with('message', ['type' => 'success', 'message' => 'Faq has beed saved']); 
+            ->with('message', ['type' => 'success', 'message' => 'Faq has beed saved']);
     }
 
     /**
@@ -66,16 +66,16 @@ class FaqController extends Controller
     {
         $request->validate([
             'question' => 'required|string|max:255',
-            'answer' => 'nullable'
+            'answer' => 'nullable',
         ]);
 
         $faq->update([
             'question' => $request->question,
-            'answer' => $request->answer
+            'answer' => $request->answer,
         ]);
 
         return redirect()->route('faq.index')
-            ->with('message', ['type' => 'success', 'message' => 'Faq has beed updated']); 
+            ->with('message', ['type' => 'success', 'message' => 'Faq has beed updated']);
     }
 
     /**
@@ -85,6 +85,6 @@ class FaqController extends Controller
     {
         $faq->delete();
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Faq has beed deleted']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Faq has beed deleted']);
     }
 }

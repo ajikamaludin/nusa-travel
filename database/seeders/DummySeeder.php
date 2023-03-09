@@ -5,10 +5,6 @@ namespace Database\Seeders;
 use App\Models\CarRental;
 use App\Models\Customer;
 use App\Models\Faq;
-use App\Models\Fastboat;
-use App\Models\FastboatPlace;
-use App\Models\FastboatTrack;
-use App\Models\FastboatTrackGroup;
 use App\Models\File;
 use App\Models\Page;
 use App\Models\Post;
@@ -17,7 +13,6 @@ use App\Models\Setting;
 use App\Models\Tag;
 use App\Models\TourPackage;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -46,25 +41,25 @@ class DummySeeder extends Seeder
             ['id' => Str::uuid(), 'key' => 'G_SITE_NAME', 'value' => 'Nusa Travel', 'type' => 'text', 'label' => 'Site Name'],
             ['id' => Str::uuid(), 'key' => 'G_SITE_LOGO', 'value' => 'logo-side.png ', 'type' => 'image', 'label' => 'Site Logo'],
             [
-                'id' => Str::uuid(), 
-                'key' => 'G_SITE_ABOUT', 
-                'value' => 'An Indonesia\'s leading provider of fast boat tickets, we offer the most reliable and efficient transport options for island-hopping. Our main fast boat, the Ekajaya Fast Boat, is equipped with modern facilities and offers a comfortable and safe journey to your desired destination.', 
+                'id' => Str::uuid(),
+                'key' => 'G_SITE_ABOUT',
+                'value' => 'An Indonesia\'s leading provider of fast boat tickets, we offer the most reliable and efficient transport options for island-hopping. Our main fast boat, the Ekajaya Fast Boat, is equipped with modern facilities and offers a comfortable and safe journey to your desired destination.',
                 'type' => 'textarea',
-                'label' => 'Site About'
+                'label' => 'Site About',
             ],
             [
-                'id' => Str::uuid(), 
-                'key' => 'G_SITE_WELCOME', 
-                'value' => 'Welcome To Nusa Travel', 
+                'id' => Str::uuid(),
+                'key' => 'G_SITE_WELCOME',
+                'value' => 'Welcome To Nusa Travel',
                 'type' => 'text',
-                'label' => 'Welcome Banner'
+                'label' => 'Welcome Banner',
             ],
             [
-                'id' => Str::uuid(), 
-                'key' => 'G_SITE_SUBWELCOME', 
-                'value' => 'Your One-Stop Destination for Island Hopping in Indonesia', 
+                'id' => Str::uuid(),
+                'key' => 'G_SITE_SUBWELCOME',
+                'value' => 'Your One-Stop Destination for Island Hopping in Indonesia',
                 'type' => 'text',
-                'label' => 'Sub Welcome Banner'
+                'label' => 'Sub Welcome Banner',
             ],
             ['id' => Str::uuid(), 'key' => 'G_SITE_META_DESC', 'value' => 'description here', 'type' => 'textarea', 'label' => 'Site Meta'],
             ['id' => Str::uuid(), 'key' => 'G_SITE_META_KEYWORD', 'value' => 'keyword here', 'type' => 'textarea', 'label' => 'Site Keyword'],
@@ -89,11 +84,10 @@ class DummySeeder extends Seeder
             ['id' => Str::uuid(), 'name' => 'News'],
             ['id' => Str::uuid(), 'name' => 'Tours'],
             ['id' => Str::uuid(), 'name' => 'Destination'],
-            ['id' => Str::uuid(), 'name' => 'Boat']
+            ['id' => Str::uuid(), 'name' => 'Boat'],
         ];
 
         Tag::insert($tags);
-
 
         $posts = [
             ['title' => 'Uluwatu Kecak Fire and Dance Show Ticket in Bali	', 'file' => '/blog/post1.txt', 'image' => 'images/post1.webp'],
@@ -102,22 +96,22 @@ class DummySeeder extends Seeder
             ['title' => 'Tanjung Benoa Watersports in Bali by Bali Bintang Dive and Watersport	', 'file' => '/blog/post4.txt', 'image' => 'images/post4.webp'],
         ];
 
-        foreach($posts as $p) {
+        foreach ($posts as $p) {
             // foreach(range(0, 4) as $r) {
-                $post = Post::create([
-                    'slug' => Str::slug($p['title']),
-                    'meta_tag' => '',
-                    'cover_image' => $p['image'],
-                    'is_publish' => Post::PUBLISH,
-                    'title' => $p['title'],
-                    'body' => file_get_contents(__DIR__.$p['file']),
-                    'created_by' => User::first()->id,
-                ]);
+            $post = Post::create([
+                'slug' => Str::slug($p['title']),
+                'meta_tag' => '',
+                'cover_image' => $p['image'],
+                'is_publish' => Post::PUBLISH,
+                'title' => $p['title'],
+                'body' => file_get_contents(__DIR__.$p['file']),
+                'created_by' => User::first()->id,
+            ]);
 
-                PostTag::create([
-                    'post_id' => $post->id,
-                    'tag_id' => $tags[rand(0,3)]['id']
-                ]);
+            PostTag::create([
+                'post_id' => $post->id,
+                'tag_id' => $tags[rand(0, 3)]['id'],
+            ]);
             // }
         }
     }
@@ -133,11 +127,11 @@ class DummySeeder extends Seeder
             ['key' => 'aboutus', 'title' => 'About Us', 'file' => '/pages/aboutus.txt'],
         ];
 
-        foreach($pages as $page) {
+        foreach ($pages as $page) {
             Page::create([
                 'key' => $page['key'],
                 'title' => $page['title'],
-                'body' => file_get_contents(__DIR__.$page['file'])
+                'body' => file_get_contents(__DIR__.$page['file']),
             ]);
         }
     }
@@ -151,9 +145,9 @@ class DummySeeder extends Seeder
             <div>is equipped with modern facilities and offers a comfortable and safe journey to your</div>
             <div>desired destination.</div>
             </div>", 'order' => 1],
-            ['id' => Str::uuid(), 'question' => 'Can i refund my booking ?', 'answer' => "<div>Sure</div>", 'order' => 2],
-            ['id' => Str::uuid(), 'question' => 'Can i change my plan ?', 'answer' => "<div>Sure</div>", 'order' => 3],
-            ['id' => Str::uuid(), 'question' => 'How to apply promo ?', 'answer' => "<div>Sure</div>", 'order' => 4],
+            ['id' => Str::uuid(), 'question' => 'Can i refund my booking ?', 'answer' => '<div>Sure</div>', 'order' => 2],
+            ['id' => Str::uuid(), 'question' => 'Can i change my plan ?', 'answer' => '<div>Sure</div>', 'order' => 3],
+            ['id' => Str::uuid(), 'question' => 'How to apply promo ?', 'answer' => '<div>Sure</div>', 'order' => 4],
         ];
 
         Faq::insert($faqs);
@@ -174,14 +168,14 @@ class DummySeeder extends Seeder
     public function customer()
     {
         Customer::create([
-            "name" => "Dummy User",
-            "email" => "user@mail.com",
-            "phone" => "083840745543",
-            "password" => bcrypt("password"),
-            "address" => "indonesia",
-            "nation" => Customer::WNA,
-            "is_active" => Customer::ACTIVE,
-            "email_varified_at" => now(),
+            'name' => 'Dummy User',
+            'email' => 'user@mail.com',
+            'phone' => '083840745543',
+            'password' => bcrypt('password'),
+            'address' => 'indonesia',
+            'nation' => Customer::WNA,
+            'is_active' => Customer::ACTIVE,
+            'email_varified_at' => now(),
         ]);
     }
 
@@ -248,7 +242,7 @@ class DummySeeder extends Seeder
                 'is_publish' => CarRental::READY,
                 'car_owned' => '1',
             ],
-            // 
+            //
             [
                 'id' => Str::uuid(),
                 'name' => 'Avanza',
@@ -314,13 +308,13 @@ class DummySeeder extends Seeder
         CarRental::insert($cars);
     }
 
-    public function tour_packages() 
+    public function tour_packages()
     {
         $packages = [
             [
                 'name' => 'PENIDA DAY TOUR ( WEST )',
                 'title' => 'PENIDA DAY TOUR ( WEST )',
-                'body' => file_get_contents(__DIR__."/packages/1.txt"),
+                'body' => file_get_contents(__DIR__.'/packages/1.txt'),
                 'meta_tag' => 'PENIDA DAY TOUR ( WEST )',
                 'price' => '475000',
                 'cover_image' => 'images/post4.webp',
@@ -328,30 +322,30 @@ class DummySeeder extends Seeder
                 'prices' => [
                     [
                         'quantity' => 1,
-                        'price' => 635000
+                        'price' => 635000,
                     ],
                     [
                         'quantity' => 3,
-                        'price' => 560000
+                        'price' => 560000,
                     ],
                     [
                         'quantity' => 4,
-                        'price' => 510000
+                        'price' => 510000,
                     ],
                     [
                         'quantity' => 5,
-                        'price' => 485000
+                        'price' => 485000,
                     ],
                     [
                         'quantity' => 8,
-                        'price' => 475000
+                        'price' => 475000,
                     ],
-                ], 
+                ],
             ],
             [
                 'name' => 'PENIDA DAY TOUR ( EAST )',
                 'title' => 'PENIDA DAY TOUR ( EAST )',
-                'body' => file_get_contents(__DIR__."/packages/2.txt"),
+                'body' => file_get_contents(__DIR__.'/packages/2.txt'),
                 'meta_tag' => 'PENIDA DAY TOUR ( EAST )',
                 'price' => '475000',
                 'cover_image' => 'images/post3.webp',
@@ -359,30 +353,30 @@ class DummySeeder extends Seeder
                 'prices' => [
                     [
                         'quantity' => 1,
-                        'price' => 635000
+                        'price' => 635000,
                     ],
                     [
                         'quantity' => 3,
-                        'price' => 560000
+                        'price' => 560000,
                     ],
                     [
                         'quantity' => 4,
-                        'price' => 510000
+                        'price' => 510000,
                     ],
                     [
                         'quantity' => 5,
-                        'price' => 485000
+                        'price' => 485000,
                     ],
                     [
                         'quantity' => 8,
-                        'price' => 475000
+                        'price' => 475000,
                     ],
-                ], 
+                ],
             ],
             [
                 'name' => 'PENIDA DAY TOUR ( WEST - EAST )',
                 'title' => 'PENIDA DAY TOUR ( WEST - EAST )',
-                'body' => file_get_contents(__DIR__."/packages/3.txt"),
+                'body' => file_get_contents(__DIR__.'/packages/3.txt'),
                 'meta_tag' => 'PENIDA DAY TOUR ( WEST - EAST )',
                 'price' => '540000',
                 'cover_image' => 'images/post3.webp',
@@ -390,30 +384,30 @@ class DummySeeder extends Seeder
                 'prices' => [
                     [
                         'quantity' => 1,
-                        'price' => 725000
+                        'price' => 725000,
                     ],
                     [
                         'quantity' => 3,
-                        'price' => 660000
+                        'price' => 660000,
                     ],
                     [
                         'quantity' => 4,
-                        'price' => 600000
+                        'price' => 600000,
                     ],
                     [
                         'quantity' => 5,
-                        'price' => 570000
+                        'price' => 570000,
                     ],
                     [
                         'quantity' => 8,
-                        'price' => 540000
+                        'price' => 540000,
                     ],
-                ], 
+                ],
             ],
             [
                 'name' => 'PENIDA WEST TOUR - LEMBONGAN TOUR',
                 'title' => 'PENIDA WEST TOUR - LEMBONGAN TOUR',
-                'body' => file_get_contents(__DIR__."/packages/4.txt"),
+                'body' => file_get_contents(__DIR__.'/packages/4.txt'),
                 'meta_tag' => 'PENIDA WEST TOUR - LEMBONGAN TOUR',
                 'price' => '590000',
                 'cover_image' => 'images/post2.webp',
@@ -421,30 +415,30 @@ class DummySeeder extends Seeder
                 'prices' => [
                     [
                         'quantity' => 1,
-                        'price' => 880000
+                        'price' => 880000,
                     ],
                     [
                         'quantity' => 3,
-                        'price' => 750000
+                        'price' => 750000,
                     ],
                     [
                         'quantity' => 4,
-                        'price' => 670000
+                        'price' => 670000,
                     ],
                     [
                         'quantity' => 5,
-                        'price' => 625000
+                        'price' => 625000,
                     ],
                     [
                         'quantity' => 8,
-                        'price' => 590000
+                        'price' => 590000,
                     ],
-                ], 
+                ],
             ],
             [
                 'name' => 'PENIDA WEST TOUR - SNORKLING ( at QUICKSILVER MEGA PONTON)',
                 'title' => 'PENIDA WEST TOUR - SNORKLING ( at QUICKSILVER MEGA PONTON)',
-                'body' => file_get_contents(__DIR__."/packages/5.txt"),
+                'body' => file_get_contents(__DIR__.'/packages/5.txt'),
                 'meta_tag' => 'PENIDA WEST TOUR - SNORKLING ( at QUICKSILVER MEGA PONTON)',
                 'price' => '580000',
                 'cover_image' => 'images/post1.webp',
@@ -452,30 +446,30 @@ class DummySeeder extends Seeder
                 'prices' => [
                     [
                         'quantity' => 1,
-                        'price' => 740000
+                        'price' => 740000,
                     ],
                     [
                         'quantity' => 3,
-                        'price' => 665000
+                        'price' => 665000,
                     ],
                     [
                         'quantity' => 4,
-                        'price' => 615000
+                        'price' => 615000,
                     ],
                     [
                         'quantity' => 5,
-                        'price' => 590000
+                        'price' => 590000,
                     ],
                     [
                         'quantity' => 8,
-                        'price' => 580000
+                        'price' => 580000,
                     ],
-                ], 
+                ],
             ],
             [
                 'name' => 'LEMBONGAN ISLAND TOUR',
                 'title' => 'LEMBONGAN ISLAND TOUR',
-                'body' => file_get_contents(__DIR__."/packages/6.txt"),
+                'body' => file_get_contents(__DIR__.'/packages/6.txt'),
                 'meta_tag' => 'LEMBONGAN ISLAND TOUR',
                 'price' => '475000',
                 'cover_image' => 'images/post1.webp',
@@ -483,36 +477,36 @@ class DummySeeder extends Seeder
                 'prices' => [
                     [
                         'quantity' => 1,
-                        'price' => 635000
+                        'price' => 635000,
                     ],
                     [
                         'quantity' => 3,
-                        'price' => 560000
+                        'price' => 560000,
                     ],
                     [
                         'quantity' => 4,
-                        'price' => 510000
+                        'price' => 510000,
                     ],
                     [
                         'quantity' => 5,
-                        'price' => 485000
+                        'price' => 485000,
                     ],
                     [
                         'quantity' => 8,
-                        'price' => 475000
+                        'price' => 475000,
                     ],
-                ], 
+                ],
             ],
         ];
 
         $images = collect();
-        foreach(range(1,4) as $img) {
+        foreach (range(1, 4) as $img) {
             $images->add(File::create([
-                'path' => 'images/post'.$img.'.webp'
+                'path' => 'images/post'.$img.'.webp',
             ]));
         }
 
-        foreach($packages as $pkg) {
+        foreach ($packages as $pkg) {
             $package = TourPackage::create([
                 'slug' => Str::slug($pkg['title']),
                 'name' => $pkg['name'],
@@ -524,11 +518,11 @@ class DummySeeder extends Seeder
                 'is_publish' => $pkg['is_publish'],
             ]);
 
-            foreach($pkg['prices'] as $price) {
+            foreach ($pkg['prices'] as $price) {
                 $package->prices()->create($price);
             }
 
-            foreach($images as $img) {
+            foreach ($images as $img) {
                 $package->images()->create([
                     'file_id' => $img->id,
                 ]);

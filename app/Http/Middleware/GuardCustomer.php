@@ -17,7 +17,7 @@ class GuardCustomer
     public function handle(Request $request, Closure $next): Response
     {
         Auth::shouldUse('customer');
-        
+
         return $next($request);
     }
 }

@@ -13,20 +13,27 @@ class FastboatTrackAvailable extends Component
 
     protected $listeners = [
         'showAvailableRoute' => 'showAvailableRoute',
-        'choosedDepartureFastboat' => 'choosedDepartureFastboat', 
+        'choosedDepartureFastboat' => 'choosedDepartureFastboat',
     ];
 
     public $from;
+
     public $to;
+
     public $ways;
+
     public $date;
+
     public $rdate;
+
     public $passengers;
 
     protected $trackDepartures;
+
     protected $trackReturns;
 
     public $trackDepartureChoosed = null;
+
     public $trackReturnChoosed = null;
 
     public $show = false;
@@ -46,7 +53,7 @@ class FastboatTrackAvailable extends Component
 
     public function toggle()
     {
-        $this->show = !$this->show;
+        $this->show = ! $this->show;
     }
 
     public function showAvailableRoute($data)
@@ -62,15 +69,16 @@ class FastboatTrackAvailable extends Component
 
     public function choosedDepartureFastboat($value)
     {
-            $track = session()->get('fastboat_cart_'.$value['type']);
-            if($value['type'] == 1) {
-                $this->trackDepartureChoosed = FastboatTrack::find($track['track_id']);
-                if($this->ways == 1) {
-                    redirect()->route('customer.cart.fastboat');
-                }
-                return;
+        $track = session()->get('fastboat_cart_'.$value['type']);
+        if ($value['type'] == 1) {
+            $this->trackDepartureChoosed = FastboatTrack::find($track['track_id']);
+            if ($this->ways == 1) {
+                redirect()->route('customer.cart.fastboat');
             }
-            redirect()->route('customer.cart.fastboat');
+
+            return;
+        }
+        redirect()->route('customer.cart.fastboat');
     }
 
     public function changeDepartureFastboat()
@@ -80,42 +88,42 @@ class FastboatTrackAvailable extends Component
 
     public function fetch()
     {
-        if($this->from != '' && $this->to != '') {
+        if ($this->from != '' && $this->to != '') {
             $this->show = true;
             $queryDeparture = FastboatTrack::with(['source', 'destination', 'group.fastboat'])
-            ->whereHas('source', function($query) {
+            ->whereHas('source', function ($query) {
                 $query->where('name', '=', $this->from);
             })
-            ->whereHas('destination', function($query) {
+            ->whereHas('destination', function ($query) {
                 $query->where('name', '=', $this->to);
             });
 
             $rdate = Carbon::createFromFormat('Y-m-d', $this->date);
-            if($rdate->isToday()) {
-                $queryDeparture->whereTime('arrival_time', '>=',now());
+            if ($rdate->isToday()) {
+                $queryDeparture->whereTime('arrival_time', '>=', now());
             }
 
-            $queryDeparture->withCount(['item_ordered' => function ($query) use($rdate) {
+            $queryDeparture->withCount(['item_ordered' => function ($query) use ($rdate) {
                 return $query->whereDate('date', $rdate);
             }]);
 
             $this->trackDepartures = $queryDeparture;
 
-            if($this->ways == 2) {
+            if ($this->ways == 2) {
                 $queryReturns = FastboatTrack::with(['source', 'destination'])
-                ->whereHas('source', function($query) {
+                ->whereHas('source', function ($query) {
                     $query->where('name', '=', $this->to);
                 })
-                ->whereHas('destination', function($query) {
+                ->whereHas('destination', function ($query) {
                     $query->where('name', '=', $this->from);
                 });
 
                 $rdate = Carbon::createFromFormat('Y-m-d', $this->rdate);
-                if($rdate->isToday()) {
-                    $queryReturns->whereTime('arrival_time', '>=',now());
+                if ($rdate->isToday()) {
+                    $queryReturns->whereTime('arrival_time', '>=', now());
                 }
 
-                $queryReturns->withCount(['item_ordered' => function ($query) use($rdate) {
+                $queryReturns->withCount(['item_ordered' => function ($query) use ($rdate) {
                     return $query->whereDate('date', $rdate);
                 }]);
 

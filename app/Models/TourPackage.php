@@ -11,6 +11,7 @@ class TourPackage extends Model
     use OrderAble;
 
     const DRAFT = 0;
+
     const PUBLISH = 1;
 
     public $ORDER_NAMES = ['name', 'title'];
@@ -41,11 +42,11 @@ class TourPackage extends Model
     {
         return "<p> $this->name ( Tour Packages )</p>
         <p>$this->title</p>
-        <p>". Carbon::parse($date)->format('d-m-Y') ."</p>
-        <p>@ ". number_format($price, '0', ',' ,' .') ."</p>";
+        <p>".Carbon::parse($date)->format('d-m-Y').'</p>
+        <p>@ '.number_format($price, '0', ',', ' .').'</p>';
     }
 
-    public function images() 
+    public function images()
     {
         return $this->hasMany(ModelImage::class, 'related_id');
     }

@@ -19,7 +19,7 @@ class PostController extends Controller
     {
         $query = Post::query();
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $query->where('title', 'like', "%{$request->q}%");
         }
 
@@ -28,10 +28,10 @@ class PostController extends Controller
         ]);
     }
 
-    public function create() 
+    public function create()
     {
         return inertia('Blog/Form', [
-            'tags' => Tag::orderBy('created_at', 'desc')->get()
+            'tags' => Tag::orderBy('created_at', 'desc')->get(),
         ]);
     }
 
@@ -44,7 +44,7 @@ class PostController extends Controller
             'is_publish' => 'required|in:0,1',
             'tags' => 'nullable|array',
             'tags.*.id' => 'required|exists:tags,id',
-            'meta_tag' => 'nullable|string'
+            'meta_tag' => 'nullable|string',
         ]);
 
         if ($request->hasFile('image')) {
@@ -53,7 +53,7 @@ class PostController extends Controller
 
             File::create([
                 'name' => $request->title,
-                'path' => $file->hashName('uploads')
+                'path' => $file->hashName('uploads'),
             ]);
         }
 
@@ -66,26 +66,26 @@ class PostController extends Controller
             'cover_image' => $file->hashName('uploads'),
         ]);
 
-        foreach(collect($request->tags) as $tag){
+        foreach (collect($request->tags) as $tag) {
             PostTag::create([
                 'post_id' => $post->id,
-                'tag_id' => $tag['id']
+                'tag_id' => $tag['id'],
             ]);
         }
 
         return redirect()->route('post.index')
-            ->with('message', ['type' => 'success', 'message' => 'Post has beed saved']); 
+            ->with('message', ['type' => 'success', 'message' => 'Post has beed saved']);
     }
 
-    public function edit(Post $post) 
+    public function edit(Post $post)
     {
         return inertia('Blog/Form', [
             'tags' => Tag::orderBy('created_at', 'desc')->get(),
-            'post' => $post->load(['tags'])
+            'post' => $post->load(['tags']),
         ]);
     }
 
-    public function update(Request $request, Post $post) 
+    public function update(Request $request, Post $post)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -94,7 +94,7 @@ class PostController extends Controller
             'is_publish' => 'required|in:0,1',
             'tags' => 'nullable|array',
             'tags.*.id' => 'required|exists:tags,id',
-            'meta_tag' => 'nullable|string'
+            'meta_tag' => 'nullable|string',
         ]);
 
         if ($request->hasFile('image')) {
@@ -104,7 +104,7 @@ class PostController extends Controller
 
             File::create([
                 'name' => $request->title,
-                'path' => $file->hashName('uploads')
+                'path' => $file->hashName('uploads'),
             ]);
         }
 
@@ -117,20 +117,20 @@ class PostController extends Controller
         ]);
 
         $post->save();
-        
+
         PostTag::where('post_id', $post->id)->delete();
-        foreach($request->tags as $tag){
+        foreach ($request->tags as $tag) {
             PostTag::create([
                 'post_id' => $post->id,
-                'tag_id' => $tag['id']
+                'tag_id' => $tag['id'],
             ]);
         }
 
         return redirect()->route('post.index')
-            ->with('message', ['type' => 'success', 'message' => 'Post has beed updated']); 
+            ->with('message', ['type' => 'success', 'message' => 'Post has beed updated']);
     }
 
-    public function destroy(Post $post) 
+    public function destroy(Post $post)
     {
         $post->delete();
     }

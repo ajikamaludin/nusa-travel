@@ -1,7 +1,7 @@
 <?php
+
 namespace App\Services;
 
-use App\Models\Customer;
 use App\Models\Order;
 use Midtrans\Config;
 use Midtrans\Snap;
@@ -42,7 +42,7 @@ class MidtransService
                 'email' => $this->order->customer->email,
                 'phone' => $this->order->customer->phone,
                 'address' => $this->order->customer->address,
-            ]
+            ],
         ];
 
         $snapToken = Snap::getSnapToken($params);

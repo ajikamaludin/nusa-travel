@@ -12,14 +12,15 @@ trait OrderAble
             get: function () {
                 $name = '';
                 foreach ($this->ORDER_NAMES as $order) {
-                    $arr = explode(".", $order);
-                    if(count($arr) >= 2) {
-                        $name .=  $this->{$arr[0]}->{$arr[1]} . ' - ';
+                    $arr = explode('.', $order);
+                    if (count($arr) >= 2) {
+                        $name .= $this->{$arr[0]}->{$arr[1]}.' - ';
                     } else {
-                        $name .=  $this->{$order};
+                        $name .= $this->{$order};
                     }
                 }
                 $name = trim($name, ' - ');
+
                 return $name;
             },
         );

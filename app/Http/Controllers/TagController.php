@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
 
@@ -16,7 +15,7 @@ class TagController extends Controller
     {
         $query = Tag::query();
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $query->where('name', 'like', "%{$request->q}%");
         }
 
@@ -31,12 +30,12 @@ class TagController extends Controller
     public function store(Request $request): void
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
         ]);
 
         Tag::create(['name' => $request->name]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
     /**
@@ -45,12 +44,12 @@ class TagController extends Controller
     public function update(Request $request, Tag $tag): void
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
         ]);
 
         $tag->update(['name' => $request->name]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
     /**
@@ -60,6 +59,6 @@ class TagController extends Controller
     {
         $tag->delete();
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
     }
 }

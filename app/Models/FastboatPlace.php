@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 class FastboatPlace extends Model
 {
     protected $cascadeDeletes = ['tracks'];

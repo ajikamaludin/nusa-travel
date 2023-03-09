@@ -23,7 +23,7 @@ class RoleController extends Controller
         }
 
         $query->orderBy('created_at', 'desc');
-        
+
         return inertia('Role/Index', [
             'data' => $query->paginate(10),
         ]);
@@ -41,7 +41,7 @@ class RoleController extends Controller
         $request->validate([
             'name' => 'string|required|max:255',
             'permissions' => 'array|required',
-            'permissions.*.id' => 'uuid|required|exists:permissions,id'
+            'permissions.*.id' => 'uuid|required|exists:permissions,id',
         ]);
 
         DB::beginTransaction();
@@ -71,14 +71,14 @@ class RoleController extends Controller
         $request->validate([
             'name' => 'string|required|max:255',
             'permissions' => 'array|required',
-            'permissions.*.id' => 'uuid|required|exists:permissions,id'
+            'permissions.*.id' => 'uuid|required|exists:permissions,id',
         ]);
 
         if ($role->flag == 1) {
             return redirect()->route('roles.index')
                 ->with('message', ['type' => 'error', 'message' => 'Item default can\'t updated']);
         }
-        
+
         DB::beginTransaction();
         $role->update([
             'name' => $request->name,
@@ -106,6 +106,7 @@ class RoleController extends Controller
             return redirect()->route('roles.index')
                 ->with('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
         }
+
         return redirect()->route('roles.index')
             ->with('message', ['type' => 'error', 'message' => 'Item default can\'t deleted']);
     }

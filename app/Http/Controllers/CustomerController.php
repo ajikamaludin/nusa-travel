@@ -12,7 +12,7 @@ class CustomerController extends Controller
     {
         $query = Customer::query();
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $query->where('name', 'like', "%{$request->q}%");
         }
 
@@ -30,7 +30,7 @@ class CustomerController extends Controller
             'address' => 'nullable|string',
             'nation' => 'nullable|string',
             'national_id' => 'nullable|numeric',
-            'password' => 'nullable|string'
+            'password' => 'nullable|string',
         ]);
 
         Customer::create([
@@ -41,11 +41,10 @@ class CustomerController extends Controller
             'nation' => $request->nation,
             'national_id' => $request->national_id,
             'password' => bcrypt($request->passwor),
-            'is_active' => Customer::DEACTIVE
+            'is_active' => Customer::DEACTIVE,
         ]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Customer has beed saved']); 
-
+        session()->flash('message', ['type' => 'success', 'message' => 'Customer has beed saved']);
     }
 
     public function update(Request $request, Customer $customer)
@@ -57,10 +56,10 @@ class CustomerController extends Controller
             'address' => 'nullable|string',
             'nation' => 'nullable|string',
             'national_id' => 'nullable|numeric',
-            'password' => 'nullable|string'
+            'password' => 'nullable|string',
         ]);
 
-        if($request->input('password') != '') {
+        if ($request->input('password') != '') {
             $customer->update(['password' => bcrypt($request->password)]);
         }
 
@@ -73,13 +72,13 @@ class CustomerController extends Controller
             'national_id' => $request->national_id,
         ]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Customer has beed updated']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Customer has beed updated']);
     }
 
     public function destroy(Customer $customer): void
     {
         $customer->delete();
-        
-        session()->flash('message', ['type' => 'success', 'message' => 'Customer has beed deleted']); 
+
+        session()->flash('message', ['type' => 'success', 'message' => 'Customer has beed deleted']);
     }
 }

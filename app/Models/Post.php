@@ -10,6 +10,7 @@ class Post extends Model
     protected $cascadeDeletes = [];
 
     const DRAFT = 0;
+
     const PUBLISH = 1;
 
     protected $fillable = [
@@ -18,15 +19,15 @@ class Post extends Model
         'body',
         'meta_tag',
         'cover_image',
-        'is_publish'
+        'is_publish',
     ];
 
     protected $appends = ['publish', 'image_url', 'publish_at', 'date_for_human'];
 
-    public function tags() 
+    public function tags()
     {
         return $this->hasManyThrough(
-            Tag::class, 
+            Tag::class,
             PostTag::class,
             'post_id',
             'id',
@@ -45,7 +46,7 @@ class Post extends Model
         return Attribute::make(
             get: fn () => [
                 self::DRAFT => 'Draft',
-                self::PUBLISH => 'Publish'
+                self::PUBLISH => 'Publish',
             ][$this->is_publish],
         );
     }
@@ -62,7 +63,7 @@ class Post extends Model
         return Attribute::make(
             get: fn () => $this->created_at->diffForHumans([
                 'parts' => 4,
-                'join' => ' '
+                'join' => ' ',
             ]),
         );
     }

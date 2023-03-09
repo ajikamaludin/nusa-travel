@@ -10,21 +10,20 @@ class SelectOrigin extends Component
     protected $listeners = ['changeDest' => 'updatePlaces'];
 
     public $dest;
+
     public $origin;
 
     public $places;
-
 
     public function mount()
     {
         $this->places = FastboatPlace::where('name', '!=', $this->dest)->orderBy('name', 'asc')->get();
     }
-    
+
     public function render()
     {
         return view('livewire.select-origin');
     }
-
 
     public function updatedOrigin($value)
     {

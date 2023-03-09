@@ -24,7 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
-        'reset_token'
+        'reset_token',
     ];
 
     /**
@@ -56,7 +56,7 @@ class User extends Authenticatable
         if ($this->role_id == null) {
             return true;
         }
-        
+
         $permit = $this->role()->whereHas('permissions', function ($query) use ($permission) {
             return $query->where('name', $permission);
         })->first();
@@ -64,7 +64,7 @@ class User extends Authenticatable
         if ($permit != null) {
             return true;
         }
-        
+
         if ($abort) {
             abort(403);
         }

@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 
 class LandingController extends Controller
 {
-    public function index(Request $request, $locale = null) 
+    public function index(Request $request, $locale = null)
     {
         if ($locale != null) {
             app()->setLocale($locale);
@@ -29,13 +29,14 @@ class LandingController extends Controller
             'posts' => $posts,
             'faqs' => Faq::orderBy('order', 'asc')->limit(4)->get(),
             'images' => File::where('show_on', '!=', 0)->orderBy('show_on', 'asc')->get(),
-            'packages' => TourPackage::where('is_publish', TourPackage::PUBLISH)->orderBy('updated_at', 'desc')->limit(4)->get()
+            'packages' => TourPackage::where('is_publish', TourPackage::PUBLISH)->orderBy('updated_at', 'desc')->limit(4)->get(),
         ]);
     }
 
     public function acceptCookie()
     {
         $cookie = cookie('accept', 'agree', 1 * (24 * 60 * 365));
+
         return response('Ok')->cookie($cookie);
     }
 }

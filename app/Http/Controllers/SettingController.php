@@ -14,15 +14,16 @@ class SettingController extends Controller
     {
         $setting = Setting::where('key', 'like', 'g_%')->orderBy('key', 'asc')->get();
 
-        $setting = $setting->map(function($s) {
-            if($s->type === 'image') {
+        $setting = $setting->map(function ($s) {
+            if ($s->type === 'image') {
                 $s->url = asset($s->value);
             }
+
             return $s;
         });
 
         return inertia('Setting/General', [
-            'setting' => $setting
+            'setting' => $setting,
         ]);
     }
 
@@ -79,7 +80,6 @@ class SettingController extends Controller
 
         DB::commit();
 
-
         return redirect()->route('setting.general')
             ->with('message', ['type' => 'success', 'message' => 'Setting has beed saved']);
     }
@@ -88,15 +88,15 @@ class SettingController extends Controller
     {
         $setting = Setting::where('key', 'like', 'midtrans%')->orderBy('key', 'asc')->get();
 
-        $setting = $setting->map(function($item) {
+        $setting = $setting->map(function ($item) {
             return [
-                $item->key => $item->value
+                $item->key => $item->value,
             ];
         });
 
         return inertia('Setting/Payment', [
             'setting' => (object) $setting,
-            'notification_url' => route('api.notification.payment')
+            'notification_url' => route('api.notification.payment'),
         ]);
     }
 
@@ -109,7 +109,7 @@ class SettingController extends Controller
         ]);
 
         DB::beginTransaction();
-        foreach($request->input() as $key => $value) {
+        foreach ($request->input() as $key => $value) {
             Setting::where('key', $key)->update(['value' => $value]);
         }
         DB::commit();

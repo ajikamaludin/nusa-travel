@@ -11,7 +11,7 @@ class TourPackageController extends Controller
     public function index(Request $request)
     {
         $query = TourPackage::where('is_publish', TourPackage::PUBLISH)->orderBy('updated_at', 'desc');
-        
+
         return view('packages', [
             'packages' => $query->paginate(),
         ]);
@@ -20,7 +20,7 @@ class TourPackageController extends Controller
     public function show(TourPackage $package)
     {
         return view('package-detail', [
-            'package' => $package->load(['images', 'prices'])
+            'package' => $package->load(['images', 'prices']),
         ]);
     }
 }

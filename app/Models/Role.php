@@ -5,10 +5,10 @@ namespace App\Models;
 class Role extends Model
 {
     protected $cascadeDeletes = ['permissions'];
-    protected $fillable = [
-        "name"
-    ];
 
+    protected $fillable = [
+        'name',
+    ];
 
     public function rolePermissions()
     {
@@ -18,7 +18,7 @@ class Role extends Model
     public function permissions()
     {
         return $this->hasManyThrough(
-            Permission::class, 
+            Permission::class,
             RolePermission::class,
             'role_id',
             'id',

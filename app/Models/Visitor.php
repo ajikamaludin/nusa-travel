@@ -26,14 +26,17 @@ class Visitor extends Model
         'useragent',
     ];
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (self::$instance == null) {
-            self::$instance = new Visitor();
+            self::$instance = new Visitor;
         }
+
         return self::$instance;
     }
 
-    public static function track($data) {
+    public static function track($data)
+    {
         $v = self::getInstance();
         $v->related_model = $data[0];
         $v->related_model_id = $data[1];

@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -100,14 +99,14 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'View Setting', 'name' => 'view-setting'],
         ];
 
-        foreach($permissions as $permission) {
+        foreach ($permissions as $permission) {
             Permission::insert($permission);
         }
 
         $role = Role::create(['name' => 'admin']);
 
         $permissions = Permission::all();
-        foreach($permissions as $permission) {
+        foreach ($permissions as $permission) {
             $role->rolePermissions()->create(['permission_id' => $permission->id]);
         }
 
@@ -121,7 +120,7 @@ class PermissionSeeder extends Seeder
             'name' => 'Administator',
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
-            'role_id' => $role->id
+            'role_id' => $role->id,
         ]);
     }
 }

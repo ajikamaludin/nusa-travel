@@ -30,13 +30,13 @@ class OrderItem extends Model
         return Attribute::make(
             get: function () {
                 $detail = '';
-                if($this->item instanceof FastboatTrack) {
+                if ($this->item instanceof FastboatTrack) {
                     $detail = $this->item->detail($this->date);
                 }
-                if($this->item instanceof CarRental) {
+                if ($this->item instanceof CarRental) {
                     $detail = $this->item->detail($this->date);
                 }
-                if($this->item instanceof TourPackage) {
+                if ($this->item instanceof TourPackage) {
                     $detail = $this->item->detail($this->date, $this->amount);
                 }
 

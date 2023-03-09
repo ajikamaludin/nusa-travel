@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\FastboatController;
-use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\FastboatPlaceController;
+use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Website\OrderController;
 use Illuminate\Http\Request;
@@ -30,5 +30,3 @@ Route::get('/fastboats', [FastboatController::class, 'index'])->name('api.fastbo
 // for payment
 Route::put('/carts/process-payment/{order}', [OrderController::class, 'payment_update'])->name('api.order.update');
 Route::post('/notification-payment', [OrderController::class, 'payment_notification'])->name('api.notification.payment');
-
-

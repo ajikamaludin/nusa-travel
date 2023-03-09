@@ -10,6 +10,7 @@ class SelectReturnDate extends Component
     protected $listeners = ['changeDate' => 'updateMinDate'];
 
     public $rdate;
+
     public $min;
 
     public function mount($date)
@@ -29,11 +30,10 @@ class SelectReturnDate extends Component
 
     public function updateMinDate($value)
     {
-        if($value != '') {
+        if ($value != '') {
             $date = Carbon::createFromFormat('Y-m-d', $value);
             $this->min = $date;
             $this->rdate = $date;
         }
     }
-
 }

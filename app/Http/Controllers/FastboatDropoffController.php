@@ -15,7 +15,7 @@ class FastboatDropoffController extends Controller
     {
         $query = FastboatDropoff::query();
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $query->where('name', 'like', "%{$request->q}%");
         }
 
@@ -30,12 +30,12 @@ class FastboatDropoffController extends Controller
     public function store(Request $request): void
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
         ]);
 
         FastboatDropoff::create(['name' => $request->name]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
     /**
@@ -44,12 +44,12 @@ class FastboatDropoffController extends Controller
     public function update(Request $request, FastboatDropoff $dropoff): void
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
         ]);
 
         $dropoff->update(['name' => $request->name]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
     /**
@@ -59,6 +59,6 @@ class FastboatDropoffController extends Controller
     {
         $dropoff->delete();
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
     }
 }

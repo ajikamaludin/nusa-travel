@@ -21,7 +21,7 @@ class ModelImage extends Model
 
     protected $appends = ['url'];
 
-    public function file() 
+    public function file()
     {
         return $this->belongsTo(File::class, 'file_id');
     }

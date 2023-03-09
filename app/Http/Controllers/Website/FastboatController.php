@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
-use App\Models\FastboatTrack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -13,12 +12,12 @@ class FastboatController extends Controller
     {
         $date = now();
         if ($request->date != '') {
-            $date = Carbon::createFromFormat('m/d/Y',$request->date);
+            $date = Carbon::createFromFormat('m/d/Y', $request->date);
         }
 
         $rdate = Carbon::parse($date)->addDays(2);
         if ($request->return_date != '') {
-            $rdate = Carbon::createFromFormat('m/d/Y',$request->return_date);
+            $rdate = Carbon::createFromFormat('m/d/Y', $request->return_date);
         }
 
         $data = [

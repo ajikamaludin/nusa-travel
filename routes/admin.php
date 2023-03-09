@@ -11,28 +11,28 @@ use App\Http\Controllers\FastboatTrackController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
-use App\Http\Controllers\PageController;
 use App\Http\Controllers\TourPackageController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(function() {
-    Route::get('/', fn() => redirect()->route('login'));
+Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(function () {
+    Route::get('/', fn () => redirect()->route('login'));
 
     Route::get('in-dev', [GeneralController::class, 'indev'])->name('in.dev');
 
-    Route::middleware('guest:web')->group(function(){
+    Route::middleware('guest:web')->group(function () {
         Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
         Route::post('login', [AuthenticatedSessionController::class, 'store']);
     });
 
-    Route::middleware('auth:web')->group(function(){
+    Route::middleware('auth:web')->group(function () {
         // Dashboard
         Route::get('/dashboard', [GeneralController::class, 'index'])->name('dashboard');
 
@@ -133,7 +133,7 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::post('/users', [UserController::class, 'store'])->name('user.store');
         Route::put('/users/{user}', [UserController::class, 'update'])->name('user.update');
         Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
-        
+
         // Role
         Route::resource('/roles', RoleController::class);
 

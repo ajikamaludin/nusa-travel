@@ -11,12 +11,17 @@ use Livewire\Component;
 class Cart extends Component
 {
     public $carts;
+
     public $total;
 
     public $name;
+
     public $phone;
+
     public $email;
+
     public $nation;
+
     public $national_id;
 
     public $isAuth = false;
@@ -26,14 +31,15 @@ class Cart extends Component
         'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:20',
         'nation' => 'required|string',
         'national_id' => 'required|numeric',
-        'email' => 'required|email'
+        'email' => 'required|email',
     ];
 
-    public function mount() 
+    public function mount()
     {
         $this->isAuth = auth('customer')->check();
         $this->updateTotal();
     }
+
     public function render()
     {
         return view('livewire.cart');
@@ -41,13 +47,13 @@ class Cart extends Component
 
     public function submit()
     {
-        if(!$this->isAuth) {
+        if (! $this->isAuth) {
             $this->validate();
             $order = $this->createOrder();
         } else {
             $order = Order::where([
                 ['customer_id', '=', auth('customer')->user()->id],
-                ['order_type', '=', Order::TYPE_CART]
+                ['order_type', '=', Order::TYPE_CART],
             ])->first();
 
             $order->update([
@@ -67,6 +73,7 @@ class Cart extends Component
             if ($id === $cart['id']) {
                 $cart['qty'] += 1;
             }
+
             return $cart;
         })->toArray();
         $this->updateCart();
@@ -78,6 +85,7 @@ class Cart extends Component
             if ($id === $cart['id'] && $cart['qty'] != 1) {
                 $cart['qty'] -= 1;
             }
+
             return $cart;
         })->toArray();
         $this->updateCart();
@@ -90,28 +98,28 @@ class Cart extends Component
         })->all();
         $this->updateCart();
 
-        if(count($this->carts) <= 0) {
+        if (count($this->carts) <= 0) {
             redirect()->route('home.index');
         }
     }
 
     public function updateCart()
     {
-        if($this->isAuth){
+        if ($this->isAuth) {
             $order = Order::where([
                 ['customer_id', '=', auth('customer')->user()->id],
-                ['order_type', '=', Order::TYPE_CART]
+                ['order_type', '=', Order::TYPE_CART],
             ])->with(['items'])->first();
 
             $order->items()->delete();
 
-            foreach($this->carts as $cart) {
+            foreach ($this->carts as $cart) {
                 $order->items()->create([
-                    "entity_order" => $cart['type'],
-                    "entity_id" => $cart['id'],
-                    "amount" => $cart['price'],
-                    "quantity" => $cart['qty'],
-                    "date" => $cart['date']
+                    'entity_order' => $cart['type'],
+                    'entity_id' => $cart['id'],
+                    'amount' => $cart['price'],
+                    'quantity' => $cart['qty'],
+                    'date' => $cart['date'],
                 ]);
             }
         } else {
@@ -123,7 +131,7 @@ class Cart extends Component
     public function updateTotal()
     {
         $this->total = 0;
-        foreach($this->carts as $cart) {
+        foreach ($this->carts as $cart) {
             $this->total += ($cart['qty'] * $cart['price']);
         }
     }
@@ -136,12 +144,12 @@ class Cart extends Component
             Customer::withTrashed()->where('email', $this->email)->first(),
             Customer::withTrashed()->where('phone', 'like', "%$phone%")->first(),
         ];
-        
-        $customer = collect($customers)->filter(function($v) {
+
+        $customer = collect($customers)->filter(function ($v) {
             return $v != null;
         });
 
-        if(count($customer) <= 0) {
+        if (count($customer) <= 0) {
             $customer = Customer::create([
                 'name' => $this->name,
                 'phone' => $this->phone,
@@ -149,7 +157,7 @@ class Cart extends Component
                 'nation' => $this->nation,
                 'is_active' => Customer::DEACTIVE,
                 'national_id' => $this->national_id,
-                'password' => bcrypt(Str::random(10))
+                'password' => bcrypt(Str::random(10)),
             ]);
         } else {
             $customer = $customer->first();
@@ -161,10 +169,10 @@ class Cart extends Component
             'customer_id' => $customer->id,
             'total_amount' => $this->total,
             'order_type' => Order::TYPE_ORDER,
-            'date' => now()
+            'date' => now(),
         ]);
 
-        foreach($this->carts as $cart) {
+        foreach ($this->carts as $cart) {
             $order->items()->create([
                 'entity_order' => $cart['type'],
                 'entity_id' => $cart['id'],
@@ -177,7 +185,7 @@ class Cart extends Component
         DB::commit();
         session()->remove('carts');
 
-        // TODO: send email that order created ans has a link todo payment 
+        // TODO: send email that order created ans has a link todo payment
 
         return $order;
     }

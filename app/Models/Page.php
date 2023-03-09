@@ -13,11 +13,11 @@ class Page extends Model
     use HasFactory, UserTrackable, SoftDeletes, HasUuids;
 
     protected $fillable = [
-        "key",
-        "title",
-        "body",
-        "meta_tag",
-        "attribute",
-        "flag",
+        'key',
+        'title',
+        'body',
+        'meta_tag',
+        'attribute',
+        'flag',
     ];
 }

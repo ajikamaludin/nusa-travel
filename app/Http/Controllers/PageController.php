@@ -10,18 +10,18 @@ class PageController extends Controller
     public function edit(Page $page)
     {
         return inertia('Page/Form', [
-            'page' => $page
+            'page' => $page,
         ]);
     }
 
     public function update(Request $request, Page $page)
     {
         $request->validate([
-            'body' => 'required'
+            'body' => 'required',
         ]);
 
         $page->update(['body' => $request->body]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 }

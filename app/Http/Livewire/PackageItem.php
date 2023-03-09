@@ -10,12 +10,16 @@ use Livewire\Component;
 class PackageItem extends Component
 {
     public $package;
+
     public $quantity;
+
     public $date;
+
     public $total;
+
     public $price;
 
-    public function mount() 
+    public function mount()
     {
         $this->date = now()->format('Y-m-d');
     }
@@ -46,9 +50,9 @@ class PackageItem extends Component
     public function checkTotal()
     {
         $prices = $this->package->prices;
-        if($prices->count() > 0) {
-            foreach($prices as $price) {
-                if($this->quantity >= $price->quantity) {
+        if ($prices->count() > 0) {
+            foreach ($prices as $price) {
+                if ($this->quantity >= $price->quantity) {
                     $this->price = $price->price;
                 }
             }
@@ -60,7 +64,7 @@ class PackageItem extends Component
 
     public function checkout()
     {
-        if(Auth::guard('customer')->check()) {
+        if (Auth::guard('customer')->check()) {
             $this->addUser();
         } else {
             $this->addGuest();
@@ -73,41 +77,41 @@ class PackageItem extends Component
     {
         $cart = Order::where([
             ['customer_id', '=', auth('customer')->user()->id],
-            ['order_type', '=', Order::TYPE_CART]
+            ['order_type', '=', Order::TYPE_CART],
         ])->with(['items'])->first();
 
         // check is usert already has cart
-        if($cart != null) {
+        if ($cart != null) {
             $item = $cart->items->where('entity_id', $this->package->id)->first();
-            if($item != null) {
+            if ($item != null) {
                 $item->update([
                     'quantity' => $this->quantity,
-                    "amount" => $this->price,
-                    "date" => $this->date
+                    'amount' => $this->price,
+                    'date' => $this->date,
                 ]);
             } else {
                 $cart->items()->create([
-                    "entity_order" => TourPackage::class,
-                    "entity_id" => $this->package->id,
-                    "description" => $this->package->order_detail,
-                    "amount" => $this->price,
-                    "quantity" => $this->quantity,
-                    "date" => $this->date
+                    'entity_order' => TourPackage::class,
+                    'entity_id' => $this->package->id,
+                    'description' => $this->package->order_detail,
+                    'amount' => $this->price,
+                    'quantity' => $this->quantity,
+                    'date' => $this->date,
                 ]);
             }
         } else {
             $cart = Order::create([
-                "order_code" => Order::generateCode(),
-                "customer_id" => auth('customer')->user()->id,
-                "order_type" => Order::TYPE_CART,
+                'order_code' => Order::generateCode(),
+                'customer_id' => auth('customer')->user()->id,
+                'order_type' => Order::TYPE_CART,
             ]);
             $cart->items()->create([
-                "entity_order" => TourPackage::class,
-                "entity_id" => $this->package->id,
-                "description" => $this->package->order_detail,
-                "amount" => $this->price,
-                "quantity" => $this->quantity,
-                "date" => $this->date
+                'entity_order' => TourPackage::class,
+                'entity_id' => $this->package->id,
+                'description' => $this->package->order_detail,
+                'amount' => $this->price,
+                'quantity' => $this->quantity,
+                'date' => $this->date,
             ]);
         }
     }
@@ -115,14 +119,14 @@ class PackageItem extends Component
     public function addGuest()
     {
         $carts = session('carts') ?? [];
-        
-        if(count($carts) > 0) {
-            try{
+
+        if (count($carts) > 0) {
+            try {
                 $isExists = $carts[$this->package->id];
-                if($isExists != null) {
+                if ($isExists != null) {
                     $carts[$this->package->id] = [
-                        'qty' => $this->quantity, 
-                        'type' => TourPackage::class, 
+                        'qty' => $this->quantity,
+                        'type' => TourPackage::class,
                         'date' => $this->date,
                         'price' => $this->price,
                     ];
@@ -130,22 +134,22 @@ class PackageItem extends Component
             } catch (\Exception $e) {
                 $carts = array_merge($carts, [
                     $this->package->id => [
-                        'qty' => $this->quantity, 
-                        'type' => TourPackage::class, 
+                        'qty' => $this->quantity,
+                        'type' => TourPackage::class,
                         'date' => $this->date,
                         'price' => $this->price,
-                    ]
+                    ],
                 ]);
             }
         } else {
             $carts = [$this->package->id => [
-                'qty' => $this->quantity, 
-                'type' => TourPackage::class, 
+                'qty' => $this->quantity,
+                'type' => TourPackage::class,
                 'date' => $this->date,
                 'price' => $this->price,
             ]];
         }
-        
+
         session(['carts' => $carts]);
     }
 }

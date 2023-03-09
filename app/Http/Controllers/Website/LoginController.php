@@ -19,7 +19,7 @@ class LoginController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|string'
+            'password' => 'required|string',
         ]);
 
         $customer = Customer::where('email', $request->email)->first();
@@ -35,12 +35,13 @@ class LoginController extends Controller
 
         $isAllowed = Auth::guard('customer')->attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => Customer::ACTIVE], $request->remember);
 
-        if(!$isAllowed) {
+        if (! $isAllowed) {
             return redirect()->route('customer.login')
                 ->with('message', ['type' => 'error', 'message' => 'Credential not valid']);
         }
 
         session()->remove('carts');
+
         return redirect()->route('home.index');
     }
 }

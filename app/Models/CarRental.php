@@ -13,6 +13,7 @@ class CarRental extends Model
     protected $ORDER_NAMES = ['name', 'description'];
 
     const UNREADY = 0;
+
     const READY = 1;
 
     protected $cascadeDeletes = [];
@@ -26,7 +27,7 @@ class CarRental extends Model
         'transmission',
         'cover_image',
         'is_publish',
-        'car_owned'
+        'car_owned',
     ];
 
     protected $appends = ['image_url'];
@@ -42,7 +43,7 @@ class CarRental extends Model
     {
         return "<p>$this->name (Car Rental)</p>
         <p>$this->description</p>
-        <p>". Carbon::parse($date)->format('d-m-Y') ."</p>
-        <p>@ ". number_format($this->price, '0', ',' ,' .') ."</p>";
+        <p>".Carbon::parse($date)->format('d-m-Y').'</p>
+        <p>@ '.number_format($this->price, '0', ',', ' .').'</p>';
     }
 }

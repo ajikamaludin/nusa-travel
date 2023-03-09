@@ -10,6 +10,7 @@ use Livewire\Component;
 class CarItem extends Component
 {
     public $car;
+
     public $date;
 
     public function render()
@@ -19,23 +20,23 @@ class CarItem extends Component
 
     public function addCart()
     {
-        if(Auth::guard('customer')->check()) {
+        if (Auth::guard('customer')->check()) {
             $this->user();
         } else {
             $this->guest();
         }
-        
+
         redirect()->route('customer.cart');
     }
 
-    public function guest() 
+    public function guest()
     {
         $carts = session('carts') ?? [];
-        
-        if(count($carts) > 0) {
-            try{
+
+        if (count($carts) > 0) {
+            try {
                 $isExists = $carts[$this->car->id];
-                if($isExists != null) {
+                if ($isExists != null) {
                     $carts[$this->car->id]['qty'] += 1;
                 }
             } catch (\Exception $e) {
@@ -44,8 +45,9 @@ class CarItem extends Component
         } else {
             $carts = [$this->car->id => ['qty' => 1, 'type' => CarRental::class, 'date' => $this->date]];
         }
-        
+
         session(['carts' => $carts]);
+
         return $carts;
     }
 
@@ -53,42 +55,42 @@ class CarItem extends Component
     {
         $cart = Order::where([
             ['customer_id', '=', auth('customer')->user()->id],
-            ['order_type', '=', Order::TYPE_CART]
+            ['order_type', '=', Order::TYPE_CART],
         ])->with(['items'])->first();
 
         // check is usert already has cart
-        if($cart != null) {
+        if ($cart != null) {
             $item = $cart->items->where('entity_id', $this->car->id)->first();
-            if($item != null) {
+            if ($item != null) {
                 $item->update(['quantity' => $item->quantity + 1]);
             } else {
                 $cart->items()->create([
-                    "entity_order" => CarRental::class,
-                    "entity_id" => $this->car->id,
-                    "description" => $this->car->order_detail,
-                    "amount" => $this->car->price,
-                    "quantity" => 1,
-                    "date" => $this->date
+                    'entity_order' => CarRental::class,
+                    'entity_id' => $this->car->id,
+                    'description' => $this->car->order_detail,
+                    'amount' => $this->car->price,
+                    'quantity' => 1,
+                    'date' => $this->date,
                 ]);
             }
         } else {
             $cart = Order::create([
-                "order_code" => Order::generateCode(),
-                "customer_id" => auth('customer')->user()->id,
-                "order_type" => Order::TYPE_CART,
+                'order_code' => Order::generateCode(),
+                'customer_id' => auth('customer')->user()->id,
+                'order_type' => Order::TYPE_CART,
             ]);
             $cart->items()->create([
-                "entity_order" => CarRental::class,
-                "entity_id" => $this->car->id,
-                "description" => $this->car->order_detail,
-                "amount" => $this->car->price,
-                "quantity" => 1,
-                "date" => $this->date
+                'entity_order' => CarRental::class,
+                'entity_id' => $this->car->id,
+                'description' => $this->car->order_detail,
+                'amount' => $this->car->price,
+                'quantity' => 1,
+                'date' => $this->date,
             ]);
         }
 
         $carts = [];
-        foreach($cart->items()->get() as $item) {
+        foreach ($cart->items()->get() as $item) {
             $carts[$item['entity_id']] = ['qty' => $item['quantity'], 'type' => CarRental::class, 'date' => $this->date];
         }
 

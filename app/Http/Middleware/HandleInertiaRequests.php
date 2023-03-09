@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
-use Tightenco\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -33,7 +32,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $user = null;
-        if(Auth::guard('web')->check()) {
+        if (Auth::guard('web')->check()) {
             $user = $request->user() instanceof User ? $request->user()->load(['role.permissions']) : $request->user();
         }
 
@@ -42,9 +41,9 @@ class HandleInertiaRequests extends Middleware
                 'user' => $user,
             ],
             'flash' => [
-                'message' => fn () => $request->session()->get('message')
+                'message' => fn () => $request->session()->get('message'),
             ],
-            'csrf_token' =>  csrf_token() 
+            'csrf_token' => csrf_token(),
         ]);
     }
 }

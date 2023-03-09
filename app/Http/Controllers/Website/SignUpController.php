@@ -9,9 +9,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use React\EventLoop\Loop;
-
 use function React\Async\async;
+use React\EventLoop\Loop;
 
 class SignUpController extends Controller
 {
@@ -20,24 +19,24 @@ class SignUpController extends Controller
         return view('signup');
     }
 
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:customers,email',
             'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255|unique:customers,phone',
-            'password' => 'required|string|max:255|min:8'
+            'password' => 'required|string|max:255|min:8',
         ]);
 
         $customer = Customer::create([
-            "name" => $request->name,
-            "email" => $request->email,
-            "phone" => $request->phone,
-            "password" => bcrypt($request->password),
-            "is_active" => Customer::DEACTIVE
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => bcrypt($request->password),
+            'is_active' => Customer::DEACTIVE,
         ]);
 
-        Loop::addTimer(1, async(function () use ($customer){
+        Loop::addTimer(1, async(function () use ($customer) {
             Mail::to($customer->email)->send(new CustomerActivation($customer));
         }));
 
@@ -47,13 +46,13 @@ class SignUpController extends Controller
 
     public function active(Customer $customer): RedirectResponse
     {
-        if ($customer->email_varified_at != null) { 
+        if ($customer->email_varified_at != null) {
             return redirect()->route('customer.login');
         }
 
         $customer->update([
             'is_active' => Customer::ACTIVE,
-            'email_varified_at' => now()
+            'email_varified_at' => now(),
         ]);
 
         return redirect()->route('customer.login')

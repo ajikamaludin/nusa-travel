@@ -12,7 +12,7 @@ class PostTag extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $fillable = [
-        "post_id",
-        "tag_id",
+        'post_id',
+        'tag_id',
     ];
 }

@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\Website\CarRentalController;
 use App\Http\Controllers\Website\BlogController;
+use App\Http\Controllers\Website\CarRentalController;
 use App\Http\Controllers\Website\FastboatController;
 use App\Http\Controllers\Website\LandingController;
 use App\Http\Controllers\Website\LoginController;
 use App\Http\Controllers\Website\OrderController;
-use App\Http\Controllers\Website\SignUpController;
 use App\Http\Controllers\Website\PageController;
 use App\Http\Controllers\Website\ProfileController as CustomerProfileController;
+use App\Http\Controllers\Website\SignUpController;
 use App\Http\Controllers\Website\TourPackageController;
 use App\Http\Livewire\FastboatCart;
 use App\Http\Middleware\GuardCustomer;
@@ -28,32 +28,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function () {
     // Package Tours
-    Route::get('/tour-packages',[TourPackageController::class, 'index'])->name('tour-packages.index');
-    Route::get('/tour-packages/{package:slug}',[TourPackageController::class, 'show'])->name('tour-packages.show');
+    Route::get('/tour-packages', [TourPackageController::class, 'index'])->name('tour-packages.index');
+    Route::get('/tour-packages/{package:slug}', [TourPackageController::class, 'show'])->name('tour-packages.show');
 
     // Car Rentals
-    Route::get('/car-rentals',[CarRentalController::class, 'index'])->name('car.index');
+    Route::get('/car-rentals', [CarRentalController::class, 'index'])->name('car.index');
 
     // Fastboat
-    Route::get('/fastboat',[FastboatController::class, 'index'])->name('fastboat');
+    Route::get('/fastboat', [FastboatController::class, 'index'])->name('fastboat');
 
     // Order
     Route::get('/carts', [OrderController::class, 'index'])->name('customer.cart');
     Route::get('/carts/fastboat', FastboatCart::class)->name('customer.cart.fastboat'); //livewire
     Route::get('/carts/process-payment/{order}', [OrderController::class, 'payment'])->name('customer.process-payment');
-    Route::get('/orders',[OrderController::class, 'orders'])->name('customer.orders');
+    Route::get('/orders', [OrderController::class, 'orders'])->name('customer.orders');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('customer.order');
 
     // Login / Register
-    Route::middleware('guest:customer')->group(function(){
+    Route::middleware('guest:customer')->group(function () {
         Route::get('/login', [LoginController::class, 'index'])->name('customer.login');
         Route::post('/login', [LoginController::class, 'store']);
-        Route::get('/signup',[SignUpController::class, 'index'])->name('customer.signup');
-        Route::post('/signup',[SignUpController::class, 'store']);
-        Route::get('/customer/{customer:id}/active',[SignUpController::class, 'active'])->name('customer.active');
+        Route::get('/signup', [SignUpController::class, 'index'])->name('customer.signup');
+        Route::post('/signup', [SignUpController::class, 'store']);
+        Route::get('/customer/{customer:id}/active', [SignUpController::class, 'active'])->name('customer.active');
     });
 
-    Route::middleware('auth:customer')->group(function(){
+    Route::middleware('auth:customer')->group(function () {
         // Profile
         Route::get('/profile', [CustomerProfileController::class, 'index'])->name('customer.profile');
         Route::post('/profile', [CustomerProfileController::class, 'update']);
@@ -62,9 +62,9 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     });
 
     // Blog
-    Route::get('/page/blog',[BlogController::class, 'index'])->name('blog.index');
+    Route::get('/page/blog', [BlogController::class, 'index'])->name('blog.index');
     // Detail Blog
-    Route::get('page/blog/{post:slug}',[BlogController::class, 'show'])->name('blog.post');
+    Route::get('page/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.post');
     // Page
     Route::get('/page/gallery', [PageController::class, 'gallery'])->name('page.gallery');
     Route::get('/page/faq', [PageController::class, 'faq'])->name('page.faq');
@@ -72,7 +72,7 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
 
     // Landing
     Route::get('/accept-cookie', [LandingController::class, 'acceptCookie'])->name('accept.cookie');
-    Route::get('/{locale?}',[LandingController::class, 'index'])->name('home.index')
+    Route::get('/{locale?}', [LandingController::class, 'index'])->name('home.index')
         ->whereIn('locale', ['en', 'id']);
 });
 

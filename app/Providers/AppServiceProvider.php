@@ -45,9 +45,10 @@ class AppServiceProvider extends ServiceProvider
         // just for optional provider on web app run
         try {
             // shared setting
-            if(Schema::hasTable('settings')) {
+            if (Schema::hasTable('settings')) {
                 View::share('setting', Setting::getInstance());
             }
-        } catch(\Exception $r) {}
+        } catch(\Exception $r) {
+        }
     }
 }

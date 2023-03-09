@@ -10,9 +10,13 @@ use Livewire\Component;
 class FastboatItem extends Component
 {
     public $track;
+
     public $ordered;
+
     public $date;
+
     public $type;
+
     public $quantity;
 
     public function render()
@@ -27,9 +31,9 @@ class FastboatItem extends Component
         // check cart is null
         // TODO: add cart is only save id to emit save ordered
         session(['fastboat_cart_'.$this->type => [
-            'track_id' => $this->track->id, 
+            'track_id' => $this->track->id,
             'qty' => $this->quantity,
-            'date' => $this->date
+            'date' => $this->date,
         ]]);
 
         $this->emit('choosedDepartureFastboat', ['type' => $this->type]);
@@ -42,14 +46,14 @@ class FastboatItem extends Component
         // $this->emit('addCart');
     }
 
-    public function guest() 
+    public function guest()
     {
         $carts = session('carts') ?? [];
-        
-        if(count($carts) > 0) {
-            try{
+
+        if (count($carts) > 0) {
+            try {
                 $isExists = $carts[$this->track->id];
-                if($isExists != null) {
+                if ($isExists != null) {
                     $carts[$this->track->id]['qty'] += 1;
                 }
             } catch (\Exception $e) {
@@ -58,8 +62,9 @@ class FastboatItem extends Component
         } else {
             $carts = [$this->track->id => ['qty' => 1, 'type' => FastboatTrack::class, 'date' => $this->date]];
         }
-        
+
         session(['carts' => $carts]);
+
         return $carts;
     }
 
@@ -67,42 +72,42 @@ class FastboatItem extends Component
     {
         $cart = Order::where([
             ['customer_id', '=', auth('customer')->user()->id],
-            ['order_type', '=', Order::TYPE_CART]
+            ['order_type', '=', Order::TYPE_CART],
         ])->with(['items'])->first();
 
         // check is usert already has cart
-        if($cart != null) {
+        if ($cart != null) {
             $item = $cart->items->where('entity_id', $this->track->id)->first();
-            if($item != null) {
+            if ($item != null) {
                 $item->update(['quantity' => $item->quantity + 1]);
             } else {
                 $cart->items()->create([
-                    "entity_order" => FastboatTrack::class,
-                    "entity_id" => $this->track->id,
-                    "description" => $this->track->order_detail,
-                    "amount" => $this->track->price,
-                    "quantity" => 1,
-                    "date" => $this->date
+                    'entity_order' => FastboatTrack::class,
+                    'entity_id' => $this->track->id,
+                    'description' => $this->track->order_detail,
+                    'amount' => $this->track->price,
+                    'quantity' => 1,
+                    'date' => $this->date,
                 ]);
             }
         } else {
             $cart = Order::create([
-                "order_code" => Order::generateCode(),
-                "customer_id" => auth('customer')->user()->id,
-                "order_type" => Order::TYPE_CART,
+                'order_code' => Order::generateCode(),
+                'customer_id' => auth('customer')->user()->id,
+                'order_type' => Order::TYPE_CART,
             ]);
             $cart->items()->create([
-                "entity_order" => FastboatTrack::class,
-                "entity_id" => $this->track->id,
-                "description" => $this->track->order_detail,
-                "amount" => $this->track->price,
-                "quantity" => 1,
-                "date" => $this->date
+                'entity_order' => FastboatTrack::class,
+                'entity_id' => $this->track->id,
+                'description' => $this->track->order_detail,
+                'amount' => $this->track->price,
+                'quantity' => 1,
+                'date' => $this->date,
             ]);
         }
 
         $carts = [];
-        foreach($cart->items()->get() as $item) {
+        foreach ($cart->items()->get() as $item) {
             $carts[$item['entity_id']] = ['qty' => $item['quantity'], 'type' => FastboatTrack::class, 'date' => $this->date];
         }
 

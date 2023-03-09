@@ -7,7 +7,8 @@ use Livewire\Component;
 class SelectPassenger extends Component
 {
     public $passengers;
-    public $count = [1,2,3,4];
+
+    public $count = [1, 2, 3, 4];
 
     public function render()
     {

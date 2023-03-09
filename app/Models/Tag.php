@@ -7,17 +7,17 @@ class Tag extends Model
     protected $cascadeDeletes = [];
 
     protected $fillable = [
-        "name"
+        'name',
     ];
 
     public function posts()
     {
         return $this->hasManyThrough(
             Post::class,
-            PostTag::class, 
-            'id', 
-            'post_id', 
-            'id', 
+            PostTag::class,
+            'id',
+            'post_id',
+            'id',
             'tag_ig'
         );
     }

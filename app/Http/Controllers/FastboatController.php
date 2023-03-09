@@ -14,7 +14,7 @@ class FastboatController extends Controller
     {
         $query = Fastboat::query();
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $query->where('question', 'like', "%{$request->q}%");
         }
 
@@ -52,11 +52,11 @@ class FastboatController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'capacity' => $request->capacity,
-            'cover_image' => $file->hashName('uploads')
+            'cover_image' => $file->hashName('uploads'),
         ]);
 
         return redirect()->route('fastboat.fastboat.index')
-            ->with('message', ['type' => 'success', 'message' => 'Fastboat has beed saved']); 
+            ->with('message', ['type' => 'success', 'message' => 'Fastboat has beed saved']);
     }
 
     /**
@@ -80,7 +80,7 @@ class FastboatController extends Controller
             'cover_image' => 'nullable|image',
         ]);
 
-        if($request->hasFile('cover_image')) {
+        if ($request->hasFile('cover_image')) {
             $file = $request->file('cover_image');
             $file->store('uploads', 'public');
             $fastboat->cover_image = $file->hashName('uploads');
@@ -94,7 +94,7 @@ class FastboatController extends Controller
         ]);
 
         return redirect()->route('fastboat.fastboat.index')
-            ->with('message', ['type' => 'success', 'message' => 'Fastboat has beed updated']); 
+            ->with('message', ['type' => 'success', 'message' => 'Fastboat has beed updated']);
     }
 
     /**
@@ -104,6 +104,6 @@ class FastboatController extends Controller
     {
         $fastboat->delete();
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Fastboat has beed deleted']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Fastboat has beed deleted']);
     }
 }

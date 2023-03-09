@@ -9,17 +9,17 @@ use Illuminate\Support\Carbon;
 
 class CarRentalController extends Controller
 {
-    public function index(Request $request) 
+    public function index(Request $request)
     {
         $query = CarRental::query()->where('is_publish', CarRental::READY);
 
-        if($request->person != '') {
+        if ($request->person != '') {
             $query->where('capacity', '>=', $request->person);
         }
 
         $date = now();
         if ($request->date != '') {
-            $date = Carbon::createFromFormat('Y-m-d',$request->date);
+            $date = Carbon::createFromFormat('Y-m-d', $request->date);
         }
 
         return view('car', [

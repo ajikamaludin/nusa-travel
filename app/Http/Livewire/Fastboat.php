@@ -11,14 +11,19 @@ class Fastboat extends Component
         'changeOrigin' => 'changeOrigin',
         'changeDest' => 'changeDest',
         'changeDate' => 'changeDate',
-        'changeRdate' => 'changeRdate'
+        'changeRdate' => 'changeRdate',
     ];
 
     public $from;
+
     public $to;
+
     public $ways;
+
     public $date;
+
     public $rdate;
+
     public $passengers;
 
     public function render()

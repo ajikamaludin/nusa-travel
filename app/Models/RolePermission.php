@@ -12,7 +12,7 @@ class RolePermission extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $fillable = [
-        "role_id",
-        "permission_id"
+        'role_id',
+        'permission_id',
     ];
 }

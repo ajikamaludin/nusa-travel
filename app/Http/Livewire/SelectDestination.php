@@ -10,6 +10,7 @@ class SelectDestination extends Component
     protected $listeners = ['changeOrigin' => 'updatePlaces'];
 
     public $origin;
+
     public $dest;
 
     public $places;
@@ -18,7 +19,7 @@ class SelectDestination extends Component
     {
         $this->places = FastboatPlace::where('name', '!=', $this->origin)->orderBy('name', 'asc')->get();
     }
-    
+
     public function render()
     {
         return view('livewire.select-destination');

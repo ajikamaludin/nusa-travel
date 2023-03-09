@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Fastboat;
 use App\Models\FastboatPlace;
-use App\Models\FastboatTrack;
 use App\Models\FastboatTrackGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,28 +16,27 @@ class FastboatTrackController extends Controller
      */
     public function index(Request $request): Response
     {
-        $query = FastboatTrackGroup::query()->with(['fastboat','tracks', 'places.place']);
+        $query = FastboatTrackGroup::query()->with(['fastboat', 'tracks', 'places.place']);
 
-        if($request->has('q')) {
-            $query->whereHas('fastboat', function($query) use($request) {
+        if ($request->has('q')) {
+            $query->whereHas('fastboat', function ($query) use ($request) {
                 $query->where('name', 'like', "%{$request->q}%")->orWhere('number', 'like', "%{$request->q}%");
             });
         }
-    
+
         return inertia('FastboatTrack/Index', [
-            'query' => $query->orderBy('created_at', 'desc')->paginate(20, '*','page'),
+            'query' => $query->orderBy('created_at', 'desc')->paginate(20, '*', 'page'),
         ]);
     }
 
     /**
      * Show form
-     *
      */
     public function create(Request $request)
     {
         $place = FastboatPlace::query();
 
-        if($request->place_q != '') {
+        if ($request->place_q != '') {
             $place->where('name', 'like', "%{$request->place_q}%");
         }
 
@@ -72,23 +69,24 @@ class FastboatTrackController extends Controller
         $places = collect($request->places)->map(function ($item) use ($places) {
             $place = $places->where('id', $item['fastboat_place_id'])->first();
             $item['place'] = $place;
+
             return $item;
         })->sortBy('order', SORT_NATURAL);
 
         DB::beginTransaction();
         $group = FastboatTrackGroup::create([
             'fastboat_id' => $request->fastboat_id,
-            'name' => $places->first()['place']['name'] . ' - ' . $places->last()['place']['name'],
+            'name' => $places->first()['place']['name'].' - '.$places->last()['place']['name'],
         ]);
 
-        $places->each(function ($place) use($group) {
+        $places->each(function ($place) use ($group) {
             $group->places()->create([
                 'fastboat_place_id' => $place['fastboat_place_id'],
                 'order' => $place['order'],
             ]);
         });
 
-        foreach($request->tracks as $track) {
+        foreach ($request->tracks as $track) {
             $group->tracks()->create([
                 'fastboat_source_id' => $track['fastboat_source_id'],
                 'fastboat_destination_id' => $track['fastboat_destination_id'],
@@ -97,22 +95,21 @@ class FastboatTrackController extends Controller
                 'departure_time' => $track['departure_time'],
                 'is_publish' => $track['is_publish'],
             ]);
-        };
+        }
         DB::commit();
 
         return redirect()->route('fastboat.track.index')
-            ->with('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
+            ->with('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
     /**
      * Show form
-     *
      */
     public function edit(Request $request, FastboatTrackGroup $group)
     {
         $place = FastboatPlace::query();
 
-        if($request->place_q != '') {
+        if ($request->place_q != '') {
             $place->where('name', 'like', "%{$request->place_q}%");
         }
 
@@ -146,6 +143,7 @@ class FastboatTrackController extends Controller
         $places = collect($request->places)->map(function ($item) use ($places) {
             $place = $places->where('id', $item['fastboat_place_id'])->first();
             $item['place'] = $place;
+
             return $item;
         })->sortBy('order', SORT_NATURAL);
 
@@ -155,17 +153,17 @@ class FastboatTrackController extends Controller
 
         $group->update([
             'fastboat_id' => $request->fastboat_id,
-            'name' => $places->first()['place']['name'] . ' - ' . $places->last()['place']['name'],
+            'name' => $places->first()['place']['name'].' - '.$places->last()['place']['name'],
         ]);
 
-        $places->each(function ($place) use($group) {
+        $places->each(function ($place) use ($group) {
             $group->places()->create([
                 'fastboat_place_id' => $place['fastboat_place_id'],
                 'order' => $place['order'],
             ]);
         });
 
-        foreach($request->tracks as $track) {
+        foreach ($request->tracks as $track) {
             $group->tracks()->create([
                 'fastboat_source_id' => $track['fastboat_source_id'],
                 'fastboat_destination_id' => $track['fastboat_destination_id'],
@@ -174,11 +172,11 @@ class FastboatTrackController extends Controller
                 'departure_time' => $track['departure_time'],
                 'is_publish' => $track['is_publish'],
             ]);
-        };
+        }
         DB::commit();
 
         return redirect()->route('fastboat.track.index')
-            ->with('message', ['type' => 'success', 'message' => 'Item has beed updated']); 
+            ->with('message', ['type' => 'success', 'message' => 'Item has beed updated']);
     }
 
     /**
@@ -187,6 +185,6 @@ class FastboatTrackController extends Controller
     public function destroy(FastboatTrackGroup $group): void
     {
         $group->delete();
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
     }
 }

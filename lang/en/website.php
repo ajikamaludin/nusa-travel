@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 return [
     'Login' => 'Login',
     'Sign Up' => 'Sign Up',

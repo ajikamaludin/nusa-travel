@@ -12,7 +12,7 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         return view('customer.profile', [
-            'customer' => Customer::find($request->user()->id)
+            'customer' => Customer::find($request->user()->id),
         ]);
     }
 

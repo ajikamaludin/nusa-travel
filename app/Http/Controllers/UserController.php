@@ -18,7 +18,7 @@ class UserController extends Controller
         }
 
         $query->orderBy('created_at', 'desc');
-        
+
         return inertia('User/Index', [
             'data' => $query->paginate(10),
         ]);
@@ -37,7 +37,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role_id' => $request->role_id
+            'role_id' => $request->role_id,
         ]);
 
         return redirect()->route('user.index')
@@ -52,7 +52,7 @@ class UserController extends Controller
             'password' => 'nullable|string|max:255',
         ]);
 
-        if($user->role != null) { 
+        if ($user->role != null) {
             $request->validate([
                 'role_id' => 'required|uuid|exists:roles,id',
             ]);
@@ -64,7 +64,7 @@ class UserController extends Controller
             'role_id' => $request->role_id,
         ]);
 
-        if ($request->password != "") {
+        if ($request->password != '') {
             $user->password = bcrypt($request->password);
         }
 

@@ -15,7 +15,7 @@ class FastboatPlaceController extends Controller
     {
         $query = FastboatPlace::query();
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $query->where('name', 'like', "%{$request->q}%");
         }
 
@@ -30,12 +30,12 @@ class FastboatPlaceController extends Controller
     public function store(Request $request): void
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
         ]);
 
         FastboatPlace::create(['name' => $request->name]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
     /**
@@ -44,12 +44,12 @@ class FastboatPlaceController extends Controller
     public function update(Request $request, FastboatPlace $place): void
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
         ]);
 
         $place->update(['name' => $request->name]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
     /**
@@ -59,6 +59,6 @@ class FastboatPlaceController extends Controller
     {
         $place->delete();
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
     }
 }

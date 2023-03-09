@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Visitor;
-use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
@@ -14,7 +13,7 @@ class BlogController extends Controller
         $posts = Post::with(['tags'])->withCount(['visitors'])->where('is_publish', Post::PUBLISH)->orderBy('created_at', 'desc');
 
         return view('blog', [
-            'posts' => $posts->paginate(12)
+            'posts' => $posts->paginate(12),
         ]);
     }
 
@@ -24,7 +23,7 @@ class BlogController extends Controller
         $post = $post->loadCount(['visitors']);
 
         return view('blog-post', [
-            'post' => $post
+            'post' => $post,
         ]);
     }
 }

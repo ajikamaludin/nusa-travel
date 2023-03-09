@@ -11,9 +11,9 @@ class OrderController extends Controller
     {
         $query = Order::query()->with(['customer'])->where('order_type', Order::TYPE_ORDER);
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $query->where('order_code', 'like', "%{$request->q}%")
-                ->orWhereHas('customer', function($q) use ($request){
+                ->orWhereHas('customer', function ($q) use ($request) {
                     $q->where('name', 'like', "%$request->q%");
                 });
         }
@@ -41,13 +41,13 @@ class OrderController extends Controller
     {
         $request->validate([
             'payment_status' => 'nullable',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
         ]);
 
         if ($order->payment_status != $request->payment_status) {
             $order->fill([
                 'payment_status' => $request->payment_status,
-                'payment_type' => 'Manual|' . $order->payment_type
+                'payment_type' => 'Manual|'.$order->payment_type,
             ]);
         }
 
@@ -55,13 +55,13 @@ class OrderController extends Controller
         $order->save();
 
         return redirect()->route('order.index')
-            ->with('message', ['type' => 'success', 'message' => 'Order has beed updated']); 
+            ->with('message', ['type' => 'success', 'message' => 'Order has beed updated']);
     }
 
     public function destroy(Order $order)
     {
         $order->delete();
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Order has beed deleted']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Order has beed deleted']);
     }
 }

@@ -11,7 +11,7 @@ class CarRentalController extends Controller
     {
         $query = CarRental::query();
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $query->where('name', 'like', "%{$request->q}%");
         }
 
@@ -49,7 +49,7 @@ class CarRentalController extends Controller
             'is_publish' => $request->is_publish,
         ]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
     public function update(Request $request, CarRental $car)
@@ -66,7 +66,7 @@ class CarRentalController extends Controller
             'is_publish' => 'required|in:0,1',
         ]);
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $file = $request->file('image');
             $file->store('uploads', 'public');
             $car->cover_image = $file->hashName('uploads');
@@ -85,13 +85,13 @@ class CarRentalController extends Controller
 
         $car->save();
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed updated']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed updated']);
     }
 
     public function destroy(CarRental $car)
     {
         $car->delete();
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
     }
 }

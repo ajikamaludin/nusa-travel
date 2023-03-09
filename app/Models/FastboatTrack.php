@@ -27,12 +27,12 @@ class FastboatTrack extends Model
         return $this->belongsTo(FastboatTrackGroup::class, 'fastboat_track_group_id');
     }
 
-    public function source() 
+    public function source()
     {
         return $this->belongsTo(FastboatPlace::class, 'fastboat_source_id');
     }
 
-    public function destination() 
+    public function destination()
     {
         return $this->belongsTo(FastboatPlace::class, 'fastboat_destination_id');
     }
@@ -65,7 +65,7 @@ class FastboatTrack extends Model
     {
         return "<p>$this->order_detail (Fastboat)</p>
         <p>$this->arrival_time - $this->departure_time</p>
-        <p>". Carbon::parse($date)->format('d-m-Y') ."</p>
-        <p>@ ". number_format($this->price, '0', ',' ,' .') ."</p>";
+        <p>".Carbon::parse($date)->format('d-m-Y').'</p>
+        <p>@ '.number_format($this->price, '0', ',', ' .').'</p>';
     }
 }

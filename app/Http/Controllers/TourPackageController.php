@@ -13,7 +13,7 @@ class TourPackageController extends Controller
     {
         $query = TourPackage::query();
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $query->where('title', 'like', "%{$request->q}%");
         }
 
@@ -22,7 +22,7 @@ class TourPackageController extends Controller
         ]);
     }
 
-    public function create() 
+    public function create()
     {
         return inertia('TourPackage/Form');
     }
@@ -50,7 +50,7 @@ class TourPackageController extends Controller
 
             File::create([
                 'name' => $request->title,
-                'path' => $file->hashName('uploads')
+                'path' => $file->hashName('uploads'),
             ]);
         }
 
@@ -66,30 +66,30 @@ class TourPackageController extends Controller
         ]);
 
         // images
-        collect($request->images)->map(function ($img) use($package) {
+        collect($request->images)->map(function ($img) use ($package) {
             $package->images()->create(['file_id' => $img['file_id']]);
         });
 
         // prices
-        collect($request->prices)->map(function ($price) use($package) {
+        collect($request->prices)->map(function ($price) use ($package) {
             $package->prices()->create([
                 'quantity' => $price['quantity'],
-                'price' => $price['price']
+                'price' => $price['price'],
             ]);
         });
 
         return redirect()->route('packages.index')
-            ->with('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
+            ->with('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
-    public function edit(TourPackage $package) 
+    public function edit(TourPackage $package)
     {
         return inertia('TourPackage/Form', [
-            'packages' => $package->load(['images', 'prices'])
+            'packages' => $package->load(['images', 'prices']),
         ]);
     }
 
-    public function update(Request $request, TourPackage $package) 
+    public function update(Request $request, TourPackage $package)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -112,7 +112,7 @@ class TourPackageController extends Controller
 
             File::create([
                 'name' => $request->title,
-                'path' => $file->hashName('uploads')
+                'path' => $file->hashName('uploads'),
             ]);
 
             $package->cover_image = $file->hashName('uploads');
@@ -132,28 +132,27 @@ class TourPackageController extends Controller
 
         // images
         $package->images()->delete();
-        collect($request->images)->map(function ($img) use($package) {
+        collect($request->images)->map(function ($img) use ($package) {
             $package->images()->create(['file_id' => $img['file_id']]);
         });
 
         // prices
         $package->prices()->delete();
-        collect($request->prices)->map(function ($price) use($package) {
+        collect($request->prices)->map(function ($price) use ($package) {
             $package->prices()->create([
                 'quantity' => $price['quantity'],
-                'price' => $price['price']
+                'price' => $price['price'],
             ]);
         });
 
         return redirect()->route('packages.index')
-            ->with('message', ['type' => 'success', 'message' => 'Item has beed updated']); 
+            ->with('message', ['type' => 'success', 'message' => 'Item has beed updated']);
     }
 
-    public function destroy(TourPackage $package) 
+    public function destroy(TourPackage $package)
     {
         $package->delete();
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']); 
-
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
     }
 }

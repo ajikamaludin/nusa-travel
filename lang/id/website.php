@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 return [
     'Login' => 'Masuk',
     'Sign Up' => 'Daftar',

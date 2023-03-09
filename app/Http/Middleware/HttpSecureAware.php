@@ -11,16 +11,16 @@ class HttpSecureAware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
     {
-        if(env('HTTPS_AWARE', false)) {
+        if (env('HTTPS_AWARE', false)) {
             URL::forceScheme('https');
-            $request->server->set('HTTPS','on');
+            $request->server->set('HTTPS', 'on');
         }
+
         return $next($request);
     }
 }

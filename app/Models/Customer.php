@@ -14,9 +14,11 @@ class Customer extends Authenticatable
     use HasFactory, HasUuids, UserTrackable, SoftDeletes, CascadeSoftDeletes;
 
     const DEACTIVE = 0;
+
     const ACTIVE = 1;
-    
+
     const WNI = 0;
+
     const WNA = 1;
 
     protected $cascadeDeletes = [];
@@ -32,7 +34,7 @@ class Customer extends Authenticatable
         'reset_token',
         'is_active',
         'email_varified_at',
-        'national_id'
+        'national_id',
     ];
 
     public function orders()

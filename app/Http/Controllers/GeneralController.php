@@ -18,7 +18,7 @@ class GeneralController extends Controller
         return inertia('Dev');
     }
 
-    public function upload(Request $request) 
+    public function upload(Request $request)
     {
         $request->validate(['image' => 'required|file']);
         $file = $request->file('image');
@@ -26,13 +26,13 @@ class GeneralController extends Controller
 
         $uploaded = File::create([
             'name' => $file->getClientOriginalName(),
-            'path' => $file->hashName('uploads')
+            'path' => $file->hashName('uploads'),
         ]);
 
         return response()->json([
             'id' => $uploaded->id,
             'name' => $uploaded->name,
-            'url' => asset($file->hashName('uploads'))
+            'url' => asset($file->hashName('uploads')),
         ]);
     }
 }

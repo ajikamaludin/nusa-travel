@@ -19,14 +19,14 @@ class PageController extends Controller
     {
         $query = Faq::query();
 
-        if($request->has('q')){
+        if ($request->has('q')) {
             $query->where('question', 'like', "%$request->q%")
                     ->orWhere('answer', 'like', "%$request->q%");
         }
 
         return view('faq', [
             'faqs' => $query->orderBy('order', 'asc')->get(),
-            'q' => $request->q
+            'q' => $request->q,
         ]);
     }
 

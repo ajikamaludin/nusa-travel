@@ -9,6 +9,7 @@ use Livewire\Component;
 class OrderCart extends Component
 {
     public $cart = 0;
+
     protected $listeners = ['addCart' => 'countCart'];
 
     public function mount()
@@ -23,19 +24,19 @@ class OrderCart extends Component
 
     public function countCart()
     {
-        if(Auth::guard('customer')->check()) {
+        if (Auth::guard('customer')->check()) {
             $this->cart = $this->user();
         } else {
             $this->cart = $this->guest();
         }
     }
 
-    public function guest() 
+    public function guest()
     {
         $carts = session('carts') ?? [];
         $count = 0;
-        if($carts != []) {
-            foreach($carts as $id => $value) {
+        if ($carts != []) {
+            foreach ($carts as $id => $value) {
                 $count += $value['qty'];
             }
         }
@@ -47,21 +48,22 @@ class OrderCart extends Component
     {
         $cart = Order::where([
             ['customer_id', '=', auth('customer')->user()->id],
-            ['order_type', '=', Order::TYPE_CART]
+            ['order_type', '=', Order::TYPE_CART],
         ])->with(['items'])->first();
 
         $count = 0;
-        if($cart != null) {
+        if ($cart != null) {
             $carts = [];
-            foreach($cart->items as $item) {
+            foreach ($cart->items as $item) {
                 $carts[$item['entity_id']] = $item['quantity'];
             }
 
             $count = 0;
-            foreach($carts as $id => $c) {
+            foreach ($carts as $id => $c) {
                 $count += $c;
             }
         }
+
         return $count;
     }
 }

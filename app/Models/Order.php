@@ -9,10 +9,13 @@ use Illuminate\Support\Str;
 class Order extends Model
 {
     const TYPE_CART = 0;
+
     const TYPE_ORDER = 1;
 
     const PAYMENT_SUCESS = 1;
+
     const PAYMENT_ERROR = 2;
+
     const PAYMENT_PENDING = 3;
 
     protected $cascadeDeletes = [];
@@ -30,7 +33,7 @@ class Order extends Model
         'payment_response',
         'payment_channel',
         'payment_type',
-        'description'
+        'description',
     ];
 
     protected $appends = ['order_date_formated', 'payment_status_text', 'payment_status_color'];

@@ -11,7 +11,7 @@ class GalleryController extends Controller
     {
         $query = File::query();
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $query->where('name', 'like', "%{$request->q}%");
         }
 
@@ -25,15 +25,15 @@ class GalleryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'show_on' => 'required|numeric',
-            'image' => 'required|image'
+            'image' => 'required|image',
         ]);
 
         $file = $request->file('image');
         $file->store('uploads', 'public');
 
-        if($request->show_on != 0) {
+        if ($request->show_on != 0) {
             $showOn = File::where('show_on', $request->show_on);
-            if($showOn->count() >= 1) {
+            if ($showOn->count() >= 1) {
                 $showOn->update(['show_on' => 0]);
             }
         }
@@ -44,7 +44,7 @@ class GalleryController extends Controller
             'path' => $file->hashName('uploads'),
         ]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
     public function update(Request $request, File $file)
@@ -52,17 +52,17 @@ class GalleryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'show_on' => 'required|numeric',
-            'image' => 'nullable|image'
+            'image' => 'nullable|image',
         ]);
 
-        if($request->show_on != 0) { //2
+        if ($request->show_on != 0) { //2
             $showOn = File::where('show_on', $request->show_on)->where('id', '<>', $file->id); //
-            if($showOn->count() >= 1) {
-                $showOn->update(['show_on' => 0]);//
+            if ($showOn->count() >= 1) {
+                $showOn->update(['show_on' => 0]); //
             }
         }
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
             $image->store('uploads', 'public');
             $file->path = $image->hashName('uploads');
@@ -72,13 +72,13 @@ class GalleryController extends Controller
         $file->show_on = $request->show_on;
         $file->save();
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed updated']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed updated']);
     }
 
     public function destroy(File $file)
     {
         $file->delete();
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']); 
+        session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
     }
 }

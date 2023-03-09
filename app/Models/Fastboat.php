@@ -19,7 +19,7 @@ class Fastboat extends Model
     public function coverUrl(): Attribute
     {
         return Attribute::make(
-            get: fn() => asset($this->cover_image),
+            get: fn () => asset($this->cover_image),
         );
     }
 }

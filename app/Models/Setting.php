@@ -16,29 +16,32 @@ class Setting extends Model
     protected $fillalble = [
         'key',
         'value',
-        'type'
+        'type',
     ];
 
-    public static function getInstance() : Setting
+    public static function getInstance(): Setting
     {
         if (self::$instance == null) {
-            self::$instance = new Setting();
+            self::$instance = new Setting;
             // TODO: make this cached
             self::$instance->setting = Setting::all();
         }
+
         return self::$instance;
     }
 
     public function getValue($key): string|null
     {
         $v = self::getInstance();
+
         return $v->setting->where('key', $key)->value('value');
     }
 
     public function getSlides(): array
     {
         $v = self::getInstance();
-        return $v->setting->filter(function($item) {
+
+        return $v->setting->filter(function ($item) {
             return false !== strpos($item->key, 'G_LANDING_SLIDE_');
         })->pluck('value')
         ->toArray();

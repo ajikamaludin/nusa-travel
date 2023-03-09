@@ -7,6 +7,7 @@ use Livewire\Component;
 class SelectDate extends Component
 {
     public $date;
+
     public $min;
 
     public function mount()
@@ -19,7 +20,7 @@ class SelectDate extends Component
         return view('livewire.select-date');
     }
 
-    public function updatedDate($value) 
+    public function updatedDate($value)
     {
         $this->emit('changeDate', $value);
     }
