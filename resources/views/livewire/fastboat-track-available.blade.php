@@ -71,7 +71,7 @@
             @if($trackDepartures != null)
                 @if($trackDepartureChoosed == null)
                 <div class="w-full max-w-5xl mx-auto p-2">
-                    <div class="flex flex-col">
+                    <div class="flex flex-col" wire:loading.remove>
                     @foreach($trackDepartures as $track)
                         <livewire:fastboat-item :track="$track" :date="$date" ordered="0" :quantity="$passengers" :type='1'/>
                     @endforeach
@@ -85,7 +85,7 @@
                 <!-- route return -->
                 @if($trackReturns != null && $trackDepartureChoosed != null)
                 <div class="w-full max-w-5xl mx-auto p-2">
-                    <div class="flex flex-col">
+                    <div class="flex flex-col" wire:loading.remove>
                     @foreach($trackReturns as $track)
                         <livewire:fastboat-item :track="$track" :date="$rdate" ordered="0" :quantity="$passengers" :type='2'/>
                     @endforeach

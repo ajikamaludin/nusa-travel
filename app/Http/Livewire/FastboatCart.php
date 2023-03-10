@@ -207,8 +207,8 @@ class FastboatCart extends Component
                 'amount' => $cart['track']->price,
                 'quantity' => $cart['qty'],
                 'date' => $cart['date'],
-                'dropoff' => $dropoff->name,
-                'dropoff_id' => $dropoff->id
+                'dropoff' => $dropoff?->name,
+                'dropoff_id' => $dropoff?->id
             ]);
 
             foreach($this->persons as $index => $person) {

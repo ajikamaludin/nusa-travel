@@ -236,7 +236,7 @@
                         placeholder="Dropoff"
                         :options="$dropoffs"
                         :min-items-for-search="5"
-                        :clearable="false"
+                        :clearable="true"
                         option-label="name"
                         option-value="name"
                         name="from"
@@ -275,11 +275,14 @@
                         <span class="text-sm text-gray-400"> {{ $person['nation'] .' - '. $person['national_id'] }} </span>
                     </div>
                     @endforeach
+
+                    @if($dropoff != '')
                     <div class="bg-white flex flex-row p-1 justify-between">
                         <span class="flex flex-row gap-1 items-center font-light text-gray-400">
                             Dropoff: {{ $dropoff }}
                         </span>
                     </div>
+                    @endif
                 </div>
 
                 <!-- price details -->
