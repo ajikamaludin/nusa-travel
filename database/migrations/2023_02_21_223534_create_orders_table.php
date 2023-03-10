@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('payment_channel')->nullable();
             $table->string('payment_type')->nullable();
             $table->string('description')->nullable();
+            $table->decimal('total_discount', 14, 2)->default(0);
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by')->nullable();

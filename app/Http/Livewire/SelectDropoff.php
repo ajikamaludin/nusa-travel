@@ -20,4 +20,9 @@ class SelectDropoff extends Component
     {
         return view('livewire.select-dropoff');
     }
+
+    public function updatingDropoff($value)
+    {
+        $this->emit('selectDropoff', ['dropoff' => $value]);
+    }
 }

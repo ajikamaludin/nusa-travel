@@ -22,6 +22,9 @@ return new class extends Migration
             $table->timestamp('date')->nullable();
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
+            $table->text('note')->nullable();
+            $table->string('dropoff')->nullable();
+            $table->uuid('dropoff_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by')->nullable();

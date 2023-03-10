@@ -81,6 +81,10 @@ class FastboatTrackAvailable extends Component
 
     public function choosedDepartureFastboat($value)
     {
+        session()->remove('persons');
+        session()->remove('contact');
+        session()->remove('dropoff');
+
         if ($value['type'] == 1) {
             $this->trackDepartureChoosed = FastboatTrack::find($value['track_id']);
             if ($this->ways == 1) {

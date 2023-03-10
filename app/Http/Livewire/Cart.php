@@ -141,30 +141,15 @@ class Cart extends Component
 
     public function createOrder()
     {
-        $phone = str_replace([' ', '+'], ['', ''], $this->phone);
-        $customers = [
-            Customer::withTrashed()->where('national_id', $this->national_id)->first(),
-            Customer::withTrashed()->where('email', $this->email)->first(),
-            Customer::withTrashed()->where('phone', 'like', "%$phone%")->first(),
-        ];
-
-        $customer = collect($customers)->filter(function ($v) {
-            return $v != null;
-        });
-
-        if (count($customer) <= 0) {
-            $customer = Customer::create([
+        $customer = Customer::hardSearch(
+            $this->phone,
+            $this->national_id,
+            $this->email,
+            [
                 'name' => $this->name,
-                'phone' => $this->phone,
-                'email' => $this->email,
                 'nation' => $this->nation,
-                'is_active' => Customer::DEACTIVE,
-                'national_id' => $this->national_id,
-                'password' => bcrypt(Str::random(10)),
-            ]);
-        } else {
-            $customer = $customer->first();
-        }
+            ]
+        );
 
         DB::beginTransaction();
         $order = Order::create([

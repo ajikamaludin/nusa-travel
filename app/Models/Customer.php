@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Str;
 
 class Customer extends Authenticatable
 {
@@ -40,5 +41,35 @@ class Customer extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public static function hardSearch($phone, $national_id, $email, $data = []): Customer
+    {
+        $phone = str_replace([' ', '+'], ['', ''], $phone);
+        $customers = [
+            Customer::withTrashed()->where('national_id', $national_id)->first(),
+            Customer::withTrashed()->where('email', $email)->first(),
+            Customer::withTrashed()->where('phone', 'like', "%$phone%")->first(),
+        ];
+
+        $customer = collect($customers)->filter(function ($v) {
+            return $v != null;
+        });
+
+        if (count($customer) <= 0) {
+            $customer = Customer::create([
+                'name' => $data['name'],
+                'phone' => $phone,
+                'email' => $email,
+                'nation' => $data['nation'],
+                'is_active' => Customer::DEACTIVE,
+                'national_id' => $national_id,
+                'password' => bcrypt(Str::random(10)),
+            ]);
+        } else {
+            $customer = $customer->first();
+        }
+
+        return $customer;
     }
 }

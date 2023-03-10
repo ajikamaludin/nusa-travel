@@ -41,7 +41,7 @@
                             {{ __('website.Search') }}
                         </button>
                     </div>
-                    <div class="w-full flex flex-row justify-center text-center pt-2" wire:loading.delay.long>
+                    <div class="w-full hidden text-center pt-2" wire:loading.delay.long>
                         loading...
                     </div>
                 </div>

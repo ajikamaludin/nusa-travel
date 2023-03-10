@@ -16,6 +16,8 @@ class OrderItem extends Model
         'date',
         'start_date',
         'end_date',
+        'dropoff',
+        'dropoff_id'
     ];
 
     protected $appends = ['detail'];
@@ -23,6 +25,11 @@ class OrderItem extends Model
     public function item()
     {
         return $this->belongsTo((string) $this->entity_order, 'entity_id');
+    }
+
+    public function passengers()
+    {
+        return $this->hasMany(OrderItemPassenger::class);
     }
 
     protected function detail(): Attribute

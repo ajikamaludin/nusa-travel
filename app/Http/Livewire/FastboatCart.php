@@ -2,13 +2,18 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Customer;
+use App\Models\FastboatDropoff;
 use App\Models\FastboatTrack;
+use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
+// TODO: need to handle if user already login, provide contact automatily , if profile not compate in NIK, update the customers too
 class FastboatCart extends Component
 {
-    // TODO: need to handle if user already login, provide contact automatily , if profile not compate in NIK, update the customers too
     public $show = true;
 
     public $carts = [];
@@ -17,21 +22,40 @@ class FastboatCart extends Component
 
     public $persons = [];
 
-    public $showContact;
+    public $showContact = false;
+
+    public $dropoffs = [];
+    
+    public $dropoff;
 
     public $validContact = false;
 
     public $isAllValid = false;
 
-    public $title = 'Fill In Details';
+    public $view = 1;
+
+    public $total = 0;
+
+    public $promos = [];
+
+    public $discount = 0;
+
+    public function mount() 
+    {
+        $this->contact = session()->get('contact', []);
+        if($this->contact != []) {
+            $this->validContact = true;
+        }
+        $this->persons = session()->get('persons', []);
+        $this->dropoff = session()->get('dropoff');
+        $this->isAllValid = $this->checkAllValid();
+
+        $this->dropoffs = FastboatDropoff::orderBy('name', 'asc')->get();
+    }
 
     public function booted()
     {
         $carts = session()->get('carts') ?? [];
-        if(count($carts) <= 0) {
-            return redirect('home.index');
-        }
-
         $carts = collect($carts)->filter(function ($cart) {
             if(array_key_exists('fastboat_cart', $cart)) {
                 return $cart;
@@ -87,6 +111,11 @@ class FastboatCart extends Component
             return;
         }
 
+        $person = $this->persons[0] ?? [];
+        if($person != [] && $person['name'] == $this->contact['name']) {
+            $this->persons[0] = $this->contact;
+        }
+
         $this->showContact = false;
         $this->validContact = true;
         $this->isAllValid = $this->checkAllValid();
@@ -127,6 +156,81 @@ class FastboatCart extends Component
 
     public function continue()
     {
-        //
+        session([
+            'persons' => $this->persons,
+            'contact' => $this->contact,
+            'dropoff' => $this->dropoff,
+        ]);
+
+        collect($this->carts)->map(function ($cart) {
+            $this->total += $cart['track']->price * $cart['qty'];
+        });
+
+        // TODO: search promo here
+        // aplied to $this->promos
+        // total of cust to $this->discount;
+
+        $this->view = 2;
+    }
+
+    public function payment()
+    {
+        DB::beginTransaction();
+        $customer = Customer::hardSearch(
+            $this->contact['phone'],
+            $this->contact['national_id'],
+            $this->contact['email'],
+            [
+                'name' => $this->contact['name'],
+                'nation' => $this->contact['nation'],
+            ]
+        );
+
+        $dropoff = FastboatDropoff::where('name', $this->dropoff)->first();
+
+        // create order
+        $order = Order::create([
+            'order_code' => Order::generateCode(),
+            'customer_id' => $customer->id,
+            'total_amount' => $this->total,
+            'total_discount' => $this->discount,
+            'order_type' => Order::TYPE_ORDER,
+            'date' => now(),
+        ]);
+
+        // insert items -> insert passengers
+        foreach($this->carts as $trackId => $cart) {
+            $item = $order->items()->create([
+                'entity_order' => $cart['type'],
+                'entity_id' => $trackId,
+                'description' => $cart['track']->source->name . ' - '.$cart['track']->destination->name . ' | ' . $cart['date'],
+                'amount' => $cart['track']->price,
+                'quantity' => $cart['qty'],
+                'date' => $cart['date'],
+                'dropoff' => $dropoff->name,
+                'dropoff_id' => $dropoff->id
+            ]);
+
+            foreach($this->persons as $index => $person) {
+                $item->passengers()->create([
+                    'customer_id' => $index == 0 ? $customer->id : null,
+                    'nation' => $person['nation'],
+                    'national_id' => $person['national_id'],
+                    'name' => $person['name'],
+                ]);
+            }
+        }
+
+        // insert promo
+        if(count($this->promos) > 0) {
+            // TODO: insert promo
+        } 
+
+        // TODO: send email
+
+        // redirect to payment
+        DB::commit();
+
+        return redirect()->route('customer.process-payment', $order);
     }
 }
