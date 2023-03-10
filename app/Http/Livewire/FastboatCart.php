@@ -231,6 +231,8 @@ class FastboatCart extends Component
         // redirect to payment
         DB::commit();
 
+        session()->forget(['persons', 'contact', 'dropoff', 'carts']);
+
         return redirect()->route('customer.process-payment', $order);
     }
 }
