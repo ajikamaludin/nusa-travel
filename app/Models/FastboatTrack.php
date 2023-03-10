@@ -68,4 +68,6 @@ class FastboatTrack extends Model
         <p>".Carbon::parse($date)->format('d-m-Y').'</p>
         <p>@ '.number_format($this->price, '0', ',', ' .').'</p>';
     }
+
+    // TODO: add function to insert complex route capacity 
 }

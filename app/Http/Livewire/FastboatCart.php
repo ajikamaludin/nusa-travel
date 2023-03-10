@@ -200,6 +200,7 @@ class FastboatCart extends Component
 
         // insert items -> insert passengers
         foreach($this->carts as $trackId => $cart) {
+            // TODO : insert fastboat_track_order_capacities 
             $item = $order->items()->create([
                 'entity_order' => $cart['type'],
                 'entity_id' => $trackId,

@@ -95,6 +95,11 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'View Role', 'name' => 'view-role'],
             ['id' => Str::uuid(), 'label' => 'Delete Role', 'name' => 'delete-role'],
 
+            ['id' => Str::uuid(), 'label' => 'Create Promo', 'name' => 'create-promo'],
+            ['id' => Str::uuid(), 'label' => 'Update Promo', 'name' => 'update-promo'],
+            ['id' => Str::uuid(), 'label' => 'View Promo', 'name' => 'view-promo'],
+            ['id' => Str::uuid(), 'label' => 'Delete Promo', 'name' => 'delete-promo'],
+
             ['id' => Str::uuid(), 'label' => 'Update Setting', 'name' => 'update-setting'],
             ['id' => Str::uuid(), 'label' => 'View Setting', 'name' => 'view-setting'],
         ];
