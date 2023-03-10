@@ -15,6 +15,7 @@ class SelectDropoff extends Component
     {
         $this->dropoffs = FastboatDropoff::orderBy('name', 'asc')->get();
     }
+
     public function render()
     {
         return view('livewire.select-dropoff');

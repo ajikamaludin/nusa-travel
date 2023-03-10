@@ -18,6 +18,7 @@ class FastboatCart extends Component
     public $persons = [];
 
     public $showContact;
+
     public $validContact = false;
 
     public $isAllValid = false;
@@ -40,11 +41,12 @@ class FastboatCart extends Component
         $tracks = FastboatTrack::with(['destination', 'source', 'group.fastboat'])->whereIn('id', $carts->keys())->get();
         $this->carts = $carts->map(function ($cart, $key) use ($tracks) {
             $cart['track'] = $tracks->where('id', $key)->first();
-            if(!property_exists($this, 'showPerson_1')) {
+            if(! property_exists($this, 'showPerson_1')) {
                 foreach(range(1, $cart['qty']) as $i => $q) {
                     $this->{"showPerson_$i"} = false;
                 }
             }
+
             return $cart;
         });
 
@@ -93,7 +95,7 @@ class FastboatCart extends Component
     public function addContactToPerson()
     {
         $this->persons[0] = $this->contact;
-        
+
         $this->isAllValid = $this->checkAllValid();
     }
 
@@ -117,14 +119,14 @@ class FastboatCart extends Component
         $this->{"showPerson_$i"} = false;
         $this->isAllValid = $this->checkAllValid();
     }
- 
+
     public function checkAllValid()
     {
-        return $this->validContact && !in_array([], $this->persons);
+        return $this->validContact && ! in_array([], $this->persons);
     }
 
     public function continue()
     {
-        // 
+        //
     }
 }
