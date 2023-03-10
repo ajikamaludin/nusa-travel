@@ -65,6 +65,7 @@ class FastboatTrackAvailable extends Component
                 $title = 'Error !!!',
                 $description = 'Origin and destination cant be empty'
             );
+
             return;
         }
 
@@ -83,6 +84,14 @@ class FastboatTrackAvailable extends Component
         if ($value['type'] == 1) {
             $this->trackDepartureChoosed = FastboatTrack::find($value['track_id']);
             if ($this->ways == 1) {
+                // remove return order if any return ordered
+                $carts = collect(session('carts'))->filter(function ($cart) {
+                    if ($cart['fastboat_cart'] != 1) {
+                        return $cart;
+                    }
+                })->toArray();
+                session(['carts' => $carts]);
+
                 redirect()->route('customer.cart.fastboat');
             }
 

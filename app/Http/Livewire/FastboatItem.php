@@ -28,7 +28,7 @@ class FastboatItem extends Component
     {
         $this->addToGuestCart();
 
-        $this->emit('choosedDepartureFastboat', ['type' => $this->type, 'track_id' => $this->track->id,]);
+        $this->emit('choosedDepartureFastboat', ['type' => $this->type, 'track_id' => $this->track->id]);
 
         // if(Auth::guard('customer')->check()) {
         //     $this->user();
@@ -48,23 +48,23 @@ class FastboatItem extends Component
                     return $cart;
                 }
             })->toArray();
-            
+
             $carts = array_merge($carts, [
                 $this->track->id => [
-                    'qty' => $this->quantity, 
-                    'type' => FastboatTrack::class, 
+                    'qty' => $this->quantity,
+                    'type' => FastboatTrack::class,
                     'date' => $this->date,
-                    'fastboat_cart' => $this->type
-                ]
+                    'fastboat_cart' => $this->type,
+                ],
             ]);
         } else {
             $carts = [
                 $this->track->id => [
-                    'qty' => $this->quantity, 
-                    'type' => FastboatTrack::class, 
+                    'qty' => $this->quantity,
+                    'type' => FastboatTrack::class,
                     'date' => $this->date,
-                    'fastboat_cart' => $this->type
-                ]
+                    'fastboat_cart' => $this->type,
+                ],
             ];
         }
 

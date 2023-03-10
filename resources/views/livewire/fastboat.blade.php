@@ -32,15 +32,17 @@
                                 </div>
                             </div>
                         </div>
-                        <livewire:select-passenger :passengers="$passengers"/>
+                        <div>
+                            <livewire:select-passenger :passengers="$passengers"/>
+                        </div>
                     </div>
-                    <div class="w-full flex flex-row justify-end pt-2">
-                        <button wire:click="showAvailableRoute" wire:loading.remove class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">
+                    <div class="w-full flex flex-row justify-end pt-2" wire:loading.remove>
+                        <button wire:click="showAvailableRoute" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">
                             {{ __('website.Search') }}
                         </button>
-                        <div wire:loading.delay.long>
-                            searching...
-                        </div>
+                    </div>
+                    <div class="w-full flex flex-row justify-center text-center pt-2" wire:loading.delay.long>
+                        loading...
                     </div>
                 </div>
             <!-- </form> -->

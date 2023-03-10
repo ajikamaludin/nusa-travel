@@ -10,7 +10,6 @@ use App\Http\Controllers\Website\PageController;
 use App\Http\Controllers\Website\ProfileController as CustomerProfileController;
 use App\Http\Controllers\Website\SignUpController;
 use App\Http\Controllers\Website\TourPackageController;
-use App\Http\Livewire\FastboatCart;
 use App\Http\Middleware\GuardCustomer;
 use App\Http\Middleware\VisitorCounter;
 use Illuminate\Support\Facades\Route;
