@@ -8,7 +8,6 @@ use App\Models\FastboatTrack;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 // TODO: need to handle if user already login, provide contact automatily , if profile not compate in NIK, update the customers too
@@ -25,7 +24,7 @@ class FastboatCart extends Component
     public $showContact = false;
 
     public $dropoffs = [];
-    
+
     public $dropoff;
 
     public $validContact = false;
@@ -40,7 +39,7 @@ class FastboatCart extends Component
 
     public $discount = 0;
 
-    public function mount() 
+    public function mount()
     {
         $this->contact = session()->get('contact', []);
         if($this->contact != []) {
@@ -200,16 +199,16 @@ class FastboatCart extends Component
 
         // insert items -> insert passengers
         foreach($this->carts as $trackId => $cart) {
-            // TODO : insert fastboat_track_order_capacities 
+            // TODO : insert fastboat_track_order_capacities
             $item = $order->items()->create([
                 'entity_order' => $cart['type'],
                 'entity_id' => $trackId,
-                'description' => $cart['track']->source->name . ' - '.$cart['track']->destination->name . ' | ' . $cart['date'],
+                'description' => $cart['track']->source->name.' - '.$cart['track']->destination->name.' | '.$cart['date'],
                 'amount' => $cart['track']->price,
                 'quantity' => $cart['qty'],
                 'date' => $cart['date'],
                 'dropoff' => $dropoff?->name,
-                'dropoff_id' => $dropoff?->id
+                'dropoff_id' => $dropoff?->id,
             ]);
 
             foreach($this->persons as $index => $person) {
@@ -225,7 +224,7 @@ class FastboatCart extends Component
         // insert promo
         if(count($this->promos) > 0) {
             // TODO: insert promo
-        } 
+        }
 
         // TODO: send email
 

@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash";
 import moment from "moment";
 
 export const formatDate = (date) => {
@@ -7,6 +8,18 @@ export const formatDate = (date) => {
 export const formatDateTime = (date) => {
     return moment(date).format("DD/MM/yyyy HH:mm:ss");
 };
+
+export const dateToString = (date) => {
+    return moment(date).format("MM/DD/yyyy");
+}
+
+export const converToDate = (date) => {
+    if(isEmpty(date) == false) {
+        return new Date(date)
+    }
+
+    return ''
+}
 
 export function formatIDR(amount) {
     const idFormatter = new Intl.NumberFormat("id-ID",{

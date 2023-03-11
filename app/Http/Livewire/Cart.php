@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Customer;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Cart extends Component

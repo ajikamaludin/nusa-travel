@@ -20,14 +20,14 @@ export default function Index(props) {
 
     const confirmModal = useModalState()
 
-    const handleDeleteClick = (faq) => {
-        confirmModal.setData(faq)
+    const handleDeleteClick = (promo) => {
+        confirmModal.setData(promo)
         confirmModal.toggle()
     }
 
     const onDelete = () => {
         if(confirmModal.data !== null) {
-            router.delete(route('faq.destroy', confirmModal.data.id))
+            router.delete(route('promo.destroy', confirmModal.data.id))
         }
     }
 
@@ -45,26 +45,26 @@ export default function Index(props) {
         }
     }, [search])
 
-    const canCreate = hasPermission(auth, 'create-faq')
-    const canUpdate = hasPermission(auth, 'update-faq')
-    const canDelete = hasPermission(auth, 'delete-faq')
+    const canCreate = hasPermission(auth, 'create-promo')
+    const canUpdate = hasPermission(auth, 'update-promo')
+    const canDelete = hasPermission(auth, 'delete-promo')
 
     return (
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={'Faq'}
-            action={''}
+            page={'Fastboat'}
+            action={'Promo'}
         >
-            <Head title="Faq" />
+            <Head title="Promo" />
 
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8 ">
                     <div className="p-6 overflow-hidden shadow-sm sm:rounded-lg bg-gray-200 dark:bg-gray-800 space-y-4">
                         <div className='flex justify-between'>
                             {canCreate && (
-                                <Link href={route("faq.create")} className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>Tambah</Link>
+                                <Link href={route("promo.create")} className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>Tambah</Link>
                             )}
                             <div className="flex items-center">
                                 <SearchInput
@@ -79,16 +79,28 @@ export default function Index(props) {
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="py-3 px-6">
-                                                Question
+                                                Name
+                                            </th>
+                                            <th scope="col" className="py-3 px-6">
+                                                Code
+                                            </th>
+                                            <th scope="col" className="py-3 px-6">
+                                                Active
                                             </th>
                                             <th scope="col" className="py-3 px-6"/>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {data.map(faq => (
-                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={faq.id}>
+                                        {data.map(promo => (
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={promo.id}>
                                                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    {faq.question}
+                                                    {promo.name}
+                                                </td>
+                                                <td className="py-4 px-6">
+                                                    {promo.code}
+                                                </td>
+                                                <td className="py-4 px-6">
+                                                    {+promo.is_active === 1 ? 'Yes' : 'No'}
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown
@@ -100,14 +112,14 @@ export default function Index(props) {
                                                     >
                                                         {canUpdate && (
                                                             <Dropdown.Item>
-                                                                <Link href={route('faq.edit', faq)} className='flex space-x-1 items-center'>
+                                                                <Link href={route('promo.edit', promo)} className='flex space-x-1 items-center'>
                                                                     <HiPencil/> 
                                                                     <div>Ubah</div>
                                                                 </Link>
                                                             </Dropdown.Item>
                                                         )}
                                                         {canDelete && (
-                                                            <Dropdown.Item onClick={() => handleDeleteClick(faq)}>
+                                                            <Dropdown.Item onClick={() => handleDeleteClick(promo)}>
                                                                 <div className='flex space-x-1 items-center'>
                                                                     <HiTrash/> 
                                                                     <div>Hapus</div>

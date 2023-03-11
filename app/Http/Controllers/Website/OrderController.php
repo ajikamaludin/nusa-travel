@@ -151,10 +151,11 @@ class OrderController extends Controller
     public function fastboat()
     {
         $carts = session()->get('carts') ?? [];
+
         if(count($carts) == 0) {
             return redirect()->route('home.index');
         }
-        
+
         return view('fastboat-cart');
     }
 }

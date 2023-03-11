@@ -21,7 +21,7 @@
                     <div class="{{ count($carts) == 1 ? 'w-full' : 'w-2/3 md:w-7/12' }} flex-none bg-white shadow-lg rounded-lg">
                         <div class="px-2 pt-2">
                             <div class="text-gray-500 text-xs"> 
-                                {{ $cart['date'] }} 
+                                {{ Carbon::parse($cart['date'])->format('d M y') }} 
                             </div>
                             <div class="font-bold py-2 flex flex-row gap-1 items-center">
                                 <div>

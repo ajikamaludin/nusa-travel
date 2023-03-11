@@ -4,13 +4,17 @@ namespace App\Models;
 
 class Promo extends Model
 {
+    const TYPE_AMOUNT = 0;
+
+    const TYPE_PERCENT = 1;
+
     protected $fillable = [
         'code',
         'name',
         'description',
         'is_active',
         'cover_image',
-        'discount_percent',
+        'discount_type',
         'discount_amount',
         'available_start_date',
         'available_end_date',

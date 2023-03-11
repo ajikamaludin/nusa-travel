@@ -69,5 +69,5 @@ class FastboatTrack extends Model
         <p>@ '.number_format($this->price, '0', ',', ' .').'</p>';
     }
 
-    // TODO: add function to insert complex route capacity 
+    // TODO: add function to insert complex route capacity
 }

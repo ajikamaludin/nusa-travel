@@ -34,7 +34,7 @@ class Order extends Model
         'payment_channel',
         'payment_type',
         'description',
-        'total_discount'
+        'total_discount',
     ];
 
     protected $appends = ['order_date_formated', 'payment_status_text', 'payment_status_color'];

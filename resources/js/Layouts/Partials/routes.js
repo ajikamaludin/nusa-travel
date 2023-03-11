@@ -15,6 +15,7 @@ import {
     HiCash,
     HiOutlineCube,
     HiOutlineQuestionMarkCircle,
+    HiOutlineReceiptTax,
 } from "react-icons/hi";
 
 export default [
@@ -62,6 +63,14 @@ export default [
                 route: route("fastboat.track.index"),
                 active: "fastboat.track.*",
                 permission: "view-fastboat-track",
+            },
+            {
+                name: "Promo",
+                show: true,
+                icon: HiOutlineReceiptTax,
+                route: route("promo.index"),
+                active: "promo.*",
+                permission: "view-promo",
             },
         ],
     },

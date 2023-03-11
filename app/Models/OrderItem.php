@@ -17,7 +17,7 @@ class OrderItem extends Model
         'start_date',
         'end_date',
         'dropoff',
-        'dropoff_id'
+        'dropoff_id',
     ];
 
     protected $appends = ['detail'];

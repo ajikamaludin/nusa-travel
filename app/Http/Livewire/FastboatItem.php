@@ -43,6 +43,7 @@ class FastboatItem extends Component
         $carts = session('carts') ?? [];
 
         if (count($carts) > 0) {
+            // filter session cart only for fastboat and type not duplicate cause only have 1 and 2
             $carts = collect($carts)->filter(function ($cart) {
                 if (array_key_exists('fastboat_cart', $cart) && $cart['fastboat_cart'] != $this->type) {
                     return $cart;

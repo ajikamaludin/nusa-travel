@@ -47,6 +47,8 @@ class FastboatTrackAvailable extends Component
     public function render()
     {
         return view('livewire.fastboat-track-available', [
+            'date' => $this->date,
+            'rdate' => $this->rdate,
             'trackDepartures' => $this->trackDepartures?->paginate(),
             'trackReturns' => $this->trackReturns?->paginate(20, '*', 'return_page'),
         ]);
@@ -86,12 +88,13 @@ class FastboatTrackAvailable extends Component
         if ($value['type'] == 1) {
             $this->trackDepartureChoosed = FastboatTrack::find($value['track_id']);
             if ($this->ways == 1) {
-                // remove return order if any return ordered
+                // remove return order if any return ordered before
                 $carts = collect(session('carts'))->filter(function ($cart) {
-                    if ($cart['fastboat_cart'] != 1) {
+                    if ($cart['fastboat_cart'] == 1) {
                         return $cart;
                     }
                 })->toArray();
+
                 session(['carts' => $carts]);
 
                 redirect()->route('customer.cart.fastboat');
@@ -131,7 +134,7 @@ class FastboatTrackAvailable extends Component
                 return $query->whereDate('date', $rdate);
             }]);
 
-            $this->trackDepartures = $queryDeparture;
+            $this->trackDepartures = $queryDeparture->where('is_publish', 1);
 
             if ($this->ways == 2) {
                 $queryReturns = FastboatTrack::with(['source', 'destination'])
@@ -151,7 +154,7 @@ class FastboatTrackAvailable extends Component
                     return $query->whereDate('date', $rdate);
                 }]);
 
-                $this->trackReturns = $queryReturns;
+                $this->trackReturns = $queryReturns->where('is_publish', 1);
             }
         }
     }

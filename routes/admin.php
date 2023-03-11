@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PromoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TagController;
@@ -49,6 +50,14 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::get('/faqs/{faq}', [FaqController::class, 'edit'])->name('faq.edit');
         Route::post('/faqs/{faq}', [FaqController::class, 'update'])->name('faq.update');
         Route::delete('/faqs/{faq}', [FaqController::class, 'destroy'])->name('faq.destroy');
+
+        // Promo
+        Route::get('/promos', [PromoController::class, 'index'])->name('promo.index');
+        Route::get('/promos/create', [PromoController::class, 'create'])->name('promo.create');
+        Route::post('/promos', [PromoController::class, 'store'])->name('promo.store');
+        Route::get('/promos/{promo}', [PromoController::class, 'edit'])->name('promo.edit');
+        Route::post('/promos/{promo}', [PromoController::class, 'update'])->name('promo.update');
+        Route::delete('/promos/{promo}', [PromoController::class, 'destroy'])->name('promo.destroy');
 
         // Tag
         Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');

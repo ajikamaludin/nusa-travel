@@ -30,7 +30,7 @@
                     @endif 
                     </h3>
                     <div class="flex flex-row gap-2" wire:loading.remove>
-                        <p>{{ $trackDepartureChoosed != null ? $rdate : $date }}</p>
+                        <p>{{ Carbon::parse($trackDepartureChoosed != null ? $rdate : $date)->format('d M Y') }}</p>
                         <div>|</div>
                         <p>{{ $passengers }} passengers</p>
                     </div>
@@ -84,16 +84,19 @@
 
                 <!-- route return -->
                 @if($trackReturns != null && $trackDepartureChoosed != null)
-                <div class="w-full max-w-5xl mx-auto p-2">
-                    <div class="flex flex-col" wire:loading.remove>
-                    @foreach($trackReturns as $track)
-                        <livewire:fastboat-item :track="$track" :date="$rdate" ordered="0" :quantity="$passengers" :type='2'/>
-                    @endforeach
+                    <div class="w-full max-w-5xl mx-auto p-2">
+                        <div class="flex flex-col" wire:loading.remove>
+                        @foreach($trackReturns as $track)
+                            <livewire:fastboat-item :track="$track" :date="$rdate" ordered="0" :quantity="$passengers" :type='2'/>
+                        @endforeach
+                        </div>
                     </div>
-                </div>
-                <div class=" max-w-5xl mx-auto px-1 {{ $trackReturns == null ? 'pb-10' : '' }}">
-                    {{$trackReturns->withQueryString()->links()}}
-                </div>
+                    <div class=" max-w-5xl mx-auto px-1 {{ $trackReturns == null ? 'pb-10' : '' }}">
+                        {{$trackReturns->withQueryString()->links()}}
+                    </div>
+                    @if($trackReturns?->count() <= 0)
+                        <p class="w-full text-center py-20">no fastboat schedule found</p>
+                    @endif
                 @endif
             @endif
 
