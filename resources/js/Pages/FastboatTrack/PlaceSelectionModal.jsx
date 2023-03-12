@@ -11,7 +11,7 @@ export default function SelectionModal(props) {
     const { modalState, onItemSelected } = props
     const [loading, setLoading] = useState(false)
 
-    const { props: { places: { data, links } } } = usePage()
+    const { props: { places: { data, links }, group } } = usePage()
 
     const [search, setSearch] = useState('')
     const preValue = usePrevious(search)
@@ -25,7 +25,7 @@ export default function SelectionModal(props) {
     useEffect(() => {
         if (preValue) {
             router.get(
-                route(route().current()),
+                route(route().current(), group),
                 params,
                 {
                     replace: true,
