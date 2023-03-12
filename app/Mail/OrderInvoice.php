@@ -8,11 +8,9 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderPayment extends Mailable
+class OrderInvoice extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $wait;
 
     /**
      * Create a new message instance.
@@ -20,7 +18,7 @@ class OrderPayment extends Mailable
     public function __construct(
         public $order
     ) {
-        $this->wait = $order->created_at->addDay()->format('d M Y H:i');
+        //
     }
 
     /**
@@ -29,7 +27,7 @@ class OrderPayment extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Payment #'.$this->order->order_code,
+            subject: 'Order Invoice #'.$this->order->order_code,
         );
     }
 
@@ -39,10 +37,9 @@ class OrderPayment extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.orders.payment',
+            markdown: 'emails.orders.invoice',
             with: [
                 'order' => $this->order,
-                'wait' => $this->wait,
             ]
         );
     }

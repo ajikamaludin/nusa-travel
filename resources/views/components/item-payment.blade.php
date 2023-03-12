@@ -1,0 +1,1 @@
+<span>{{ $item->item->order_detail }}<br/> {{$item->item->arrival_time}} - {{$item->item->departure_time}} <br/> {{ $item->dropoff ? 'Dropoff: '. $item->dropoff : '' }}</span>

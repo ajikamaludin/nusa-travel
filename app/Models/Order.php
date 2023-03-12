@@ -95,4 +95,22 @@ class Order extends Model
             },
         );
     }
+
+    protected function discountFormated(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return number_format($this->total_discount, 0, ',', '.');
+            }
+        );
+    }
+
+    protected function amountFormated(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return number_format($this->total_amount, 0, ',', '.');
+            }
+        );
+    }
 }

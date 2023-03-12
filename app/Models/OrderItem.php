@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Carbon;
 
 class OrderItem extends Model
 {
@@ -49,6 +50,33 @@ class OrderItem extends Model
 
                 return $detail;
             },
+        );
+    }
+
+    protected function price(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return number_format($this->amount, 0, ',', '.');
+            }
+        );
+    }
+
+    protected function subtotal(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return number_format($this->amount * $this->quantity, 0, ',', '.');
+            }
+        );
+    }
+
+    protected function dateFormated(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return Carbon::parse($this->date)->format('d-m-Y');
+            }
         );
     }
 }

@@ -2,13 +2,16 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\OrderPayment;
 use App\Models\Customer;
 use App\Models\FastboatDropoff;
 use App\Models\FastboatTrack;
 use App\Models\Order;
 use App\Models\Promo;
+use App\Services\AsyncService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
@@ -172,19 +175,22 @@ class FastboatCart extends Component
     public function payment()
     {
         DB::beginTransaction();
-        $customer = Customer::hardSearch(
-            $this->contact['phone'],
-            $this->contact['national_id'],
-            $this->contact['email'],
-            [
-                'name' => $this->contact['name'],
-                'nation' => $this->contact['nation'],
-            ]
-        );
+        if(Auth::guard('customer')->check()) {
+            $customer = Auth::guard('customer')->user();
+        } else {
+            $customer = Customer::hardSearch(
+                $this->contact['phone'],
+                $this->contact['national_id'],
+                $this->contact['email'],
+                [
+                    'name' => $this->contact['name'],
+                    'nation' => $this->contact['nation'],
+                ]
+            );
+        }
 
         $dropoff = FastboatDropoff::where('name', $this->dropoff)->first();
 
-        $customerId = Auth::guard('customer')->user()?->id;
         // create order
         $order = Order::create([
             'order_code' => Order::generateCode(),
@@ -193,7 +199,6 @@ class FastboatCart extends Component
             'total_discount' => $this->discount,
             'order_type' => Order::TYPE_ORDER,
             'date' => now(),
-            'customer_id' => $customerId,
         ]);
 
         // insert items -> insert passengers
@@ -233,7 +238,10 @@ class FastboatCart extends Component
             ]);
         }
 
-        // TODO: send email
+        // send email for payment purpose
+        AsyncService::async(function () use ($customer, $order) {
+            Mail::to($customer->email)->send(new OrderPayment($order));
+        });
 
         // redirect to payment
         DB::commit();

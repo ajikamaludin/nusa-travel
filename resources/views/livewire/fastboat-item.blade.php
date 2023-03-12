@@ -29,13 +29,13 @@
             </div>
         </div>
         @if($avalaible >= $quantity)
-            <div 
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 "
+            <button 
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
                 wire:click="addCart({{ $type }})"
                 wire:loading.remove
             >
                 Choose
-            </div>
+            </button>
         @else
         <div class="md:p-4 my-4 text-sm text-red-800 rounded-lg md:bg-red-50" role="alert">
             @if($avalaible > 0)

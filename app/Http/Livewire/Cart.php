@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\OrderPayment;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Services\AsyncService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class Cart extends Component
@@ -64,6 +67,11 @@ class Cart extends Component
                 'date' => now(),
             ]);
         }
+
+        // send email for payment purpose
+        AsyncService::async(function () use ($order) {
+            Mail::to($order->customer->email)->send(new OrderPayment($order));
+        });
 
         // redirect to payment
         redirect()->route('customer.process-payment', $order);

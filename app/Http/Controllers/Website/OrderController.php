@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderInvoice;
 use App\Models\CarRental;
 use App\Models\FastboatTrack;
 use App\Models\Order;
 use App\Models\Setting;
 use App\Models\TourPackage;
+use App\Services\AsyncService;
 use App\Services\MidtransService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -56,6 +60,10 @@ class OrderController extends Controller
                 $price = $cart['price'];
             }
 
+            if ($entity == null) {
+                return;
+            }
+
             return [
                 'id' => $entity->id,
                 'name' => $entity->order_detail,
@@ -66,6 +74,12 @@ class OrderController extends Controller
                 'date' => $cart['date'],
             ];
         });
+
+        if(in_array(null, $carts->toArray())) {
+            session()->remove('carts');
+
+            return redirect()->route('home.index');
+        }
 
         return view('cart', [
             'carts' => $carts,
@@ -89,6 +103,7 @@ class OrderController extends Controller
 
     public function payment_update(Request $request, Order $order)
     {
+        DB::beginTransaction();
         $order->update([
             'payment_status' => $request->payment_status,
             'payment_response' => json_encode($request->result),
@@ -96,7 +111,14 @@ class OrderController extends Controller
             'payment_type' => $request->result['payment_type'],
         ]);
 
-        // TODO: send email that order has been payed if status is 1
+        // send email that order has been payed if status is 1
+        if($order->payment_status == Order::PAYMENT_SUCESS) {
+            AsyncService::async(function () use ($order) {
+                Mail::to($order->customer->email)->send(new OrderInvoice($order));
+            });
+        }
+
+        DB::commit();
 
         return response()->json([
             'show' => route('customer.order', $order),
@@ -105,6 +127,7 @@ class OrderController extends Controller
 
     public function payment_notification(Request $request)
     {
+        DB::beginTransaction();
         $order = Order::where('id', $request->order_id)->first();
 
         if ($order != null && $order->payment_status != Order::PAYMENT_SUCESS) {
@@ -116,6 +139,11 @@ class OrderController extends Controller
 
             if ($request->transaction_status == 'settlement' || $request->transaction_status == 'capture') {
                 $order->fill(['payment_status' => Order::PAYMENT_SUCESS]);
+
+                // send email that order has been payed if status is 1
+                AsyncService::async(function () use ($order) {
+                    Mail::to($order->customer->email)->send(new OrderInvoice($order));
+                });
             } elseif ($request->transaction_status == 'pending') {
                 $order->fill(['payment_status' => Order::PAYMENT_PENDING]);
             } else {
@@ -124,6 +152,8 @@ class OrderController extends Controller
 
             $order->save();
         }
+
+        DB::commit();
 
         return response()->json([
             'status' => 'ok',

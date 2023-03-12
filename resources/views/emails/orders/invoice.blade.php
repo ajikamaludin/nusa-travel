@@ -2,9 +2,9 @@
 # Hai, {{ $order->customer->name }}
 
 ## Order #{{$order->order_code}}
-Waiting for payment utils {{ $wait }} WIB
+# Payment is verified and the order has been record
 
-Immediately make payment for your order with the following details:
+This mail is valid tickets of your order with the following details:
 
 @component('mail::table')
 
@@ -19,21 +19,12 @@ Immediately make payment for your order with the following details:
 | <h1>Total</h1>                   |                             |                       |                 | <h1>{{ $order->amount_formated }}</h1> |
 @endcomponent
 
-@if($order->promos()->count() > 0)
 @component('mail::panel')
-    Promo Applied <br/>
-    @foreach($order->promos as $promo)
-        {{ $promo->promo->name }} ( {{ $promo->promo_formated }} )
-    @endforeach
+    {{ $order->payment_status_text }}
 @endcomponent
-@endif
-
-<x-mail::button :url="route('customer.process-payment', $order)">
-Process to payment
-</x-mail::button>
 
 @component('mail::subcopy')
-    By clicking the Payment button. you agree to the 
+    Any order with this email prove that you accepted and agree to the 
     <a href="{{ route('page.show', ['page' => 'term-of-service']) }}" target="_blank" class="text-blue-500">Terms and Conditions </a>
     and 
     <a href="{{ route('page.show', ['page' => 'privacy-policy']) }}" target="_blank" class="text-blue-500">Privacy and Policy</a>

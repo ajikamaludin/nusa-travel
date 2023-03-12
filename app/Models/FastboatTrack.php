@@ -94,26 +94,26 @@ class FastboatTrack extends Model
 
     public static function updateTrackUsage(FastboatTrack $track, $date, $quantity)
     {
-        $tracks = $track->group->tracks;
+        // $tracks = $track->group->tracks;
         $fastboat = $track->group->fastboat;
-        $places = $track->group->places;
+        $places = $track->group->places()->orderBy('order', 'asc')->get();
 
-        $capacities = [];
+        // $capacities = [];
         // copy all tracks to capacities
-        foreach($tracks as $t) {
-            $capacity = FastboatTrackOrderCapacity::firstOrCreate([
-                'fastboat_track_group_id' => $track->group->id,
-                'fastboat_source_id' => $t->fastboat_source_id,
-                'fastboat_destination_id' => $t->fastboat_destination_id,
-                'date' => $date,
-            ], [
-                'capacity' => $fastboat->capacity,
-            ]);
-            dump($capacity);
+        // foreach($tracks as $t) {
+        //     $capacity = FastboatTrackOrderCapacity::firstOrCreate([
+        //         'fastboat_track_group_id' => $track->group->id,
+        //         'fastboat_source_id' => $t->fastboat_source_id,
+        //         'fastboat_destination_id' => $t->fastboat_destination_id,
+        //         'date' => $date,
+        //     ], [
+        //         'capacity' => $fastboat->capacity,
+        //     ]);
 
-            $rou = $t->fastboat_source_id.'|'.$t->fastboat_destination_id;
-            $capacities[$rou] = $capacity;
-        }
+        //     $rou = $t->fastboat_source_id.'|'.$t->fastboat_destination_id;
+        //     $capacities[$rou] = $capacity;
+        // }
+        // dump(array_keys($capacities));
 
         // other track that impact
         $n = $places->count();
@@ -137,17 +137,25 @@ class FastboatTrack extends Model
                 $isEnd = $track->fastboat_destination_id == $places[$j]['fastboat_place_id'];
                 $from = $places[$i]['fastboat_place_id'];
                 $to = $places[$j]['fastboat_place_id'];
-                $rou = $from.'|'.$to;
+                // $rou = $from.'|'.$to;
+                $capacity = FastboatTrackOrderCapacity::firstOrCreate([
+                    'fastboat_track_group_id' => $track->group->id,
+                    'fastboat_source_id' => $from,
+                    'fastboat_destination_id' => $to,
+                    'date' => $date,
+                ], [
+                    'capacity' => $fastboat->capacity,
+                ]);
                 if($isStart || $isEnd) {
-                    $capacities[$rou]->update(['capacity' => $capacities[$rou]->capacity - $quantity]);
-                }
+                    $capacity->update(['capacity' => $capacity->capacity - $quantity]);
                 // diantara 2 titik adalah lebih besar dari titik awal dan lebih kecil dari titik akhir
-                if ($startIndex < $i && $endIndex > $j) {
-                    $capacities[$rou]->update(['capacity' => $capacities[$rou]->capacity - $quantity]);
-                }
+                } elseif ($startIndex < $i && $endIndex > $j) {
+                    $capacity->update(['capacity' => $capacity->capacity - $quantity]);
                 // lainnya
-                if($startIndex > $i && $endIndex < $j) {
-                    $capacities[$rou]->update(['capacity' => $capacities[$rou]->capacity - $quantity]);
+                } elseif($startIndex > $i && $endIndex < $j) {
+                    $capacity->update(['capacity' => $capacity->capacity - $quantity]);
+                } else {
+                    // nothing todo
                 }
             }
         }

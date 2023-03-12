@@ -23,6 +23,17 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+| Test Only
+Route::get('/test', function () {
+    $markdown = new Markdown(view(), config('mail.markdown'));
+
+    $order = Order::find('98ab7336-776f-4f6c-84cc-5008fbedf0ab');
+
+    return $markdown->render('emails.orders.payment', [
+        'order' => $order,
+        'wait' => $order->created_at->addDay()->format('d M Y H:i'),
+    ]);
+});
 */
 
 Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function () {
