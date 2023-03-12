@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class FastboatTrackOrder extends Model
+class FastboatTrackOrder extends Model //order here mean as a sorting
 {
     protected $fillable = [
         'fastboat_track_group_id',
@@ -12,6 +12,6 @@ class FastboatTrackOrder extends Model
 
     public function place()
     {
-        return $this->belongsTo(FastboatPlace::class, 'fastboat_place_id');
+        return $this->belongsTo(FastboatPlace::class, 'fastboat_place_id')->withTrashed();
     }
 }

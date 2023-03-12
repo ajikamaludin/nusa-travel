@@ -29,12 +29,12 @@ class FastboatTrack extends Model
 
     public function source()
     {
-        return $this->belongsTo(FastboatPlace::class, 'fastboat_source_id');
+        return $this->belongsTo(FastboatPlace::class, 'fastboat_source_id')->withTrashed();
     }
 
     public function destination()
     {
-        return $this->belongsTo(FastboatPlace::class, 'fastboat_destination_id');
+        return $this->belongsTo(FastboatPlace::class, 'fastboat_destination_id')->withTrashed();
     }
 
     public function item()

@@ -5,7 +5,7 @@
         placeholder="Origin"
         :options="$places"
         :min-items-for-search="5"
-        :clearable="false"
+        :clearable="true"
         option-label="name"
         option-value="name"
         name="from"
