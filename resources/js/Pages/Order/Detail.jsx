@@ -112,6 +112,41 @@ export default function Form(props) {
                                 </tbody>
                             </table>
                         </div>
+                        {order.items[0]?.passengers?.length > 0 && (
+                            <div className='mt-2'>
+                                <label className="block mb-2 text-sm font-medium text-gray-900">Passengers</label>
+                                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 my-4">
+                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                            <th scope="col" className="py-3 px-6">
+                                                Name
+                                            </th>
+                                            <th scope="col" className="py-3 px-6">
+                                                National 
+                                            </th>
+                                            <th scope="col" className="py-3 px-6">
+                                                Nation ID 
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {order.items[0].passengers.map(passenger => (
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={passenger.id}>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {passenger.name}
+                                                </td>
+                                                <td className="py-4 px-6">
+                                                    {passenger.nation}
+                                                </td>
+                                                <td className="py-4 px-6">
+                                                    {passenger.national_id}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
                         <div className='mt-2'>
                             <label className="block mb-2 text-sm font-medium text-gray-900">Promo Applied</label>
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 my-4">
