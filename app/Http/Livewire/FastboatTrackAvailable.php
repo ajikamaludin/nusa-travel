@@ -44,6 +44,13 @@ class FastboatTrackAvailable extends Component
         $this->fetch();
     }
 
+    public function booted()
+    {
+        if ($this->from != null && $this->to != null) {
+            $this->show = true;
+        }
+    }
+
     public function render()
     {
         return view('livewire.fastboat-track-available', [

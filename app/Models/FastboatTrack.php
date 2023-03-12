@@ -61,12 +61,19 @@ class FastboatTrack extends Model
         );
     }
 
-    public function detail($date)
+    public function detail($date, $dropoff = null)
     {
-        return "<p>$this->order_detail (Fastboat)</p>
+        $detail = "<p>$this->order_detail (Fastboat)</p>
         <p>$this->arrival_time - $this->departure_time</p>
-        <p>".Carbon::parse($date)->format('d-m-Y').'</p>
-        <p>@ '.number_format($this->price, '0', ',', ' .').'</p>';
+        <p>".Carbon::parse($date)->format('d-m-Y').'</p>';
+
+        if($dropoff != null) {
+            $detail .= "<p>Dropoff: $dropoff</p>";
+        }
+
+        $detail .= '<p>@ '.number_format($this->price, '0', ',', ' .').'</p>';
+
+        return $detail;
     }
 
     public function getCapacity($date)

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('promo_id')->nullable();
             $table->string('promo_code')->nullable();
             $table->decimal('promo_amount', 14, 2)->default(0);
+            $table->text('description')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

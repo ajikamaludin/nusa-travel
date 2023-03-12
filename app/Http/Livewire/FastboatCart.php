@@ -222,8 +222,12 @@ class FastboatCart extends Component
         }
 
         // insert promo
-        if(count($this->promos) > 0) {
-            // TODO: insert promo
+        foreach($this->promos as $promo) {
+            $order->promos()->create([
+                'promo_id' => $promo['id'],
+                'promo_code' => $promo['code'],
+                'promo_amount' => $promo['amount'],
+            ]);
         }
 
         // TODO: send email
@@ -273,6 +277,7 @@ class FastboatCart extends Component
 
             $this->promos[] = [
                 'id' => $promo->id,
+                'code' => $promo->code,
                 'name' => $promo->name.' ( disc. '.$promo->discount_amount.($isPercent ? '% )' : ' )'),
                 'amount' => $amount,
             ];

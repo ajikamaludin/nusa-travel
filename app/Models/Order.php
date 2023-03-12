@@ -49,6 +49,11 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function promos()
+    {
+        return $this->hasMany(OrderPromo::class);
+    }
+
     public static function generateCode()
     {
         return Str::upper(Str::random(6)).now()->format('dmY');

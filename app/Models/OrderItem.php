@@ -38,7 +38,7 @@ class OrderItem extends Model
             get: function () {
                 $detail = '';
                 if ($this->item instanceof FastboatTrack) {
-                    $detail = $this->item->detail($this->date);
+                    $detail = $this->item->detail($this->date, $this->dropoff);
                 }
                 if ($this->item instanceof CarRental) {
                     $detail = $this->item->detail($this->date);
