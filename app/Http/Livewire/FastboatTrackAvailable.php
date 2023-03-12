@@ -71,9 +71,9 @@ class FastboatTrackAvailable extends Component
     public function showAvailableRoute($data)
     {
         if($data['from'] == null || $data['to'] == null) {
-            $this->notification()->error(
-                $title = 'Error !!!',
-                $description = 'Origin and destination cant be empty'
+            $this->dialog()->error(
+                $title = 'Warning !!!',
+                $description = 'Please choose Origin and Destination'
             );
 
             return;
