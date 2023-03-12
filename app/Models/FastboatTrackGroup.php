@@ -4,6 +4,8 @@ namespace App\Models;
 
 class FastboatTrackGroup extends Model
 {
+    protected $cascadeDeletes = ['tracks'];
+
     protected $fillable = [
         'fastboat_id',
         'name',

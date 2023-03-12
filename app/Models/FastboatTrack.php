@@ -79,7 +79,7 @@ class FastboatTrack extends Model
     public function getCapacity($date)
     {
         $cap = FastboatTrackOrderCapacity::where([
-            'fastboat_track_group_id' => $this->group->id,
+            'fastboat_track_group_id' => $this->fastboat_track_group_id,
             'fastboat_source_id' => $this->fastboat_source_id,
             'fastboat_destination_id' => $this->fastboat_destination_id,
             'date' => $date,
