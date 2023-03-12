@@ -307,7 +307,7 @@
                             <span class="flex flex-row gap-1 items-center">
                                 Discount
                             </span>
-                            <span> -{{ number_format($total, 0, ',' , '.') }} </span>
+                            <span> -{{ number_format($discount, 0, ',' , '.') }} </span>
                         </div>
                     @endif
 
@@ -315,14 +315,15 @@
                         <span class="flex flex-row gap-1 items-center">
                             Total
                         </span>
-                        <span> {{ number_format($total, 0, ',' , '.') }} </span>
+                        <span> {{ number_format($total_payed, 0, ',' , '.') }} </span>
                     </div>
 
                     @if(count($promos) > 0)
                     <div class="p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert">
                         <span class="font-medium">Promo aplied!</span> 
-                        <div>Promo Abc</div>
-                        <div>Promo DEF</div>
+                        @foreach($promos as $promo)
+                            <div>{{ $promo['name'] }}</div>
+                        @endforeach
                     </div>
                     @endif
                 </div>

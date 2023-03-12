@@ -39,7 +39,7 @@ class FastboatTrackAvailable extends Component
 
     public $show = false;
 
-    public function booted()
+    public function boot()
     {
         $this->fetch();
     }
@@ -131,12 +131,7 @@ class FastboatTrackAvailable extends Component
                 $queryDeparture->whereTime('arrival_time', '>=', now());
             }
 
-            $queryDeparture->withCount(['item_ordered' => function ($query) use ($rdate) {
-                return $query->whereDate('date', $rdate);
-            }]);
-
             $this->trackDepartures = $queryDeparture->where('is_publish', 1);
-
             if ($this->ways == 2) {
                 $queryReturns = FastboatTrack::with(['source', 'destination'])
                 ->whereHas('source', function ($query) {
@@ -150,10 +145,6 @@ class FastboatTrackAvailable extends Component
                 if ($rdate->isToday()) {
                     $queryReturns->whereTime('arrival_time', '>=', now());
                 }
-
-                $queryReturns->withCount(['item_ordered' => function ($query) use ($rdate) {
-                    return $query->whereDate('date', $rdate);
-                }]);
 
                 $this->trackReturns = $queryReturns->where('is_publish', 1);
             }

@@ -4,6 +4,10 @@ namespace App\Models;
 
 class Promo extends Model
 {
+    const PROMO_ACTIVE = 1;
+
+    const PROMO_DEACTIVE = 0;
+
     const TYPE_AMOUNT = 0;
 
     const TYPE_PERCENT = 1;

@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\FastboatDropoff;
 use App\Models\FastboatTrack;
 use App\Models\Order;
+use App\Models\Promo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
@@ -34,6 +35,8 @@ class FastboatCart extends Component
     public $view = 1;
 
     public $total = 0;
+
+    public $total_payed = 0;
 
     public $promos = [];
 
@@ -161,14 +164,7 @@ class FastboatCart extends Component
             'dropoff' => $this->dropoff,
         ]);
 
-        collect($this->carts)->map(function ($cart) {
-            $this->total += $cart['track']->price * $cart['qty'];
-        });
-
-        // TODO: search promo here
-        // aplied to $this->promos
-        // total of cust to $this->discount;
-
+        $this->applyPromos();
         $this->view = 2;
     }
 
@@ -191,7 +187,7 @@ class FastboatCart extends Component
         $order = Order::create([
             'order_code' => Order::generateCode(),
             'customer_id' => $customer->id,
-            'total_amount' => $this->total,
+            'total_amount' => $this->total_payed,
             'total_discount' => $this->discount,
             'order_type' => Order::TYPE_ORDER,
             'date' => now(),
@@ -199,7 +195,6 @@ class FastboatCart extends Component
 
         // insert items -> insert passengers
         foreach($this->carts as $trackId => $cart) {
-            // TODO : insert fastboat_track_order_capacities
             $item = $order->items()->create([
                 'entity_order' => $cart['type'],
                 'entity_id' => $trackId,
@@ -211,6 +206,11 @@ class FastboatCart extends Component
                 'dropoff_id' => $dropoff?->id,
             ]);
 
+            // update every track ordered pending
+            $track = FastboatTrack::find($trackId);
+            FastboatTrack::updateTrackUsage($track, $cart['date'], $cart['qty']);
+
+            // insert every person in order to every item
             foreach($this->persons as $index => $person) {
                 $item->passengers()->create([
                     'customer_id' => $index == 0 ? $customer->id : null,
@@ -234,5 +234,50 @@ class FastboatCart extends Component
         session()->forget(['persons', 'contact', 'dropoff', 'carts']);
 
         return redirect()->route('customer.process-payment', $order);
+    }
+
+    public function applyPromos()
+    {
+        $dates = [];
+        collect($this->carts)->map(function ($cart) use (&$dates) {
+            $this->total += $cart['track']->price * $cart['qty'];
+            $this->total_payed += $cart['track']->price * $cart['qty'];
+            $dates[] = $cart['date'];
+        });
+
+        $promos = Promo::where([
+            'is_active' => Promo::PROMO_ACTIVE,
+        ])
+        ->where(function ($query) {
+            $query->whereDate('available_start_date', '<=', now())
+            ->whereDate('available_end_date', '>=', now());
+        })
+        ->where(function ($query) use ($dates) {
+            if(count($dates) > 0) {
+                $query->whereDate('order_start_date', '<=', $dates[0])
+                    ->whereDate('order_end_date', '>=', $dates[0]);
+            }
+        })
+        ->get();
+
+        foreach($promos as $promo) {
+            $isPercent = false;
+            if ($promo->discount_type == Promo::TYPE_PERCENT) {
+                $isPercent = true;
+                $amount = ($this->total * $promo->discount_amount / 100);
+            } else {
+                $amount = $promo->discount_amount;
+            }
+
+            $this->discount += $amount;
+
+            $this->promos[] = [
+                'id' => $promo->id,
+                'name' => $promo->name.' ( disc. '.$promo->discount_amount.($isPercent ? '% )' : ' )'),
+                'amount' => $amount,
+            ];
+        }
+
+        $this->total_payed = $this->total_payed - $this->discount;
     }
 }
