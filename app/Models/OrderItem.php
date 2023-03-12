@@ -24,7 +24,7 @@ class OrderItem extends Model
 
     public function item()
     {
-        return $this->belongsTo((string) $this->entity_order, 'entity_id');
+        return $this->belongsTo((string) $this->entity_order, 'entity_id')->withTrashed();
     }
 
     public function passengers()

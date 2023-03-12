@@ -12,7 +12,7 @@
             <p class="text-xs text-gray-400">availability: {{ $avalaible }}</p>
         </div>
     </div>
-    <div class="flex flex-row justify-between text-center items-center">
+    <div class="flex flex-row justify-between text-center items-center font-bold gap-1">
         <div class="flex flex-row gap-4 text-center items-center">
             <div>
                 <p>{{ $track->arrival_time }}</p>
@@ -37,7 +37,7 @@
                 Choose
             </div>
         @else
-        <div class="p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+        <div class="md:p-4 my-4 text-sm text-red-800 rounded-lg md:bg-red-50" role="alert">
             @if($avalaible > 0)
                 <span class="font-medium">Oops, not enough seats</span> 
             @else
