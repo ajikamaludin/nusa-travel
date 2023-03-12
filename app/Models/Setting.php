@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Cache;
 
 class Setting extends Model
 {
@@ -23,8 +24,13 @@ class Setting extends Model
     {
         if (self::$instance == null) {
             self::$instance = new Setting;
-            // TODO: make this cached
-            self::$instance->setting = Setting::all();
+            if(Cache::has('settings')) {
+                self::$instance->setting = Cache::get('settings');
+            } else {
+                self::$instance->setting = Setting::all();
+                Cache::put('settings', self::$instance->setting, now()->addDay());
+            }
+
         }
 
         return self::$instance;

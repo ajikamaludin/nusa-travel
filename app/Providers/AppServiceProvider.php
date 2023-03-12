@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
@@ -45,8 +46,13 @@ class AppServiceProvider extends ServiceProvider
         // just for optional provider on web app run
         try {
             // shared setting
-            if (Schema::hasTable('settings')) {
+            if(Cache::has('has-setting-table')) {
                 View::share('setting', Setting::getInstance());
+            } else {
+                if (Schema::hasTable('settings')) {
+                    Cache::put('has-setting-table', true);
+                    View::share('setting', Setting::getInstance());
+                }
             }
         } catch(\Exception $r) {
         }

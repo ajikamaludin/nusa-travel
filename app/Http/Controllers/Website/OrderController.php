@@ -134,7 +134,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         return view('order', [
-            'order' => $order->load(['items', 'customer']),
+            'order' => $order->load(['items', 'customer', 'promos.promo']),
         ]);
     }
 
@@ -144,7 +144,7 @@ class OrderController extends Controller
         $orders = Order::where('customer_id', $user->id)->where('order_type', Order::TYPE_ORDER);
 
         return view('customer.order', [
-            'orders' => $orders->orderBy('payment_status', 'desc')->orderBy('created_at', 'desc')->paginate(),
+            'orders' => $orders->orderBy('payment_status', 'asc')->orderBy('created_at', 'desc')->paginate(),
         ]);
     }
 

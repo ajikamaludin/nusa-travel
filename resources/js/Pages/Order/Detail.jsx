@@ -44,8 +44,20 @@ export default function Form(props) {
                         />
                         <FormInput
                             name="total"
-                            value={formatIDR(order.total_amount)}
+                            value={formatIDR(+order.total_amount + +order.total_discount)}
                             label="Total Order"
+                            readOnly={true}
+                        />
+                        <FormInput
+                            name="total"
+                            value={formatIDR(order.total_discount)}
+                            label="Total Discount"
+                            readOnly={true}
+                        />
+                        <FormInput
+                            name="total"
+                            value={formatIDR(order.total_amount)}
+                            label="Total Payed"
                             readOnly={true}
                         />
                         <FormInput
@@ -60,42 +72,83 @@ export default function Form(props) {
                             label="Payment Type"
                             readOnly={true}
                         />
-                        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 my-4">
-                            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" className="py-3 px-6">
-                                        Detail
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        Quantity 
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        Date 
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        Subtotal 
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {order.items.map(item => (
-                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={item.id}>
-                                        <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <div dangerouslySetInnerHTML={{ __html: `${item.detail}` }}></div>
-                                        </td>
-                                        <td className="py-4 px-6">
-                                            {item.quantity}
-                                        </td>
-                                        <td className="py-4 px-6">
-                                            {formatDate(item.date)}
-                                        </td>
-                                        <td className="py-4 px-6">
-                                            {formatIDR(item.quantity * item.amount)}
-                                        </td>
+                        
+                        <div className='mt-2'>
+                            <label className="block mb-2 text-sm font-medium text-gray-900">Item Order</label>
+                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 my-4">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" className="py-3 px-6">
+                                            Detail
+                                        </th>
+                                        <th scope="col" className="py-3 px-6">
+                                            Quantity 
+                                        </th>
+                                        <th scope="col" className="py-3 px-6">
+                                            Date 
+                                        </th>
+                                        <th scope="col" className="py-3 px-6">
+                                            Subtotal 
+                                        </th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {order.items.map(item => (
+                                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={item.id}>
+                                            <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <div dangerouslySetInnerHTML={{ __html: `${item.detail}` }}></div>
+                                            </td>
+                                            <td className="py-4 px-6">
+                                                {item.quantity}
+                                            </td>
+                                            <td className="py-4 px-6">
+                                                {formatDate(item.date)}
+                                            </td>
+                                            <td className="py-4 px-6">
+                                                {formatIDR(item.quantity * item.amount)}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className='mt-2'>
+                            <label className="block mb-2 text-sm font-medium text-gray-900">Promo Applied</label>
+                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 my-4">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" className="py-3 px-6">
+                                            Code
+                                        </th>
+                                        <th scope="col" className="py-3 px-6">
+                                            Discount Amount 
+                                        </th>
+                                        <th scope="col" className="py-3 px-6">
+                                            Desc 
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {order.promos.map(promo => (
+                                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={promo.id}>
+                                            <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {promo.promo_code}
+                                            </td>
+                                            <td className="py-4 px-6">
+                                                {formatIDR(promo.promo_amount)}
+                                            </td>
+                                            <td className="py-4 px-6">
+                                                {promo.promo && (
+                                                    <Link href={route('promo.edit', promo.promo)} className="text-blue-500">
+                                                    {promo?.promo?.name}
+                                                    </Link>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                         <FormInput
                             name="payment_Response"
                             value={(order.payment_response)}

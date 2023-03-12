@@ -53,6 +53,14 @@
                                 <input type="text" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " autocomplete="off" value="{{ $order->customer->email }}" disabled>
                             </div>
                         </div>
+                        @if($order->promos->count() > 0)
+                        <div class="p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert">
+                            <span class="font-medium">Promo aplied!</span> 
+                            @foreach($order->promos as $promo)
+                                <div>{{ $promo->promo->name }} ( -{{ number_format( $promo->promo_amount, 0, ',', '.') }} )</div>
+                            @endforeach
+                        </div>
+                        @endif
                         <div class="font-bold text-xl mt-5 border-b-2">Total : {{ number_format($order->total_amount, '0', ',', '.') }}</div>
                         <div class="font-bold text-xl text-center mt-5 {{ $order->payment_status_color }} ">
                             {{ $order->payment_status_text }}

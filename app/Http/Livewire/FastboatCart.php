@@ -7,6 +7,7 @@ use App\Models\FastboatDropoff;
 use App\Models\FastboatTrack;
 use App\Models\Order;
 use App\Models\Promo;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
@@ -183,6 +184,7 @@ class FastboatCart extends Component
 
         $dropoff = FastboatDropoff::where('name', $this->dropoff)->first();
 
+        $customerId = Auth::guard('customer')->user()?->id;
         // create order
         $order = Order::create([
             'order_code' => Order::generateCode(),
@@ -191,6 +193,7 @@ class FastboatCart extends Component
             'total_discount' => $this->discount,
             'order_type' => Order::TYPE_ORDER,
             'date' => now(),
+            'customer_id' => $customerId,
         ]);
 
         // insert items -> insert passengers

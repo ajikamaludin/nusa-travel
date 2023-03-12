@@ -11,4 +11,9 @@ class OrderPromo extends Model
         'promo_amount',
         'description',
     ];
+
+    public function promo()
+    {
+        return $this->belongsTo(Promo::class);
+    }
 }

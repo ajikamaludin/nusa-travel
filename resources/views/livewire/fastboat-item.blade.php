@@ -5,7 +5,7 @@
                 {{ $track->group->fastboat->name }}
             </p>
             {{-- <p class="text-xs text-gray-400">{{ $track->group->fastboat->number }}</p> --}}
-            <p class="text-xs text-gray-400">capacity: {{ $track->group->fastboat->capacity }}</p>
+            <p class="text-xs text-gray-400">seats: {{ $track->group->fastboat->capacity }}</p>
         </div>
         <div class="text-base text-right">
             <span class="font-bold flex-none"> Rp {{ number_format($track->price, 0, ',' , '.') }}</span><span class="text-xs">/pax</span>
@@ -36,6 +36,14 @@
             >
                 Choose
             </div>
+        @else
+        <div class="p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+            @if($avalaible > 0)
+                <span class="font-medium">Oops, not enough seats</span> 
+            @else
+                <span class="font-medium">Sold out</span> 
+            @endif
+        </div>
         @endif
         <div wire:loading.delay.long>
             loading...

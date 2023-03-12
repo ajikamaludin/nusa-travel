@@ -29,14 +29,23 @@ class MidtransService
                 'quantity' => $item->quantity,
                 'name' => $item->item->order_detail,
             ];
-        })->toArray();
+        });
+
+        if($this->order->total_discount > 0) {
+            $items->add([
+                'id' => 'Discount',
+                'price' => -$this->order->total_discount,
+                'quantity' => 1,
+                'name' => 'DISCOUNT',
+            ]);
+        }
 
         $params = [
             'transaction_details' => [
                 'order_id' => $this->order->order_code,
                 'gross_amount' => $this->order->total_amount,
             ],
-            'item_details' => $items,
+            'item_details' => $items->toArray(),
             'customer_details' => [
                 'name' => $this->order->customer->name,
                 'email' => $this->order->customer->email,
