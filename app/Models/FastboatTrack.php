@@ -70,4 +70,63 @@ class FastboatTrack extends Model
     }
 
     // TODO: add function to insert complex route capacity
+    public static function updateTrackUsage(FastboatTrack $track, $date, $quantity)
+    {
+        $tracks = $track->group->tracks;
+        $fastboat = $track->group->fastboat;
+        $places = $track->group->places;
+
+        $capacities = [];
+        // copy all tracks to capacities
+        foreach($tracks as $t) {
+            $capacity = FastboatTrackOrderCapacity::firstOrCreate([
+                'fastboat_track_group_id' => $track->group->id,
+                'fastboat_source_id' => $t->fastboat_source_id,
+                'fastboat_destination_id' => $t->fastboat_destination_id,
+                'date' => $date,
+            ], [
+                'capacity' => $fastboat->capacity,
+            ]);
+
+            $rou = $t->fastboat_source_id.'|'.$t->fastboat_destination_id;
+            $capacities[$rou] = $capacity;
+        }
+
+        // other track that impact
+        $n = $places->count();
+        $places = $places->toArray();
+        $startIndex = null;
+        $endIndex = null;
+        foreach($places as $k => $place) {
+            $isStart = $track->fastboat_source_id == $places[$k]['fastboat_place_id'];
+            if($startIndex == null && $isStart) {
+                $startIndex = $k;
+            }
+            $isEnd = $track->fastboat_destination_id == $places[$k]['fastboat_place_id'];
+            if($endIndex == null && $isEnd) {
+                $endIndex = $k;
+            }
+        }
+
+        for ($i = 0; $i < $n; $i++) { // 1 2 3 4
+            $isStart = $track->fastboat_source_id == $places[$i]['fastboat_place_id'];
+            for ($j = $i + 1; $j < $n; $j++) { // 2 3 4
+                $isEnd = $track->fastboat_destination_id == $places[$j]['fastboat_place_id'];
+                $from = $places[$i]['fastboat_place_id'];
+                $to = $places[$j]['fastboat_place_id'];
+                $rou = $from.'|'.$to;
+                if($isStart || $isEnd) {
+                    $capacities[$rou]->update(['capacity' => $capacities[$rou]->capacity - $quantity]);
+                }
+                // diantara 2 titik adalah lebih besar dari titik awal dan lebih kecil dari titik akhir
+                if ($startIndex < $i && $endIndex > $j) {
+                    $capacities[$rou]->update(['capacity' => $capacities[$rou]->capacity - $quantity]);
+                }
+                // lainnya
+                if($startIndex > $i && $endIndex < $j) {
+                    $capacities[$rou]->update(['capacity' => $capacities[$rou]->capacity - $quantity]);
+                }
+            }
+        }
+    }
 }
