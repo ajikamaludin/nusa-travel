@@ -11,7 +11,7 @@
         <div class="relative bg-white rounded-lg shadow items-center h-full md:h-auto">
             <!-- header -->
             <div class="flex  items-center justify-center p-4 rounded-t bg-blue-500 text-white">
-                {{ $view == 0 ? 'Fill In Details' : 'Review' }}
+                {{ $view == 1 ? 'Fill In Details' : 'Review' }}
             </div>
 
             <!-- order -->

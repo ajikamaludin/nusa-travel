@@ -73,7 +73,7 @@
                 <div class="w-full max-w-5xl mx-auto p-2">
                     <div class="flex flex-col" wire:loading.remove>
                     @foreach($trackDepartures as $track)
-                        <livewire:fastboat-item :track="$track" :date="$date" ordered="0" :quantity="$passengers" :type='1'/>
+                        <livewire:fastboat-item :track="$track" :date="$date" :quantity="$passengers" :type='1'/>
                     @endforeach
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                     <div class="w-full max-w-5xl mx-auto p-2">
                         <div class="flex flex-col" wire:loading.remove>
                         @foreach($trackReturns as $track)
-                            <livewire:fastboat-item :track="$track" :date="$rdate" ordered="0" :quantity="$passengers" :type='2'/>
+                            <livewire:fastboat-item :track="$track" :date="$rdate" :quantity="$passengers" :type='2'/>
                         @endforeach
                         </div>
                     </div>

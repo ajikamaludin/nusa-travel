@@ -4,10 +4,12 @@
             <p>
                 {{ $track->group->fastboat->name }}
             </p>
-            <!-- <p class="text-xs">{{ $track->group->fastboat->number }}</p> -->
+            {{-- <p class="text-xs text-gray-400">{{ $track->group->fastboat->number }}</p> --}}
+            <p class="text-xs text-gray-400">capacity: {{ $track->group->fastboat->capacity }}</p>
         </div>
-        <div class="text-base">
-            <span class="font-bold"> Rp {{ number_format($track->price, 0, ',' , '.') }}</span><span class="text-xs">/pax</span>
+        <div class="text-base text-right">
+            <span class="font-bold flex-none"> Rp {{ number_format($track->price, 0, ',' , '.') }}</span><span class="text-xs">/pax</span>
+            <p class="text-xs text-gray-400">availability: {{ $avalaible }}</p>
         </div>
     </div>
     <div class="flex flex-row justify-between text-center items-center">
@@ -26,13 +28,15 @@
                 <p>{{ $track->destination->name }}</p>
             </div>
         </div>
-        <div 
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 "
-            wire:click="addCart({{ $type }})"
-            wire:loading.remove
-        >
-            Choose
-        </div>
+        @if($avalaible >= $quantity)
+            <div 
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 "
+                wire:click="addCart({{ $type }})"
+                wire:loading.remove
+            >
+                Choose
+            </div>
+        @endif
         <div wire:loading.delay.long>
             loading...
         </div>

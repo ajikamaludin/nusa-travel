@@ -9,9 +9,11 @@ use Livewire\Component;
 
 class FastboatItem extends Component
 {
-    public $track;
+    protected $listeners = [
+        'changePassengers' => 'changePassengers',
+    ];
 
-    public $ordered;
+    public $track;
 
     public $date;
 
@@ -19,9 +21,18 @@ class FastboatItem extends Component
 
     public $quantity;
 
+    public $avalaible;
+
+    public function booted()
+    {
+        $this->avalaible = $this->track->getCapacity($this->date);
+    }
+
     public function render()
     {
-        return view('livewire.fastboat-item');
+        return view('livewire.fastboat-item', [
+            'quantity' => $this->quantity,
+        ]);
     }
 
     public function addCart()
@@ -138,5 +149,10 @@ class FastboatItem extends Component
         }
 
         return $carts;
+    }
+
+    public function changePassengers($value)
+    {
+        $this->quantity = $value;
     }
 }

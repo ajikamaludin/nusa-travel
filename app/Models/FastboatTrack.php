@@ -69,7 +69,22 @@ class FastboatTrack extends Model
         <p>@ '.number_format($this->price, '0', ',', ' .').'</p>';
     }
 
-    // TODO: add function to insert complex route capacity
+    public function getCapacity($date)
+    {
+        $cap = FastboatTrackOrderCapacity::where([
+            'fastboat_track_group_id' => $this->group->id,
+            'fastboat_source_id' => $this->fastboat_source_id,
+            'fastboat_destination_id' => $this->fastboat_destination_id,
+            'date' => $date,
+        ])->first();
+
+        if($cap != null) {
+            return $cap->capacity;
+        }
+
+        return $this->group->fastboat->capacity;
+    }
+
     public static function updateTrackUsage(FastboatTrack $track, $date, $quantity)
     {
         $tracks = $track->group->tracks;

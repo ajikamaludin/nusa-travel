@@ -47,6 +47,7 @@ class FastboatTrackAvailable extends Component
     public function render()
     {
         return view('livewire.fastboat-track-available', [
+            'passengers' => $this->passengers,
             'date' => $this->date,
             'rdate' => $this->rdate,
             'trackDepartures' => $this->trackDepartures?->paginate(),
