@@ -109,6 +109,7 @@ class FastboatTrack extends Model
             ], [
                 'capacity' => $fastboat->capacity,
             ]);
+            dump($capacity);
 
             $rou = $t->fastboat_source_id.'|'.$t->fastboat_destination_id;
             $capacities[$rou] = $capacity;

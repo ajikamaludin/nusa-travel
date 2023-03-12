@@ -21,6 +21,6 @@ class FastboatTrackGroup extends Model
 
     public function places()
     {
-        return $this->hasMany(FastboatTrackOrder::class)->withTrashed();
+        return $this->hasMany(FastboatTrackOrder::class);
     }
 }

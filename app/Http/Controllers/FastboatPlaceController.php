@@ -57,6 +57,17 @@ class FastboatPlaceController extends Controller
      */
     public function destroy(FastboatPlace $place): void
     {
+        $conds = [
+            $place->sources()->count() > 0,
+            $place->destinations()->count() > 0,
+            $place->groups()->count() > 0,
+        ];
+
+        if(in_array(true, $conds)) {
+            session()->flash('message', ['type' => 'error', 'message' => 'Item is in use']);
+
+            return;
+        }
         $place->delete();
 
         session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']);

@@ -39,16 +39,9 @@ class FastboatTrackAvailable extends Component
 
     public $show = false;
 
-    public function boot()
+    public function mount()
     {
         $this->fetch();
-    }
-
-    public function booted()
-    {
-        if ($this->from != null && $this->to != null) {
-            $this->show = true;
-        }
     }
 
     public function render()

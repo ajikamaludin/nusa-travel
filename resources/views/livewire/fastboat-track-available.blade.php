@@ -1,6 +1,6 @@
 <x-modal 
     blur 
-    wire:model="show"
+    wire:model.lazy="show"
     spacing="p-0"
     align="center"
 >
@@ -77,7 +77,7 @@
                     @endforeach
                     </div>
                 </div>
-                <div class=" max-w-5xl mx-auto px-1 {{ $trackDepartures == null ? 'pb-10' : '' }}">
+                <div class=" max-w-5xl mx-auto px-2 {{ $trackDepartures == null ? 'pb-10' : '' }}">
                     {{$trackDepartures->withQueryString()->links()}}
                 </div>
                 @endif
