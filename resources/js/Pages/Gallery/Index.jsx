@@ -84,7 +84,7 @@ export default function Index(props) {
                             <div className='grid grid-cols-2 md:grid-cols-4 gap-2 mb-5'>
                                 {data.map(file => (
                                     <figure className="relative transition-all duration-300 cursor-pointer filter" key={file.id}>
-                                        <img className="rounded-lg object-cover w-full h-full" src={file.path_url} alt={file.name}/>
+                                        <img className="rounded-lg object-cover w-full h-48" src={file.path_url} alt={file.name}/>
                                         <figcaption className="absolute px-4 text-xl text-white outlined-black bottom-6">
                                             <p>{file.name}</p>
                                         </figcaption>
