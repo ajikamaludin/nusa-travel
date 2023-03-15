@@ -183,6 +183,14 @@ export default [
                 active: "#",
                 permission: "view-page",
             },
+            {
+                name: "Schedule",
+                show: true,
+                icon: HiTemplate,
+                route: route("page.edit", { key: "schedule" }),
+                active: "#",
+                permission: "view-page",
+            },
         ],
     },
     {

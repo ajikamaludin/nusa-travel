@@ -125,6 +125,7 @@ class DummySeeder extends Seeder
             ['key' => 'refundpolicy', 'title' => 'Refund Policy', 'file' => '/pages/refundpolicy.txt'],
             ['key' => 'cookiepolicy', 'title' => 'Cookie Policy', 'file' => '/pages/cookiepolicy.txt'],
             ['key' => 'aboutus', 'title' => 'About Us', 'file' => '/pages/aboutus.txt'],
+            ['key' => 'schedule', 'title' => 'Schedule', 'file' => '/pages/schedule.txt'],
         ];
 
         foreach ($pages as $page) {

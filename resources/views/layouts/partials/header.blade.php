@@ -104,6 +104,9 @@
             <a href="{{ route('page.show', ['page' => 'aboutus']) }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white">
                 About Us
             </a>
+            <a href="{{ route('page.show', ['page' => 'schedule']) }}" class="my-1 px-4 py-2 cursor-pointer rounded text-sm text-gray-900 focus:outline-none bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white">
+                Schedule
+            </a>
         </div>
     </div>
 </div>
@@ -150,6 +153,11 @@
             <li>
                 <a href="{{ route('page.show', ['page' => 'aboutus']) }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
                 <span class="ml-3">About us</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('page.show', ['page' => 'schedule']) }}" class="flex items-center py-4 px-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
+                <span class="ml-3">Schedule</span>
                 </a>
             </li>
             <li>
