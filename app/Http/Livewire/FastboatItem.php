@@ -79,7 +79,7 @@ class FastboatItem extends Component
                 ],
             ];
         }
-
+        
         session(['carts' => $carts]);
     }
 

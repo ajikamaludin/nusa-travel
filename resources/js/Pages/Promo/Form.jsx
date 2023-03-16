@@ -11,7 +11,7 @@ import FormInputDate from '@/Components/FormInputDate';
 export default function Form(props) {
     const { promo } = props
 
-    const {data, setData, post, processing, errors} = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         code: '',
         name: '',
         is_active: 1,
@@ -24,6 +24,10 @@ export default function Form(props) {
         order_end_date: '',
         user_perday_limit: '',
         order_perday_limit: '',
+        condition_type: '',
+        amount_buys: '',
+        amount_tiket: '',
+        ranges_day: '',
     })
 
     const handleOnChange = (event) => {
@@ -31,15 +35,64 @@ export default function Form(props) {
     }
 
     const handleSubmit = () => {
-        if(isEmpty(promo) === false) {
+        if (isEmpty(promo) === false) {
             post(route('promo.update', promo))
             return
         }
         post(route('promo.store'))
     }
 
+    const renderComponetType=()=>{
+        let terms=data.condition_type
+        switch(terms){
+            case "1":
+                return  <FormInput
+                name="amount_buys"
+                value={data.amount_buys}
+                onChange={handleOnChange}
+                label="Jumlah Pembelian Tiket"
+                error={errors.amount_buys}
+            />
+           
+            case "2":
+                return  <FormInput
+                name="ranges_day"
+                value={data.ranges_day == null ? '' : data.ranges_day}
+                onChange={handleOnChange}
+                label="Jumlah Hari Sebelum Pesan"
+                error={errors.ranges_day}
+            />
+            case "3":
+                return  <FormInput
+                name="ranges_day"
+                value={data.ranges_day == null ? '' : data.ranges_day}
+                onChange={handleOnChange}
+                label="Jumlah Haris Sesudah Pesan"
+                error={errors.ranges_day}
+            />
+            case "4":
+                return  <><FormInput
+                name="amount_buys"
+                value={data.amount_buys == null ? '' : data.amount_buys}
+                onChange={handleOnChange}
+                label="Jumlah Pembelian Tiket"
+                error={errors.amount_buys}
+            />
+            <FormInput
+                name="amount_tiket"
+                value={data.amount_tiket == null ? '' : data.amount_tiket}
+                onChange={handleOnChange}
+                label="Jumlah Tiket Gratis"
+                error={errors.amount_tiket}
+            />
+            </>
+            
+                
+        }
+    }
+
     useEffect(() => {
-        if(isEmpty(promo) === false) {
+        if (isEmpty(promo) === false) {
             setData({
                 code: promo.code,
                 name: promo.name,
@@ -53,11 +106,15 @@ export default function Form(props) {
                 order_end_date: promo.order_end_date,
                 user_perday_limit: promo.user_perday_limit,
                 order_perday_limit: promo.order_perday_limit,
+                condition_type: promo.condition_type,
+                amount_buys: promo.amount_buys,
+                amount_tiket: promo.amount_tiket,
+                ranges_day: promo.ranges_day,
             })
         }
-    }, [promo]) 
+    }, [promo])
 
-    console.log(data)
+    
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -152,6 +209,16 @@ export default function Form(props) {
                                 label={+data.discount_type === 1 ? 'Percent' : 'Amount'}
                             />
                         </div>
+                        <div className='border-2 p-2 my-2 rounded'>
+                            <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Syarat & Ketentuan</label>
+                            <select className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" onChange={handleOnChange} value={data.condition_type} name="condition_type">
+                            <option  value={null}>{"Pilih Jenis Ketentuan"}</option>
+                                {['Graded', 'Early Bird','Last Minute','Get Pack Get Ticket'].map((p, index) => (
+                                    <option key={p} value={index+1}>{p}</option>
+                                ))}
+                            </select>
+                                    {renderComponetType()}
+                        </div>
                         <div className='mt-4'>
                             <Checkbox
                                 name="is_active"
@@ -164,7 +231,7 @@ export default function Form(props) {
                         <div className='mt-8'>
                             <Button
                                 onClick={handleSubmit}
-                                processing={processing} 
+                                processing={processing}
                             >
                                 Simpan
                             </Button>

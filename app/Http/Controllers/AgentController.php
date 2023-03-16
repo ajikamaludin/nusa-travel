@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Inertia\Response;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
-class CustomerController extends Controller
+class AgentController extends Controller
 {
     public function index(Request $request): Response
     {
@@ -16,8 +18,8 @@ class CustomerController extends Controller
             $query->where('name', 'like', "%{$request->q}%");
         }
 
-        return inertia('Customer/Index', [
-            'query' => $query->where('is_agent','0')->orderBy('created_at', 'desc')->paginate(),
+        return inertia('Agent/Index', [
+            'query' => $query->where('is_agent','1')->orderBy('created_at', 'desc')->paginate(),
         ]);
     }
 
@@ -41,17 +43,19 @@ class CustomerController extends Controller
             'nation' => $request->nation,
             'national_id' => $request->national_id,
             'password' => bcrypt($request->passwor),
-            'is_active' => Customer::DEACTIVE,
+            'is_active' => Customer::ACTIVE,
+            'is_agent'=> Customer::ACTIVE,
+            'token'=>Hash::make(Str::random(10)),
         ]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Customer has beed saved']);
+        session()->flash('message', ['type' => 'success', 'message' => 'Agent has beed saved']);
     }
 
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, Customer $agent)
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|unique:customers,email,'.$customer->id,
+            'email' => 'required|unique:customers,email,'.$agent->id,
             'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255',
             'address' => 'nullable|string',
             'nation' => 'nullable|string',
@@ -60,10 +64,10 @@ class CustomerController extends Controller
         ]);
 
         if ($request->input('password') != '') {
-            $customer->update(['password' => bcrypt($request->password)]);
+            $agent->update(['password' => bcrypt($request->password)]);
         }
 
-        $customer->update([
+        $agent->update([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -72,13 +76,13 @@ class CustomerController extends Controller
             'national_id' => $request->national_id,
         ]);
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Customer has beed updated']);
+        session()->flash('message', ['type' => 'success', 'message' => 'Agent has beed updated']);
     }
 
-    public function destroy(Customer $customer): void
+    public function destroy(Customer $agent): void
     {
-        $customer->delete();
+        $agent->delete();
 
-        session()->flash('message', ['type' => 'success', 'message' => 'Customer has beed deleted']);
+        session()->flash('message', ['type' => 'success', 'message' => 'Agent has beed deleted']);
     }
 }

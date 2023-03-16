@@ -20,6 +20,8 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TourPackageController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AgentController;
+use App\Http\Controllers\FastboatTrackAgentController;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Support\Facades\Route;
 
@@ -152,5 +154,18 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('order.edit');
         Route::put('/orders/{order}', [OrderController::class, 'update'])->name('order.update');
         Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
+
+         //Agen 
+         Route::get('/agent', [AgentController::class, 'index'])->name('agent.index');
+         Route::post('/agent', [AgentController::class, 'store'])->name('agent.store');
+         Route::put('/agent/{agent}', [AgentController::class, 'update'])->name('agent.update');
+         Route::delete('/agent/{agent}', [AgentController::class, 'destroy'])->name('agent.destroy');
+         // Price Agent
+         Route::get('/price-agent', [FastboatTrackAgentController::class, 'index'])->name('price-agent.index');
+         Route::get('/price-agent/tracks/create', [FastboatTrackAgentController::class, 'create'])->name('price-agent.track.create');
+         Route::post('/price-agent/tracks', [FastboatTrackAgentController::class, 'store'])->name('price-agent.track.store');
+         Route::get('/price-agent/tracks/{priceagent}', [FastboatTrackAgentController::class, 'edit'])->name('price-agent.trackagent.edit');
+          // Route::put('/price-agent/tracks/{group}', [FastboatTrackAgentsController::class, 'update'])->name('price-agent.track.update');
+        // Route::delete('/price-agent/tracks/{group}', [FastboatTrackAgentsController::class, 'destroy'])->name('price-agent.track.destroy');
     });
 });

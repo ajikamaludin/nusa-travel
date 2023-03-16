@@ -28,5 +28,9 @@ class Promo extends Model
         'order_perday_limit',
         'entity_type',
         'entity_id',
+        'condition_type',
+        'amount_buys',
+        'amount_tiket',
+        'ranges_day',
     ];
 }

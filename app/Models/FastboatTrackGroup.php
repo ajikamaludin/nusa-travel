@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Support\Facades\DB;
 
 class FastboatTrackGroup extends Model
 {
@@ -24,5 +25,23 @@ class FastboatTrackGroup extends Model
     public function places()
     {
         return $this->hasMany(FastboatTrackOrder::class);
+    }
+    public function tracksAgent()
+    {
+        return $this->hasMany(FastboatTrack::class)
+        ->leftJoin('fastboat_track_agents','fastboat_track_id','=','fastboat_tracks.id')
+        ->select('fastboat_tracks.id as id','fastboat_source_id','fastboat_destination_id','fastboat_track_group_id','arrival_time' ,'departure_time','customer_id',DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'))
+        ->orderBy('fastboat_tracks.created_at', 'desc')
+        ;
+    }
+
+    public function tracksAgents()
+    {
+        return $this->hasMany(FastboatTrack::class)
+        ->join('fastboat_track_agents','fastboat_track_id','=','fastboat_tracks.id')
+        ->join('customers','customers.id','=','customer_id')
+        ->select('fastboat_tracks.id as id','fastboat_source_id','fastboat_destination_id','fastboat_track_group_id','arrival_time' ,'departure_time','customer_id','customers.name as customer_name',DB::raw('sum(fastboat_track_agents.price) as price'))
+        ->orderBy('fastboat_tracks.created_at', 'desc')->groupBy('fastboat_track_group_id','customer_id','fastboat_destination_id')
+        ;
     }
 }
