@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class FreeTiketPromos extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'codition_type',
+        'amount',
+        'range_days',
+        'end_date'
+    ];
 }

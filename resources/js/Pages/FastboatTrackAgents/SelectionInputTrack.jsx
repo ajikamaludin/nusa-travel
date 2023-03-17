@@ -87,13 +87,14 @@ export default function SelectionInputTrack(props) {
     return tracks;
    }
     const handleSelectItem = (item) => {
+        
         setIsSelected(true)
-        onItemSelected(item.id)
+        onItemSelected(item.id);
         let select=item.name+" ("+item.fastboat.name+")";
         setSelected(select)
         
         let track=generateTracks(item.tracks_agent,item.places)
-        ontracks(track,item.places)
+        ontracks(track,item.places,item.id)
         setIsOpen(false)
     }
 

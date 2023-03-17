@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('promos', function (Blueprint $table) {
-            //
+            $table->string('condition_type')->nullable();
+            $table->integer('amount_buys')->nullable();
+            $table->integer('amount_tiket')->nullable();
+            $table->integer('ranges_day')->nullable();
         });
     }
 
@@ -22,10 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('promos', function (Blueprint $table) {
-            $table->string('condition_type')->nullable();
-            $table->integer('amount_buys')->nullable();
-            $table->integer('amount_tiket')->nullable();
-            $table->integer('ranges_day')->nullable();
+           
         });
     }
 };

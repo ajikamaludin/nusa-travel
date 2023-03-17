@@ -6,6 +6,7 @@ use App\Mail\OrderPayment;
 use App\Models\Customer;
 use App\Models\FastboatDropoff;
 use App\Models\FastboatTrack;
+use App\Models\FreeTiketPromos;
 use App\Models\Order;
 use App\Models\Promo;
 use App\Services\AsyncService;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
+use Nette\Utils\DateTime;
 
 // TODO: need to handle if user already login, provide contact automatily , if profile not compate in NIK, update the customers too
 class FastboatCart extends Component
@@ -72,7 +74,7 @@ class FastboatCart extends Component
         $tracks = FastboatTrack::with(['destination', 'source', 'group.fastboat']);
         if (Auth::guard('customer')->check()) {
             $tracks->Leftjoin('fastboat_track_agents', 'fastboat_track_id', '=', 'fastboat_tracks.id')
-                ->select('fastboat_tracks.id as id', 'fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by')
+                ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by')
                 ->where('customer_id', '=', auth('customer')->user()->id);
         }
         $tracks->whereIn('fastboat_tracks.id', $carts->keys())->get();
@@ -182,6 +184,7 @@ class FastboatCart extends Component
 
     public function payment()
     {
+
         DB::beginTransaction();
         if (Auth::guard('customer')->check()) {
             $customer = Auth::guard('customer')->user();
@@ -244,6 +247,12 @@ class FastboatCart extends Component
                 'promo_code' => $promo['code'],
                 'promo_amount' => $promo['amount'],
             ]);
+            if ($promo['type'] == "4") {
+                FreeTiketPromos::create([
+                    'codition_type'=>$promo['type'],
+                    'amount'=>$promo['amount'],
+                ]);
+            }
         }
 
         // send email for payment purpose
@@ -262,12 +271,11 @@ class FastboatCart extends Component
     public function applyPromos()
     {
         $dates = [];
-        $qty = [];
+        $qty = collect($this->carts)->value('qty');
         collect($this->carts)->map(function ($cart) use (&$dates) {
             $this->total += $cart['track']->price * $cart['qty'];
             $this->total_payed += $cart['track']->price * $cart['qty'];
             $dates[] = $cart['date'];
-            $qty[] = $cart['qty'];
         });
 
         $promos = Promo::where([
@@ -286,26 +294,57 @@ class FastboatCart extends Component
             $query->whereNotNull('condition_type');
         })
             ->Leftjoin('order_promos', 'promo_id', '=', 'promos.id')
-            ->join('orders','orders.id','=','order_promos.order_id')
+            ->Leftjoin('orders', 'orders.id', '=', 'order_promos.order_id')
             ->select('promos.*', DB::Raw('Count(promo_id) as used_promo,customer_id'))
             ->groupBy('promos.id')
             ->get();
-           
-
-        foreach ($promos as $promokey=>$promo) {
+            foreach ($promos as $promokey => $promo) {
+                // var_dump($promo->condition_type);
+                 switch ($promo->condition_type) {
+                     case(2):
+                         $datetime1 = new DateTime($promo->available_start_date);
+                         $datetime2 = new DateTime($dates[0]);
+                         
+                         if ($datetime1->modify("-".$promo->ranges_day." day") <= $datetime2) {
+                             unset($promos[$promokey]);
+                         }
+                         break;
+                         case(3):
+                            $dateorder_start_date = new DateTime($promo->order_start_date);
+                            $datetime2 = new DateTime($dates[0]);
+                            
+                            if ($dateorder_start_date->modify("-".$promo->ranges_day." day") <= $datetime2) {
+                                unset($promos[$promokey]);
+                            }
+                            break;
+                        
+                 }
+             }
+        foreach ($promos as $promokey => $promo) {
             $isPercent = false;
             $namedic = "";
-            if ($promo->order_perday_limit > $promo->used_promo) {
+            if ($promo->order_perday_limit < $promo->used_promo || (Auth::guard('customer')->user() != null && Auth::guard('customer')->user()->id == $promo->id && $promo->user_perday_limit < $promo->used_promo)) {
+                unset($promos[$promokey]);
+            } else {
                 if ($promo->condition_type != 4) {
-                    if ($promo->discount_type == Promo::TYPE_PERCENT) {
-                        $isPercent = true;
-                        $amount = ($this->total * $promo->discount_amount / 100);
-                    } else {
-                        $amount = $promo->discount_amount;
+                    $mod = 1;
+                    if ($promo->condition_type == 1) {
+                        if ($qty % $promo->amount_buys == 0) {
+                            $mod = $qty / $promo->amount_buys;
+                        }
                     }
 
+                    if ($promo->discount_type == Promo::TYPE_PERCENT) {
+                        $isPercent = true;
+                        $amount = ($this->total * $promo->discount_amount / 100) * $mod;
+                    } else {
+                        $amount = $promo->discount_amount * $mod;
+                    }
                     $this->discount += $amount;
+
+
                     $namedic = $promo->name . ' ( disc. ' . $promo->discount_amount . ($isPercent ? '% )' : ' )');
+
                 } else {
                     $namedic = $promo->name . ' ( Free Ticket. ' . $promo->amount_tiket . ')';
                 }
@@ -314,15 +353,15 @@ class FastboatCart extends Component
                     'code' => $promo->code,
                     'name' => $namedic,
                     'amount' => $amount,
+                    'type' => $promo->condition_type,
+                    'order_start_date'=>$promo->order_start_date,
+                    'ranges_day'=>$promo->ranges_day,
                 ];
             }
-            else{
-                unset($promos[$promokey]);
-                // dd($promokey,$promo->name);
-            }    
         }
-        dd($promos);
+       
         $this->total_payed = $this->total_payed - $this->discount;
     }
-}
+    
 
+}

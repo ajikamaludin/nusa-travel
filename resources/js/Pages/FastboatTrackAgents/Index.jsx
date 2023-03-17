@@ -48,7 +48,7 @@ export default function Index(props) {
     const canCreate = hasPermission(auth, 'create-price-agent')
     const canUpdate = hasPermission(auth, 'update-price-agent')
     const canDelete = hasPermission(auth, 'delete-price-agent')
-    console.log(data)
+   
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -104,7 +104,7 @@ export default function Index(props) {
                                                     {new Intl.NumberFormat('id-ID', {
                                                         style: "currency",
                                                         currency: "IDR"
-                                                    }).format(priceagent?.tracks_agents[0]?.price)}
+                                                    }).format(priceagent?.price)}
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown

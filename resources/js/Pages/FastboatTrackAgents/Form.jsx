@@ -83,11 +83,11 @@ const handleCustomer=(id)=>{
                 customer_id:group.customer_id,
                 fastboat_id: group.fastboat_id,
                 places: group.places,
-                tracks: group.tracks_agent,
+                tracks: group.tracks,
             })
         }
     }, [group])
-   
+   console.log(data.fastboat_id)
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -115,7 +115,7 @@ const handleCustomer=(id)=>{
                                 customer_id={data.customer_id}
                                 onItemSelected={(id) => setData('fastboat_id', id)}
                                 error={errors.fastboat_id}
-                                ontracks={(track,places)=> setData({...data,tracks: track,places:places })}
+                                ontracks={(track,places,id)=> setData({...data,tracks: track,places:places,fastboat_id:id })}
                             />
                         </div>
                         <p className='mt-4'>Track</p>

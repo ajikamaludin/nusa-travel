@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\FastboatTrackAgent;
 use App\Models\FastboatPlace;
 use App\Models\FastboatTrackGroup;
-use App\Models\Customer;
+use App\Models\FastTrackGroupAgents;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,20 +15,17 @@ class FastboatTrackAgentController extends Controller
 {
     public function index(Request $request): Response
     {
-        $query = FastboatTrackGroup::query()->with(['fastboat', 'tracksAgents', 'places.place'])
-        ->select('fastboat_track_groups.*','customers.name as customer_name','customer_id')
+        $query = FastboatTrackGroup::query()->with(['fastboat'])
+        ->select('fastboat_track_groups.*','customers.name as customer_name','customer_id',DB::raw('sum(fastboat_track_agents.price) as price'))
         ->join('fastboat_tracks','fastboat_tracks.fastboat_track_group_id','=','fastboat_track_groups.id')
         ->join('fastboat_track_agents','fastboat_track_agents.fastboat_track_id','=','fastboat_tracks.id')
         ->join('customers','customers.id','=','fastboat_track_agents.customer_id')
-        ->groupBy('fastboat_track_group_id','customer_id')
-        ;
-        
+        ->groupBy('fastboat_tracks.fastboat_track_group_id','customer_id');
         if ($request->has('q')) {
-            $query->whereHas('tracksAgents.trackAgent.customer', function ($query) use ($request) {
-                $query->where('name', 'like', "%{$request->q}");
+            $query->whereHas('customers', function ($query) use ($request) {
+                $query->where('customers.name', 'like', "%{$request->q}");
             });  
         }
-        // dd($query->toSql());
         return inertia('FastboatTrackAgents/Index', [
             'query' => $query->orderBy('fastboat_track_agents.created_at', 'desc')->paginate(20, '*', 'page'),
         ]);
@@ -37,11 +34,9 @@ class FastboatTrackAgentController extends Controller
     public function create(Request $request)
     {
         $place = FastboatTrackGroup::query();
-
         if ($request->place_q != '') {
             $place->where('name', 'like', "%{$request->place_q}%");
         }
-
         return inertia('FastboatTrackAgents/Form', [
             'places' => $place->paginate(20, '*', 'place_page'),
         ]);
@@ -56,10 +51,12 @@ class FastboatTrackAgentController extends Controller
                 $query->where('name', 'like', "%{$request->q}%");
             });
         }
-        // $query = FastboatTrackGroup::query()->with(['fastboat', 'tracksAgent'=> fn($query) => $query->where('fastboat_track_id','=',$priceagent->fastboat_track_id)->Where('customer_id','=',$priceagent->customer_id), 'places.place']);
+        dd($priceagent);
+        // FastTrackGroupAgents::where();
+        $priceagent->load(['places.place', 'tracks.source', 'tracks.destination']);
       
         return inertia('FastboatTrackAgents/Form', [
-            // 'group' =>$priceagent,
+            'group' =>$priceagent ,
             'places' => $place->paginate(20, '*', 'place_page'),
         ]);
     }
@@ -67,6 +64,7 @@ class FastboatTrackAgentController extends Controller
     {
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
+            'fastboat_id'=>'required|exists:fastboat_track_groups,id',
             'tracks' => 'required|array',
             'tracks.*.fastboat_source_id' => 'required|exists:fastboat_places,id',
             'tracks.*.fastboat_destination_id' => 'required|exists:fastboat_places,id',
@@ -75,15 +73,21 @@ class FastboatTrackAgentController extends Controller
             'tracks.*.departure_time' => 'required',
             'tracks.*.is_publish' => 'required|in:0,1',
         ]);
+        DB::beginTransaction();
+        $group=FastTrackGroupAgents::create([
+            'customer_id'=>$request->customer_id,
+            'fastboat_track_group_id'=>$request->fastboat_id
+            
+        ]);
+
         foreach ($request->tracks as $track) {
-            // dd($track);
-            FastboatTrackAgent::create([
+            $group->tracksTrackAgent()->create([
                 'customer_id' => $request->customer_id,
                 'fastboat_track_id' => $track['id'],
-                'price' => $track['price']
+                'price' => $track['price'],
             ]);
         }
-
+        DB::commit();
         return redirect()->route('price-agent.index')
             ->with('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }

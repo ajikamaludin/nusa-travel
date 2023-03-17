@@ -143,6 +143,16 @@ export default function Form(props) {
                             label="Name"
                             error={errors.name}
                         />
+                         <div className='border-2 p-2 my-2 rounded'>
+                            <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Syarat & Ketentuan</label>
+                            <select className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" onChange={handleOnChange} value={data.condition_type} name="condition_type">
+                            <option  value={0}>{"Basic"}</option>
+                                {['Graded', 'Early Bird','Last Minute','Get Pack Get Ticket'].map((p, index) => (
+                                    <option key={p} value={index+1}>{p}</option>
+                                ))}
+                            </select>
+                                    {renderComponetType()}
+                        </div>
                         <div className='border-2 p-2 my-2 rounded'>
                             <label className="block mb-2 text-sm font-bold text-gray-900">Ketersediaan</label>
                             <FormInputDate
@@ -209,16 +219,7 @@ export default function Form(props) {
                                 label={+data.discount_type === 1 ? 'Percent' : 'Amount'}
                             />
                         </div>
-                        <div className='border-2 p-2 my-2 rounded'>
-                            <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Syarat & Ketentuan</label>
-                            <select className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" onChange={handleOnChange} value={data.condition_type} name="condition_type">
-                            <option  value={null}>{"Pilih Jenis Ketentuan"}</option>
-                                {['Graded', 'Early Bird','Last Minute','Get Pack Get Ticket'].map((p, index) => (
-                                    <option key={p} value={index+1}>{p}</option>
-                                ))}
-                            </select>
-                                    {renderComponetType()}
-                        </div>
+                       
                         <div className='mt-4'>
                             <Checkbox
                                 name="is_active"
