@@ -1,4 +1,1 @@
-## Nusa Travel Agent Website
-
-### TODO
-- sitemap ?
+# Nusa Travel Agent Website
