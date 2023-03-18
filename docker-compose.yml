@@ -15,6 +15,9 @@ services:
         - ./user.ini:/usr/local/etc/php/php.ini
         - "/etc/timezone:/etc/timezone:ro"
         - "/etc/localtime:/etc/localtime:ro"
+      mem_limit: 512m
+      mem_reservation: 128M
+      cpus: 0.5
       networks:
         - nusa
   nginx:
@@ -25,6 +28,9 @@ services:
     volumes:
       - ./:/var/www
       - ./default.conf:/etc/nginx/conf.d/default.conf
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
     networks:
       - nusa
   db:
@@ -37,9 +43,27 @@ services:
       - ./database:/database
     environment:
       MYSQL_ROOT_PASSWORD: password
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
     networks:
       nusa:
         ipv4_address: 10.5.0.99
+  nodejs:
+    image: node:16-alpine
+    container_name: nusa-node
+    ports:
+      - 5173:5173
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www
+    entrypoint: ["npm","run", "dev"]
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
+    networks:
+      nusa:
+        ipv4_address: 10.5.0.100
 
 volumes:
   nusadb: 
