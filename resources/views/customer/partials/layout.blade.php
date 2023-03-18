@@ -18,8 +18,8 @@
                     <div class="text-2xl font-extrabold">Hai, {{ auth()->user()->name }}</div>
                 </div>
                 <div class="flex flex-col gap-1">
-                    <a href="{{ route('customer.profile') }}" class="rounded-lg shadow p-2 hover:bg-gray-200">Profile</a>
-                    <a href="{{ route('customer.orders') }}" class="rounded-lg shadow p-2 hover:bg-gray-200">Order</a>
+                    <a href="{{ route('customer.profile') }}" class="rounded-lg shadow p-2 hover:bg-gray-200">{{ __('website.Profile')}}</a>
+                    <a href="{{ route('customer.orders') }}" class="rounded-lg shadow p-2 hover:bg-gray-200">{{ __('website.Order')}}</a>
                 </div>
                 <form method="POST" action="{{ route('customer.logout') }}" class="pt-10">
                     @csrf

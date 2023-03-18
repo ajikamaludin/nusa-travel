@@ -25,12 +25,12 @@
         <div class="fixed z-40 bottom-16 w-full" id="show-cookie">
             <div class="p-4 bg-white shadow-2xl border-2 border-gray-100 rounded max-w-5xl mx-auto">
                 <div class="flex flex-col md:flex-row gap-2">
-                    <div class="font-bold text-lg">This site use cookies |</div>
+                    <div class="font-bold text-lg">{{ __('website.This site use cookies')}} |</div>
                     <div class="text-md flex-1">
-                        Some of them are essential white others used to serve you a customized holiday experience 
-                        <a href="{{  route('page.show', ['page' => 'cookiepolicy'])  }}" class="underline">Learn more.</a>
+                        {{ __('website.Some of them are essential with others used to serve you a customized holiday experience') }}
+                        <a href="{{  route('page.show', ['page' => 'cookiepolicy'])  }}" class="underline"> {{ __('website.Learn more')}}.</a>
                     </div>
-                    <button class="border-2 py-2 px-3" id="cookie">Got It</button>
+                    <button class="border-2 py-2 px-3" id="cookie">{{ __('website.Got It')}}</button>
                 </div>
             </div>
         </div>

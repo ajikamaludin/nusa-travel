@@ -5,11 +5,11 @@
                 {{ $track->group->fastboat->name }}
             </p>
             {{-- <p class="text-xs text-gray-400">{{ $track->group->fastboat->number }}</p> --}}
-            <p class="text-xs text-gray-400">seats: {{ $track->group->fastboat->capacity }}</p>
+            <p class="text-xs text-gray-400">{{ __('website.seats')}}: {{ $track->group->fastboat->capacity }}</p>
         </div>
         <div class="text-base text-right">
             <span class="font-bold flex-none"> Rp {{ number_format($track->price, 0, ',' , '.') }}</span><span class="text-xs">/pax</span>
-            <p class="text-xs text-gray-400">availability: {{ $avalaible }}</p>
+            <p class="text-xs text-gray-400">{{ __('website.availability')}}: {{ $avalaible }}</p>
         </div>
     </div>
     <div class="flex flex-row justify-between text-center items-center font-bold gap-1">
@@ -34,14 +34,14 @@
                 wire:click="addCart({{ $type }})"
                 wire:loading.remove
             >
-                Choose
+                {{ __('website.Choose')}}
             </button>
         @else
         <div class="md:p-4 my-4 text-sm text-red-800 rounded-lg md:bg-red-50" role="alert">
             @if($avalaible > 0)
-                <span class="font-medium">Oops, not enough seats</span> 
+                <span class="font-medium">{{ __('website.Oops, not enough seats')}}</span> 
             @else
-                <span class="font-medium">Sold out</span> 
+                <span class="font-medium">{{ __('website.Sold out')}}</span> 
             @endif
         </div>
         @endif

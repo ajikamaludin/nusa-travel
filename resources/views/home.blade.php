@@ -24,13 +24,13 @@
             <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
                 <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
                     <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                    <span class="sr-only">Previous</span>
+                    <span class="sr-only">_</span>
                 </span>
             </button>
             <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
                 <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
                     <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                    <span class="sr-only">Next</span>
+                    <span class="sr-only">_</span>
                 </span>
             </button>
 
@@ -43,10 +43,10 @@
                 <div>
                     <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500">
                         <li class="">
-                            <a href="#" aria-current="page" class="inline-block p-3 font-bold bg-blue-600 text-white rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">Fastboat</a>
+                            <a href="#" aria-current="page" class="inline-block p-3 font-bold bg-blue-600 text-white rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">{{ __('website.Fastboat')}}</a>
                         </li>
                         <li class="">
-                            <a href="{{ route('car.index') }}" class="inline-block p-3 font-bold rounded-t-lg bg-gray-100 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Car Rentals</a>
+                            <a href="{{ route('car.index') }}" class="inline-block p-3 font-bold rounded-t-lg bg-gray-100 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">{{ __('website.Car Rentals')}}</a>
                         </li>
                     </ul>
                 </div>
@@ -87,10 +87,10 @@
     <div class="w-full max-w-7xl mx-auto py-2 px-2">
         <div class="flex flex-col w-full mx-auto pt-10 pb-5">
             <div class="flex flex-row justify-between">
-                <div class="text-3xl font-bold pb-1">Popular Tours</div>
+                <div class="text-3xl font-bold pb-1">{{ __('website.Popular Tours')}}</div>
                 <div class="see-more-container mt-1">
                     <a href="{{ route('tour-packages.index') }}" class="inline-flex text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 items-center">
-                        See More
+                        {{ __('website.See More')}}
                         <svg aria-hidden="true" class="w-5 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                     </a>
                 </div>
@@ -105,9 +105,9 @@
                         <a href="{{ route('tour-packages.show', $package) }}">
                             <h5 class="mb-1 tracking-tight font-bold text-gray-900 line-clamp-1 dark:text-white">{{ $package->title }}</h5>
                         </a>
-                        <span class="mb-3 py-1 px-2 text-xs font-bold rounded bg-gray-200 text-gray-700 dark:text-gray-400">Instant Confirmation</span>
+                        <span class="mb-3 py-1 px-2 text-xs font-bold rounded bg-gray-200 text-gray-700 dark:text-gray-400">{{ __('website.Instant Confirmation')}}</span>
                         <div class="pt-5">
-                            From
+                            {{ __('website.From')}}
                             <span class="text-base font-bold">Rp. {{ number_format($package->price, '0', ',', '.') }}</span>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                 @endforeach
             </div>
             <div class="md:hidden w-full flex flex-row justify-center pt-2">
-                <a href="{{ route('tour-packages.index') }}" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">See More...</a>
+                <a href="{{ route('tour-packages.index') }}" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">{{ __('website.See More')}}...</a>
             </div>
         </div>
     </div>
@@ -125,12 +125,12 @@
         <div class="flex flex-col">
             <div class="flex flex-row justify-between">
                 <div class="flex flex-col">
-                    <div class="text-3xl font-bold">Best picture of the month</div>
-                    <div class="text-gray-400">We have pictures based on location that they upload.</div>
+                    <div class="text-3xl font-bold">{{ __('website.Best picture of the month')}}</div>
+                    <div class="text-gray-400">{{ __('website.We have pictures based on location that they upload')}}.</div>
                 </div>
                 <div class="see-more-container mt-1">
                     <a href="{{ route('page.gallery') }}" class="inline-flex text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 items-center">
-                        See More
+                        {{ __('website.See More')}}
                         <svg aria-hidden="true" class="w-5 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                     </a>
                 </div>
@@ -146,7 +146,7 @@
                 @endforeach
             </div>
             <div class="md:hidden w-full flex flex-row justify-center pt-2">
-                <a href="{{ route('page.gallery') }}" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">See More...</a>
+                <a href="{{ route('page.gallery') }}" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">{{ __('website.See More')}}...</a>
             </div>
         </div>
     </div>
@@ -155,10 +155,10 @@
     <div class="w-full max-w-7xl mx-auto px-2">
         <div class="flex flex-col w-full mx-auto pt-10 pb-5 text-center md:text-left">
             <div class="flex flex-row justify-between">
-                <div class="text-3xl font-bold pb-1">Lastest Updates</div>
+                <div class="text-3xl font-bold pb-1">{{ __('website.Lastest Updates')}}</div>
                 <div class="see-more-container">
                     <a href="{{ route('blog.index') }}" class="inline-flex text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 items-center">
-                        See More
+                        {{ __('website.See More')}}
                         <svg aria-hidden="true" class="w-5 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                     </a>
                 </div>
@@ -189,7 +189,7 @@
                 @endforeach
             </div>
             <div class="md:hidden w-full flex flex-row justify-center pt-2">
-                <a href="{{ route('blog.index') }}" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">See More...</a>
+                <a href="{{ route('blog.index') }}" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">{{ __('website.See More')}}...</a>
             </div>
         </div>
     </div>
@@ -198,13 +198,13 @@
     <div class="w-full max-w-7xl mx-auto px-2 py-4">
         <div class="grid grid-cols-1 md:grid-cols-2">
             <div class="flex flex-col px-2">
-                <div class="text-3xl text-center md:text-left font-bold md:text-4xl md:font-semibold pb-6">Frequently Asked Questions</div>
+                <div class="text-3xl text-center md:text-left font-bold md:text-4xl md:font-semibold pb-6">{{ __('website.Frequently Asked Questions')}}</div>
                 <div class="relative md:w-4/5">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
                     </div>
                     <form action="{{ route('page.faq') }}">
-                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Topic's" required name="q"/>
+                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('website.Search Topics')}}" required name="q"/>
                     </form>
                 </div>
             </div>

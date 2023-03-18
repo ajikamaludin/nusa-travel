@@ -5,8 +5,8 @@
     <section class="w-full min-h-[250px] relative flex flex-col items-center justify-center">
         <img src="{{asset( $setting->getSlides()[rand(0, count($setting->getSlides()) - 1)] )}}" class="w-full brightness-75  h-full rounded object-cover blur-[1px] absolute top-0" alt="...">
         <div class="relative text-white text-center space-y-2">
-            <h1 class=" text-4xl md:text-6xl font-semibold outlined-black">Tour Packages</h1>
-            <p class="text-base md:text-lg">Provide best experiences for yout holiday</p>
+            <h1 class=" text-4xl md:text-6xl font-semibold outlined-black">{{__('website.Tour Packages')}}</h1>
+            <p class="text-base md:text-lg">{{ __('website.Provide best experiences for your holiday')}}</p>
         </div>
     </section>
 
@@ -23,9 +23,9 @@
                 <a href="{{ route('tour-packages.show', $package) }}">
                     <h4 class="font-bold text-xl text-gray-900 dark:text-white line-clamp-1">{{ $package->title }}</h4>
                 </a>
-                <span class="mb-3 py-1 px-2 text-xs font-bold rounded bg-gray-200 text-gray-700 dark:text-gray-400">Instant Confirmation</span>
+                <span class="mb-3 py-1 px-2 text-xs font-bold rounded bg-gray-200 text-gray-700 dark:text-gray-400">{{ __('website.Instant Confirmation')}}</span>
                 <div class="pt-3">
-                    From
+                    {{ __('website.From')}}
                     <span class="text-base font-bold">Rp. {{ number_format($package->price, '0', ',', '.') }}</span>
                 </div>
             </div>

@@ -18,6 +18,8 @@ class LandingController extends Controller
         if ($locale != null) {
             app()->setLocale($locale);
             session(['locale' => $locale]);
+
+            return redirect()->back();
         }
 
         Visitor::track([Visitor::class, 'LANDING_PAGE']);

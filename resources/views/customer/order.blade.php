@@ -2,25 +2,25 @@
 
 @section('main')
     <div class="px-4">
-        <p class="text-2xl font-bold mb-6 border-b-2 border-gray-200">Orders</p>
+        <p class="text-2xl font-bold mb-6 border-b-2 border-gray-200">{{ __('website.Order')}}</p>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Order
+                            {{ __('website.Order')}}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Date
+                            {{ __('website.Date')}}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Amount
+                            {{ __('website.Amount')}}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Status
+                            {{ __('website.Status')}}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Action
+                            {{ __('website.Action')}}
                         </th>
                     </tr>
                 </thead>
@@ -40,7 +40,7 @@
                             {{ $order->payment_status_text }}
                         </td>
                         <td class="px-6 py-4">
-                            <a href="{{ route('customer.order', $order) }}" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                            <a href="{{ route('customer.order', $order) }}" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ __('website.View')}}</a>
                         </td>
                     </tr>
                     @endforeach

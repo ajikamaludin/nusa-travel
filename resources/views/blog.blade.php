@@ -5,8 +5,8 @@
     <section class="w-full min-h-[250px] relative flex flex-col items-center justify-center">
         <img src="{{asset('images/2.jpg')}}" class="w-full brightness-75  h-full rounded object-cover blur-[1px] absolute top-0" alt="...">
         <div class="relative text-white text-center space-y-2">
-            <h1 class=" text-4xl md:text-6xl font-semibold outlined-black">Blog</h1>
-            <p class="text-base md:text-lg">Explore knowledge, tours and more</p>
+            <h1 class=" text-4xl md:text-6xl font-semibold outlined-black">{{ __('website.Blog')}}</h1>
+            <p class="text-base md:text-lg">{{ __('website.Explore knowledge, tours and more')}}</p>
         </div>
     </section>
 

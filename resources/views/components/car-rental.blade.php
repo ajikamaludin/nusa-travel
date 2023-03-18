@@ -1,11 +1,11 @@
 <form method="GET" action="{{ route('car.index') }}">
     <!-- @csrf -->
     <div class="text-2xl font-bold">
-        Car rentals
+        {{ __('website.Car Rentals')}}
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 pt-4 gap-2" id="form-wrapper">
         <div>
-            <input type="number" id="person" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Persons" name="person" autocomplete="off" value="{{ $person }}">
+            <input type="number" id="person" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="{{ __('website.Persons')}}" name="person" autocomplete="off" value="{{ $person }}">
         </div>
         <div class="w-full">
             <input type="date" id="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="Date" required autocomplete="off" name="date" value="{{ $date }}" min="{{ now()->format('Y-m-d') }}">

@@ -1,7 +1,7 @@
 <div>
-    <label>Return Date</label>
+    <label>{{ __('website.Return Date')}}</label>
     <x-datetime-picker
-        placeholder="Return Date"
+        placeholder="{{ __('website.Return Date')}}"
         wire:model="rdate"
         :min="$min"
         :without-time="true"

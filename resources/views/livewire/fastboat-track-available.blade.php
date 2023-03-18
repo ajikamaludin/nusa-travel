@@ -32,12 +32,12 @@
                     <div class="flex flex-row gap-2" wire:loading.remove>
                         <p>{{ Carbon::parse($trackDepartureChoosed != null ? $rdate : $date)->format('d M Y') }}</p>
                         <div>|</div>
-                        <p>{{ $passengers }} passengers</p>
+                        <p>{{ $passengers }} {{ __('website.passengers')}}</p>
                     </div>
                 </div>
                 <button type="button" wire:click="toggle" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
                     <svg wire:loading.remove aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                    <span class="sr-only">Close modal</span>
+                    <span class="sr-only"> _ </span>
                 </button>
             </div>
 
@@ -46,7 +46,7 @@
             <div class="w-full max-w-5xl mx-auto px-4 py-2 border-b-2">
                 <div class="flex flex-row justify-between items-center">
                     <div class="flex flex-col">
-                        <p class="font-bold">Departure Fastboat</p>
+                        <p class="font-bold">{{ __('website.Departure Fastboat')}}</p>
                         <div class="flex flex-row gap-2 text-sm">
                             <p>{{$trackDepartureChoosed->group->fastboat->name}} </p>
                             <p>|</p>
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div class="text-blue-600" wire:click="changeDepartureFastboat">
-                        Change
+                        {{ __('website.Change')}}
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
             <!-- no choosed departure -->
             @if($trackDepartureChoosed == null)
             <div class="w-full text-center max-w-5xl text-sm font-light mx-auto px-4 py-2 border-b-2">
-                <p>Choose departure fastboat</p>
+                <p>{{ __('website.Choose departure fastboat')}}</p>
             </div>
             @endif
 
@@ -95,14 +95,14 @@
                         {{$trackReturns->withQueryString()->links()}}
                     </div>
                     @if($trackReturns?->count() <= 0)
-                        <p class="w-full text-center py-20">no fastboat schedule found</p>
+                        <p class="w-full text-center py-20">{{ __('website.no fastboat schedule found')}}</p>
                     @endif
                 @endif
             @endif
 
             <!-- no route found -->
             @if($trackDepartures?->count() <= 0)
-                <p class="w-full text-center py-20">no fastboat schedule found</p>
+                <p class="w-full text-center py-20">{{ __('website.no fastboat schedule found')}}</p>
             @endif
         </div>
     </div>

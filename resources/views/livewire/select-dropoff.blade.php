@@ -1,7 +1,7 @@
 <div>
     <x-select
         wire:model="dropoff"
-        placeholder="Origin"
+        placeholder="Dropoff"
         :options="$dropoffs"
         :min-items-for-search="5"
         :clearable="true"

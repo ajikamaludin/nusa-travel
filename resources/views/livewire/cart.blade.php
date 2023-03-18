@@ -1,6 +1,6 @@
 <div class="w-full mx-auto max-w-7xl px-2 py-5">
         <div class="mx-auto p-6 flex flex-col">
-            <div class="font-bold text-3xl mb-5">Order #</div>
+            <div class="font-bold text-3xl mb-5">{{ __('website.Order')}} #</div>
             <div class="w-full flex flex-col md:flex-row gap-4">
                 <div class="w-full md:w-3/4">
                     <div class="flex flex-col gap-4">
@@ -46,29 +46,29 @@
                     <div class="shadow-lg p-4 border-2 rounded-lg">
                             @if($isFastboat)
                                 <div class="w-full flex">
-                                    <a href="{{ route('customer.cart.fastboat') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full text-center">Process Order</a>
+                                    <a href="{{ route('customer.cart.fastboat') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full text-center">{{ __('website.Process Order')}}</a>
                                 </div>
                             @else
                             <form wire:submit.prevent="submit">
                                 @if(!$isAuth)
                                     <div class="mb-5">
                                         <div class="mt-2">
-                                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                            <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Doe" wire:model.defer="name" autocomplete="off">
+                                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('website.Name')}}</label>
+                                            <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('website.Name')}}" wire:model.defer="name" autocomplete="off">
                                             @error('name') 
                                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
                                             @enderror
                                         </div>
                                         
                                         <div class="mt-2">
-                                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('website.Phone Number')}}</label>
                                             <input type="text" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+184567887" wire:model.defer="phone" autocomplete="off">
                                             @error('phone') 
                                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
                                             @enderror
                                         </div>
                                         <div class="mt-2">
-                                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nation</label>
+                                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('website.Nation')}}</label>
                                             <select id="nation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model.defer="nation">
                                                 <option value=""></option>
                                                 <option value="WNA">WNA (Foreign Nationals)</option>
@@ -79,14 +79,14 @@
                                             @enderror
                                         </div>
                                         <div class="mt-2">
-                                            <label for="national_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">National ID</label>
+                                            <label for="national_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('website.National ID')}}</label>
                                             <input type="number" min="10" id="national_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" wire:model.defer="national_id" autocomplete="off">
                                             @error('national_id') 
                                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
                                             @enderror
                                         </div>
                                         <div class="mt-2">
-                                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('website.Email')}}</label>
                                             <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="user@mail.com" wire:model.defer="email" autocomplete="off">
                                             @error('email') 
                                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
@@ -94,9 +94,9 @@
                                         </div>
                                     </div>
                                 @endif
-                                <div class="font-bold text-xl">Total : {{ number_format($total, '0', ',', '.') }}</div>
+                                <div class="font-bold text-xl">{{ __('website.Total')}} : {{ number_format($total, '0', ',', '.') }}</div>
                                 <div class="w-full flex my-5 ">
-                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ">Process Payment</button>
+                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ">{{ __('website.Process Payment')}}</button>
                                 </div>
                             </form>
                             @endif

@@ -1,8 +1,8 @@
 <div>
-    <label>Origin</label>
+    <label>{{ __('website.Origin')}}</label>
     <x-select
         wire:model="origin"
-        placeholder="Origin"
+        placeholder="{{ __('website.Origin')}}"
         :options="$places"
         :min-items-for-search="5"
         :clearable="true"

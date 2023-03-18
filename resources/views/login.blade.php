@@ -10,17 +10,17 @@
             <form method="POST" action="{{ route('customer.login') }}">
                 @csrf
                 <div class="mb-6 text-center">
-                    <div class="text-2xl font-extrabold">Welcome To {{$setting->getValue('G_SITE_NAME')}}</div>
+                    <div class="text-2xl font-extrabold">{{ __('website.Welcome To')}} {{$setting->getValue('G_SITE_NAME')}}</div>
                 </div>
                 @if(session()->has('message'))
                 <x-alert type="{{ session()->get('message.type') }}" message="{{ session()->get('message.message') }}"/>
                 @endif
                 <div class="mb-6">
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="someone@awesome.com" required name="email" value="{{ old('email') }}">
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('website.Email')}}</label>
+                    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="your@email.com" required name="email" value="{{ old('email') }}">
                 </div>
                 <div class="mb-6">
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('website.Password')}}</label>
                     <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required name="password" value="{{ old('password') }}">
                 </div>
                 <div class="flex items-start mb-6">
@@ -34,8 +34,10 @@
         </div>
         <div class="mx-auto max-w-sm bg-gray-100 px-6 pb-6 pt-4 border border-t-0 rounded-b-lg shadow">
             <div class="w-full flex flex-row justify-between items-center">
-                <div>No account yet? Sign up now!</div>
-                <a href="{{route('customer.signup')}}" class="ring-1 ring-gray-500 bg-gray-100 hover:text-white hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">{{__('website.Sign Up')}}</a>
+                <div>{{ __('website.No account yet? Sign up now!')}}</div>
+                <div>
+                    <a href="{{route('customer.signup')}}" class="ring-1 ring-gray-500 bg-gray-100 hover:text-white hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">{{__('website.Sign Up')}}</a>
+                </div>
             </div>
         </div>
     </div>

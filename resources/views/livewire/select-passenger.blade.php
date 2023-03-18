@@ -1,8 +1,8 @@
 <div>
-    <label>No. of Passengers</label>
+    <label>{{__('website.No. of Passengers')}}</label>
     <x-input 
         type="number"
-        placeholder="No. of Passengers" 
+        placeholder="{{__('website.No. of Passengers')}}" 
         name="no_passengers" 
         wire:model.debounce.300ms="passengers"
         required="true"
