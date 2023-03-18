@@ -27,6 +27,7 @@ export default function Form(props) {
         tracks: [],
     })
     const [isdisable,setIsdisable]=useState(true)
+    const [isdisableCust,setIsdisableCus]=useState(false)
     const addPlace = (place) => {
         const isExists = data.places.find(p => p.place.id === place.id)
         if (!isExists) {
@@ -62,6 +63,7 @@ export default function Form(props) {
     }
 
     const handleSubmit = () => {
+        
         if (data.places.length <= 1) {
             toast.error("Place must be more than 1")
             return
@@ -78,16 +80,17 @@ const handleCustomer=(id)=>{
 }
     useEffect(() => {
         if (isEmpty(group) === false) {
-            console.log(group)
+            setIsdisableCus(true)
+           
             setData({
                 customer_id:group.customer_id,
-                fastboat_id: group.fastboat_id,
-                places: group.places,
-                tracks: group.tracks,
+                fastboat_id: group.track_group.id,
+                places: group.track_group.places,
+                tracks: group.tracks_agent,
             })
         }
     }, [group])
-   console.log(data.fastboat_id)
+// console.log(data.tracks)
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -107,6 +110,7 @@ const handleCustomer=(id)=>{
                                 itemSelected={data.customer_id}
                                 onItemSelected={handleCustomer }
                                 error={errors.customer_id}
+                                disabled={isdisableCust}
                             />
                             <FastboatSelectionInput
                                 label="Fastboat Track"
@@ -115,7 +119,7 @@ const handleCustomer=(id)=>{
                                 customer_id={data.customer_id}
                                 onItemSelected={(id) => setData('fastboat_id', id)}
                                 error={errors.fastboat_id}
-                                ontracks={(track,places,id)=> setData({...data,tracks: track,places:places,fastboat_id:id })}
+                                ontracks={(tracks_agent,places,id)=> setData({...data,tracks: tracks_agent,places:places,fastboat_id:id })}
                             />
                         </div>
                         <p className='mt-4'>Track</p>
@@ -144,7 +148,7 @@ const handleCustomer=(id)=>{
                                     {data?.tracks.map((track, index) => (
                                         <tr className="bg-white border-b" key={index}>
                                             <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                {track?.source?.name} - {track?.destination?.name}
+                                                {track?.tracks?.source?.name} - {track?.tracks?.destination?.name}
                                             </td>
                                             <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                                 <FormInputTime
@@ -167,7 +171,7 @@ const handleCustomer=(id)=>{
                                             </td>
                                             <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                                 <Checkbox
-                                                    value={+track.is_publish === 1}
+                                                    value={+track?.tracks?.is_publish === 1}
                                                     onChange={e => handleChangeTrackValue("is_publish", e.target.checked ? 1 : 0, index)}
                                                 />
                                             </td>

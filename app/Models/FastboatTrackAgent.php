@@ -12,7 +12,7 @@ class FastboatTrackAgent extends Model
     ];
     public function tracks()
     {
-        return $this->hasMany(FastboatTrack::class,'id');
+        return $this->belongsTo(FastboatTrack::class,'fastboat_track_id');
     }
     public function customer(){
         return $this->belongsTo(Customer::class,'customer_id');

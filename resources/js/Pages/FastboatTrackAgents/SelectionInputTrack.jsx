@@ -18,9 +18,9 @@ export default function SelectionInputTrack(props) {
         error = '',
         all = 0,
         customer_id,
-        ontracks=()=>{},
+        ontracks = () => { },
     } = props
-    
+
     const [showItems, setShowItem] = useState([])
 
     const [isSelected, setIsSelected] = useState(true)
@@ -42,59 +42,60 @@ export default function SelectionInputTrack(props) {
         setQuery('')
         setIsOpen(!isOpen)
     }
-   const generateTracks=(oldTrack,places)=>{
-    let tracks = [];
-    // console.log("tra",oldTrack)
-    if (places.length >= 2) {
-        let n = places.length
-        for (let i = 0; i < n; i++) {
-            for (let j = i + 1; j < n; j++) {
-                let previusTrack = oldTrack.find(track => track.fastboat_source_id == places[i].place.id && track.fastboat_destination_id == places[j].place.id)
-                if(previusTrack) { 
-                //     tracks.push(previusTrack)
-                // } else {
-                   
-                    tracks.push({
-                        id:previusTrack.id,
-                        source: places[i].place,
-                        destination: places[j].place,
-                        fastboat_source_id: places[i].place.id,
-                        fastboat_destination_id: places[j].place.id,
-                        price: previusTrack.price,
-                        arrival_time: previusTrack.arrival_time,
-                        departure_time: previusTrack.departure_time,
-                        is_publish: 1,
-                    });
-                }else{
-                    // tracks.push({
-                    //     id:oldTrack[i].id,
-                    //     source: places[i].place,
-                    //     destination: places[j].place,
-                    //     fastboat_source_id: places[i].place.id,
-                    //     fastboat_destination_id: places[j].place.id,
-                    //     price:oldTrack[i].price,
-                    //     arrival_time: oldTrack[i].arrival_time,
-                    //     departure_time: oldTrack[i].departure_time,
-                    //     is_publish: 1,
-                    // });
-                   
+    const generateTracks = (oldTrack, places) => {
+        let tracks = []
+        if (places.length >= 2) {
+            let n = places.length
+            for (let i = 0; i < n; i++) {
+                for (let j = i + 1; j < n; j++) {
+                    let previusTrack = oldTrack.find(track => track.fastboat_source_id == places[i].place.id && track.fastboat_destination_id == places[j].place.id)
+                    if (previusTrack) {
+                        tracks.push({tracks:{
+                            id: previusTrack.id,
+                            source: places[i].place,
+                            destination: places[j].place,
+                            fastboat_source_id: places[i].place.id,
+                            fastboat_destination_id: places[j].place.id,
+                            price: previusTrack.price,
+                            arrival_time: previusTrack.arrival_time,
+                            departure_time: previusTrack.departure_time,
+                            is_publish: 1,
+                        },id: previusTrack.id,price: previusTrack.price,});
+                    } else {
+                       let temp=oldTrack.find(track=>track.fastboat_source_id == places[i].place.id)
+                        
+                        if (temp!=undefined){
+                        tracks.push({tracks:{
+                            id:temp.id,
+                            source: places[i].place,
+                            destination: places[j].place,
+                            fastboat_source_id: places[i].place.id,
+                            fastboat_destination_id: places[j].place.id,
+                            price:temp``.price,
+                            arrival_time: temp.arrival_time,
+                            departure_time: temp.departure_time,
+                            is_publish: 1,
+                        },id: temp.id,price: temp.price,});
+                        }
+                    }
+
                 }
-               
             }
         }
+     
+     
+        return tracks;
     }
-   
-    return tracks;
-   }
     const handleSelectItem = (item) => {
-        
+
         setIsSelected(true)
         onItemSelected(item.id);
-        let select=item.name+" ("+item.fastboat.name+")";
+        let select = item.name + " (" + item.fastboat.name + ")";
         setSelected(select)
-        
-        let track=generateTracks(item.tracks_agent,item.places)
-        ontracks(track,item.places,item.id)
+        // console.log(item.tracks_agent)
+        // console.log(item.places)
+        let tracks_agent = generateTracks(item.tracks_agent, item.places)
+        ontracks(tracks_agent, item.places, item.id)
         setIsOpen(false)
     }
 
@@ -128,21 +129,22 @@ export default function SelectionInputTrack(props) {
 
     const fetch = (q = '') => {
         setLoading(true)
-        axios.get(route('api.fasboat.track.index', { 'q': q, 'all': all,'c':customer_id }), {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + auth.user.jwt_token
-            }
-        })
-            .then((response) => {
-                
-                setShowItem(response.data)
+        // if (customer_id != '') {
+            axios.get(route('api.fasboat.track.index', { 'q': q, 'all': all, 'c': customer_id }), {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + auth.user.jwt_token
+                }
+            })
+                .then((response) => {
+                    setShowItem(response.data)
 
-            })
-            .catch((err) => {
-                alert(err)
-            })
-            .finally(() => setLoading(false))
+                })
+                .catch((err) => {
+                    alert(err)
+                })
+                .finally(() => setLoading(false))
+        // }
     }
 
     // every select item open
@@ -153,9 +155,11 @@ export default function SelectionInputTrack(props) {
     }, [q, isOpen])
 
     // once page load
-    // useEffect(() => {
-    //     fetch()
-    // }, [])
+    useEffect(() => {
+        if (customer_id != '') {
+            fetch();
+        }
+    }, [])
 
     useEffect(() => {
         if (disabled) {
@@ -167,7 +171,8 @@ export default function SelectionInputTrack(props) {
         if (itemSelected !== null) {
             const item = showItems.find(item => item.id === itemSelected)
             if (item) {
-                setSelected(item.name)
+                let select = item.name + " (" + item.fastboat.name + ")";
+                setSelected(select)
                 setIsSelected(true)
             }
             return
@@ -181,10 +186,9 @@ export default function SelectionInputTrack(props) {
             setIsSelected(false)
         }
     }, [isSelected])
-
+    // console.log(showItems)
     return (
         <div className="flex flex-col items-center" ref={ref}>
-
             <div className="w-full flex flex-col items-center">
                 <div className="w-full">
                     <div className="flex flex-col relative">
@@ -251,23 +255,23 @@ export default function SelectionInputTrack(props) {
                                     ) : (
                                         <>
                                             {showItems.map((item, index) => (
-                                                item.tracks_agent.length!=0&&(
-                                                <div
-                                                    key={index}
-                                                    onClick={() =>
-                                                        handleSelectItem(item)
-                                                    }
-                                                >
-                                                    <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-neutral-content hover:bg-gray-400 bg-opacity-10 dark:hover:bg-gray-200 dark:hover:bg-opacity-10 dark:hover:text-gray-100">
-                                                        <div className="w-full items-center flex">
-                                                            <div className="mx-2">
-                                                                <span>
-                                                                    {item.name} ({item?.fastboat?.name})
-                                                                </span>
+                                                item.tracks_agent.length != 0 && (
+                                                    <div
+                                                        key={index}
+                                                        onClick={() =>
+                                                            handleSelectItem(item)
+                                                        }
+                                                    >
+                                                        <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-neutral-content hover:bg-gray-400 bg-opacity-10 dark:hover:bg-gray-200 dark:hover:bg-opacity-10 dark:hover:text-gray-100">
+                                                            <div className="w-full items-center flex">
+                                                                <div className="mx-2">
+                                                                    <span>
+                                                                        {item.name} ({item?.fastboat?.name})
+                                                                    </span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
                                                 )
                                             ))}
                                             {showItems.length <= 0 && (

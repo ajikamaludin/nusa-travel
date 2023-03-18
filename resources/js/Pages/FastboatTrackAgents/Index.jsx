@@ -48,7 +48,7 @@ export default function Index(props) {
     const canCreate = hasPermission(auth, 'create-price-agent')
     const canUpdate = hasPermission(auth, 'update-price-agent')
     const canDelete = hasPermission(auth, 'delete-price-agent')
-   
+  
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -94,11 +94,11 @@ export default function Index(props) {
                                         {data.map((priceagent,index) => (
                                             <tr className="bg-white border-b" key={index+1}>
                                                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {priceagent?.customer_name}
+                                                    {priceagent?.customer?.name}
                                                 </td>
 
                                                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {priceagent.name} ( {priceagent?.fastboat?.name} )
+                                                    {priceagent?.track_group?.name} ( {priceagent?.track_group?.fastboat?.name} )
                                                 </td>
                                                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                                     {new Intl.NumberFormat('id-ID', {
