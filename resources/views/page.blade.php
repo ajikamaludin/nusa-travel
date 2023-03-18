@@ -1,5 +1,10 @@
 @extends('layouts.home')
 
+@section('meta')
+<meta name="description" content="{{ $page->meta_tag }}">
+<meta name="keywords" content="{{ $page->meta_tag }}">
+@endsection
+
 @section('content')
     <!-- Page Header -->
     <section class="w-full min-h-[250px] relative flex flex-col items-center justify-center">

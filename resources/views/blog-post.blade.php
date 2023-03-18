@@ -1,5 +1,10 @@
 @extends('layouts.home')
 
+@section('meta')
+<meta name="description" content="{{ $post->meta_tag }}">
+<meta name="keywords" content="{{ $post->meta_tag }}">
+@endsection
+
 @section('content')
     <!-- Blog Post Header -->
     <section class="w-full max-w-7xl mx-auto">
