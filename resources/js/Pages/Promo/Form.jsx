@@ -57,7 +57,6 @@ export default function Form(props) {
         }
     }, [promo]) 
 
-    console.log(data)
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -65,6 +64,7 @@ export default function Form(props) {
             flash={props.flash}
             page={"Fastboat"}
             action={"Promo"}
+            parent={route('promo.index')}
         >
             <Head title={"Form"} />
 

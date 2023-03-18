@@ -61,8 +61,9 @@ export default function Index(props) {
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={'Dashboard'}
-            action={'Gallery'}
+            page={'Gallery'}
+            action={''}
+            parent={route(route().current())}
         >
             <Head title="Gallery" />
 

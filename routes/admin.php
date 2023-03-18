@@ -59,7 +59,7 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::post('/promos/{promo}', [PromoController::class, 'update'])->name('promo.update');
         Route::delete('/promos/{promo}', [PromoController::class, 'destroy'])->name('promo.destroy');
 
-        // Tag
+        // Gallery
         Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
         Route::post('/gallery', [GalleryController::class, 'store'])->name('gallery.store');
         Route::post('/gallery/{file}', [GalleryController::class, 'update'])->name('gallery.update');

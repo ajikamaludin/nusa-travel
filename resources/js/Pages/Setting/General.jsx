@@ -59,6 +59,7 @@ export default function General(props) {
             flash={props.flash}
             page={"Setting"}
             action={"General"}
+            parent={route(route().current())}
         >
             <Head title="General" />
 

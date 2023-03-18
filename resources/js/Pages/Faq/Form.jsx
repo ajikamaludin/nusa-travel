@@ -43,7 +43,8 @@ export default function Form(props) {
             errors={props.errors}
             flash={props.flash}
             page={"Faq"}
-            action={""}
+            action={"Question"}
+            parent={route('faq.index')}
         >
             <Head title={"Form"} />
 

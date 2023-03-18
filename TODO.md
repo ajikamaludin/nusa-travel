@@ -1,6 +1,5 @@
 # TODO
 
-- Breadcum Admin Fix
 - Ekajaya Rest API Integration
 - Order Fastboat with Type Adult, Child, Infant
 - Simple Dashboard Summary

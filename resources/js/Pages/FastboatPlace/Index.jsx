@@ -63,6 +63,7 @@ export default function Index(props) {
             flash={props.flash}
             page={'Fastboat'}
             action={'Dock'}
+            parent={route(route().current())}
         >
             <Head title="Dock" />
 

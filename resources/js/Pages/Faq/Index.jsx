@@ -56,6 +56,7 @@ export default function Index(props) {
             flash={props.flash}
             page={'Faq'}
             action={''}
+            parent={route('faq.index')}
         >
             <Head title="Faq" />
 

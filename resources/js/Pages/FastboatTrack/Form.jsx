@@ -88,6 +88,7 @@ export default function Form(props) {
             flash={props.flash}
             page={"Fastboat"}
             action={"Track"}
+            parent={route('fastboat.track.index')}
         >
             <Head title={"Form"} />
 

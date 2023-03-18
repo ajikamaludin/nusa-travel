@@ -89,8 +89,9 @@ export default function Form(props) {
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={"Tour Package"}
-            action={""}
+            page={"Tour Packages"}
+            action={"Form"}
+            parent={route('packages.index')}
         >
             <Head title="Tour Package" />
             <div className="mx-auto sm:px-6 lg:px-8">

@@ -8,7 +8,7 @@ import { HiMenu, HiChevronDown, HiHome } from 'react-icons/hi'
 import { router } from '@inertiajs/react';
 import SidebarNav from './Partials/SidebarNav';
 
-export default function Authenticated({ auth, children, flash, page = '', action = ''}) {
+export default function Authenticated({ auth, children, flash, page = '', action = '', parent = null}) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     useEffect(() => {
@@ -80,7 +80,7 @@ export default function Authenticated({ auth, children, flash, page = '', action
                             className="bg-gray-200 py-3 px-5 mb-2 dark:bg-gray-700"
                         >
                             <Breadcrumb.Item
-                                onClick={() => router.visit(route('dashboard'))}
+                                onClick={() => router.visit(parent !== null ? parent : route('dashboard'))}
                                 icon={HiHome}
                             >
                                 <p className='mt-0.5'>{page}</p>

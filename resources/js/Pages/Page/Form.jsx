@@ -39,6 +39,7 @@ export default function Form(props) {
             flash={props.flash}
             page={"Page"}
             action={page.title}
+            parent={route(route().current(), page)}
         >
             <Head title={page.title} />
 

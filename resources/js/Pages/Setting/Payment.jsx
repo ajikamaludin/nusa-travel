@@ -28,6 +28,7 @@ export default function Payment(props) {
             flash={props.flash}
             page={"Setting"}
             action={"Payment"}
+            parent={route(route().current())}
         >
             <Head title="Payment" />
 

@@ -55,6 +55,7 @@ export default function Index(props) {
             flash={props.flash}
             page={'Fastboat'}
             action={'Track'}
+            parent={route('fastboat.track.index')}
         >
             <Head title="Track" />
 

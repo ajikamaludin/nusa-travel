@@ -55,6 +55,7 @@ export default function Index(props) {
             flash={props.flash}
             page={'Tour Packages'}
             action={''}
+            parent={route('packages.index')}
         >
             <Head title="Tour Package" />
 

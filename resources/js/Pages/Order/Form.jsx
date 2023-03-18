@@ -41,6 +41,7 @@ export default function Form(props) {
             flash={props.flash}
             page={"Order"}
             action={'#' + order.order_code}
+            parent={route('order.index')}
         >
             <Head title={"Defail Order"} />
 

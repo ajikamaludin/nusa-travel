@@ -56,6 +56,7 @@ export default function Product(props) {
             flash={props.flash}
             page={'System'}
             action={'Role'}
+            parent={route('roles.index')}
         >
             <Head title="Role" />
 

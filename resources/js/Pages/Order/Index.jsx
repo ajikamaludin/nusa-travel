@@ -55,7 +55,8 @@ export default function Index(props) {
             errors={props.errors}
             flash={props.flash}
             page={'Order'}
-            action={''}
+            action={'List'}
+            parent={route('order.index')}
         >
             <Head title="Order" />
 
