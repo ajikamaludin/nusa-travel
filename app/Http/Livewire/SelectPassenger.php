@@ -8,6 +8,8 @@ class SelectPassenger extends Component
 {
     public $passengers;
 
+    public $infants;
+
     public function render()
     {
         return view('livewire.select-passenger');
@@ -16,5 +18,10 @@ class SelectPassenger extends Component
     public function updatedPassengers($value)
     {
         $this->emit('changePassengers', $value);
+    }
+
+    public function updatedInfants($value)
+    {
+        $this->emit('changeInfants', $value);
     }
 }

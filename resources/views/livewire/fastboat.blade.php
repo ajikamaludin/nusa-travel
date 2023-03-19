@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div>
-                            <livewire:select-passenger :passengers="$passengers"/>
+                            <livewire:select-passenger :passengers="$passengers" :infants="$infants"/>
                         </div>
                     </div>
                     <div class="w-full flex flex-row justify-end pt-2" wire:loading.remove>
@@ -49,7 +49,7 @@
         </div>
     </section>
 
-    <livewire:fastboat-track-available :ways="$ways" :from="$from" :to="$to" :date="$date" :rdate="$rdate" :passengers="$passengers"/>
+    <livewire:fastboat-track-available :ways="$ways" :from="$from" :to="$to" :date="$date" :rdate="$rdate" :passengers="$passengers" :infants="$infants"/>
 </div>
 @push('script')
 <script>

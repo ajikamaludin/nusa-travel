@@ -8,6 +8,7 @@ class Fastboat extends Component
 {
     protected $listeners = [
         'changePassengers' => 'changePassenger',
+        'changeInfants' => 'changeInfant',
         'changeOrigin' => 'changeOrigin',
         'changeDest' => 'changeDest',
         'changeDate' => 'changeDate',
@@ -26,6 +27,8 @@ class Fastboat extends Component
 
     public $passengers;
 
+    public $infants;
+
     public function render()
     {
         return view('livewire.fastboat');
@@ -40,12 +43,18 @@ class Fastboat extends Component
             'date' => $this->date,
             'rdate' => $this->rdate,
             'passengers' => $this->passengers,
+            'infants' => $this->infants,
         ]);
     }
 
     public function changePassenger($value)
     {
         $this->passengers = $value;
+    }
+
+    public function changeInfant($value)
+    {
+        $this->infants = $value;
     }
 
     public function changeOrigin($value)

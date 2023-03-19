@@ -27,6 +27,7 @@ class FastboatController extends Controller
             'date' => $date->format('Y-m-d'),
             'rdate' => $rdate->format('Y-m-d'),
             'no_passengers' => $request->no_passengers ?? '1',
+            'infants' => $request->infants ?? '0',
         ];
 
         return view('fastboat', $data);

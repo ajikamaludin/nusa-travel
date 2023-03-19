@@ -32,7 +32,7 @@
                     <div class="flex flex-row gap-2" wire:loading.remove>
                         <p>{{ Carbon::parse($trackDepartureChoosed != null ? $rdate : $date)->format('d M Y') }}</p>
                         <div>|</div>
-                        <p>{{ $passengers }} {{ __('website.passengers')}}</p>
+                        <p>{{ $passengers + $infants }} {{ __('website.passengers')}}</p>
                     </div>
                 </div>
                 <button type="button" wire:click="toggle" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">

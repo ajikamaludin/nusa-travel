@@ -11,6 +11,7 @@ class FastboatItem extends Component
 {
     protected $listeners = [
         'changePassengers' => 'changePassengers',
+        'changeInfants' => 'changeInfants',
     ];
 
     public $track;
@@ -154,5 +155,10 @@ class FastboatItem extends Component
     public function changePassengers($value)
     {
         $this->quantity = $value;
+    }
+
+    public function changeInfants($value)
+    {
+        // $this->infants = $value;
     }
 }

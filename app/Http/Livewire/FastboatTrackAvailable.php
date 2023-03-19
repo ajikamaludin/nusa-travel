@@ -29,6 +29,8 @@ class FastboatTrackAvailable extends Component
 
     public $passengers;
 
+    public $infants;
+
     protected $trackDepartures;
 
     protected $trackReturns;
@@ -83,6 +85,7 @@ class FastboatTrackAvailable extends Component
         $this->date = $data['date'];
         $this->rdate = $data['rdate'];
         $this->passengers = $data['passengers'];
+        $this->infants = $data['infants'];
 
         $this->fetch();
     }
