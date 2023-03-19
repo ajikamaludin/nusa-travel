@@ -19,7 +19,7 @@ class SitemapController extends Controller
                 foreach($pages as $page) {
                     $posts[] = [
                         'url' => route('page.show', $page),
-                        'updated_at' => $page->updated_at
+                        'updated_at' => $page->updated_at->toISOString()
                     ];
                 }
 
@@ -29,7 +29,7 @@ class SitemapController extends Controller
                     foreach($pages as $post) {
                         $posts[] = [
                             'url' => route('blog.post', $post),
-                            'updated_at' => $post->updated_at
+                            'updated_at' => $post->updated_at->toISOString()
                         ];
                     }
                 }
@@ -42,7 +42,7 @@ class SitemapController extends Controller
                 foreach($pages as $post) {
                     $posts[] = [
                         'url' => route('blog.post', $post),
-                        'updated_at' => $post->updated_at
+                        'updated_at' => $post->updated_at->toISOString()
                     ];
                 }
             }
