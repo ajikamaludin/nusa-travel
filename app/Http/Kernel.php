@@ -46,6 +46,10 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'authoken'=>[
+            \App\Http\Middleware\AuthenticateToken::class,
+            'throttle:api',
+        ]
     ];
 
     /**
@@ -56,6 +60,7 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
+        'authoken'=>\App\Http\Middleware\AuthenticateToken::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
