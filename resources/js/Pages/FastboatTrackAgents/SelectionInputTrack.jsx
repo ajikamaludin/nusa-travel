@@ -61,23 +61,24 @@ export default function SelectionInputTrack(props) {
                             departure_time: previusTrack.departure_time,
                             is_publish: 1,
                         },id: previusTrack.id,price: previusTrack.price,});
-                    } else {
-                       let temp=oldTrack.find(track=>track.fastboat_source_id == places[i].place.id)
+                    } 
+                    // else {
+                    //    let temp=oldTrack.find(track=>track.fastboat_source_id == places[i].place.id)
                         
-                        if (temp!=undefined){
-                        tracks.push({tracks:{
-                            id:temp.id,
-                            source: places[i].place,
-                            destination: places[j].place,
-                            fastboat_source_id: places[i].place.id,
-                            fastboat_destination_id: places[j].place.id,
-                            price:temp``.price,
-                            arrival_time: temp.arrival_time,
-                            departure_time: temp.departure_time,
-                            is_publish: 1,
-                        },id: temp.id,price: temp.price,});
-                        }
-                    }
+                    //     if (temp!=undefined){
+                    //     tracks.push({tracks:{
+                    //         id:temp.id,
+                    //         source: places[i].place,
+                    //         destination: places[j].place,
+                    //         fastboat_source_id: places[i].place.id,
+                    //         fastboat_destination_id: places[j].place.id,
+                    //         price:temp``.price,
+                    //         arrival_time: temp.arrival_time,
+                    //         departure_time: temp.departure_time,
+                    //         is_publish: 1,
+                    //     },id: temp.id,price: temp.price,});
+                    //     }
+                    // }
 
                 }
             }
@@ -92,8 +93,7 @@ export default function SelectionInputTrack(props) {
         onItemSelected(item.id);
         let select = item.name + " (" + item.fastboat.name + ")";
         setSelected(select)
-        // console.log(item.tracks_agent)
-        // console.log(item.places)
+
         let tracks_agent = generateTracks(item.tracks_agent, item.places)
         ontracks(tracks_agent, item.places, item.id)
         setIsOpen(false)
@@ -156,9 +156,9 @@ export default function SelectionInputTrack(props) {
 
     // once page load
     useEffect(() => {
-        if (customer_id != '') {
+        
             fetch();
-        }
+       
     }, [])
 
     useEffect(() => {
@@ -169,6 +169,7 @@ export default function SelectionInputTrack(props) {
 
     useEffect(() => {
         if (itemSelected !== null) {
+           
             const item = showItems.find(item => item.id === itemSelected)
             if (item) {
                 let select = item.name + " (" + item.fastboat.name + ")";

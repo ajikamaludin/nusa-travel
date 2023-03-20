@@ -55,6 +55,7 @@ class FastboatTrackAgentController extends Controller
         $query=$priceagent->load(['customer','trackGroup','tracksAgent.tracks','trackGroup.places.place', 'tracksAgent.tracks.source', 'tracksAgent.tracks.destination']) 
        
         ;
+        // dd($priceagent);
         return inertia('FastboatTrackAgents/Form', [
             'group' =>$query,
             'places' => $place->paginate(20, '*', 'place_page'),
@@ -66,12 +67,7 @@ class FastboatTrackAgentController extends Controller
             'customer_id' => 'required|exists:customers,id',
             'fastboat_id'=>'required|exists:fastboat_track_groups,id',
             'tracks' => 'required|array',
-            // 'tracks.*.fastboat_source_id' => 'required|exists:fastboat_places,id',
-            // 'tracks.*.fastboat_destination_id' => 'required|exists:fastboat_places,id',
-            // 'tracks.*.price' => 'required|numeric',
-            // 'tracks.*.arrival_time' => 'required',
-            // 'tracks.*.departure_time' => 'required',
-            // 'tracks.*.is_publish' => 'required|in:0,1',
+            
         ]);
         // dd($request->fastboat_id);
         DB::beginTransaction();

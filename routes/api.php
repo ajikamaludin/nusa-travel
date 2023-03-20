@@ -34,3 +34,7 @@ Route::get('/fastboat/tracks', [FastboatTrackController::class, 'index'])->name(
 // for payment
 Route::put('/carts/process-payment/{order}', [OrderController::class, 'payment_update'])->name('api.order.update');
 Route::post('/notification-payment', [OrderController::class, 'payment_notification'])->name('api.notification.payment');
+
+    Route::get('/fastboat/tracks', [FastboatTrackController::class, 'index']);
+    Route::get('dropoff', [AgentController::class, 'drop_off']);
+    Route::get('list-track', [AgentController::class, 'gettracks']);

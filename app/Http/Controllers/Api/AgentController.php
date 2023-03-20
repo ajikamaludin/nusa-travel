@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\FastboatDropoff;
 use App\Models\FastboatTrack;
 use App\Models\FastTrackGroupAgents;
 use Illuminate\Http\Request;
@@ -48,10 +49,11 @@ class AgentController extends Controller
             $query->where('name', '=', $request->to);
         });
 
-        // $rdate = new DateTime($request->date);
-        // if ($rdate->isToday()) {
-            // $queryDeparture->whereTime('arrival_time', '>=', now());
-        // }
+        $rdate = new DateTime($request->date);
+        if ($rdate==now()) {
+            $queryDeparture->whereTime('arrival_time', '>=', now());
+        }
+        
 
         if (Auth::guard('authtoken')->check()){
             $customerId=Auth::guard('authtoken')->user()->id;
@@ -62,5 +64,32 @@ class AgentController extends Controller
         }
         
         return $queryDeparture->get();
+    }
+    public function orderAgent(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255|min:3',
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:20',
+            'nation' => 'required|string',
+            'national_id' => 'required|numeric',
+            'email' => 'required|email',
+            'person' => 'required|array',
+            'person.*.name' => 'required|string|max:255|min:3',
+            'person.*.nation' => 'required|string',
+            'person.*.national_id' => 'required|numeric',
+            'cart'=>'required|array',
+            
+        
+        ]);
+
+    }
+    public function drop_off(Request $request){
+        $query = FastboatDropoff::query();
+
+        if ($request->has('name')) {
+            $query->where('name', 'like', "%{$request->name}%");
+        }
+        $offsite=0;
+        $limit=10;
+        return $query->limit($limit)->offset($offsite)->get();
     }
 }
