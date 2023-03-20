@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\FastboatTrack;
+use App\Services\EkajayaService;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -126,6 +127,8 @@ class FastboatTrackAvailable extends Component
     {
         if ($this->from != null && $this->to != null) {
             $this->show = true;
+            // TODO: call ekajaya service api 
+            EkajayaService::search($this->from, $this->to, $this->date, $this->ways);
             $queryDeparture = FastboatTrack::with(['source', 'destination', 'group.fastboat'])
             ->whereHas('source', function ($query) {
                 $query->where('name', '=', $this->from);

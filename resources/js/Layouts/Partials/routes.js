@@ -16,6 +16,7 @@ import {
     HiOutlineCube,
     HiOutlineQuestionMarkCircle,
     HiOutlineReceiptTax,
+    HiCog,
 } from "react-icons/hi";
 
 export default [
@@ -228,6 +229,14 @@ export default [
                 icon: HiCash,
                 route: route("setting.payment"),
                 active: "setting.payment",
+                permission: "view-setting",
+            },
+            {
+                name: "Ekajaya API Integ.",
+                show: true,
+                icon: HiCog,
+                route: route("setting.ekajaya"),
+                active: "setting.ekajaya",
                 permission: "view-setting",
             },
         ],

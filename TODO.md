@@ -1,6 +1,5 @@
 # TODO
 
-- Ekajaya Rest API Integration [SETTING]
 - Ekajaya Rest API Integration [INTEGRATION]
 - Order Fastboat with Type Adult, Child, Infant
 - Order Show Agent Name and Can Be Filter Order By Agent

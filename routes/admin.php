@@ -136,6 +136,8 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::post('/setting/update-general', [SettingController::class, 'updateGeneral'])->name('setting.update-general');
         Route::get('/setting/payment', [SettingController::class, 'payment'])->name('setting.payment');
         Route::post('/setting/update-payment', [SettingController::class, 'updatePayment'])->name('setting.update-payment');
+        Route::get('/setting/ekajaya', [SettingController::class, 'ekajaya'])->name('setting.ekajaya');
+        Route::post('/setting/update-ekajaya', [SettingController::class, 'updateEkajaya'])->name('setting.update-ekajaya');
 
         // User
         Route::get('/users', [UserController::class, 'index'])->name('user.index');

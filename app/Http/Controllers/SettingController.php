@@ -117,4 +117,36 @@ class SettingController extends Controller
         return redirect()->route('setting.payment')
             ->with('message', ['type' => 'success', 'message' => 'Setting has beed saved']);
     }
+
+    public function ekajaya()
+    {
+        $setting = Setting::where('key', 'like', 'ekajaya_%')->orderBy('key', 'asc')->get();
+
+        $setting = $setting->map(function ($item) {
+            return [
+                $item->key => $item->value,
+            ];
+        });
+
+        return inertia('Setting/Ekajaya', [
+            'setting' => (object) $setting,
+        ]);
+    }
+
+    public function updateEkajaya(Request $request)
+    {
+        $request->validate([
+            'ekajaya_host' => 'required|url|string|max:255',
+            'ekajaya_apikey' => 'required|string|max:255',
+        ]);
+
+        DB::beginTransaction();
+        foreach ($request->input() as $key => $value) {
+            Setting::where('key', $key)->update(['value' => $value]);
+        }
+        DB::commit();
+
+        return redirect()->route('setting.ekajaya')
+            ->with('message', ['type' => 'success', 'message' => 'Setting has beed saved']);
+    }
 }
