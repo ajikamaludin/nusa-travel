@@ -1,0 +1,298 @@
+{
+	"info": {
+		"_postman_id": "f366e853-e12d-4bfd-9f38-19382ec74a5f",
+		"name": "nusa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23768613"
+	},
+	"item": [
+		{
+			"name": "List Track Agent",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "$2y$10$4yuQQuDpaLY3Zzo9LXXJ1OaaL6a98zTklNd1w/03qJeZKgWTlfAbu",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/list-price-agent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"list-price-agent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Fastboat Track",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "$2y$10$4yuQQuDpaLY3Zzo9LXXJ1OaaL6a98zTklNd1w/03qJeZKgWTlfAbu",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/fastboat/tracks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"fastboat",
+						"tracks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list-track",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "$2y$10$4yuQQuDpaLY3Zzo9LXXJ1OaaL6a98zTklNd1w/03qJeZKgWTlfAbu",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"from\":\"SENGGIGI\",\n    \"to\":\"SERANGAN\",\n    \"date\":\"2023-03-20\",\n    \"ways\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/list-track?from=SENGGIGI&to=SERANGAN&date=2023-03-20&ways=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"list-track"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "SENGGIGI"
+						},
+						{
+							"key": "to",
+							"value": "SERANGAN"
+						},
+						{
+							"key": "date",
+							"value": "2023-03-20"
+						},
+						{
+							"key": "ways",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "list-track",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "$2y$10$4yuQQuDpaLY3Zzo9LXXJ1OaaL6a98zTklNd1w/03qJeZKgWTlfAbu",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"from\":\"SENGGIGI\",\n    \"to\":\"SERANGAN\",\n    \"date\":\"2023-03-20\",\n    \"ways\":1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/list-track?from=SENGGIGI&to=SERANGAN&date=2023-03-20&ways=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"list-track"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "SENGGIGI"
+								},
+								{
+									"key": "to",
+									"value": "SERANGAN"
+								},
+								{
+									"key": "date",
+									"value": "2023-03-20"
+								},
+								{
+									"key": "ways",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 20 Mar 2023 12:17:23 GMT"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 20 Mar 2023 12:17:23 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.2"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "57"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"fastboat\": \"Fastboat 1\",\n        \"from\": \"SERANGAN\",\n        \"to\": \"SENGGIGI\",\n        \"destination\": \"SENGGIGI - SERANGAN\",\n        \"arrival_time\": \"11:00\",\n        \"departure_time\": \"13:00\",\n        \"price\": \"100000.00\",\n        \"capacity\": 20\n    },\n    {\n        \"fastboat\": \"Fastboat 2\",\n        \"from\": \"SERANGAN\",\n        \"to\": \"SENGGIGI\",\n        \"destination\": \"SENGGIGI - SERANGAN\",\n        \"arrival_time\": \"16:20\",\n        \"departure_time\": \"17:00\",\n        \"price\": \"10000.00\",\n        \"capacity\": 50\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Drop off",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "$2y$10$4yuQQuDpaLY3Zzo9LXXJ1OaaL6a98zTklNd1w/03qJeZKgWTlfAbu",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/dropoff?name=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"dropoff"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": ""
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "$2y$10$4yuQQuDpaLY3Zzo9LXXJ1OaaL6a98zTklNd1w/03qJeZKgWTlfAbu",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Agus\",\n    \"phone\": \"0812356127\",\n    \"nation\": \"1\",\n    \"national_id\": 345678904457,\n    \"email\": \"agent@mail.com\",\n    \"persons\": [\n        {\n            \"national_id\": \"3456789021312\",\n            \"nation\": \"WNA\",\n            \"name\": \"Jhon doe\"\n        },\n        {\n            \"national_id\": \"345678903456789\",\n            \"nation\": \"WNA\",\n            \"name\": \"Billy\"\n        },\n        {\n            \"national_id\": \"123456789\",\n            \"nation\": \"WNI\",\n            \"name\": \"Rany\"\n        }\n    ],\n    \"order\": {\n        \"qty\": 1,\n        \"type_order\": \"fastboat\",\n        \"date\": \"2023-03-21\",\n        \"dropoff\":\"Hotel\",\n        \"total_payed\":10000,\n        \"detail_order\": {\n            \"fastboat\": \"Fastboat 2\",\n            \"from\": \"SENGGIGI\",\n            \"to\": \"SERANGAN\",\n            \"destination\": \"SENGGIGI - SERANGAN\",\n            \"arrival_time\": \"16:20\",\n            \"departure_time\": \"17:00\",\n            \"price\": 10000.00\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"order"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
