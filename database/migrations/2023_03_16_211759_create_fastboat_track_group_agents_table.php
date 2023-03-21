@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('fastboat_track_group_agents', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('fastboat_track_group_id');
             $table->string('customer_id');
+
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by')->nullable();

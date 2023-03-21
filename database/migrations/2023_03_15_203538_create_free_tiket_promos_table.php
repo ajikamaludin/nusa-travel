@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('free_tiket_promos', function (Blueprint $table) {
+        Schema::create('free_ticket_promos', function (Blueprint $table) {
             $table->id();
             $table->string('codition_type')->nullable();
             $table->integer('amount')->nullable();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('free_tiket_promos');
+        Schema::dropIfExists('free_ticket_promos');
     }
 };

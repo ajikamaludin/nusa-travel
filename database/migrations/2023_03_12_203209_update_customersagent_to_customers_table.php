@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('customers', function (Blueprint $table) {
-            //
-            $table->boolean('is_agent');
-            $table->string('token');
+            $table->smallInteger('is_agent')->default(0);
+            $table->string('token')->nullable();
         });
     }
 

@@ -39,7 +39,7 @@
                 <div class="text-center md:text-left text-xl font-light text-white text-opacity-80">{{$setting->getValue('G_SITE_SUBWELCOME')}}</div>
             </div>
 
-            <div class="block mt-5 md:absolute z-40 md:bottom-24 md:left-1/2 md:-translate-x-1/2 w-full lg:w-2/3 mx-auto h-60 ">
+            <div class="block mt-5 md:absolute z-40 md:bottom-24 md:left-1/2 md:-translate-x-1/2 max-w-7xl w-full lg:w-2/3 mx-auto h-60 ">
                 <div>
                     <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500">
                         <li class="">

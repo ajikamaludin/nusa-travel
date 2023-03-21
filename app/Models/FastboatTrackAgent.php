@@ -8,7 +8,7 @@ class FastboatTrackAgent extends Model
         'fastboat_track_id',
         'customer_id',
         'price',
-        'fast_track_group_agents_id',
+        'fastboat_track_group_agents_id',
     ];
 
     public function tracks()

@@ -6,7 +6,7 @@ use App\Mail\OrderPayment;
 use App\Models\Customer;
 use App\Models\FastboatDropoff;
 use App\Models\FastboatTrack;
-use App\Models\FreeTiketPromos;
+use App\Models\FreeTicketPromo;
 use App\Models\Order;
 use App\Models\Promo;
 use App\Services\AsyncService;
@@ -248,7 +248,7 @@ class FastboatCart extends Component
                 'promo_amount' => $promo['amount'],
             ]);
             if ($promo['type'] == '4') {
-                FreeTiketPromos::create([
+                FreeTicketPromo::create([
                     'codition_type' => $promo['type'],
                     'amount' => $promo['amount'],
                 ]);

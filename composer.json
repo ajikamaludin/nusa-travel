@@ -20,13 +20,13 @@
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.9",
         "fakerphp/faker": "^1.21.0",
-        "laravel/breeze": "^1.19.2",
-        "laravel/pint": "^1.6",
+        "laravel/breeze": "^1.20.0",
+        "laravel/pint": "^1.7",
         "laravel/sail": "^1.21.2",
         "laravel/telescope": "^4.14",
         "mockery/mockery": "^1.5.1",
-        "nunomaduro/collision": "^7.1.2",
-        "phpunit/phpunit": "^10.0.16",
+        "nunomaduro/collision": "^7.2.0",
+        "phpunit/phpunit": "^10.0.17",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {

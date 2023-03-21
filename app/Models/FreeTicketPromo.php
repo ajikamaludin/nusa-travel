@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FreeTiketPromos extends Model
+class FreeTicketPromo extends Model
 {
     protected $fillable = [
         'codition_type',
