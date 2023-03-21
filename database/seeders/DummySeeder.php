@@ -538,8 +538,8 @@ class DummySeeder extends Seeder
     public function agent()
     {
         Customer::create([
-            'name' => 'Agent Dummy',
-            'email' => 'agent@mail.com',
+            'name' => 'Agen Dummy',
+            'email' => 'agen@mail.com',
             'phone' => '0812312234234',
             'password' => bcrypt('password'),
             'address' => 'indonesia',
