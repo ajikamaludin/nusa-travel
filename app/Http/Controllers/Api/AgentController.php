@@ -28,28 +28,29 @@ class AgentController extends Controller
 
     public function tracks(Request $request)
     {
-        $queryDeparture = FastboatTrack::with(['source', 'destination', 'group.fastboat']);
-
         $customerId = Auth::guard('authtoken')->user()->id;
-        $queryDeparture->leftJoin('fastboat_track_agents', 'fastboat_track_id', '=', 'fastboat_tracks.id')
+
+        $query = FastboatTrack::with(['source', 'destination', 'group.fastboat'])
+        ->leftJoin('fastboat_track_agents', 'fastboat_track_id', '=', 'fastboat_tracks.id')
         ->join('fastboat_track_groups','fastboat_track_groups.id','=','fastboat_tracks.fastboat_track_group_id')
         ->join('fastboats','fastboats.id','=','fastboat_track_groups.fastboat_id')
         ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_tracks.fastboat_source_id', 'fastboat_tracks.fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by','fastboats.capacity as capacity')
-            ->where('customer_id', '=', $customerId);
+        ->where('customer_id', '=', $customerId);
+
         if ($request->has(['from']) && $request->has(['to']) && $request->has(['date'])) {
-            $queryDeparture->whereHas('source', function ($query) use ($request) {
+            $query->whereHas('source', function ($query) use ($request) {
                 $query->where('name', '=', $request->from);
             });
-            $queryDeparture->whereHas('destination', function ($query) use ($request) {
+            $query->whereHas('destination', function ($query) use ($request) {
                 $query->where('name', '=', $request->to);
             });
 
             $rdate = new DateTime($request->date);
             if ($rdate == now()) {
-                $queryDeparture->whereTime('arrival_time', '>=', now());
+                $query->whereTime('arrival_time', '>=', now());
             }
             // $queryDeparture->whereHas('group', function ($query) use ($rdate) {
-                $queryDeparture->leftJoin('fastboat_track_order_capacities',function($join) use($rdate){
+                $query->leftJoin('fastboat_track_order_capacities',function($join) use($rdate){
                     $join->on('fastboat_track_order_capacities.fastboat_track_group_id','=','fastboat_tracks.fastboat_track_group_id');
                     $join->on('fastboat_track_order_capacities.fastboat_source_id','=','fastboat_tracks.fastboat_source_id');
                     $join->on('fastboat_track_order_capacities.fastboat_destination_id','=','fastboat_tracks.fastboat_destination_id')
@@ -57,13 +58,13 @@ class AgentController extends Controller
                     // ;
                     // $queryDeparture->Select(DB::raw('COALESCE (fastboat_track_order_capacities.capacity,fastboats.capacity) as capacitys'));
                 });
-                $queryDeparture->Select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_tracks.fastboat_source_id', 'fastboat_tracks.fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by', DB::raw('COALESCE (fastboat_track_order_capacities.capacity,fastboats.capacity) as capacity'));
+                $query->Select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_tracks.fastboat_source_id', 'fastboat_tracks.fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by', DB::raw('COALESCE (fastboat_track_order_capacities.capacity,fastboats.capacity) as capacity'));
 
             // });
 
         }
 
-        $fect = $queryDeparture->paginate();
+        $fect = $query->paginate();
 
         return new TracksCollection($fect);
 
