@@ -59,12 +59,12 @@ class PromoController extends Controller
         $amount_tiket = $request->amount_tiket;
         $ranges_day = $request->ranges_day;
         switch ($request->condition_type) {
-            case ('1'):
+            case '1':
                 $ranges_day = null;
                 $amount_tiket = null;
                 break;
-            case ('2'):
-            case ('3'):
+            case '2':
+            case '3':
                 $amount_buys = null;
                 $amount_tiket = null;
                 break;
@@ -111,7 +111,7 @@ class PromoController extends Controller
     public function update(Request $request, Promo $promo)
     {
         $request->validate([
-            'code' => 'nullable|string|alpha_dash|unique:promos,code,' . $promo->id,
+            'code' => 'nullable|string|alpha_dash|unique:promos,code,'.$promo->id,
             'name' => 'required|string',
             'is_active' => 'required|in:0,1',
             'cover_image' => 'nullable|image',
@@ -140,12 +140,12 @@ class PromoController extends Controller
         $amount_tiket = $request->amount_tiket;
         $ranges_day = $request->ranges_day;
         switch ($request->condition_type) {
-            case ('1'):
+            case '1':
                 $ranges_day = null;
                 $amount_tiket = null;
                 break;
-            case ('2'):
-            case ('3'):
+            case '2':
+            case '3':
                 $amount_buys = null;
                 $amount_tiket = null;
                 break;

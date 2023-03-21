@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
-use Inertia\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Inertia\Response;
 
 class AgentController extends Controller
 {
@@ -19,7 +19,7 @@ class AgentController extends Controller
         }
 
         return inertia('Agent/Index', [
-            'query' => $query->where('is_agent','1')->orderBy('created_at', 'desc')->paginate(),
+            'query' => $query->where('is_agent', '1')->orderBy('created_at', 'desc')->paginate(),
         ]);
     }
 
@@ -44,8 +44,8 @@ class AgentController extends Controller
             'national_id' => $request->national_id,
             'password' => bcrypt($request->passwor),
             'is_active' => Customer::ACTIVE,
-            'is_agent'=> Customer::ACTIVE,
-            'token'=>Hash::make(Str::random(10)),
+            'is_agent' => Customer::ACTIVE,
+            'token' => Hash::make(Str::random(10)),
         ]);
 
         session()->flash('message', ['type' => 'success', 'message' => 'Agent has beed saved']);

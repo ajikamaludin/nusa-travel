@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class Fastboat extends Model
 {
     protected $cascadeDeletes = ['group'];
+
     protected $fillable = [
         'number',
         'name',
@@ -23,6 +24,7 @@ class Fastboat extends Model
             get: fn () => asset($this->cover_image),
         );
     }
+
     public function group()
     {
         return $this->hasMany(FastboatTrackGroup::class);

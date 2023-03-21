@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class FreeTiketPromos extends Model
@@ -11,6 +10,6 @@ class FreeTiketPromos extends Model
         'codition_type',
         'amount',
         'range_days',
-        'end_date'
+        'end_date',
     ];
 }

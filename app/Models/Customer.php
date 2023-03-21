@@ -74,6 +74,7 @@ class Customer extends Authenticatable
 
         return $customer;
     }
+
     public function tracksAgent()
     {
         return $this->hasMany(FastboatTrackAgent::class);

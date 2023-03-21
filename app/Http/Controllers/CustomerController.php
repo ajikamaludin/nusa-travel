@@ -17,7 +17,7 @@ class CustomerController extends Controller
         }
 
         return inertia('Customer/Index', [
-            'query' => $query->where('is_agent','0')->orderBy('created_at', 'desc')->paginate(),
+            'query' => $query->where('is_agent', '0')->orderBy('created_at', 'desc')->paginate(),
         ]);
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CarRentalController;
 use App\Http\Controllers\CustomerController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FastboatController;
 use App\Http\Controllers\FastboatDropoffController;
 use App\Http\Controllers\FastboatPlaceController;
+use App\Http\Controllers\FastboatTrackAgentController;
 use App\Http\Controllers\FastboatTrackController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GeneralController;
@@ -20,8 +22,6 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TourPackageController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AgentController;
-use App\Http\Controllers\FastboatTrackAgentController;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Support\Facades\Route;
 
@@ -155,7 +155,7 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::put('/orders/{order}', [OrderController::class, 'update'])->name('order.update');
         Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
 
-         //Agen 
+         //Agen
          Route::get('/agent', [AgentController::class, 'index'])->name('agent.index');
          Route::post('/agent', [AgentController::class, 'store'])->name('agent.store');
          Route::put('/agent/{agent}', [AgentController::class, 'update'])->name('agent.update');

@@ -81,7 +81,7 @@ class FastboatCart extends Component
         // dd($tracks->toSql());
         $this->carts = $carts->map(function ($cart, $key) use ($tracks) {
             $cart['track'] = $tracks->where('fastboat_tracks.id', $key)->first();
-            if (!property_exists($this, 'showPerson_1')) {
+            if (! property_exists($this, 'showPerson_1')) {
                 foreach (range(1, $cart['qty']) as $i => $q) {
                     $this->{"showPerson_$i"} = false;
                 }
@@ -105,7 +105,7 @@ class FastboatCart extends Component
 
     public function toggle()
     {
-        $this->show = !$this->show;
+        $this->show = ! $this->show;
     }
 
     public function saveContact()
@@ -167,7 +167,7 @@ class FastboatCart extends Component
 
     public function checkAllValid()
     {
-        return $this->validContact && !in_array([], $this->persons);
+        return $this->validContact && ! in_array([], $this->persons);
     }
 
     public function continue()
@@ -217,7 +217,7 @@ class FastboatCart extends Component
             $item = $order->items()->create([
                 'entity_order' => $cart['type'],
                 'entity_id' => $trackId,
-                'description' => $cart['track']->source->name . ' - ' . $cart['track']->destination->name . ' | ' . $cart['date'],
+                'description' => $cart['track']->source->name.' - '.$cart['track']->destination->name.' | '.$cart['date'],
                 'amount' => $cart['track']->price,
                 'quantity' => $cart['qty'],
                 'date' => $cart['date'],
@@ -247,10 +247,10 @@ class FastboatCart extends Component
                 'promo_code' => $promo['code'],
                 'promo_amount' => $promo['amount'],
             ]);
-            if ($promo['type'] == "4") {
+            if ($promo['type'] == '4') {
                 FreeTiketPromos::create([
-                    'codition_type'=>$promo['type'],
-                    'amount'=>$promo['amount'],
+                    'codition_type' => $promo['type'],
+                    'amount' => $promo['amount'],
                 ]);
             }
         }
@@ -283,10 +283,9 @@ class FastboatCart extends Component
         ])
             ->where(function ($query) {
                 $query->whereDate('available_start_date', '<=', now())
-                    ->whereDate('available_end_date', '>=', now())
-                    ;
+                    ->whereDate('available_end_date', '>=', now());
             })
-            ->orwhere(function ($query){
+            ->orwhere(function ($query) {
                 $query->whereNull('available_start_date')
                 ->whereNull('available_end_date');
             })
@@ -295,7 +294,7 @@ class FastboatCart extends Component
                     $query->whereDate('order_start_date', '<=', $dates[0])
                         ->whereDate('order_end_date', '>=', $dates[0]);
                 }
-            })->orwhere(function ($query){
+            })->orwhere(function ($query) {
                 $query->whereNull('order_start_date')
                 ->whereNull('order_end_date');
             })
@@ -310,28 +309,28 @@ class FastboatCart extends Component
             foreach ($promos as $promokey => $promo) {
                 // var_dump($promo->condition_type);
                  switch ($promo->condition_type) {
-                     case(2):
+                     case 2:
                          $datetime1 = new DateTime($promo->available_start_date);
                          $datetime2 = new DateTime($dates[0]);
-                         
-                         if ($datetime1->modify("-".$promo->ranges_day." day") <= $datetime2) {
+
+                         if ($datetime1->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
                              unset($promos[$promokey]);
                          }
                          break;
-                         case(3):
+                         case 3:
                             $dateorder_start_date = new DateTime($promo->order_start_date);
                             $datetime2 = new DateTime($dates[0]);
-                            
-                            if ($dateorder_start_date->modify("-".$promo->ranges_day." day") <= $datetime2) {
+
+                            if ($dateorder_start_date->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
                                 unset($promos[$promokey]);
                             }
                             break;
-                        
+
                  }
              }
         foreach ($promos as $promokey => $promo) {
             $isPercent = false;
-            $namedic = "";
+            $namedic = '';
             if ($promo->order_perday_limit < $promo->used_promo || (Auth::guard('customer')->user() != null && Auth::guard('customer')->user()->id == $promo->id && $promo->user_perday_limit < $promo->used_promo)) {
                 unset($promos[$promokey]);
             } else {
@@ -351,11 +350,10 @@ class FastboatCart extends Component
                     }
                     $this->discount += $amount;
 
-
-                    $namedic = $promo->name . ' ( disc. ' . $promo->discount_amount . ($isPercent ? '% )' : ' )');
+                    $namedic = $promo->name.' ( disc. '.$promo->discount_amount.($isPercent ? '% )' : ' )');
 
                 } else {
-                    $namedic = $promo->name . ' ( Free Ticket. ' . $promo->amount_tiket . ')';
+                    $namedic = $promo->name.' ( Free Ticket. '.$promo->amount_tiket.')';
                 }
                 $this->promos[] = [
                     'id' => $promo->id,
@@ -363,14 +361,12 @@ class FastboatCart extends Component
                     'name' => $namedic,
                     'amount' => $amount,
                     'type' => $promo->condition_type,
-                    'order_start_date'=>$promo->order_start_date,
-                    'ranges_day'=>$promo->ranges_day,
+                    'order_start_date' => $promo->order_start_date,
+                    'ranges_day' => $promo->ranges_day,
                 ];
             }
         }
-       
+
         $this->total_payed = $this->total_payed - $this->discount;
     }
-    
-
 }
