@@ -22,6 +22,10 @@ class Customer extends Authenticatable
 
     const WNA = 1;
 
+    const AGENT = 1;
+
+    const CUSTOMER = 0;
+
     protected $cascadeDeletes = [];
 
     protected $fillable = [

@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fast_track_group_agents');
+        Schema::dropIfExists('fastboat_track_group_agents');
     }
 };

@@ -14,6 +14,7 @@ use App\Models\Tag;
 use App\Models\TourPackage;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class DummySeeder extends Seeder
@@ -33,13 +34,14 @@ class DummySeeder extends Seeder
         $this->customer();
         $this->car_rentals();
         $this->tour_packages();
+        $this->agent();
     }
 
     public function setting()
     {
         $setting = [
             ['id' => Str::uuid(), 'key' => 'G_SITE_NAME', 'value' => 'Nusa Travel', 'type' => 'text', 'label' => 'Site Name'],
-            ['id' => Str::uuid(), 'key' => 'G_SITE_LOGO', 'value' => 'logo-side.png ', 'type' => 'image', 'label' => 'Site Logo'],
+            ['id' => Str::uuid(), 'key' => 'G_SITE_LOGO', 'value' => 'logo-side.png', 'type' => 'image', 'label' => 'Site Logo'],
             [
                 'id' => Str::uuid(),
                 'key' => 'G_SITE_ABOUT',
@@ -531,5 +533,21 @@ class DummySeeder extends Seeder
                 ]);
             }
         }
+    }
+
+    public function agent()
+    {
+        Customer::create([
+            'name' => 'Agent Dummy',
+            'email' => 'agent@mail.com',
+            'phone' => '0812312234234',
+            'password' => bcrypt('password'),
+            'address' => 'indonesia',
+            'nation' => Customer::WNI,
+            'is_active' => Customer::ACTIVE,
+            'email_varified_at' => now(),
+            'is_agent' => Customer::AGENT,
+            'token' => Hash::make(Str::random(10)),
+        ]);
     }
 }

@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             DummySeeder::class,
             FastboatSeeder::class,
-            FastboatagentSeeder::class,
         ]);
     }
 }
