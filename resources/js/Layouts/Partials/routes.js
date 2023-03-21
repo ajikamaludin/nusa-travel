@@ -264,4 +264,27 @@ export default [
             },
         ],
     },
+    {
+        name: "Agents",
+        show: true,
+        icon: HiUserGroup,
+        items: [
+            {
+                name: "Agent",
+                show: true,
+                icon: HiUserCircle,
+                route: route("agent.index"),
+                active: "agent.index",
+                permission: "view-agent",
+            },
+            {
+                name: "Harga Agent",
+                show: true,
+                icon: HiCash,
+                route: route("price-agent.index"),
+                active: "price-agent.index",
+                permission: "view-price-agent",
+            },
+        ],
+    },
 ];

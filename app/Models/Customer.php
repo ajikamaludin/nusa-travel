@@ -36,6 +36,8 @@ class Customer extends Authenticatable
         'is_active',
         'email_varified_at',
         'national_id',
+        'is_agent',
+        'token',
     ];
 
     public function orders()
@@ -71,5 +73,10 @@ class Customer extends Authenticatable
         }
 
         return $customer;
+    }
+
+    public function tracksAgent()
+    {
+        return $this->hasMany(FastboatTrackAgent::class);
     }
 }

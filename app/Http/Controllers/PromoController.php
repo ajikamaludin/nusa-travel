@@ -42,15 +42,34 @@ class PromoController extends Controller
             'order_end_date' => 'nullable|date|gte:available_start_date',
             'user_perday_limit' => 'nullable|numeric',
             'order_perday_limit' => 'nullable|numeric',
+            'condition_type' => 'nullable|string',
+            'amount_buys' => 'nullable|numeric',
+            'amount_tiket' => 'exclude_unless:condition_type,==,4|required|numeric|gt:1',
+            'ranges_day' => 'nullable|numeric',
         ]);
 
-        if($request->discount_type == Promo::TYPE_PERCENT) {
+        if ($request->discount_type == Promo::TYPE_PERCENT) {
             $request->validate([
                 'discount_amount' => 'required|numeric|min:1|max:100',
             ]);
         }
 
         $code = Str::upper($request->code ?? Str::random(6));
+        $amount_buys = $request->amount_buys;
+        $amount_tiket = $request->amount_tiket;
+        $ranges_day = $request->ranges_day;
+        switch ($request->condition_type) {
+            case '1':
+                $ranges_day = null;
+                $amount_tiket = null;
+                break;
+            case '2':
+            case '3':
+                $amount_buys = null;
+                $amount_tiket = null;
+                break;
+            default:
+        }
 
         $promo = Promo::make([
             'code' => $code,
@@ -65,6 +84,10 @@ class PromoController extends Controller
             'order_end_date' => Carbon::parse($request->order_end_date),
             'user_perday_limit' => $request->user_perday_limit ?? 0,
             'order_perday_limit' => $request->order_perday_limit ?? 0,
+            'condition_type' => $request->condition_type,
+            'amount_buys' => $amount_buys,
+            'amount_tiket' => $amount_tiket,
+            'ranges_day' => $ranges_day,
         ]);
 
         // TODO: handle for latter , cover_image and descrition body
@@ -93,23 +116,41 @@ class PromoController extends Controller
             'is_active' => 'required|in:0,1',
             'cover_image' => 'nullable|image',
             'discount_type' => 'required|in:0,1',
-            'discount_amount' => 'required|numeric|min:1',
+            'discount_amount' => 'exclude_if:condition_type,==,4|required|numeric|min:1',
             'available_start_date' => 'nullable|date',
             'available_end_date' => 'nullable|date|gte:available_start_date',
             'order_start_date' => 'nullable|date',
             'order_end_date' => 'nullable|date|gte:available_start_date',
             'user_perday_limit' => 'nullable|numeric',
             'order_perday_limit' => 'nullable|numeric',
+            'condition_type' => 'nullable|string',
+            'amount_buys' => 'nullable|numeric',
+            'amount_tiket' => 'exclude_unless:condition_type,==,4|required|numeric|gt:0',
+            'ranges_day' => 'nullable|numeric',
         ]);
 
-        if($request->discount_type == Promo::TYPE_PERCENT) {
+        if ($request->discount_type == Promo::TYPE_PERCENT) {
             $request->validate([
                 'discount_amount' => 'required|numeric|min:1|max:100',
             ]);
         }
 
         $code = Str::upper($request->code ?? Str::random(6));
-
+        $amount_buys = $request->amount_buys;
+        $amount_tiket = $request->amount_tiket;
+        $ranges_day = $request->ranges_day;
+        switch ($request->condition_type) {
+            case '1':
+                $ranges_day = null;
+                $amount_tiket = null;
+                break;
+            case '2':
+            case '3':
+                $amount_buys = null;
+                $amount_tiket = null;
+                break;
+            default:
+        }
         $promo->fill([
             'code' => $code,
             'name' => $request->name,
@@ -123,6 +164,10 @@ class PromoController extends Controller
             'order_end_date' => Carbon::parse($request->order_end_date),
             'user_perday_limit' => $request->user_perday_limit ?? 0,
             'order_perday_limit' => $request->order_perday_limit ?? 0,
+            'condition_type' => $request->condition_type,
+            'amount_buys' => $amount_buys,
+            'amount_tiket' => $amount_tiket,
+            'ranges_day' => $ranges_day,
         ]);
 
         // TODO: handle for latter , cover_image and descrition body

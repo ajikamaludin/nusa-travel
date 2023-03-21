@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\FastboatController;
 use App\Http\Controllers\Api\FastboatPlaceController;
+use App\Http\Controllers\Api\FastboatTrackController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Website\OrderController;
+use App\Http\Middleware\AuthenticateToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,11 +25,23 @@ Route::get('/', fn () => 'Ok!');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// general purpose
 Route::get('/roles', [RoleController::class, 'index'])->name('api.role.index');
 Route::get('/fastboat/places', [FastboatPlaceController::class, 'index'])->name('api.fastboat.place.index');
 Route::get('/tags', [TagController::class, 'index'])->name('api.tag.index');
 Route::get('/fastboats', [FastboatController::class, 'index'])->name('api.fastboat.index');
+Route::get('/agent', [AgentController::class, 'index'])->name('api.agent.index');
+Route::get('/fastboat/tracks', [FastboatTrackController::class, 'index'])->name('api.fasboat.track.index');
 
 // for payment
 Route::put('/carts/process-payment/{order}', [OrderController::class, 'payment_update'])->name('api.order.update');
 Route::post('/notification-payment', [OrderController::class, 'payment_notification'])->name('api.notification.payment');
+
+// api for agents
+Route::middleware([AuthenticateToken::class])->group(function () {
+    Route::get('/dropoff', [AgentController::class, 'dropoff']);
+    Route::get('/tracks', [AgentController::class, 'tracks']);
+    Route::post('/order', [AgentController::class, 'order']);
+
+});

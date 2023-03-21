@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use App\Models\FastboatTrack;
 use App\Services\EkajayaService;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\Actions;
@@ -140,6 +142,11 @@ class FastboatTrackAvailable extends Component
             $rdate = Carbon::createFromFormat('Y-m-d', $this->date);
             if ($rdate->isToday()) {
                 $queryDeparture->whereTime('arrival_time', '>=', now());
+            }
+            if (Auth::guard('customer')->check()) {
+                $queryDeparture->Leftjoin('fastboat_track_agents', 'fastboat_track_id', '=', 'fastboat_tracks.id')
+                ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by')
+                ->where('customer_id', '=', auth('customer')->user()->id);
             }
 
             $this->trackDepartures = $queryDeparture->where('is_publish', 1);

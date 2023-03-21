@@ -6,6 +6,7 @@ use App\Mail\OrderPayment;
 use App\Models\Customer;
 use App\Models\FastboatDropoff;
 use App\Models\FastboatTrack;
+use App\Models\FreeTiketPromos;
 use App\Models\Order;
 use App\Models\Promo;
 use App\Services\AsyncService;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
+use Nette\Utils\DateTime;
 
 // TODO: need to handle if user already login, provide contact automatily , if profile not compate in NIK, update the customers too
 class FastboatCart extends Component
@@ -49,7 +51,7 @@ class FastboatCart extends Component
     public function mount()
     {
         $this->contact = session()->get('contact', []);
-        if($this->contact != []) {
+        if ($this->contact != []) {
             $this->validContact = true;
         }
         $this->persons = session()->get('persons', []);
@@ -61,18 +63,26 @@ class FastboatCart extends Component
 
     public function booted()
     {
+        //dd(session()->get('carts'));
         $carts = session()->get('carts') ?? [];
         $carts = collect($carts)->filter(function ($cart) {
-            if(array_key_exists('fastboat_cart', $cart)) {
+            if (array_key_exists('fastboat_cart', $cart)) {
                 return $cart;
             }
         });
 
-        $tracks = FastboatTrack::with(['destination', 'source', 'group.fastboat'])->whereIn('id', $carts->keys())->get();
+        $tracks = FastboatTrack::with(['destination', 'source', 'group.fastboat']);
+        if (Auth::guard('customer')->check()) {
+            $tracks->Leftjoin('fastboat_track_agents', 'fastboat_track_id', '=', 'fastboat_tracks.id')
+                ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by')
+                ->where('customer_id', '=', auth('customer')->user()->id);
+        }
+        $tracks->whereIn('fastboat_tracks.id', $carts->keys())->get();
+        // dd($tracks->toSql());
         $this->carts = $carts->map(function ($cart, $key) use ($tracks) {
-            $cart['track'] = $tracks->where('id', $key)->first();
-            if(! property_exists($this, 'showPerson_1')) {
-                foreach(range(1, $cart['qty']) as $i => $q) {
+            $cart['track'] = $tracks->where('fastboat_tracks.id', $key)->first();
+            if (! property_exists($this, 'showPerson_1')) {
+                foreach (range(1, $cart['qty']) as $i => $q) {
                     $this->{"showPerson_$i"} = false;
                 }
             }
@@ -80,9 +90,9 @@ class FastboatCart extends Component
             return $cart;
         });
 
-        if(count($this->carts) > 0 && count($this->persons) == 0) {
+        if (count($this->carts) > 0 && count($this->persons) == 0) {
             $qty = collect($this->carts)->value('qty');
-            foreach(range(0, $qty - 1) as $i) {
+            foreach (range(0, $qty - 1) as $i) {
                 $this->persons[$i] = [];
             }
         }
@@ -109,8 +119,8 @@ class FastboatCart extends Component
             'email' => 'required|email',
         ]);
 
-        if($validate->fails()) {
-            foreach($validate->messages()->toArray() as $name => $err) {
+        if ($validate->fails()) {
+            foreach ($validate->messages()->toArray() as $name => $err) {
                 $this->addError($name, $err);
             }
 
@@ -118,7 +128,7 @@ class FastboatCart extends Component
         }
 
         $person = $this->persons[0] ?? [];
-        if($person != [] && $person['name'] == $this->contact['name']) {
+        if ($person != [] && $person['name'] == $this->contact['name']) {
             $this->persons[0] = $this->contact;
         }
 
@@ -143,8 +153,8 @@ class FastboatCart extends Component
             'national_id' => 'required|numeric',
         ]);
 
-        if($validate->fails()) {
-            foreach($validate->messages()->toArray() as $name => $err) {
+        if ($validate->fails()) {
+            foreach ($validate->messages()->toArray() as $name => $err) {
                 $this->addError($name, $err);
             }
 
@@ -174,8 +184,9 @@ class FastboatCart extends Component
 
     public function payment()
     {
+
         DB::beginTransaction();
-        if(Auth::guard('customer')->check()) {
+        if (Auth::guard('customer')->check()) {
             $customer = Auth::guard('customer')->user();
         } else {
             $customer = Customer::hardSearch(
@@ -202,7 +213,7 @@ class FastboatCart extends Component
         ]);
 
         // insert items -> insert passengers
-        foreach($this->carts as $trackId => $cart) {
+        foreach ($this->carts as $trackId => $cart) {
             $item = $order->items()->create([
                 'entity_order' => $cart['type'],
                 'entity_id' => $trackId,
@@ -219,7 +230,7 @@ class FastboatCart extends Component
             FastboatTrack::updateTrackUsage($track, $cart['date'], $cart['qty']);
 
             // insert every person in order to every item
-            foreach($this->persons as $index => $person) {
+            foreach ($this->persons as $index => $person) {
                 $item->passengers()->create([
                     'customer_id' => $index == 0 ? $customer->id : null,
                     'nation' => $person['nation'],
@@ -230,12 +241,18 @@ class FastboatCart extends Component
         }
 
         // insert promo
-        foreach($this->promos as $promo) {
+        foreach ($this->promos as $promo) {
             $order->promos()->create([
                 'promo_id' => $promo['id'],
                 'promo_code' => $promo['code'],
                 'promo_amount' => $promo['amount'],
             ]);
+            if ($promo['type'] == '4') {
+                FreeTiketPromos::create([
+                    'codition_type' => $promo['type'],
+                    'amount' => $promo['amount'],
+                ]);
+            }
         }
 
         // send email for payment purpose
@@ -254,6 +271,7 @@ class FastboatCart extends Component
     public function applyPromos()
     {
         $dates = [];
+        $qty = collect($this->carts)->value('qty');
         collect($this->carts)->map(function ($cart) use (&$dates) {
             $this->total += $cart['track']->price * $cart['qty'];
             $this->total_payed += $cart['track']->price * $cart['qty'];
@@ -263,35 +281,90 @@ class FastboatCart extends Component
         $promos = Promo::where([
             'is_active' => Promo::PROMO_ACTIVE,
         ])
-        ->where(function ($query) {
-            $query->whereDate('available_start_date', '<=', now())
-            ->whereDate('available_end_date', '>=', now());
+            ->where(function ($query) {
+                $query->whereDate('available_start_date', '<=', now())
+                    ->whereDate('available_end_date', '>=', now());
+            })
+            ->orwhere(function ($query) {
+                $query->whereNull('available_start_date')
+                ->whereNull('available_end_date');
+            })
+            ->where(function ($query) use ($dates) {
+                if (count($dates) > 0) {
+                    $query->whereDate('order_start_date', '<=', $dates[0])
+                        ->whereDate('order_end_date', '>=', $dates[0]);
+                }
+            })->orwhere(function ($query) {
+                $query->whereNull('order_start_date')
+                ->whereNull('order_end_date');
+            })
+            ->OrWhere(function ($query) {
+            $query->whereNotNull('condition_type');
         })
-        ->where(function ($query) use ($dates) {
-            if(count($dates) > 0) {
-                $query->whereDate('order_start_date', '<=', $dates[0])
-                    ->whereDate('order_end_date', '>=', $dates[0]);
-            }
-        })
-        ->get();
+            ->Leftjoin('order_promos', 'promo_id', '=', 'promos.id')
+            ->Leftjoin('orders', 'orders.id', '=', 'order_promos.order_id')
+            ->select('promos.*', DB::Raw('Count(promo_id) as used_promo,customer_id'))
+            ->groupBy('promos.id')
+            ->get();
+            foreach ($promos as $promokey => $promo) {
+                // var_dump($promo->condition_type);
+                 switch ($promo->condition_type) {
+                     case 2:
+                         $datetime1 = new DateTime($promo->available_start_date);
+                         $datetime2 = new DateTime($dates[0]);
 
-        foreach($promos as $promo) {
+                         if ($datetime1->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
+                             unset($promos[$promokey]);
+                         }
+                         break;
+                         case 3:
+                            $dateorder_start_date = new DateTime($promo->order_start_date);
+                            $datetime2 = new DateTime($dates[0]);
+
+                            if ($dateorder_start_date->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
+                                unset($promos[$promokey]);
+                            }
+                            break;
+
+                 }
+             }
+        foreach ($promos as $promokey => $promo) {
             $isPercent = false;
-            if ($promo->discount_type == Promo::TYPE_PERCENT) {
-                $isPercent = true;
-                $amount = ($this->total * $promo->discount_amount / 100);
+            $namedic = '';
+            if ($promo->order_perday_limit < $promo->used_promo || (Auth::guard('customer')->user() != null && Auth::guard('customer')->user()->id == $promo->id && $promo->user_perday_limit < $promo->used_promo)) {
+                unset($promos[$promokey]);
             } else {
-                $amount = $promo->discount_amount;
+                if ($promo->condition_type != 4) {
+                    $mod = 1;
+                    if ($promo->condition_type == 1) {
+                        if ($qty % $promo->amount_buys == 0) {
+                            $mod = $qty / $promo->amount_buys;
+                        }
+                    }
+
+                    if ($promo->discount_type == Promo::TYPE_PERCENT) {
+                        $isPercent = true;
+                        $amount = ($this->total * $promo->discount_amount / 100) * $mod;
+                    } else {
+                        $amount = $promo->discount_amount * $mod;
+                    }
+                    $this->discount += $amount;
+
+                    $namedic = $promo->name.' ( disc. '.$promo->discount_amount.($isPercent ? '% )' : ' )');
+
+                } else {
+                    $namedic = $promo->name.' ( Free Ticket. '.$promo->amount_tiket.')';
+                }
+                $this->promos[] = [
+                    'id' => $promo->id,
+                    'code' => $promo->code,
+                    'name' => $namedic,
+                    'amount' => $amount,
+                    'type' => $promo->condition_type,
+                    'order_start_date' => $promo->order_start_date,
+                    'ranges_day' => $promo->ranges_day,
+                ];
             }
-
-            $this->discount += $amount;
-
-            $this->promos[] = [
-                'id' => $promo->id,
-                'code' => $promo->code,
-                'name' => $promo->name.' ( disc. '.$promo->discount_amount.($isPercent ? '% )' : ' )'),
-                'amount' => $amount,
-            ];
         }
 
         $this->total_payed = $this->total_payed - $this->discount;

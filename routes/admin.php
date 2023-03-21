@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CarRentalController;
 use App\Http\Controllers\CustomerController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FastboatController;
 use App\Http\Controllers\FastboatDropoffController;
 use App\Http\Controllers\FastboatPlaceController;
+use App\Http\Controllers\FastboatTrackAgentController;
 use App\Http\Controllers\FastboatTrackController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GeneralController;
@@ -154,5 +156,18 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('order.edit');
         Route::put('/orders/{order}', [OrderController::class, 'update'])->name('order.update');
         Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
+
+         //Agen
+         Route::get('/agent', [AgentController::class, 'index'])->name('agent.index');
+         Route::post('/agent', [AgentController::class, 'store'])->name('agent.store');
+         Route::put('/agent/{agent}', [AgentController::class, 'update'])->name('agent.update');
+         Route::delete('/agent/{agent}', [AgentController::class, 'destroy'])->name('agent.destroy');
+         // Price Agent
+         Route::get('/price-agent', [FastboatTrackAgentController::class, 'index'])->name('price-agent.index');
+         Route::get('/price-agent/tracks/create', [FastboatTrackAgentController::class, 'create'])->name('price-agent.track.create');
+         Route::post('/price-agent/tracks', [FastboatTrackAgentController::class, 'store'])->name('price-agent.track.store');
+         Route::get('/price-agent/tracks/{priceagent}', [FastboatTrackAgentController::class, 'edit'])->name('price-agent.trackagent.edit');
+         Route::put('/price-agent/tracks/{group}', [FastboatTrackAgentController::class, 'update'])->name('price-agent.track.update');
+         Route::delete('/price-agent/tracks/{group}', [FastboatTrackAgentController::class, 'destroy'])->name('price-agent.track.destroy');
     });
 });
