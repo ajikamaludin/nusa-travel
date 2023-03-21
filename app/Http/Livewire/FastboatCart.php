@@ -283,14 +283,23 @@ class FastboatCart extends Component
         ])
             ->where(function ($query) {
                 $query->whereDate('available_start_date', '<=', now())
-                    ->whereDate('available_end_date', '>=', now());
+                    ->whereDate('available_end_date', '>=', now())
+                    ;
+            })
+            ->orwhere(function ($query){
+                $query->whereNull('available_start_date')
+                ->whereNull('available_end_date');
             })
             ->where(function ($query) use ($dates) {
                 if (count($dates) > 0) {
                     $query->whereDate('order_start_date', '<=', $dates[0])
                         ->whereDate('order_end_date', '>=', $dates[0]);
                 }
-            })->OrWhere(function ($query) {
+            })->orwhere(function ($query){
+                $query->whereNull('order_start_date')
+                ->whereNull('order_end_date');
+            })
+            ->OrWhere(function ($query) {
             $query->whereNotNull('condition_type');
         })
             ->Leftjoin('order_promos', 'promo_id', '=', 'promos.id')
