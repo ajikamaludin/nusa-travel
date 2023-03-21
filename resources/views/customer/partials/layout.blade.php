@@ -21,7 +21,7 @@
                     <a href="{{ route('customer.profile') }}" class="rounded-lg shadow p-2 hover:bg-gray-200">{{ __('website.Profile')}}</a>
                     <a href="{{ route('customer.orders') }}" class="rounded-lg shadow p-2 hover:bg-gray-200">{{ __('website.Order')}}</a>
                     @if(auth()->user()->is_agent =='1')
-                        <a href="{{ route('customer.token') }}" class="rounded-lg shadow p-2 hover:bg-gray-200">Api Token</a>
+                        <a href="{{ route('customer.apitoken') }}" class="rounded-lg shadow p-2 hover:bg-gray-200">Api Token</a>
                     @endif
                 </div>
                 <form method="POST" action="{{ route('customer.logout') }}" class="pt-10">
