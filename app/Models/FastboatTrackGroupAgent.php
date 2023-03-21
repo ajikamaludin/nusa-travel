@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FastTrackGroupAgents extends Model
+class FastboatTrackGroupAgent extends Model
 {
     protected $cascadeDeletes = ['tracksAgent'];
 

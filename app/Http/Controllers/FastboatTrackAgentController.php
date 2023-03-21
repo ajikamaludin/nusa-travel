@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\FastboatPlace;
 use App\Models\FastboatTrackAgent;
 use App\Models\FastboatTrackGroup;
-use App\Models\FastTrackGroupAgents;
+use App\Models\FastboatTrackGroupAgent;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,8 +15,7 @@ class FastboatTrackAgentController extends Controller
 {
     public function index(Request $request): Response
     {
-
-        $query = FastTrackGroupAgents::query()->with('trackGroup.fastboat', 'customer')
+        $query = FastboatTrackGroupAgent::query()->with('trackGroup.fastboat', 'customer')
         ->join('fastboat_track_agents', 'fastboat_track_agents.fast_track_group_agents_id', '=', 'fast_track_group_agents.id')
         ->select('fast_track_group_agents.*', DB::raw('sum(fastboat_track_agents.price) as price'))
         ->groupBy('fast_track_group_agents.id');
@@ -44,7 +43,7 @@ class FastboatTrackAgentController extends Controller
         ]);
     }
 
-    public function edit(Request $request, FastTrackGroupAgents $priceagent)
+    public function edit(Request $request, FastboatTrackGroupAgent $priceagent)
     {
 
         $place = FastboatPlace::query();
@@ -72,7 +71,7 @@ class FastboatTrackAgentController extends Controller
         ]);
         // dd($request->fastboat_id);
         DB::beginTransaction();
-        $group = FastTrackGroupAgents::create([
+        $group = FastboatTrackGroupAgent::create([
             'customer_id' => $request->customer_id,
             'fastboat_track_group_id' => $request->fastboat_id,
 
@@ -91,7 +90,7 @@ class FastboatTrackAgentController extends Controller
             ->with('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
-    public function update(Request $request, FastTrackGroupAgents $group): RedirectResponse
+    public function update(Request $request, FastboatTrackGroupAgent $group): RedirectResponse
     {
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
@@ -110,7 +109,7 @@ class FastboatTrackAgentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FastTrackGroupAgents $group): void
+    public function destroy(FastboatTrackGroupAgent $group): void
     {
         // dd($group);
         $group->delete();

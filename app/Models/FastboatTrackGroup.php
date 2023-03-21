@@ -47,6 +47,6 @@ class FastboatTrackGroup extends Model
 
     public function tracksAgentsgroup()
     {
-        return $this->hasMany(FastTrackGroupAgents::class);
+        return $this->hasMany(FastboatTrackGroupAgent::class);
     }
 }

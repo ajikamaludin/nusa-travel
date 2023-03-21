@@ -117,5 +117,5 @@ return [
     'By clicking the Payment button. you agree to the' => 'By clicking the Payment button. you agree to the',
     'Terms and Conditions' => 'Terms and Conditions',
     'and' => 'and',
-    'Privacy and Policy' => 'Privacy and Policy'
+    'Privacy and Policy' => 'Privacy and Policy',
 ];

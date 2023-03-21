@@ -17,15 +17,16 @@ class AuthenticateToken
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $token=$request->header('authorization');
-        $agent=Customer::where('token','=',$token)->first();
-        
-        if(!empty($agent)&&!empty($token)){
+        $token = $request->header('authorization');
+        $agent = Customer::where('token', '=', $token)->first();
+
+        if(! empty($agent) && ! empty($token)) {
             Auth::guard('authtoken')->setUser($agent);
+
             return $next($request);
-        }else{
-            return response('you are unauthorize',404);
+        }else {
+            return response('you are unauthorize', 404);
         }
-        
+
     }
 }

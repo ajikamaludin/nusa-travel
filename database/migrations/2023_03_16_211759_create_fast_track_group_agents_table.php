@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fast_track_group_agents', function (Blueprint $table) {
+        Schema::create('fastboat_track_group_agents', function (Blueprint $table) {
             $table->id();
             $table->string('fastboat_track_group_id');
             $table->string('customer_id');

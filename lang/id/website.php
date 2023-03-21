@@ -117,5 +117,5 @@ return [
     'By clicking the Payment button. you agree to the' => 'Dengan mengklik tombol Pembayaran. Anda setuju dengan',
     'Terms and Conditions' => 'Syarat dan Ketentuan',
     'and' => 'dan',
-    'Privacy and Policy' => 'Privasi dan Kebijakan'
+    'Privacy and Policy' => 'Privasi dan Kebijakan',
 ];

@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
         Schema::table('fastboat_track_agents', function (Blueprint $table) {
             $table->string('fast_track_group_agents_id');
-
         });
     }
 

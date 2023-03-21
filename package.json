@@ -25,6 +25,7 @@
         "flowbite": "^1.6.3",
         "flowbite-react": "^0.3.8",
         "is": "^3.3.0",
+        "l": "^0.6.0",
         "moment": "^2.29.4",
         "momentjs": "^2.0.0",
         "nprogress": "^0.2.0",

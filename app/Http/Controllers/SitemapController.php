@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class SitemapController extends Controller
 {
-    public function index(Request $request) 
+    public function index(Request $request)
     {
         $limit = 20;
         if($request->page != '') {
@@ -19,7 +19,7 @@ class SitemapController extends Controller
                 foreach($pages as $page) {
                     $posts[] = [
                         'url' => route('page.show', $page),
-                        'updated_at' => $page->updated_at->toISOString()
+                        'updated_at' => $page->updated_at->toISOString(),
                     ];
                 }
 
@@ -29,7 +29,7 @@ class SitemapController extends Controller
                     foreach($pages as $post) {
                         $posts[] = [
                             'url' => route('blog.post', $post),
-                            'updated_at' => $post->updated_at->toISOString()
+                            'updated_at' => $post->updated_at->toISOString(),
                         ];
                     }
                 }
@@ -42,11 +42,10 @@ class SitemapController extends Controller
                 foreach($pages as $post) {
                     $posts[] = [
                         'url' => route('blog.post', $post),
-                        'updated_at' => $post->updated_at->toISOString()
+                        'updated_at' => $post->updated_at->toISOString(),
                     ];
                 }
             }
-            
 
             return response()
             ->view('sitemap/page', [
@@ -54,11 +53,11 @@ class SitemapController extends Controller
             ], 200)
             ->header('Content-Type', 'application/atom+xml');
         }
-        
+
         $page = Page::count(); // 5
         $post = Post::count(); // 4
         $data = $post / $limit;
-        $data = floor($data) <= 0 ? 1 : floor($data) ;
+        $data = floor($data) <= 0 ? 1 : floor($data);
 
         return response()
             ->view('sitemap/index', [

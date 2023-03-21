@@ -85,7 +85,7 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     Route::get('/accept-cookie', [LandingController::class, 'acceptCookie'])->name('accept.cookie');
     Route::get('/{locale?}', [LandingController::class, 'index'])->name('home.index')
         ->whereIn('locale', ['en', 'id']);
-    
+
     // Sitemap
     Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 });

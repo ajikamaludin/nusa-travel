@@ -73,7 +73,7 @@ class FastboatCart extends Component
 
         $tracks = FastboatTrack::with(['destination', 'source', 'group.fastboat']);
         if (Auth::guard('customer')->check()) {
-            $tracks->Leftjoin('fastboat_track_agents', 'fastboat_track_id', '=', 'fastboat_tracks.id')
+            $tracks->leftJoin('fastboat_track_agents', 'fastboat_track_id', '=', 'fastboat_tracks.id')
                 ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by')
                 ->where('customer_id', '=', auth('customer')->user()->id);
         }
@@ -281,53 +281,54 @@ class FastboatCart extends Component
         $promos = Promo::where([
             'is_active' => Promo::PROMO_ACTIVE,
         ])
-            ->where(function ($query) {
-                $query->whereDate('available_start_date', '<=', now())
-                    ->whereDate('available_end_date', '>=', now());
-            })
-            ->orwhere(function ($query) {
-                $query->whereNull('available_start_date')
-                ->whereNull('available_end_date');
-            })
-            ->where(function ($query) use ($dates) {
-                if (count($dates) > 0) {
-                    $query->whereDate('order_start_date', '<=', $dates[0])
-                        ->whereDate('order_end_date', '>=', $dates[0]);
-                }
-            })->orwhere(function ($query) {
-                $query->whereNull('order_start_date')
+        ->where(function ($query) {
+            $query->whereDate('available_start_date', '<=', now())
+                ->whereDate('available_end_date', '>=', now());
+        })
+        ->orwhere(function ($query) {
+            $query->whereNull('available_start_date')
+            ->whereNull('available_end_date');
+        })
+        ->where(function ($query) use ($dates) {
+            if (count($dates) > 0) {
+                $query->whereDate('order_start_date', '<=', $dates[0])
+                    ->whereDate('order_end_date', '>=', $dates[0]);
+            }
+        })->orwhere(function ($query) {
+            $query->whereNull('order_start_date')
                 ->whereNull('order_end_date');
-            })
-            ->OrWhere(function ($query) {
+        })
+        ->OrWhere(function ($query) {
             $query->whereNotNull('condition_type');
         })
-            ->Leftjoin('order_promos', 'promo_id', '=', 'promos.id')
-            ->Leftjoin('orders', 'orders.id', '=', 'order_promos.order_id')
-            ->select('promos.*', DB::Raw('Count(promo_id) as used_promo,customer_id'))
-            ->groupBy('promos.id')
-            ->get();
-            foreach ($promos as $promokey => $promo) {
-                // var_dump($promo->condition_type);
-                 switch ($promo->condition_type) {
-                     case 2:
-                         $datetime1 = new DateTime($promo->available_start_date);
-                         $datetime2 = new DateTime($dates[0]);
+        ->leftJoin('order_promos', 'promo_id', '=', 'promos.id')
+        ->leftJoin('orders', 'orders.id', '=', 'order_promos.order_id')
+        ->select('promos.*', DB::Raw('Count(promo_id) as used_promo,customer_id'))
+        ->groupBy('promos.id')
+        ->get();
 
-                         if ($datetime1->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
-                             unset($promos[$promokey]);
-                         }
-                         break;
-                         case 3:
-                            $dateorder_start_date = new DateTime($promo->order_start_date);
-                            $datetime2 = new DateTime($dates[0]);
+        foreach ($promos as $promokey => $promo) {
+        // var_dump($promo->condition_type);
+            switch ($promo->condition_type) {
+                case 2:
+                    $datetime1 = new DateTime($promo->available_start_date);
+                    $datetime2 = new DateTime($dates[0]);
 
-                            if ($dateorder_start_date->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
-                                unset($promos[$promokey]);
-                            }
-                            break;
+                    if ($datetime1->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
+                        unset($promos[$promokey]);
+                    }
+                    break;
+                case 3:
+                    $dateorder_start_date = new DateTime($promo->order_start_date);
+                    $datetime2 = new DateTime($dates[0]);
 
-                 }
-             }
+                    if ($dateorder_start_date->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
+                        unset($promos[$promokey]);
+                    }
+                    break;
+            }
+        }
+
         foreach ($promos as $promokey => $promo) {
             $isPercent = false;
             $namedic = '';
