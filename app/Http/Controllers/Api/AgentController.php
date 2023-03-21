@@ -8,6 +8,7 @@ use App\Models\FastboatDropoff;
 use App\Models\FastboatTrack;
 use App\Models\FastboatTrackOrderCapacity;
 use App\Models\Order;
+use App\Http\Resources\TracksCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +29,12 @@ class AgentController extends Controller
     public function tracks(Request $request)
     {
         $queryDeparture = FastboatTrack::with(['source', 'destination', 'group.fastboat']);
+
+
+        $customerId = Auth::guard('authtoken')->user()->id;
+        $queryDeparture->Leftjoin('fastboat_track_agents', 'fastboat_track_id', '=', 'fastboat_tracks.id')
+            ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by')
+            ->where('customer_id', '=', $customerId);
         if ($request->has(['from']) && $request->has(['to']) && $request->has(['date'])) {
             $queryDeparture->whereHas('source', function ($query) use ($request) {
                 $query->where('name', '=', $request->from);
@@ -41,28 +48,10 @@ class AgentController extends Controller
                 $queryDeparture->whereTime('arrival_time', '>=', now());
             }
         }
-
-        $customerId = Auth::guard('authtoken')->user()->id;
-        $queryDeparture->Leftjoin('fastboat_track_agents', 'fastboat_track_id', '=', 'fastboat_tracks.id')
-            ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by')
-            ->where('customer_id', '=', $customerId);
-
         $fect = $queryDeparture->paginate();
-        $data = $fect->map(function ($track) {
-            return collect([
-                'id' => $track?->id,
-                'fastboat' => $track?->group?->fastboat?->name,
-                'from' => $track?->destination?->name,
-                'to' => $track?->source?->name,
-                'destination' => $track?->group?->name,
-                'arrival_time' => $track->arrival_time,
-                'departure_time' => $track->departure_time,
-                'price' => $track->price,
-                'capacity' => $track?->group?->fastboat?->capacity,
-            ]);
-        });
 
-        return $fect;
+        return new TracksCollection($fect);
+        ;
     }
 
     public function order(Request $request)
@@ -143,7 +132,7 @@ class AgentController extends Controller
         $item = $order->items()->create([
             'entity_order' => FastboatTrack::class,
             'entity_id' => $track->id,
-            'description' => $from.' - '.$to.' | '.$request->order['date'],
+            'description' => $from . ' - ' . $to . ' | ' . $request->order['date'],
             'amount' => $request->order['detail_order']['price'],
             'quantity' => $request->order['qty'],
             'date' => $request->order['date'],
