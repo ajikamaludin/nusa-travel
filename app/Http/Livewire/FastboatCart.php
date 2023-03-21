@@ -74,9 +74,13 @@ class FastboatCart extends Component
         $tracks = FastboatTrack::with(['destination', 'source', 'group.fastboat']);
         if (Auth::guard('customer')->check()) {
             if(auth('customer')->user()->is_agent==1){
-            $tracks->leftJoin('fastboat_track_agents', 'fastboat_track_id', '=', 'fastboat_tracks.id')
-                ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by')
-                ->where('customer_id', '=', auth('customer')->user()->id);
+            $customerId=auth('customer')->user()->id;
+            $tracks->leftJoin('fastboat_track_agents',function($join) use ($customerId){
+                $join->on('fastboat_track_id','=','fastboat_tracks.id');
+                $join->where('fastboat_track_agents.customer_id','=',$customerId);
+            })
+            ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by')
+            ;
             }
         }
         $tracks->whereIn('fastboat_tracks.id', $carts->keys())->get();

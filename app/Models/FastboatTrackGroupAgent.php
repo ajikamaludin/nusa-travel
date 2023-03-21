@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
 class FastboatTrackGroupAgent extends Model
 {
@@ -35,6 +34,6 @@ class FastboatTrackGroupAgent extends Model
 
     public function tracksAgent()
     {
-        return $this->hasMany(FastboatTrackAgent::class);
+        return $this->hasMany(FastboatTrackAgent::class,'fastboat_track_group_agents_id');
     }
 }

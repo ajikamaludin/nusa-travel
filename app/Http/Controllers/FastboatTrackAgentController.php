@@ -16,9 +16,9 @@ class FastboatTrackAgentController extends Controller
     public function index(Request $request): Response
     {
         $query = FastboatTrackGroupAgent::query()->with('trackGroup.fastboat', 'customer')
-        ->join('fastboat_track_agents', 'fastboat_track_agents.fastboat_track_group_agents_id', '=', 'fast_track_group_agents.id')
-        ->select('fast_track_group_agents.*', DB::raw('sum(fastboat_track_agents.price) as price'))
-        ->groupBy('fast_track_group_agents.id');
+        ->join('fastboat_track_agents', 'fastboat_track_agents.fastboat_track_group_agents_id', '=', 'fastboat_track_group_agents.id')
+        ->select('fastboat_track_group_agents.*', DB::raw('sum(fastboat_track_agents.price) as price'))
+        ->groupBy('fastboat_track_group_agents.id');
 
         if ($request->has('q')) {
             $query->whereHas('customer', function ($query) use ($request) {
