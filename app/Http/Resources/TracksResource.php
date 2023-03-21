@@ -24,7 +24,7 @@ class TracksResource extends JsonResource
             'arrival_time' => $this->arrival_time,
             'departure_time' => $this->departure_time,
             'price' => $this->price,
-            'capacity' => $this->group?->fastboat?->capacity,
+            'capacity' => $this->capacity,
         ];
     }
 }

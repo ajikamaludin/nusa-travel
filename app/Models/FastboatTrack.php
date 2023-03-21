@@ -160,9 +160,7 @@ class FastboatTrack extends Model
             }
         }
     }
-
-    public function trackAgent()
-    {
+    public function trackAgent(){
         return $this->hasMany(FastboatTrackAgent::class);
     }
 }
