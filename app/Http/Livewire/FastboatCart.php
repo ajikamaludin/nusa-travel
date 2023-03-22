@@ -12,6 +12,7 @@ use App\Models\FreeTicketPromo;
 use App\Models\Order;
 use App\Models\Promo;
 use App\Services\AsyncService;
+use App\Services\EkajayaService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -259,9 +260,16 @@ class FastboatCart extends Component
                 'date' => $cart['date'],
                 'pickup' => $pickup['name'] ?? null,
                 'pickup_id' => $pickup['id'] ?? null,
+                'data_source' => $cart['track']->data_source
                 // 'dropoff' => $dropoff?->name,
                 // 'dropoff_id' => $dropoff?->id,
             ]);
+
+            if ($cart['track']->data_source != null) {
+                AsyncService::async(function () use ($item) {
+                    EkajayaService::order($item);
+                });
+            }
 
             // update every track ordered pending
             $track = FastboatTrack::find($trackId);

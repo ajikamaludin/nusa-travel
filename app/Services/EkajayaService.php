@@ -30,7 +30,12 @@ class EkajayaService
 
         $key = $ways.'|'.$source.'_'.$destination.':'.$date;
 
-        if(!Cache::has($key) && app()->isProduction() == true) { 
+        $check = !Cache::has($key);
+        if (app()->isProduction() == false) {
+            $check = true;
+        }
+
+        if ($check) { 
             // cached for 1 hour, if has cache skip step below
             Cache::put($key, true, now()->addHour());
 
@@ -46,7 +51,7 @@ class EkajayaService
 
             $tracks = $response->json('data');
 
-            Log::info('response', [$tracks]);
+            Log::info('tracks response', [$tracks]);
 
             // if found result than record/upsert to db: tracks, capacities
             DB::beginTransaction();
@@ -110,14 +115,12 @@ class EkajayaService
                 ])->delete();
 
                 $fastboatTrack = $group->tracks()->withTrashed()->where([
-                    'fastboat_source_id' => $source->id,
-                    'fastboat_destination_id' => $destination->id,
-                    'is_publish' => 1,
-                    'data_source' => EkajayaService::class,
+                    'id' => $track['id'],
                 ])->first(); 
 
                 if ($fastboatTrack == null) {
                     $group->tracks()->create([
+                        'id' => $track['id'],
                         'arrival_time' => $track['arrival_time'],
                         'departure_time' => $track['departure_time'],
                         'price' => $track['price'],
@@ -173,7 +176,45 @@ class EkajayaService
 
     public static function order(OrderItem $order)
     {
-        // TODO: send item ordered to ekajaya
+        if ($order->entity_order != FastboatTrack::class) {
+            Log::info('order not fastboat track');
+            return;
+        }
+
+        $setting = Setting::getInstance();
+        $enable = $setting->getValue('EKAJAYA_ENABLE');
+
+        if ($enable == 0) {
+            return;
+        }
+
+        $host = $setting->getValue('EKAJAYA_HOST');
+        $apikey = $setting->getValue('EKAJAYA_APIKEY');
+
+        $persons = [];
+        foreach($order->passengers as $passenger) {
+            $persons[] = [
+                'national_id' => $passenger['national_id'],
+                'nation' => $passenger['nation'],
+                'name' => $passenger['name'],
+            ];
+        }
+
+        $response = Http::acceptJson()
+        ->withHeaders([
+            'authorization' => $apikey
+        ])->post($host.'/api/order', [
+            "order" => [
+                "date" => $order->date,
+                "qty" => $order->quantity,
+                "price" => $order->amount,
+                "total_payed" => $order->quantity * $order->amount,
+                "track_id" => $order->entity_id,
+            ],
+            "persons" => $persons,
+        ]);
+
+        Log::info("order create response", [$response->json()]);
     }
 
     public static function clear()

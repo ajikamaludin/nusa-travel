@@ -14,6 +14,7 @@ class FastboatTrack extends Model
     protected $ORDER_NAMES = ['source.name', 'destination.name'];
 
     protected $fillable = [
+        'id',
         'fastboat_track_group_id',
         'fastboat_source_id',
         'fastboat_destination_id',
