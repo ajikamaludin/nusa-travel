@@ -34,8 +34,8 @@ class PromoController extends Controller
             'name' => 'required|string',
             'is_active' => 'required|in:0,1',
             'cover_image' => 'nullable|image',
-            'discount_type' => 'required|in:0,1',
-            'discount_amount' => 'required|numeric|min:1',
+            'discount_type' => 'exclude_if:condition_type,!=,4|required|in:0,1',
+            'discount_amount' => 'exclude_if:condition_type,!=,4|required|numeric|min:1',
             'available_start_date' => 'nullable|date',
             'available_end_date' => 'nullable|date|gte:available_start_date',
             'order_start_date' => 'nullable|date',
@@ -44,7 +44,7 @@ class PromoController extends Controller
             'order_perday_limit' => 'nullable|numeric',
             'condition_type' => 'nullable|string',
             'amount_buys' => 'nullable|numeric',
-            'amount_tiket' => 'exclude_unless:condition_type,==,4|required|numeric|gt:1',
+            'amount_tiket' => 'exclude_if:condition_type,==,4|required|numeric|gt:0',
             'ranges_day' => 'nullable|numeric',
         ]);
 

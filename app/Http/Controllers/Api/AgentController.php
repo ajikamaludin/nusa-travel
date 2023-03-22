@@ -66,12 +66,13 @@ class AgentController extends Controller
             if ($rdate->isToday()) {
                 $query->whereTime('arrival_time', '>=', now());
             }
-
-            $query->leftJoin('fastboat_track_order_capacities', function ($join) use ($rdate) {
+            
+            $query->leftJoin('fastboat_track_order_capacities', function ($join) use ($request) {
                 $join->on('fastboat_track_order_capacities.fastboat_track_group_id', '=', 'fastboat_tracks.fastboat_track_group_id');
                 $join->on('fastboat_track_order_capacities.fastboat_source_id', '=', 'fastboat_tracks.fastboat_source_id');
-                $join->on('fastboat_track_order_capacities.fastboat_destination_id', '=', 'fastboat_tracks.fastboat_destination_id')
-                ->where('fastboat_track_order_capacities.date', '=', $rdate);
+                $join->on('fastboat_track_order_capacities.fastboat_destination_id', '=', 'fastboat_tracks.fastboat_destination_id');
+                $join->where('fastboat_track_order_capacities.date', '=', $request->date);
+                
             });
 
             $query->select(
@@ -87,7 +88,10 @@ class AgentController extends Controller
                 'fastboat_tracks.updated_at',
                 DB::raw('COALESCE (fastboat_track_order_capacities.capacity,fastboats.capacity) as capacity')
             );
+          
         }
+
+       
 
         return new FastboatTracksCollection($query->paginate());
     }
