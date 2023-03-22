@@ -14,7 +14,6 @@ use App\Models\Tag;
 use App\Models\TourPackage;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class DummySeeder extends Seeder

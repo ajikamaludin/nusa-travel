@@ -30,19 +30,19 @@ class EkajayaService
 
         $key = $ways.'|'.$source.'_'.$destination.':'.$date;
 
-        $check = !Cache::has($key);
+        $check = ! Cache::has($key);
         if (app()->isProduction() == false) {
             $check = true;
         }
 
-        if ($check) { 
+        if ($check) {
             // cached for 1 hour, if has cache skip step below
-            Cache::put($key, true, now()->addHour());
+            Cache::put($key, true, now()->addMinutes(15));
 
             // call api ekajaya for search
             $response = Http::acceptJson()
             ->withHeaders([
-                'authorization' => $apikey
+                'authorization' => $apikey,
             ])->get($host.'/api/tracks', [
                 'from' => $source,
                 'to' => $destination,
@@ -87,7 +87,7 @@ class EkajayaService
                         'id' => $track['fastboat_id'],
                         'name' => $track['fastboat'],
                         'capacity' => $track['capacity'],
-                        'data_source' => EkajayaService::class
+                        'data_source' => EkajayaService::class,
                     ]);
                 } else {
                     $fastboat->update([
@@ -101,8 +101,8 @@ class EkajayaService
                 if ($group == null) {
                     $group = FastboatTrackGroup::create([
                         'fastboat_id' => $fastboat->id,
-                        'name' => $track['from'] . ' - ' . $track['to'],
-                        'data_source' => EkajayaService::class
+                        'name' => $track['from'].' - '.$track['to'],
+                        'data_source' => EkajayaService::class,
                     ]);
                 } else {
                     $group->update(['deleted_at' => null]);
@@ -116,7 +116,7 @@ class EkajayaService
 
                 $fastboatTrack = $group->tracks()->withTrashed()->where([
                     'id' => $track['id'],
-                ])->first(); 
+                ])->first();
 
                 if ($fastboatTrack == null) {
                     $group->tracks()->create([
@@ -138,7 +138,7 @@ class EkajayaService
                         'fastboat_destination_id' => $destination->id,
                         'is_publish' => 1,
                         'data_source' => EkajayaService::class,
-                        'deleted_at'=> null
+                        'deleted_at' => null,
                     ]);
                 }
             }
@@ -150,15 +150,15 @@ class EkajayaService
 
                 if($source != null && $destination != null) {
                     $group = FastboatTrackGroup::where([
-                        ['name' => $source->name . ' - ' . $destination->name],
-                        ['data_source', '=', EkajayaService::class]
-                    ])->first(); 
-    
+                        ['name' => $source->name.' - '.$destination->name],
+                        ['data_source', '=', EkajayaService::class],
+                    ])->first();
+
                     if ($group != null) {
                         $group->tracks()->where([
                             ['fastboat_source_id', '=', $source->id],
                             ['fastboat_destination_id', '=', $destination->id],
-                            ['data_source', '=', EkajayaService::class,]
+                            ['data_source', '=', EkajayaService::class],
                         ])->delete();
 
                         FastboatTrackOrderCapacity::where([
@@ -178,6 +178,7 @@ class EkajayaService
     {
         if ($order->entity_order != FastboatTrack::class) {
             Log::info('order not fastboat track');
+
             return;
         }
 
@@ -202,19 +203,19 @@ class EkajayaService
 
         $response = Http::acceptJson()
         ->withHeaders([
-            'authorization' => $apikey
+            'authorization' => $apikey,
         ])->post($host.'/api/order', [
-            "order" => [
-                "date" => $order->date,
-                "qty" => $order->quantity,
-                "price" => $order->amount,
-                "total_payed" => $order->quantity * $order->amount,
-                "track_id" => $order->entity_id,
+            'order' => [
+                'date' => $order->date,
+                'qty' => $order->quantity,
+                'price' => $order->amount,
+                'total_payed' => $order->quantity * $order->amount,
+                'track_id' => $order->entity_id,
             ],
-            "persons" => $persons,
+            'persons' => $persons,
         ]);
 
-        Log::info("order create response", [$response->json()]);
+        Log::info('order create response', [$response->json()]);
     }
 
     public static function clear()

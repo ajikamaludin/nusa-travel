@@ -260,7 +260,7 @@ class FastboatCart extends Component
                 'date' => $cart['date'],
                 'pickup' => $pickup['name'] ?? null,
                 'pickup_id' => $pickup['id'] ?? null,
-                'data_source' => $cart['track']->data_source
+                'data_source' => $cart['track']->data_source,
                 // 'dropoff' => $dropoff?->name,
                 // 'dropoff_id' => $dropoff?->id,
             ]);
