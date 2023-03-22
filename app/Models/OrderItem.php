@@ -20,7 +20,7 @@ class OrderItem extends Model
         'dropoff',
         'dropoff_id',
         'pickup',
-        'pickup_id'
+        'pickup_id',
     ];
 
     protected $appends = ['detail'];

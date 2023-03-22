@@ -8,7 +8,7 @@ use WireUi\Traits\Actions;
 class SelectPassenger extends Component
 {
     use Actions;
-    
+
     public $passengers;
 
     public $infants;
@@ -32,6 +32,7 @@ class SelectPassenger extends Component
             );
 
             $this->infants = $this->passengers;
+
             return;
         }
         $this->emit('changeInfants', $value);

@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\Api\AgentController;
+use App\Http\Controllers\Api\CarRentalController;
 use App\Http\Controllers\Api\FastboatController;
 use App\Http\Controllers\Api\FastboatPlaceController;
 use App\Http\Controllers\Api\FastboatTrackController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\TagController;
-use App\Http\Controllers\Api\CarRentalController;
 use App\Http\Controllers\Website\OrderController;
 use App\Http\Middleware\AuthenticateToken;
 use Illuminate\Http\Request;

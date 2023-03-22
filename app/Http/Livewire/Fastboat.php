@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use WireUi\Traits\Actions;
 
 class Fastboat extends Component
 {

@@ -24,7 +24,7 @@ return new class extends Migration
                 ['id' => Str::uuid(), 'label' => 'Update Agent', 'name' => 'update-agent'],
                 ['id' => Str::uuid(), 'label' => 'View Agent', 'name' => 'view-agent'],
                 ['id' => Str::uuid(), 'label' => 'Delete Agent', 'name' => 'delete-agent'],
-    
+
                 ['id' => Str::uuid(), 'label' => 'View Price Agent', 'name' => 'view-price-agent'],
                 ['id' => Str::uuid(), 'label' => 'Create Price Agent', 'name' => 'create-price-agent'],
                 ['id' => Str::uuid(), 'label' => 'Update Price Agent', 'name' => 'update-price-agent'],

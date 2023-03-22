@@ -112,7 +112,7 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::post('/fastboat/pickup', [FastboatPickupController::class, 'store'])->name('fastboat.pickup.store');
         Route::put('/fastboat/pickup/{pickup}', [FastboatPickupController::class, 'update'])->name('fastboat.pickup.update');
         Route::delete('/fastboat/pickup/{pickup}', [FastboatPickupController::class, 'destroy'])->name('fastboat.pickup.destroy');
-        
+
         // Fastboat Place
         Route::get('/fastboat/places', [FastboatPlaceController::class, 'index'])->name('fastboat.place.index');
         Route::post('/fastboat/places', [FastboatPlaceController::class, 'store'])->name('fastboat.place.store');

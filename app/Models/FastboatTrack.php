@@ -21,7 +21,7 @@ class FastboatTrack extends Model
         'arrival_time',
         'departure_time',
         'is_publish',
-        'data_source'
+        'data_source',
     ];
 
     public function group()
@@ -67,13 +67,13 @@ class FastboatTrack extends Model
             get: fn (string $value) => substr($value, 0, 5),
         );
     }
-    
+
     protected function validatedPrice(): Attribute
     {
         return Attribute::make(
             get: function () {
                 if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->is_agent == Customer::AGENT) {
-                    $customerId =  Auth::guard('customer')->user()->id;
+                    $customerId = Auth::guard('customer')->user()->id;
                     $price = $this->trackAgent()->where('customer_id', $customerId)->first();
                     if ($price != null) {
                         return $price->price;

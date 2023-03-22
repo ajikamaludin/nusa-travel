@@ -10,7 +10,7 @@ class FastboatPickup extends Model
         'car_rental_id',
     ];
 
-    public function source() 
+    public function source()
     {
         return $this->belongsTo(FastboatPlace::class, 'source_id');
     }

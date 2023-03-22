@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 class FastboatTrackGroupAgent extends Model
 {
     protected $cascadeDeletes = ['tracksAgent'];
@@ -34,6 +33,6 @@ class FastboatTrackGroupAgent extends Model
 
     public function tracksAgent()
     {
-        return $this->hasMany(FastboatTrackAgent::class,'fastboat_track_group_agents_id');
+        return $this->hasMany(FastboatTrackAgent::class, 'fastboat_track_group_agents_id');
     }
 }

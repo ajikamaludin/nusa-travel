@@ -8,7 +8,7 @@ class FastboatPlace extends Model
 
     protected $fillable = [
         'name',
-        'data_source'
+        'data_source',
     ];
 
     public function tracks()

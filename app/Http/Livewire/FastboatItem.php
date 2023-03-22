@@ -3,8 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\FastboatTrack;
-use App\Models\Order;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class FastboatItem extends Component
@@ -93,7 +91,7 @@ class FastboatItem extends Component
         }
     }
 
-    public function changeRdate($value) 
+    public function changeRdate($value)
     {
         if ($this->type == 2) {
             $this->date = $value;

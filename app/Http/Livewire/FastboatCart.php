@@ -117,9 +117,9 @@ class FastboatCart extends Component
             }
         }
 
-        $origin = $this->carts->first()['track']->source->name;
-        $this->pickups = FastboatPickup::with(['car'])->whereHas('source',function ($query) use ($origin) {
-            $query->where('name', '=', $origin);
+        $origin = $this->carts->first()['track']->source->id;
+        $this->pickups = FastboatPickup::with(['car'])->whereHas('source', function ($query) use ($origin) {
+            $query->where('id', '=', $origin);
         })
         ->orderBy('name', 'asc')->get();
     }
@@ -284,7 +284,7 @@ class FastboatCart extends Component
             $order->items()->create([
                 'entity_order' => CarRental::class,
                 'entity_id' => $pickup['car']['id'],
-                'description' => 'Pickup: ' . $pickup['name']. '| '.$date,
+                'description' => 'Pickup: '.$pickup['name'].'| '.$date,
                 'amount' => $pickup['car']['price'],
                 'quantity' => 1,
                 'date' => $date,
@@ -387,9 +387,9 @@ class FastboatCart extends Component
         foreach ($promos as $promokey => $promo) {
             $isPercent = false;
             $namedic = '';
-            if ($promo->order_perday_limit < $promo->used_promo || 
-                    (Auth::guard('customer')->user() != null && 
-                        Auth::guard('customer')->user()->id == $promo->id && 
+            if ($promo->order_perday_limit < $promo->used_promo ||
+                    (Auth::guard('customer')->user() != null &&
+                        Auth::guard('customer')->user()->id == $promo->id &&
                         $promo->user_perday_limit < $promo->used_promo)
             ) {
                 unset($promos[$promokey]);

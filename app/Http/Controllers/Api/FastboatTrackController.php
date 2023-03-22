@@ -13,7 +13,7 @@ class FastboatTrackController extends Controller
         $query = FastboatTrackGroup::query()->with([
             'fastboat',
             'tracksAgent' => fn ($query) => $query->whereNull('customer_id')->orWhere('customer_id', '!=', $request->c),
-            'places.place', 'tracksAgent.source','tracksAgent.source','tracksAgent.destination',
+            'places.place', 'tracksAgent.source', 'tracksAgent.source', 'tracksAgent.destination',
         ]);
 
         if ($request->has('q')) {

@@ -14,7 +14,7 @@ class ProfileController extends Controller
         return view('customer.profile', [
             'customer' => Customer::find($request->user()->id),
         ]);
-        
+
     }
 
     public function apitoken(Request $request)
