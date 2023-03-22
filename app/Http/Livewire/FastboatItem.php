@@ -42,11 +42,6 @@ class FastboatItem extends Component
 
         $this->emit('choosedDepartureFastboat', ['type' => $this->type, 'track_id' => $this->track->id]);
 
-        // if(Auth::guard('customer')->check()) {
-        //     $this->user();
-        // } else {
-        //     $this->guest();
-        // }
         $this->emit('addCart');
     }
 
@@ -82,74 +77,6 @@ class FastboatItem extends Component
         }
 
         session(['carts' => $carts]);
-    }
-
-    public function guest()
-    {
-        $carts = session('carts') ?? [];
-
-        if (count($carts) > 0) {
-            try {
-                $isExists = $carts[$this->track->id];
-                if ($isExists != null) {
-                    $carts[$this->track->id]['qty'] += 1;
-                }
-            } catch (\Exception $e) {
-                $carts = array_merge($carts, [$this->track->id => ['qty' => 1, 'type' => FastboatTrack::class, 'date' => $this->date]]);
-            }
-        } else {
-            $carts = [$this->track->id => ['qty' => 1, 'type' => FastboatTrack::class, 'date' => $this->date]];
-        }
-
-        session(['carts' => $carts]);
-
-        return $carts;
-    }
-
-    public function user()
-    {
-        $cart = Order::where([
-            ['customer_id', '=', auth('customer')->user()->id],
-            ['order_type', '=', Order::TYPE_CART],
-        ])->with(['items'])->first();
-
-        // check is usert already has cart
-        if ($cart != null) {
-            $item = $cart->items->where('entity_id', $this->track->id)->first();
-            if ($item != null) {
-                $item->update(['quantity' => $item->quantity + 1]);
-            } else {
-                $cart->items()->create([
-                    'entity_order' => FastboatTrack::class,
-                    'entity_id' => $this->track->id,
-                    'description' => $this->track->order_detail,
-                    'amount' => $this->track->price,
-                    'quantity' => 1,
-                    'date' => $this->date,
-                ]);
-            }
-        } else {
-            $cart = Order::create([
-                'order_code' => Order::generateCode(),
-                'customer_id' => auth('customer')->user()->id,
-                'order_type' => Order::TYPE_CART,
-            ]);
-            $cart->items()->create([
-                'entity_order' => FastboatTrack::class,
-                'entity_id' => $this->track->id,
-                'description' => $this->track->order_detail,
-                'amount' => $this->track->price,
-                'quantity' => 1,
-                'date' => $this->date,
-            ]);
-        }
-
-        $carts = [];
-        foreach ($cart->items()->get() as $item) {
-            $carts[$item['entity_id']] = ['qty' => $item['quantity'], 'type' => FastboatTrack::class, 'date' => $this->date];
-        }
-
-        return $carts;
     }
 
     public function changePassengers($value)

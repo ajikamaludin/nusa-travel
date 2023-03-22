@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Mail\OrderPayment;
 use App\Models\Customer;
 use App\Models\FastboatDropoff;
+use App\Models\FastboatPickup;
 use App\Models\FastboatTrack;
 use App\Models\FreeTicketPromo;
 use App\Models\Order;
@@ -17,7 +18,6 @@ use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Nette\Utils\DateTime;
 
-// TODO: need to handle if user already login, provide contact automatily , if profile not compate in NIK, update the customers too
 class FastboatCart extends Component
 {
     public $show = true;
@@ -33,6 +33,12 @@ class FastboatCart extends Component
     public $dropoffs = [];
 
     public $dropoff;
+
+    public $pickups = [];
+
+    public $pickup;
+
+    public $pickupSelected;
 
     public $validContact = false;
 
@@ -55,15 +61,16 @@ class FastboatCart extends Component
             $this->validContact = true;
         }
         $this->persons = session()->get('persons', []);
-        $this->dropoff = session()->get('dropoff');
+        // $this->dropoff = session()->get('dropoff');
+        $this->pickup = session()->get('pickup');
+
         $this->isAllValid = $this->checkAllValid();
 
-        $this->dropoffs = FastboatDropoff::orderBy('name', 'asc')->get();
+        // $this->dropoffs = FastboatDropoff::orderBy('name', 'asc')->get();
     }
 
     public function booted()
     {
-        //dd(session()->get('carts'));
         $carts = session()->get('carts') ?? [];
         $carts = collect($carts)->filter(function ($cart) {
             if (array_key_exists('fastboat_cart', $cart)) {
@@ -73,18 +80,17 @@ class FastboatCart extends Component
 
         $tracks = FastboatTrack::with(['destination', 'source', 'group.fastboat']);
         if (Auth::guard('customer')->check()) {
-            if(auth('customer')->user()->is_agent==1){
-            $customerId=auth('customer')->user()->id;
-            $tracks->leftJoin('fastboat_track_agents',function($join) use ($customerId){
-                $join->on('fastboat_track_id','=','fastboat_tracks.id');
-                $join->where('fastboat_track_agents.customer_id','=',$customerId);
-            })
-            ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by')
-            ;
+            if (auth('customer')->user()->is_agent == 1) {
+                $customerId = auth('customer')->user()->id;
+                $tracks->leftJoin('fastboat_track_agents',function($join) use ($customerId){
+                    $join->on('fastboat_track_id','=','fastboat_tracks.id');
+                    $join->where('fastboat_track_agents.customer_id','=',$customerId);
+                })
+                ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by');
             }
         }
         $tracks->whereIn('fastboat_tracks.id', $carts->keys())->get();
-        // dd($tracks->toSql());
+
         $this->carts = $carts->map(function ($cart, $key) use ($tracks) {
             $cart['track'] = $tracks->where('fastboat_tracks.id', $key)->first();
             if (! property_exists($this, 'showPerson_1')) {
@@ -102,6 +108,12 @@ class FastboatCart extends Component
                 $this->persons[$i] = [];
             }
         }
+
+        $origin = $this->carts->first()['track']->source->name;
+        $this->pickups = FastboatPickup::with(['car'])->whereHas('source',function ($query) use ($origin) {
+            $query->where('name', '=', $origin);
+        })
+        ->orderBy('name', 'asc')->get();
     }
 
     public function render()
@@ -181,7 +193,8 @@ class FastboatCart extends Component
         session([
             'persons' => $this->persons,
             'contact' => $this->contact,
-            'dropoff' => $this->dropoff,
+            'pickup' => $this->pickup,
+            // 'dropoff' => $this->dropoff,
         ]);
 
         $this->applyPromos();
@@ -190,7 +203,6 @@ class FastboatCart extends Component
 
     public function payment()
     {
-
         DB::beginTransaction();
         if (Auth::guard('customer')->check()) {
             $customer = Auth::guard('customer')->user();
@@ -206,7 +218,8 @@ class FastboatCart extends Component
             );
         }
 
-        $dropoff = FastboatDropoff::where('name', $this->dropoff)->first();
+        // $dropoff = FastboatDropoff::where('name', $this->dropoff)->first();
+        $pickup = FastboatPickup::where('name', $this->pickup)->first();
 
         // create order
         $order = Order::create([
@@ -227,8 +240,10 @@ class FastboatCart extends Component
                 'amount' => $cart['track']->price,
                 'quantity' => $cart['qty'],
                 'date' => $cart['date'],
-                'dropoff' => $dropoff?->name,
-                'dropoff_id' => $dropoff?->id,
+                'pickup' => $pickup?->name,
+                'pickup_id' => $pickup?->id,
+                // 'dropoff' => $dropoff?->name,
+                // 'dropoff_id' => $dropoff?->id,
             ]);
 
             // update every track ordered pending
@@ -375,5 +390,10 @@ class FastboatCart extends Component
         }
 
         $this->total_payed = $this->total_payed - $this->discount;
+    }
+
+    public function updatingPickup($value)
+    {
+        $this->pickupSelected = collect($this->pickups)->where('name', $value)->first();
     }
 }

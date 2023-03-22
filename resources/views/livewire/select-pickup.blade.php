@@ -1,8 +1,8 @@
 <div>
     <x-select
-        wire:model="dropoff"
-        placeholder="Dropoff"
-        :options="$dropoffs"
+        wire:model="pickup"
+        placeholder="Pickup"
+        :options="$pickups"
         :min-items-for-search="5"
         :clearable="true"
         option-label="name"

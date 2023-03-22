@@ -230,6 +230,7 @@
                 </div>
 
                 <!-- dropoffs -->
+                {{-- 
                 <div class="w-full p-4 pt-0">
                     <div class="font-bold">
                         {{ __('website.Dropoff')}} ({{ __('website.Optional')}})
@@ -247,7 +248,30 @@
                         autocomplate="off"
                         right-icon="location-marker"
                     />
-                </div>
+                </div> 
+                --}}
+
+                @if(count($pickups) > 0)
+                    <!-- pickups -->
+                    <div class="w-full p-4 pt-0">
+                        <div class="font-bold">
+                            Pickup ({{ __('website.Optional')}})
+                        </div>
+                        <x-select
+                            wire:model="pickup"
+                            placeholder="Pickup"
+                            :options="$pickups"
+                            :min-items-for-search="5"
+                            :clearable="true"
+                            option-label="name"
+                            option-value="name"
+                            name="from"
+                            required="true"
+                            autocomplate="off"
+                            right-icon="location-marker"
+                        />
+                    </div> 
+                @endif
 
                 <!-- continue button -->
                 <div class="w-full text-center" wire:loading.delay.long>
@@ -282,7 +306,7 @@
                     @if($dropoff != '')
                     <div class="bg-white flex flex-row p-1 justify-between">
                         <span class="flex flex-row gap-1 items-center font-light text-gray-400">
-                            {{ __('website.Dropoff')}}: {{ $dropoff }}
+                            Pickup: {{ $pickup }}
                         </span>
                     </div>
                     @endif
@@ -304,6 +328,17 @@
                             <span> {{ number_format($cart['qty'] * $cart['track']->price, 0, ',' , '.') }} </span>
                         </div>
                     @endforeach
+                    @if($pickup != '')
+                    <div class="bg-white flex flex-row border-b-2 p-1 justify-between">
+                        <span class="flex flex-row gap-1 items-center">
+                            {{ $cart['track']->source->name  }} 
+                            <x-icon name="arrow-right" class="w-3 h-3" />
+                            {{ $cart['track']->destination->name  }}
+                        </span>
+                        <span> x {{ $cart['qty'] }} </span>
+                        <span> {{ number_format($cart['qty'] * $cart['track']->price, 0, ',' , '.') }} </span>
+                    </div>
+                    @endif
 
                     @if($discount != 0)
                         <div class="bg-white flex flex-row border-b-2 p-1 justify-between">

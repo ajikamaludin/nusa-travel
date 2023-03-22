@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('fastboat_tracks', function ($table) {
-            $table->string('source')->nullable();
+            $table->string('data_source')->nullable();
         });
         Schema::table('fastboat_places', function ($table) {
-            $table->string('source')->nullable();
+            $table->string('data_source')->nullable();
         });
         Schema::table('order_item_passengers', function ($table) {
             $table->string('type')->nullable();
