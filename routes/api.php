@@ -42,7 +42,7 @@ Route::post('/notification-payment', [OrderController::class, 'payment_notificat
 
 // api for agents
 Route::middleware([AuthenticateToken::class])->group(function () {
-    Route::get('/dropoff', [AgentController::class, 'dropoff']);
+    Route::get('/pickups', [AgentController::class, 'pickups']);
     Route::get('/tracks', [AgentController::class, 'tracks']);
     Route::post('/order', [AgentController::class, 'order']);
 

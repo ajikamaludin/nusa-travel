@@ -16,6 +16,6 @@ class FastboatPlaceController extends Controller
             $query->where('name', 'like', "%{$request->q}%");
         }
 
-        return $query->get();
+        return $query->select(['name', 'id'])->get();
     }
 }

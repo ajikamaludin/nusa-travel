@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\TracksCollection;
+use App\Http\Resources\PickupsCollection;
+use App\Http\Resources\FastboatTracksCollection;
 use App\Models\Customer;
 use App\Models\FastboatDropoff;
+use App\Models\FastboatPickup;
 use App\Models\FastboatTrack;
 use App\Models\FastboatTrackOrderCapacity;
 use App\Models\Order;
@@ -37,7 +39,20 @@ class AgentController extends Controller
         })
         ->leftJoin('fastboat_track_groups','fastboat_track_groups.id','=','fastboat_tracks.fastboat_track_group_id')
         ->leftJoin('fastboats','fastboats.id','=','fastboat_track_groups.fastboat_id')
-        ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_tracks.fastboat_source_id', 'fastboat_tracks.fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by','fastboats.capacity as capacity');
+        ->select(
+            'fastboat_tracks.id as id', 
+            'fastboat_tracks.fastboat_track_group_id', 
+            'fastboat_tracks.fastboat_source_id', 
+            'fastboat_tracks.fastboat_destination_id', 
+            'arrival_time',
+            'departure_time',
+            DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 
+            'is_publish', 
+            'fastboat_tracks.created_at', 
+            'fastboat_tracks.updated_at', 
+            'fastboat_tracks.created_by',
+            'fastboats.capacity as capacity'
+        );
 
         if ($request->from != '' && $request->to != '' && $request->date != '') {
             $query->whereHas('source', function ($query) use ($request) {
@@ -60,79 +75,64 @@ class AgentController extends Controller
                 ->where('fastboat_track_order_capacities.date','=',$rdate);
             });
 
-            $query->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_tracks.fastboat_source_id', 'fastboat_tracks.fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by', DB::raw('COALESCE (fastboat_track_order_capacities.capacity,fastboats.capacity) as capacity'));
+            $query->select(
+                'fastboat_tracks.id as id', 
+                'fastboat_tracks.fastboat_track_group_id', 
+                'fastboat_tracks.fastboat_source_id', 
+                'fastboat_tracks.fastboat_destination_id', 
+                'arrival_time', 
+                'departure_time', 
+                DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 
+                'is_publish', 
+                'fastboat_tracks.created_at', 
+                'fastboat_tracks.updated_at', 
+                DB::raw('COALESCE (fastboat_track_order_capacities.capacity,fastboats.capacity) as capacity')
+            );
         }
 
-        return new TracksCollection($query->paginate());
+        return new FastboatTracksCollection($query->paginate());
     }
 
     public function order(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255|min:3',
-            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:20',
-            'nation' => 'required|string',
-            'national_id' => 'required|numeric',
-            'email' => 'required|email',
             'persons' => 'required|array',
             'persons.*.name' => 'required|string|max:255|min:3',
             'persons.*.nation' => 'required|string',
             'persons.*.national_id' => 'required|numeric',
             'order' => 'required|array',
-            'order.qty' => 'required|numeric',
-            'order.type_order' => 'required|string',
             'order.date' => 'required|string',
+            'order.qty' => 'required|numeric',
+            'order.price' => 'required|numeric',
             'order.total_payed' => 'required|numeric',
-            'order.detail_order' => 'required|array',
-            'order.detail_order.track_id' => 'required|string|exists:fastboat_tracks,id',
-            'order.detail_order.fastboat' => 'required|string',
-            'order.detail_order.from' => 'required|string',
-            'order.detail_order.to' => 'required|string',
-            'order.detail_order.price' => 'required|numeric',
-            'order.detail_order.arrival_time' => 'required|string',
-            'order.detail_order.departure_time' => 'required|string',
+            'order.track_id' => 'required|string|exists:fastboat_tracks,id',
         ]);
-        // dd($request->order);
+
+        if($request->order['qty'] != count($request->persons)) {
+            return response()->json([
+                'message' => 'Failed',
+                'details' => 'Persons must be match with order.qty',
+            ], 400);
+        }
+
         DB::beginTransaction();
-        $customer = Customer::hardSearch(
-            $request->phone,
-            $request->national_id,
-            $request->email,
-            [
-                'name' => $request->name,
-                'nation' => $request->nation,
-            ]
-        );
 
-        $dropoff = FastboatDropoff::where('name', $request->dropoff)->first();
-
+        $customerId = Auth::guard('authtoken')->user()->id;
         $order = Order::create([
             'order_code' => Order::generateCode(),
-            'customer_id' => $customer->id,
+            'customer_id' => $customerId,
             'total_amount' => $request->order['total_payed'],
             'order_type' => Order::TYPE_ORDER,
             'date' => now(),
         ]);
 
-        $from = $request->order['detail_order']['from'];
-        $to = $request->order['detail_order']['to'];
-
         $track = FastboatTrack::with(['source', 'destination', 'group.fastboat'])
-            ->where('id', $request->order['detail_order']['track_id'])
+            ->where('id', $request->order['track_id'])
             ->first();
 
-        $cap = FastboatTrackOrderCapacity::where([
-            'fastboat_track_group_id' => $track->fastboat_track_group_id,
-            'fastboat_source_id' => $track->fastboat_source_id,
-            'fastboat_destination_id' => $track->fastboat_destination_id,
-            'date' => $request->order['date'],
-        ])->value('capacity');
+        $capacity = $track->getCapacity($request->order['date']);
 
-        if ($cap != null) {
-            $cap = $track->group->fastboat->capacity;
-        }
-
-        if ($cap < $request->order['qty']) {
+        if ($capacity < $request->order['qty']) {
             DB::rollBack();
 
             return response()->json([
@@ -144,12 +144,10 @@ class AgentController extends Controller
         $item = $order->items()->create([
             'entity_order' => FastboatTrack::class,
             'entity_id' => $track->id,
-            'description' => $from.' - '.$to.' | '.$request->order['date'],
-            'amount' => $request->order['detail_order']['price'],
+            'description' => $track->source->name.' - '.$track->destination->name.' | '.$request->order['date'],
+            'amount' => $request->order['price'],
             'quantity' => $request->order['qty'],
             'date' => $request->order['date'],
-            'dropoff' => $dropoff?->name,
-            'dropoff_id' => $dropoff?->id,
         ]);
 
         // update every track ordered pending
@@ -158,7 +156,7 @@ class AgentController extends Controller
         // insert every person in order to every item
         foreach ($request->persons as $index => $person) {
             $item->passengers()->create([
-                'customer_id' => $index == 0 ? $customer->id : null,
+                'customer_id' => $index == 0 ? $customerId : null,
                 'nation' => $person['nation'],
                 'national_id' => $person['national_id'],
                 'name' => $person['name'],
@@ -169,17 +167,17 @@ class AgentController extends Controller
 
         return response()->json([
             'message' => 'Succses',
-            'details' => 'order recorded',
-        ], 200);
+            'details' => 'Order recorded',
+        ], 201);
     }
 
-    public function dropoff(Request $request)
+    public function pickups(Request $request)
     {
-        $query = FastboatDropoff::query();
+        $query = FastboatPickup::query()->with(['car', 'source']);
         if ($request->has('name')) {
             $query->where('name', 'like', "%{$request->name}%");
         }
 
-        return $query->paginate();
+        return new PickupsCollection($query->paginate());
     }
 }

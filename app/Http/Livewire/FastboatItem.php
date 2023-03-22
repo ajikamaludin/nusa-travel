@@ -11,7 +11,8 @@ class FastboatItem extends Component
 {
     protected $listeners = [
         'changePassengers' => 'changePassengers',
-        'changeInfants' => 'changeInfants',
+        // 'changeDate' => 'changeDate',
+        // 'changeRdate' => 'changeRdate',
     ];
 
     public $track;
@@ -84,8 +85,19 @@ class FastboatItem extends Component
         $this->quantity = $value;
     }
 
-    public function changeInfants($value)
+    public function changeDate($value)
     {
-        // $this->infants = $value;
+        if ($this->type == 1) {
+            $this->date = $value;
+            $this->avalaible = $this->track->getCapacity($this->date);
+        }
+    }
+
+    public function changeRdate($value) 
+    {
+        if ($this->type == 2) {
+            $this->date = $value;
+            $this->avalaible = $this->track->getCapacity($this->date);
+        }
     }
 }

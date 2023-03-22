@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class TracksCollection extends ResourceCollection
+class PickupsCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,9 +14,8 @@ class TracksCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        // return parent::toArray($request);
         return [
-            'data' => TracksResource::collection($this->collection),
+            'data' => PickupsResource::collection($this->collection),
         ];
     }
 }

@@ -20,13 +20,12 @@ class AuthenticateToken
         $token = $request->header('authorization');
         $agent = Customer::where('token', '=', $token)->first();
 
-        if(! empty($agent) && ! empty($token)) {
+        if ($agent != null) {
             Auth::guard('authtoken')->setUser($agent);
 
             return $next($request);
-        }else {
+        } else {
             return response()->json(['message' => 'unauthorize'], 401);
         }
-
     }
 }
