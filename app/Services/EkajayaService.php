@@ -144,27 +144,34 @@ class EkajayaService
             }
 
             if(count($tracks) == 0) {
+                Log::info('tracks api clearing');
                 // if no result fount than check db , if any remove record
-                $source = Fastboat::where('name', $source)->first();
-                $destination = Fastboat::where('name', $destination)->first();
+                $s = FastboatPlace::where([
+                    ['name', '=', $source],
+                    ['data_source', '=', EkajayaService::class]
+                ])->first();
 
-                if($source != null && $destination != null) {
-                    $group = FastboatTrackGroup::where([
-                        ['name' => $source->name.' - '.$destination->name],
+                $d = FastboatPlace::where([
+                    ['name', '=', $destination],
+                    ['data_source', '=', EkajayaService::class]
+                ])->first();
+
+                dump([$s->name, $d->name]);
+
+                if($s != null && $d != null) {
+                    $groups = FastboatTrackGroup::where([
+                        ['name', '=', $s->name.' - '.$d->name],
                         ['data_source', '=', EkajayaService::class],
-                    ])->first();
+                    ])->get();
 
-                    if ($group != null) {
+                    foreach($groups as $group) {
                         $group->tracks()->where([
-                            ['fastboat_source_id', '=', $source->id],
-                            ['fastboat_destination_id', '=', $destination->id],
-                            ['data_source', '=', EkajayaService::class],
+                            ['fastboat_source_id', '=', $s->id],
+                            ['fastboat_destination_id', '=', $d->id],
                         ])->delete();
 
                         FastboatTrackOrderCapacity::where([
                             ['fastboat_track_group_id', '=', $group->id],
-                            ['fastboat_source_id', '=', $source->id],
-                            ['fastboat_destination_id', '=', $destination->id],
                         ])->delete();
                     }
                 }
