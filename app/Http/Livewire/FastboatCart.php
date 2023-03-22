@@ -84,7 +84,6 @@ class FastboatCart extends Component
             }
         }
         $tracks->whereIn('fastboat_tracks.id', $carts->keys())->get();
-        // dd($tracks->toSql());
         $this->carts = $carts->map(function ($cart, $key) use ($tracks) {
             $cart['track'] = $tracks->where('fastboat_tracks.id', $key)->first();
             if (! property_exists($this, 'showPerson_1')) {
