@@ -427,7 +427,7 @@ class FastboatCart extends Component
                     'id' => $promo->id,
                     'code' => $promo->code,
                     'name' => $namedic,
-                    'amount' => $amount,
+                    'amount' => $amount ?? 0,
                     'type' => $promo->condition_type,
                     'order_start_date' => $promo->order_start_date,
                     'ranges_day' => $promo->ranges_day,

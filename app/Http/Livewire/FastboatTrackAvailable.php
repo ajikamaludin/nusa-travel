@@ -130,7 +130,6 @@ class FastboatTrackAvailable extends Component
     {
         if ($this->from != null && $this->to != null) {
             $this->show = true;
-            // TODO: call ekajaya service api
             EkajayaService::search($this->from, $this->to, $this->date, $this->ways);
 
             $queryDeparture = FastboatTrack::with(['source', 'destination', 'group.fastboat'])
@@ -162,6 +161,8 @@ class FastboatTrackAvailable extends Component
             $this->trackDepartures = $queryDeparture->where('is_publish', 1);
 
             if ($this->ways == 2) {
+                EkajayaService::search($this->to, $this->from, $this->date, $this->ways);
+
                 $queryReturns = FastboatTrack::with(['source', 'destination'])
                 ->whereHas('source', function ($query) {
                     $query->where('name', '=', $this->to);

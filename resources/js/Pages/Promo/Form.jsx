@@ -24,7 +24,7 @@ export default function Form(props) {
         order_end_date: '',
         user_perday_limit: '',
         order_perday_limit: '',
-        condition_type: '',
+        condition_type: '0',
         amount_buys: '',
         amount_tiket: '',
         ranges_day: '',
