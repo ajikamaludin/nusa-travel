@@ -73,7 +73,7 @@ class FastboatTrackAgentController extends Controller
             'customer_id' => 'required|exists:customers,id',
             'fastboat_track_group_id' => 'required|exists:fastboat_track_groups,id',
             'tracks' => 'required|array',
-            'tracks.*.id' => 'required|exists:fastboat_tracks,id',
+            'tracks.*.id' => 'required|exists:fastboat_track_agents,id',
             'tracks.*.price' => 'required|numeric',
         ]);
 
