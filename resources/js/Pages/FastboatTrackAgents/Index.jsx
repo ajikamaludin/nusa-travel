@@ -89,14 +89,14 @@ export default function Index(props) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {data.map((priceagent,index) => (
+                                        {data.map((group,index) => (
                                             <tr className="bg-white border-b" key={index+1}>
                                                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {priceagent?.customer?.name}
+                                                    {group?.customer?.name}
                                                 </td>
 
                                                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {priceagent?.track_group?.name} ( {priceagent?.track_group?.fastboat?.name} )
+                                                    {group?.track_group?.name} ( {group?.track_group?.fastboat?.name} )
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown
@@ -108,14 +108,14 @@ export default function Index(props) {
                                                     >
                                                         {canUpdate && (
                                                             <Dropdown.Item>
-                                                                <Link href={route('price-agent.trackagent.edit', priceagent)} className='flex space-x-1 items-center'>
+                                                                <Link href={route('price-agent.trackagent.edit', group)} className='flex space-x-1 items-center'>
                                                                     <HiPencil />
                                                                     <div>Ubah</div>
                                                                 </Link>
                                                             </Dropdown.Item>
                                                         )}
                                                         {canDelete && (
-                                                            <Dropdown.Item onClick={() => handleDeleteClick(priceagent)}>
+                                                            <Dropdown.Item onClick={() => handleDeleteClick(group)}>
                                                                 <div className='flex space-x-1 items-center'>
                                                                     <HiTrash />
                                                                     <div>Hapus</div>

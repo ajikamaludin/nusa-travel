@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('fastboat_track_agents', function (Blueprint $table) {
-            $table->string('fastboat_track_group_agents_id');
+            $table->string('fastboat_track_agent_group_id');
         });
 
         $check = Permission::where('name', 'view-price-agent')->first();

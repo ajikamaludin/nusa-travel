@@ -28,6 +28,7 @@ class FastboatTracksResource extends JsonResource
             'price' => $this->price,
             'capacity' => $this->capacity,
             'updated_at' => $this->updated_at->format('d-m-Y H:m'),
+            'source' => $this->data_source,
         ];
     }
 }

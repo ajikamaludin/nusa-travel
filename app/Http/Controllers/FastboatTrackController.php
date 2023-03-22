@@ -157,14 +157,14 @@ class FastboatTrackController extends Controller
                 $matchs[] = $places[$index]['place']->id == $gp->fastboat_place_id;
             }
 
-            $match = !in_array(false, $matchs);
+            $match = ! in_array(false, $matchs);
         }
 
         if ($match) {
             $tracks = collect($request->tracks);
             $group->tracks()->each(function ($gtrack) use ($tracks) {
                 $track = $tracks->where('fastboat_source_id', '=', $gtrack->fastboat_source_id)
-                ->where('fastboat_destination_id','=', $gtrack->fastboat_destination_id)->first();
+                ->where('fastboat_destination_id', '=', $gtrack->fastboat_destination_id)->first();
 
                 $gtrack->update([
                     'fastboat_source_id' => $track['fastboat_source_id'],

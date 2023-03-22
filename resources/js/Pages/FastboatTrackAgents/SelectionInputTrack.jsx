@@ -17,8 +17,7 @@ export default function SelectionInputTrack(props) {
         placeholder = '',
         error = '',
         all = 0,
-        customer_id,
-        ontracks = () => { },
+        customer_id = '',
     } = props
 
     const [showItems, setShowItem] = useState([])
@@ -42,30 +41,11 @@ export default function SelectionInputTrack(props) {
         setQuery('')
         setIsOpen(!isOpen)
     }
-  
+
     const handleSelectItem = (item) => {
-        let tracks = []
-        item.tracks_agent.map((track)=>{
-            tracks.push({
-                tracks: {
-                    id: track.id,
-                    source: track.source,
-                    destination:track.destination,
-                    fastboat_source_id: track.fastboat_source_id,
-                    fastboat_destination_id: track.fastboat_destination_id,
-                    price: track.price,
-                    arrival_time: track.arrival_time,
-                    departure_time: track.departure_time,
-                    is_publish: 1,
-                }, id: track.id, price: track.price,
-            });
-        })
-        
         setIsSelected(true)
-        onItemSelected(item.id);
-        let select = item.name + " (" + item.fastboat.name + ")";
-        setSelected(select)
-        ontracks(tracks, item.places, item.id)
+        onItemSelected(item);
+        setSelected(item.name + " (" + item.fastboat.name + ")")
         setIsOpen(false)
     }
 
@@ -99,22 +79,20 @@ export default function SelectionInputTrack(props) {
 
     const fetch = (q = '') => {
         setLoading(true)
-        // if (customer_id != '') {
-        axios.get(route('api.fasboat.track.index', { 'q': q, 'all': all, 'c': customer_id }), {
+        axios.get(route('api.fasboat.track.index', { 'q': q, 'all': all, 'customer_id': customer_id }), {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + auth.user.jwt_token
             }
         })
-            .then((response) => {
-                setShowItem(response.data)
+        .then((response) => {
+            setShowItem(response.data)
 
-            })
-            .catch((err) => {
-                alert(err)
-            })
-            .finally(() => setLoading(false))
-        // }
+        })
+        .catch((err) => {
+            alert(err)
+        })
+        .finally(() => setLoading(false))
     }
 
     // every select item open
@@ -126,9 +104,7 @@ export default function SelectionInputTrack(props) {
 
     // once page load
     useEffect(() => {
-
         fetch();
-
     }, [])
 
     useEffect(() => {
@@ -139,14 +115,15 @@ export default function SelectionInputTrack(props) {
 
     useEffect(() => {
         if (itemSelected !== null) {
-
             const item = showItems.find(item => item.id === itemSelected)
             if (item) {
-                let select = item.name + " (" + item.fastboat.name + ")";
-                setSelected(select)
+                setSelected(item.name + " (" + item.fastboat.name + ")")
                 setIsSelected(true)
             }
             return
+        }
+        if(itemSelected === '') {
+            setSelected('')
         }
         setIsSelected(false)
     }, [itemSelected, loading])
@@ -157,7 +134,7 @@ export default function SelectionInputTrack(props) {
             setIsSelected(false)
         }
     }, [isSelected])
-    // console.log(showItems)
+
     return (
         <div className="flex flex-col items-center" ref={ref}>
             <div className="w-full flex flex-col items-center">
@@ -226,24 +203,22 @@ export default function SelectionInputTrack(props) {
                                     ) : (
                                         <>
                                             {showItems.map((item, index) => (
-                                                item.tracks_agent.length != 0 && (
-                                                    <div
-                                                        key={index}
-                                                        onClick={() =>
-                                                            handleSelectItem(item)
-                                                        }
-                                                    >
-                                                        <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-neutral-content hover:bg-gray-400 bg-opacity-10 dark:hover:bg-gray-200 dark:hover:bg-opacity-10 dark:hover:text-gray-100">
-                                                            <div className="w-full items-center flex">
-                                                                <div className="mx-2">
-                                                                    <span>
-                                                                        {item.name} ({item?.fastboat?.name})
-                                                                    </span>
-                                                                </div>
+                                                <div
+                                                    key={index}
+                                                    onClick={() =>
+                                                        handleSelectItem(item)
+                                                    }
+                                                >
+                                                    <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-neutral-content hover:bg-gray-400 bg-opacity-10 dark:hover:bg-gray-200 dark:hover:bg-opacity-10 dark:hover:text-gray-100">
+                                                        <div className="w-full items-center flex">
+                                                            <div className="mx-2">
+                                                                <span>
+                                                                    {item.name} ({item?.fastboat?.name})
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                )
+                                                </div>
                                             ))}
                                             {showItems.length <= 0 && (
                                                 <div>

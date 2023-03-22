@@ -1,57 +1,21 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty } from 'lodash';
 
-import { Head, router, useForm } from '@inertiajs/react';
-import { useModalState } from '@/hooks';
-import { generateTrack } from '../FastboatTrack/helper';
-
+import { Head, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Button from '@/Components/Button';
-import FormInputTime from '@/Components/FormInputTime';
-import Checkbox from '@/Components/Checkbox';
 import FormInput from '@/Components/FormInput';
 import AgentSelectionInput from "../FastboatTrackAgents/SelectionInput";
-import FastboatSelectionInput from "./SelectionInputTrack";
-import PlaceSelectionModal from "../FastboatTrack/PlaceSelectionModal";
-import { toast } from 'react-toastify';
+import FastboatTrackSelectionInput from "./SelectionInputTrack";
 
 export default function Form(props) {
     const { group } = props
 
-    const placeSelectionModal = useModalState()
-
     const { data, setData, post, put, processing, errors } = useForm({
         customer_id: '',
-        fastboat_id: '',
-        places: [],
+        fastboat_track_group_id: '',
         tracks: [],
     })
-    const [isdisable,setIsdisable]=useState(true)
-    const [isdisableCust,setIsdisableCus]=useState(false)
-    const addPlace = (place) => {
-        const isExists = data.places.find(p => p.place.id === place.id)
-        if (!isExists) {
-            let places = data.places.concat({
-                place: place,
-                fastboat_place_id: place.id,
-                order: (data.places.length + 1)
-            })
-            let tracks = generateTrack(places, data.tracks)
-            setData({ ...data, places, tracks })
-        }
-    }
-
-    const removePlace = (index) => {
-        let places = data.places.filter((_, i) => i !== index)
-        places = places.map((place, i) => {
-            return {
-                ...place,
-                order: (i + 1)
-            }
-        })
-        let tracks = generateTrack(places, data.tracks)
-        setData({ ...data, places, tracks })
-    }
 
     const handleChangeTrackValue = (name, value, index) => {
         setData("tracks", data.tracks.map((track, i) => {
@@ -62,34 +26,45 @@ export default function Form(props) {
         }))
     }
 
-    const handleSubmit = () => {
-        
-        if (data.places.length <= 1) {
-            toast.error("Place must be more than 1")
-            return
+    const handleSelectFastboatTrack = (track) => {
+        if (track) {
+            setData({
+                ...data,
+                fastboat_track_group_id: track.id,
+                tracks: track.tracks,
+            })
         }
+    }
+
+    const handleSelectCustomer = (id) => {
+        if (id) {
+            setData({
+                customer_id: id,
+                fastboat_track_group_id: null,
+                tracks: [],
+            })
+        }
+    }
+
+    const handleSubmit = () => {
         if (isEmpty(group) === false) {
             put(route('price-agent.track.update', group))
             return
         }
         post(route('price-agent.track.store'))
     }
-const handleCustomer=(id)=>{  
-    setData('customer_id', id)
-    setIsdisable(false)
-}
+
     useEffect(() => {
         if (isEmpty(group) === false) {
-            setIsdisableCus(true)
             setData({
-                customer_id:group.customer_id,
-                fastboat_id: group.track_group.id,
-                places: group.track_group.places,
-                tracks: group.tracks_agent,
+                customer_id: group.customer_id,
+                fastboat_track_group_id: group.fastboat_track_group_id,
+                tracks: group.tracks,
             })
         }
     }, [group])
-// console.log(data.tracks)
+
+
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -104,24 +79,36 @@ const handleCustomer=(id)=>{
                 <div className="mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden p-4 shadow-sm sm:rounded-lg bg-white dark:bg-gray-800 flex flex-col ">
                         <div className='text-xl font-bold mb-4'>{"Harga Agent"}</div>
-                        <div className={""}>
-                            <AgentSelectionInput
-                                label="Agent"
-                                itemSelected={data.customer_id}
-                                onItemSelected={handleCustomer }
-                                error={errors.customer_id}
-                                disabled={isdisableCust}
-                            />
-                            <FastboatSelectionInput
-                                label="Fastboat Track"
-                                disabled={isdisable}
-                                itemSelected={data.fastboat_id}
-                                customer_id={data.customer_id}
-                                onItemSelected={(id) => setData('fastboat_id', id)}
-                                error={errors.fastboat_id}
-                                ontracks={(tracks_agent,places,id)=> setData({...data,tracks: tracks_agent,places:places,fastboat_id:id })}
-                            />
-                        </div>
+                        {isEmpty(group) === false ? (
+                            <div>
+                                <FormInput 
+                                    label="Agent"
+                                    readOnly={true}
+                                    value={group.customer.name}
+                                />
+                                <FormInput 
+                                    label="Fastboat Track"
+                                    readOnly={true}
+                                    value={`${group.track_group.name} (${group.track_group.fastboat.name})`}
+                                />
+                            </div>
+                        ) : (
+                            <div>
+                                <AgentSelectionInput
+                                    label="Agent"
+                                    itemSelected={data.customer_id}
+                                    onItemSelected={handleSelectCustomer}
+                                    error={errors.customer_id}
+                                />
+                                <FastboatTrackSelectionInput
+                                    label="Fastboat Track"
+                                    itemSelected={data.fastboat_track_group_id}
+                                    customer_id={data.customer_id}
+                                    onItemSelected={(item) => handleSelectFastboatTrack(item)}
+                                    error={errors.fastboat_id}
+                                />
+                            </div>
+                            )}
                         <p className='mt-4'>Track</p>
                         <div className='border-2 rounded-lg p-2'>
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
@@ -145,38 +132,59 @@ const handleCustomer=(id)=>{
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {data?.tracks.map((track, index) => (
-                                        <tr className="bg-white border-b" key={index}>
-                                            <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                {track?.tracks?.source?.name} - {track?.tracks?.destination?.name}
-                                            </td>
-                                            <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                <FormInputTime
-                                                    value={track.arrival_time}
-                                                    onChange={d => handleChangeTrackValue("arrival_time", d, index)}
-                                                />
-                                            </td>
-                                            <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                <FormInputTime
-                                                    value={track.departure_time}
-                                                    onChange={d => handleChangeTrackValue("departure_time", d, index)}
-                                                />
-                                            </td>
-                                            <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                <FormInput
-                                                    type="number"
-                                                    value={(+track.price).toFixed(0)}
-                                                    onChange={e => handleChangeTrackValue("price", e.target.value, index)}
-                                                />
-                                            </td>
-                                            <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                <Checkbox
-                                                    value={+track?.tracks?.is_publish === 1}
-                                                    onChange={e => handleChangeTrackValue("is_publish", e.target.checked ? 1 : 0, index)}
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
+                                    {isEmpty(group) === false ? (
+                                        <>
+                                        {data.tracks.map((track, index) => (
+                                            <tr className="bg-white border-b" key={index}>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                    {track?.track.source?.name} - {track?.track.destination?.name}
+                                                </td>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                    {track.track.arrival_time}
+                                                </td>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                    {track.track.departure_time}
+                                                </td>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                    <FormInput
+                                                        type="number"
+                                                        value={(+track.price).toFixed(0)}
+                                                        onChange={e => handleChangeTrackValue("price", e.target.value, index)}
+                                                    />
+                                                </td>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                        {+track?.track.is_publish === 1 ? 'Yes' : 'No'}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                        </>
+                                    ) : (
+                                        <>
+                                        {data.tracks.map((track, index) => (
+                                            <tr className="bg-white border-b" key={index}>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                    {track?.source?.name} - {track?.destination?.name}
+                                                </td>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                    {track.arrival_time}
+                                                </td>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                    {track.departure_time}
+                                                </td>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                    <FormInput
+                                                        type="number"
+                                                        value={(+track.price).toFixed(0)}
+                                                        onChange={e => handleChangeTrackValue("price", e.target.value, index)}
+                                                    />
+                                                </td>
+                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                                        {+track?.is_publish === 1 ? 'Yes' : 'No'}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                        </>
+                                    )}
                                 </tbody>
                             </table>
                         </div>
@@ -192,7 +200,6 @@ const handleCustomer=(id)=>{
                     </div>
                 </div>
             </div>
-            <PlaceSelectionModal modalState={placeSelectionModal} onItemSelected={addPlace} />
         </AuthenticatedLayout>
     );
 }

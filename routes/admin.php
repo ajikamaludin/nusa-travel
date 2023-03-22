@@ -174,7 +174,7 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::get('/price-agent', [FastboatTrackAgentController::class, 'index'])->name('price-agent.index');
         Route::get('/price-agent/tracks/create', [FastboatTrackAgentController::class, 'create'])->name('price-agent.track.create');
         Route::post('/price-agent/tracks', [FastboatTrackAgentController::class, 'store'])->name('price-agent.track.store');
-        Route::get('/price-agent/tracks/{priceagent}', [FastboatTrackAgentController::class, 'edit'])->name('price-agent.trackagent.edit');
+        Route::get('/price-agent/tracks/{group}', [FastboatTrackAgentController::class, 'edit'])->name('price-agent.trackagent.edit');
         Route::put('/price-agent/tracks/{group}', [FastboatTrackAgentController::class, 'update'])->name('price-agent.track.update');
         Route::delete('/price-agent/tracks/{group}', [FastboatTrackAgentController::class, 'destroy'])->name('price-agent.track.destroy');
     });

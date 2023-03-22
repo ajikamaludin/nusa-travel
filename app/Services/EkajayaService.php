@@ -149,12 +149,12 @@ class EkajayaService
                 // if no result fount than check db , if any remove record
                 $s = FastboatPlace::where([
                     ['name', '=', $source],
-                    ['data_source', '=', EkajayaService::class]
+                    ['data_source', '=', EkajayaService::class],
                 ])->first();
 
                 $d = FastboatPlace::where([
                     ['name', '=', $destination],
-                    ['data_source', '=', EkajayaService::class]
+                    ['data_source', '=', EkajayaService::class],
                 ])->first();
 
                 dump([$s->name, $d->name]);
