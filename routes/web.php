@@ -67,7 +67,7 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     Route::middleware('auth:customer')->group(function () {
         // Profile
         Route::get('/profile', [CustomerProfileController::class, 'index'])->name('customer.profile');
-        Route::get('/apitoken', [CustomerProfileController::class, 'apitoken'])->name('customer.token');
+        Route::get('/apitoken', [CustomerProfileController::class, 'apitoken'])->name('customer.apitoken');
         Route::post('/profile', [CustomerProfileController::class, 'update']);
         Route::post('/profile/p', [CustomerProfileController::class, 'password'])->name('customer.password');
         Route::post('/profile/logout', [CustomerProfileController::class, 'destroy'])->name('customer.logout');

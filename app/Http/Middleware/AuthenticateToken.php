@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use App\Models\Customer;
-use Auth;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticateToken
@@ -25,7 +25,7 @@ class AuthenticateToken
 
             return $next($request);
         }else {
-            return response('you are unauthorize', 404);
+            return response()->json(['message' => 'unauthorize'], 401);
         }
 
     }
