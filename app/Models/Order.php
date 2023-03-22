@@ -35,7 +35,7 @@ class Order extends Model
         'payment_type',
         'description',
         'total_discount',
-        'has_pickup'
+        'pickup'
     ];
 
     protected $appends = ['order_date_formated', 'payment_status_text', 'payment_status_color'];

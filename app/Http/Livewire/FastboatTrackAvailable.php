@@ -95,7 +95,7 @@ class FastboatTrackAvailable extends Component
 
     public function choosedDepartureFastboat($value)
     {
-        session()->forget(['persons', 'contact', 'dropoff', 'infants']);
+        session()->forget(['persons', 'contact', 'dropoff', 'infants', 'pickup']);
         session(['infants' => $this->infants]);
 
         if ($value['type'] == 1) {

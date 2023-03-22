@@ -37,10 +37,24 @@ export default function Form(props) {
                             label="Date"
                             readOnly={true}
                         />
+                        {+order.customer.is_agent === 1 && (
+                            <FormInput
+                                name="customer.name"
+                                value={`${order.customer.name} - ( ${order.customer.phone} )` }
+                                label="Agent"
+                                readOnly={true}
+                            />
+                        )}
                         <FormInput
                             name="customer.name"
                             value={`${order.customer.name} - ( ${order.customer.phone} )` }
                             label="Customer"
+                            readOnly={true}
+                        />
+                        <FormInput
+                            name="customer.name"
+                            value={order.pickup ?? ' - '}
+                            label="Pickup"
                             readOnly={true}
                         />
                         <FormInput

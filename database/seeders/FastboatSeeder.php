@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\CarRental;
 use App\Models\Fastboat;
 use App\Models\FastboatDropoff;
+use App\Models\FastboatPickup;
 use App\Models\FastboatPlace;
 use App\Models\FastboatTrackGroup;
 use Illuminate\Database\Seeder;
@@ -17,10 +19,11 @@ class FastboatSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->dropoff();
         $this->place();
         $this->fastboat();
         $this->track();
+        $this->dropoff();
+        $this->pickup();
     }
 
     public function dropoff()
@@ -32,6 +35,20 @@ class FastboatSeeder extends Seeder
         ];
 
         FastboatDropoff::insert($dropoff);
+    }
+
+    public function pickup()
+    {
+        $SENGGIGI = FastboatPlace::where('name', 'SENGGIGI')->value('id');
+
+        $pickup = [
+            ['id' => Str::uuid(), 'name' => 'BANDARA', 'source_id' => $SENGGIGI, 'car_rental_id' => CarRental::value('id')],
+            ['id' => Str::uuid(), 'name' => 'HOTEL', 'source_id' => $SENGGIGI, 'car_rental_id' => CarRental::value('id')],
+            ['id' => Str::uuid(), 'name' => 'PELABUHAN', 'source_id' => $SENGGIGI, 'car_rental_id' => CarRental::value('id')],
+            ['id' => Str::uuid(), 'name' => 'PANTAI', 'source_id' => $SENGGIGI, 'car_rental_id' => CarRental::value('id')],
+        ];
+
+        FastboatPickup::insert($pickup);
     }
 
     public function place()

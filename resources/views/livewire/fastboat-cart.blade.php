@@ -336,20 +336,22 @@
                                 <x-icon name="arrow-right" class="w-3 h-3" />
                                 {{ $cart['track']->destination->name  }}
                             </span>
-                            <span> x {{ $cart['qty'] }} </span>
-                            <span> {{ number_format($cart['qty'] * $cart['track']->validated_price, 0, ',' , '.') }} </span>
+                            <span class="text-right space-x-10"> 
+                                <span>x {{ $cart['qty'] }} </span>
+                                <span>{{ number_format($cart['qty'] * $cart['track']->validated_price, 0, ',' , '.') }} </span>
+                        </span>
                         </div>
                     @endforeach
-                    @if($pickup != '')
-                    <div class="bg-white flex flex-row border-b-2 p-1 justify-between">
-                        <span class="flex flex-row gap-1 items-center">
-                            {{ $cart['track']->source->name  }} 
-                            <x-icon name="arrow-right" class="w-3 h-3" />
-                            {{ $cart['track']->destination->name  }}
+                    @if($pickupSelected != null)
+                        <div class="bg-white flex flex-row border-b-2 p-1 justify-between">
+                            <span class="flex flex-row gap-1 items-center">
+                                Pickup: {{ $pickup  }} ( {{ $pickupSelected['car']['name']  }}  )
+                            </span>
+                            <span class="text-right space-x-10"> 
+                                <span>x 1 </span>
+                                <span>{{ number_format($pickupSelected['car']['price'], 0, ',' , '.') }} </span>
                         </span>
-                        <span> x {{ $cart['qty'] }} </span>
-                        <span> {{ number_format($cart['qty'] * $cart['track']->validated_price, 0, ',' , '.') }} </span>
-                    </div>
+                        </div>
                     @endif
 
                     @if($discount != 0)

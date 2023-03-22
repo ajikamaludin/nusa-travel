@@ -66,7 +66,7 @@ export default function FormModal(props) {
                 name="name"
                 value={data.name}
                 onChange={handleOnChange}
-                label="name"
+                label="Name"
                 error={errors.name}
             />
             <PlaceSelectionInput

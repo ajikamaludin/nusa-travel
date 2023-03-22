@@ -4,6 +4,7 @@ import { usePage } from '@inertiajs/react'
 import axios from 'axios'
 import { HiChevronDown, HiChevronUp, HiX } from 'react-icons/hi'
 import { Spinner } from 'flowbite-react'
+import { formatIDR } from '@/utils'
 
 export default function SelectionInput(props) {
     const ref = useRef()
@@ -210,7 +211,7 @@ export default function SelectionInput(props) {
                                                         <div className="w-full items-center flex">
                                                             <div className="mx-2">
                                                                 <span>
-                                                                    {item.name}
+                                                                    {item.description} - ({item.name}, {formatIDR(item.price)})
                                                                 </span>
                                                             </div>
                                                         </div>

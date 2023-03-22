@@ -83,6 +83,9 @@ export default function Index(props) {
                                                 Order 
                                             </th>
                                             <th scope="col" className="py-3 px-6">
+                                                Agent 
+                                            </th>
+                                            <th scope="col" className="py-3 px-6">
                                                 Customer 
                                             </th>
                                             <th scope="col" className="py-3 px-6">
@@ -90,6 +93,9 @@ export default function Index(props) {
                                             </th>
                                             <th scope="col" className="py-3 px-6">
                                                 Payment 
+                                            </th>
+                                            <th scope="col" className="py-3 px-6">
+                                                Pickup 
                                             </th>
                                             <th scope="col" className="py-3 px-6"/>
                                         </tr>
@@ -101,6 +107,9 @@ export default function Index(props) {
                                                     #{order.order_code}
                                                 </td>
                                                 <td className="py-4 px-6">
+                                                    {+order.customer.is_agent === 1 ? order.customer.name : ' - '}
+                                                </td>
+                                                <td className="py-4 px-6">
                                                     {order.customer.name}
                                                 </td>
                                                 <td className="py-4 px-6">
@@ -108,6 +117,9 @@ export default function Index(props) {
                                                 </td>
                                                 <td className={`py-4 px-6 ${order.payment_status_color}`}>
                                                     {order.payment_status_text}
+                                                </td>
+                                                <td className="py-4 px-6">
+                                                    {order.pickup ?? "-"}
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown

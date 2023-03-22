@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Mail\OrderPayment;
+use App\Models\CarRental;
 use App\Models\Customer;
 use App\Models\FastboatDropoff;
 use App\Models\FastboatPickup;
@@ -38,7 +39,7 @@ class FastboatCart extends Component
 
     public $pickup;
 
-    public $pickupSelected;
+    public $pickupSelected = null;
 
     public $validContact = false;
 
@@ -63,12 +64,13 @@ class FastboatCart extends Component
             $this->validContact = true;
         }
         $this->persons = session()->get('persons', []);
-        // $this->dropoff = session()->get('dropoff');
-        $this->pickup = session()->get('pickup');
-
         $this->isAllValid = $this->checkAllValid();
 
         $this->infants = session()->get('infants', 0);
+
+        $this->pickupSelected = session()->get('pickup', null);
+        $this->pickup = $this->pickupSelected['name'] ?? null;
+        // $this->dropoff = session()->get('dropoff');
         // $this->dropoffs = FastboatDropoff::orderBy('name', 'asc')->get();
     }
 
@@ -115,11 +117,11 @@ class FastboatCart extends Component
             }
         }
 
-        // $origin = $this->carts->first()['track']->source->name;
-        // $this->pickups = FastboatPickup::with(['car'])->whereHas('source',function ($query) use ($origin) {
-        //     $query->where('name', '=', $origin);
-        // })
-        // ->orderBy('name', 'asc')->get();
+        $origin = $this->carts->first()['track']->source->name;
+        $this->pickups = FastboatPickup::with(['car'])->whereHas('source',function ($query) use ($origin) {
+            $query->where('name', '=', $origin);
+        })
+        ->orderBy('name', 'asc')->get();
     }
 
     public function render()
@@ -197,7 +199,7 @@ class FastboatCart extends Component
         session([
             'persons' => $this->persons,
             'contact' => $this->contact,
-            'pickup' => $this->pickup,
+            'pickup' => $this->pickupSelected,
             // 'dropoff' => $this->dropoff,
         ]);
 
@@ -207,6 +209,10 @@ class FastboatCart extends Component
 
     public function back()
     {
+        $this->discount = 0;
+        $this->promos = [];
+        $this->total = 0;
+        $this->total_payed = 0;
         $this->view = 1;
     }
 
@@ -227,8 +233,7 @@ class FastboatCart extends Component
             );
         }
 
-        // $dropoff = FastboatDropoff::where('name', $this->dropoff)->first();
-        $pickup = FastboatPickup::where('name', $this->pickup)->first();
+        $pickup = $this->pickupSelected;
 
         // create order
         $order = Order::create([
@@ -238,7 +243,10 @@ class FastboatCart extends Component
             'total_discount' => $this->discount,
             'order_type' => Order::TYPE_ORDER,
             'date' => now(),
+            'pickup' => $pickup['name'] ?? null,
         ]);
+
+        // $dropoff = FastboatDropoff::where('name', $this->dropoff)->first();
 
         // insert items -> insert passengers
         foreach ($this->carts as $trackId => $cart) {
@@ -249,8 +257,8 @@ class FastboatCart extends Component
                 'amount' => $cart['track']->validated_price,
                 'quantity' => $cart['qty'],
                 'date' => $cart['date'],
-                'pickup' => $pickup?->name,
-                'pickup_id' => $pickup?->id,
+                'pickup' => $pickup['name'] ?? null,
+                'pickup_id' => $pickup['id'] ?? null,
                 // 'dropoff' => $dropoff?->name,
                 // 'dropoff_id' => $dropoff?->id,
             ]);
@@ -269,6 +277,18 @@ class FastboatCart extends Component
                     'type' => $person['type'],
                 ]);
             }
+        }
+
+        if($pickup != null) {
+            $date = collect($this->carts)->value('date');
+            $order->items()->create([
+                'entity_order' => CarRental::class,
+                'entity_id' => $pickup['car']['id'],
+                'description' => 'Pickup: ' . $pickup['name']. '| '.$date,
+                'amount' => $pickup['car']['price'],
+                'quantity' => 1,
+                'date' => $date,
+            ]);
         }
 
         // insert promo
@@ -294,7 +314,7 @@ class FastboatCart extends Component
         // redirect to payment
         DB::commit();
 
-        session()->forget(['persons', 'contact', 'dropoff', 'carts']);
+        session()->forget(['persons', 'contact', 'dropoff', 'carts', 'pickup']);
 
         return redirect()->route('customer.process-payment', $order);
     }
@@ -308,6 +328,11 @@ class FastboatCart extends Component
             $this->total_payed += $cart['track']->validated_price * $cart['qty'];
             $dates[] = $cart['date'];
         });
+
+        if ($this->pickupSelected != null) {
+            $this->total += $this->pickupSelected['car']['price'];
+            $this->total_payed += $this->pickupSelected['car']['price'];
+        }
 
         $promos = Promo::where([
             'is_active' => Promo::PROMO_ACTIVE,
@@ -407,6 +432,7 @@ class FastboatCart extends Component
 
     public function updatingPickup($value)
     {
-        $this->pickupSelected = collect($this->pickups)->where('name', $value)->first();
+        $this->pickupSelected = collect($this->pickups)->where('name', $value)->first()->toArray();
+        session(['pickup' => $this->pickupSelected]);
     }
 }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('type')->nullable();
         });
         Schema::table('orders', function ($table) {
-            $table->string('has_pickup')->nullable();
+            $table->string('pickup')->nullable();
         });
         Schema::table('order_items', function ($table) {
             $table->string('pickup')->nullable();

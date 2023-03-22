@@ -11,7 +11,7 @@ import Pagination from '@/Components/Pagination';
 import ModalConfirm from '@/Components/ModalConfirm';
 import FormModal from './FormModal';
 import SearchInput from '@/Components/SearchInput';
-import { hasPermission } from '@/utils';
+import { formatIDR, hasPermission } from '@/utils';
 
 export default function Index(props) {
     const { query: { links, data }, auth } = props
@@ -103,11 +103,11 @@ export default function Index(props) {
                                                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     {pickup.name}
                                                 </td>
-                                                <td>
+                                                <td className="py-4 px-6">
                                                     {pickup.source.name}
                                                 </td>
-                                                <td>
-                                                    {pickup.car.name}
+                                                <td className="py-4 px-6">
+                                                    {pickup.car.description} ({pickup.car.name}, {formatIDR(pickup.car.price)})
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown
