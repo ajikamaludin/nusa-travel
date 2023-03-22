@@ -78,7 +78,7 @@ export default function SelectionInput(props) {
 
     const fetch = (q = '') => {
         setLoading(true)
-        axios.get(route('api.fastboat.index', { 'q': q, 'all': all }), {
+        axios.get(route('api.car-rentals.index', { 'q': q, 'all': all }), {
             headers: {
                 'Content-Type': 'application/json',
                 // 'Authorization': 'Bearer ' + auth.user.jwt_token

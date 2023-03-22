@@ -112,6 +112,11 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'Create Price Agent', 'name' => 'create-price-agent'],
             ['id' => Str::uuid(), 'label' => 'Update Price Agent', 'name' => 'update-price-agent'],
             ['id' => Str::uuid(), 'label' => 'Delete Price Agent', 'name' => 'delete-price-agent'],
+
+            ['id' => Str::uuid(), 'label' => 'View Fastboat Pickup', 'name' => 'view-fastboat-pickup'],
+            ['id' => Str::uuid(), 'label' => 'Create Fastboat Pickup', 'name' => 'create-fastboat-pickup'],
+            ['id' => Str::uuid(), 'label' => 'Update Fastboat Pickup', 'name' => 'update-fastboat-pickup'],
+            ['id' => Str::uuid(), 'label' => 'Delete Fastboat Pickup', 'name' => 'delete-fastboat-pickup'],
         ];
 
         foreach ($permissions as $permission) {

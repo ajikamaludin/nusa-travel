@@ -33,13 +33,21 @@ export default [
         show: true,
         icon: HiPaperAirplane,
         items: [
+            // {
+            //     name: "Dropoff",
+            //     show: true,
+            //     icon: HiClipboardList,
+            //     route: route("fastboat.dropoff.index"),
+            //     active: "fastboat.dropoff.index",
+            //     permission: "view-fastboat-dropoff",
+            // },
             {
-                name: "Dropoff",
+                name: "Pickup",
                 show: true,
                 icon: HiClipboardList,
-                route: route("fastboat.dropoff.index"),
-                active: "fastboat.dropoff.index",
-                permission: "view-fastboat-dropoff",
+                route: route("fastboat.pickup.index"),
+                active: "fastboat.pickup.index",
+                permission: "view-fastboat-pickup",
             },
             {
                 name: "Dock",
