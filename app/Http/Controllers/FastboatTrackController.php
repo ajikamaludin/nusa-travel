@@ -16,7 +16,7 @@ class FastboatTrackController extends Controller
      */
     public function index(Request $request): Response
     {
-        $query = FastboatTrackGroup::query()->with(['fastboat', 'tracks', 'places.place']);
+        $query = FastboatTrackGroup::query()->whereNull('data_source')->with(['fastboat', 'tracks', 'places.place']);
 
         if ($request->has('q')) {
             $query->whereHas('fastboat', function ($query) use ($request) {
@@ -34,7 +34,7 @@ class FastboatTrackController extends Controller
      */
     public function create(Request $request)
     {
-        $place = FastboatPlace::query()->orderBy('name', 'asc');
+        $place = FastboatPlace::query()->whereNull('data_source')->orderBy('name', 'asc');
 
         if ($request->place_q != '') {
             $place->where('name', 'like', "%{$request->place_q}%");
@@ -107,7 +107,7 @@ class FastboatTrackController extends Controller
      */
     public function edit(Request $request, FastboatTrackGroup $group)
     {
-        $place = FastboatPlace::query()->orderBy('name', 'asc');
+        $place = FastboatPlace::query()->whereNull('data_source')->orderBy('name', 'asc');
 
         if ($request->place_q != '') {
             $place->where('name', 'like', "%{$request->place_q}%");

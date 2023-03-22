@@ -9,11 +9,13 @@ class Fastboat extends Model
     protected $cascadeDeletes = ['group'];
 
     protected $fillable = [
+        'id',
         'number',
         'name',
         'description',
         'capacity',
         'cover_image',
+        'data_source',
     ];
 
     protected $appends = ['cover_url'];

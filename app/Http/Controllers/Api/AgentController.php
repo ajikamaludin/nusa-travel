@@ -10,6 +10,7 @@ use App\Models\FastboatPickup;
 use App\Models\FastboatTrack;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Nette\Utils\DateTime;
@@ -61,8 +62,8 @@ class AgentController extends Controller
                 $query->where('name', '=', $request->to);
             });
 
-            $rdate = new DateTime($request->date);
-            if ($rdate == now()) {
+            $rdate = Carbon::createFromFormat('Y-m-d', $request->date);
+            if ($rdate->isToday()) {
                 $query->whereTime('arrival_time', '>=', now());
             }
 

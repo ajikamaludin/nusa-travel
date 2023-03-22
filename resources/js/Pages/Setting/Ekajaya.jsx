@@ -3,13 +3,15 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import FormInput from '@/Components/FormInput';
 import Button from '@/Components/Button';
 import { Head, useForm } from '@inertiajs/react';
+import Checkbox from '@/Components/Checkbox';
 
 export default function Payment(props) {
     const { setting } = props
     
     const {data, setData, post, processing, errors} = useForm({
         ekajaya_apikey: setting[0].EKAJAYA_APIKEY,
-        ekajaya_host: setting[1].EKAJAYA_HOST,
+        ekajaya_enable: setting[1].EKAJAYA_ENABLE,
+        ekajaya_host: setting[2].EKAJAYA_HOST,
     })
 
     const handleOnChange = (event) => {
@@ -48,6 +50,12 @@ export default function Payment(props) {
                             onChange={handleOnChange}
                             label="API Key"
                             error={errors.ekajaya_apikey}
+                        />
+                        <Checkbox
+                            label='Enable'
+                            value={+data.ekajaya_enable === 1}
+                            name="ekajaya_enable"
+                            onChange={handleOnChange}
                         />
                         <div className='mt-2'>
                             <Button

@@ -27,7 +27,7 @@ class LandingController extends Controller
         $posts = Post::with(['tags'])->withCount(['visitors'])->where('is_publish', Post::PUBLISH)->orderBy('created_at', 'desc')->limit(4)->get();
 
         return view('home', [
-            'places' => FastboatPlace::select('name')->get()->pluck('name'),
+            'places' => FastboatPlace::whereNull('data_source')->select('name')->get()->pluck('name'),
             'posts' => $posts,
             'faqs' => Faq::orderBy('order', 'asc')->limit(4)->get(),
             'images' => File::where('show_on', '!=', 0)->orderBy('show_on', 'asc')->get(),

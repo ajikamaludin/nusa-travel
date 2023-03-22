@@ -16,6 +16,12 @@ return new class extends Migration
         Schema::table('fastboat_places', function ($table) {
             $table->string('data_source')->nullable();
         });
+        Schema::table('fastboats', function ($table) {
+            $table->string('data_source')->nullable();
+        });
+        Schema::table('fastboat_track_groups', function ($table) {
+            $table->string('data_source')->nullable();
+        });
         Schema::table('order_item_passengers', function ($table) {
             $table->string('type')->nullable();
         });
@@ -25,6 +31,7 @@ return new class extends Migration
         Schema::table('order_items', function ($table) {
             $table->string('pickup')->nullable();
             $table->uuid('pickup_id')->nullable();
+            $table->string('data_source')->nullable();
         });
         Schema::table('posts', function ($table) {
             $table->uuid('original_id')->nullable();

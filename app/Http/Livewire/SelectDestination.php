@@ -17,7 +17,7 @@ class SelectDestination extends Component
 
     public function mount()
     {
-        $this->places = FastboatPlace::where('name', '!=', $this->origin)->orderBy('name', 'asc')->get();
+        $this->places = FastboatPlace::whereNull('data_source')->where('name', '!=', $this->origin)->orderBy('name', 'asc')->get();
     }
 
     public function render()
@@ -32,6 +32,6 @@ class SelectDestination extends Component
 
     public function updatePlaces($origin)
     {
-        $this->places = FastboatPlace::where('name', '!=', $origin)->orderBy('name', 'asc')->get();
+        $this->places = FastboatPlace::whereNull('data_source')->where('name', '!=', $origin)->orderBy('name', 'asc')->get();
     }
 }

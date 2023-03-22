@@ -16,9 +16,12 @@ class FastboatTracksResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'fastboat_id' => $this->group->fastboat->id,
             'fastboat' => $this->group->fastboat->name,
-            'from' => $this->destination->name,
-            'to' => $this->source->name,
+            'from_id' => $this->source->id,
+            'from' => $this->source->name,
+            'to_id' => $this->destination->id,
+            'to' => $this->destination->name,
             'name' => $this->group->name,
             'arrival_time' => $this->arrival_time,
             'departure_time' => $this->departure_time,

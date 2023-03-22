@@ -7,6 +7,7 @@ class FastboatPlace extends Model
     protected $cascadeDeletes = ['tracks', 'groups', 'pickups'];
 
     protected $fillable = [
+        'id',
         'name',
         'data_source',
     ];

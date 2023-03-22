@@ -46,7 +46,7 @@ class FastboatTrackAgentController extends Controller
     public function edit(Request $request, FastboatTrackGroupAgent $priceagent)
     {
 
-        $place = FastboatPlace::query();
+        $place = FastboatPlace::query()->whereNull('data_source');
         if ($request->place_q != '') {
             $place->whereHas('tracksAgents', function ($query) use ($request) {
                 $query->where('name', 'like', "%{$request->q}%");

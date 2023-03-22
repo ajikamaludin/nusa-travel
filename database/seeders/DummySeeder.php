@@ -75,8 +75,9 @@ class DummySeeder extends Seeder
             ['id' => Str::uuid(), 'key' => 'G_WHATSAPP_FLOAT_ENABLE', 'value' => '1', 'type' => 'checkbox', 'label' => 'Whatsapp Float Button Enable'],
             ['id' => Str::uuid(), 'key' => 'G_WHATSAPP_URL', 'value' => 'https://wa.me/6287820231626', 'type' => 'text', 'label' => 'Whatsapp Url'],
             ['id' => Str::uuid(), 'key' => 'G_WHATSAPP_TEXT', 'value' => 'How can I help you ?', 'type' => 'text', 'label' => 'Whatsapp Text'],
-            ['id' => Str::uuid(), 'key' => 'EKAJAYA_HOST', 'value' => 'http://localhost:8000', 'type' => 'text', 'label' => 'Ekajaya Api Host'],
-            ['id' => Str::uuid(), 'key' => 'EKAJAYA_APIKEY', 'value' => '0x000', 'type' => 'text', 'label' => 'Ekajaya Api Key'],
+            ['id' => Str::uuid(), 'key' => 'EKAJAYA_HOST', 'value' => 'https://nusatravel.ajikamaludin.id', 'type' => 'text', 'label' => 'Ekajaya Api Host'],
+            ['id' => Str::uuid(), 'key' => 'EKAJAYA_APIKEY', 'value' => '$2y$10$uP9Ew7rSBqs8eyOpboBDzeblTec8gkgvkVb3MXBC5nqWMM8BA3PRC', 'type' => 'text', 'label' => 'Ekajaya Api Key'],
+            ['id' => Str::uuid(), 'key' => 'EKAJAYA_ENABLE', 'value' => '0', 'type' => 'text', 'label' => 'Ekajaya Integration Enable'],
         ];
 
         Setting::insert($setting);

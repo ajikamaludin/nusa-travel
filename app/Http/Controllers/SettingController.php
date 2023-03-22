@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use App\Services\EkajayaService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Inertia\Response;
 
@@ -77,9 +79,9 @@ class SettingController extends Controller
             $file->store('uploads', 'public');
             Setting::where('key', 'G_LANDING_SLIDE_3')->update(['value' => $file->hashName('uploads')]);
         }
-
         DB::commit();
 
+        Cache::flush();
         return redirect()->route('setting.general')
             ->with('message', ['type' => 'success', 'message' => 'Setting has beed saved']);
     }
@@ -114,6 +116,7 @@ class SettingController extends Controller
         }
         DB::commit();
 
+        Cache::flush();
         return redirect()->route('setting.payment')
             ->with('message', ['type' => 'success', 'message' => 'Setting has beed saved']);
     }
@@ -138,6 +141,7 @@ class SettingController extends Controller
         $request->validate([
             'ekajaya_host' => 'required|url|string|max:255',
             'ekajaya_apikey' => 'required|string|max:255|unique:customers,token',
+            'ekajaya_enable' => 'required|in:0,1'
         ], [
             'ekajaya_apikey.unique' => 'cant use key as same as local system',
         ]);
@@ -146,8 +150,12 @@ class SettingController extends Controller
         foreach ($request->input() as $key => $value) {
             Setting::where('key', $key)->update(['value' => $value]);
         }
+        if($request->ekajaya_enable == 0) {
+            EkajayaService::clear();
+        }
         DB::commit();
 
+        Cache::flush();
         return redirect()->route('setting.ekajaya')
             ->with('message', ['type' => 'success', 'message' => 'Setting has beed saved']);
     }
