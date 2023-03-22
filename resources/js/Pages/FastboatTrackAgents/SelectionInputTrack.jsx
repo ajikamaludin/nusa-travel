@@ -3,7 +3,7 @@ import { useDebounce } from '@/hooks'
 import { usePage } from '@inertiajs/react'
 import axios from 'axios'
 import { HiChevronDown, HiChevronUp, HiX } from 'react-icons/hi'
-import { Spinner } from 'flowbite-react'
+import { Spinner } from 'flowbite-react';
 
 export default function SelectionInputTrack(props) {
     const ref = useRef()
@@ -42,60 +42,30 @@ export default function SelectionInputTrack(props) {
         setQuery('')
         setIsOpen(!isOpen)
     }
-    const generateTracks = (oldTrack, places) => {
-        let tracks = []
-        if (places.length >= 2) {
-            let n = places.length
-            for (let i = 0; i < n; i++) {
-                for (let j = i + 1; j < n; j++) {
-                    let previusTrack = oldTrack.find(track => track.fastboat_source_id == places[i].place.id && track.fastboat_destination_id == places[j].place.id)
-                    if (previusTrack) {
-                        tracks.push({tracks:{
-                            id: previusTrack.id,
-                            source: places[i].place,
-                            destination: places[j].place,
-                            fastboat_source_id: places[i].place.id,
-                            fastboat_destination_id: places[j].place.id,
-                            price: previusTrack.price,
-                            arrival_time: previusTrack.arrival_time,
-                            departure_time: previusTrack.departure_time,
-                            is_publish: 1,
-                        },id: previusTrack.id,price: previusTrack.price,});
-                    } 
-                    // else {
-                    //    let temp=oldTrack.find(track=>track.fastboat_source_id == places[i].place.id)
-                        
-                    //     if (temp!=undefined){
-                    //     tracks.push({tracks:{
-                    //         id:temp.id,
-                    //         source: places[i].place,
-                    //         destination: places[j].place,
-                    //         fastboat_source_id: places[i].place.id,
-                    //         fastboat_destination_id: places[j].place.id,
-                    //         price:temp``.price,
-                    //         arrival_time: temp.arrival_time,
-                    //         departure_time: temp.departure_time,
-                    //         is_publish: 1,
-                    //     },id: temp.id,price: temp.price,});
-                    //     }
-                    // }
-
-                }
-            }
-        }
-     
-     
-        return tracks;
-    }
+  
     const handleSelectItem = (item) => {
-
+        let tracks = []
+        item.tracks_agent.map((track)=>{
+            tracks.push({
+                tracks: {
+                    id: track.id,
+                    source: track.source,
+                    destination:track.destination,
+                    fastboat_source_id: track.fastboat_source_id,
+                    fastboat_destination_id: track.fastboat_destination_id,
+                    price: track.price,
+                    arrival_time: track.arrival_time,
+                    departure_time: track.departure_time,
+                    is_publish: 1,
+                }, id: track.id, price: track.price,
+            });
+        })
+        
         setIsSelected(true)
         onItemSelected(item.id);
         let select = item.name + " (" + item.fastboat.name + ")";
         setSelected(select)
-
-        let tracks_agent = generateTracks(item.tracks_agent, item.places)
-        ontracks(tracks_agent, item.places, item.id)
+        ontracks(tracks, item.places, item.id)
         setIsOpen(false)
     }
 
@@ -130,20 +100,20 @@ export default function SelectionInputTrack(props) {
     const fetch = (q = '') => {
         setLoading(true)
         // if (customer_id != '') {
-            axios.get(route('api.fasboat.track.index', { 'q': q, 'all': all, 'c': customer_id }), {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + auth.user.jwt_token
-                }
-            })
-                .then((response) => {
-                    setShowItem(response.data)
+        axios.get(route('api.fasboat.track.index', { 'q': q, 'all': all, 'c': customer_id }), {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + auth.user.jwt_token
+            }
+        })
+            .then((response) => {
+                setShowItem(response.data)
 
-                })
-                .catch((err) => {
-                    alert(err)
-                })
-                .finally(() => setLoading(false))
+            })
+            .catch((err) => {
+                alert(err)
+            })
+            .finally(() => setLoading(false))
         // }
     }
 
@@ -156,9 +126,9 @@ export default function SelectionInputTrack(props) {
 
     // once page load
     useEffect(() => {
-        
-            fetch();
-       
+
+        fetch();
+
     }, [])
 
     useEffect(() => {
@@ -169,7 +139,7 @@ export default function SelectionInputTrack(props) {
 
     useEffect(() => {
         if (itemSelected !== null) {
-           
+
             const item = showItems.find(item => item.id === itemSelected)
             if (item) {
                 let select = item.name + " (" + item.fastboat.name + ")";
