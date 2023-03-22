@@ -20,6 +20,8 @@ class Post extends Model
         'meta_tag',
         'cover_image',
         'is_publish',
+        'original_id',
+        'lang',
     ];
 
     protected $appends = ['publish', 'image_url', 'publish_at', 'date_for_human'];

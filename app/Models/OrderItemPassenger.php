@@ -10,6 +10,7 @@ class OrderItemPassenger extends Model
         'nation',
         'national_id',
         'name',
+        'type',
     ];
 
     public function item()
