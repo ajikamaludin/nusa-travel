@@ -4,7 +4,7 @@ namespace App\Models;
 
 class FastboatPlace extends Model
 {
-    protected $cascadeDeletes = ['tracks', 'groups', 'pickups'];
+    protected $cascadeDeletes = [];
 
     protected $fillable = [
         'id',

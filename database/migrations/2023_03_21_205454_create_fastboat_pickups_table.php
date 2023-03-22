@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Permission;
+use App\Models\Setting;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -36,6 +37,17 @@ return new class extends Migration
             ];
 
             Permission::insert($permissions);
+        }
+
+        $check = Setting::where('key', 'EKAJAYA_HOST')->first(); 
+        if ($check == null)  {
+            $settings = [
+                ['id' => Str::uuid(), 'key' => 'EKAJAYA_HOST', 'value' => 'https://nusatravel.ajikamaludin.id', 'type' => 'text', 'label' => 'Ekajaya Api Host'],
+                ['id' => Str::uuid(), 'key' => 'EKAJAYA_APIKEY', 'value' => 'abc-test', 'type' => 'text', 'label' => 'Ekajaya Api Key'],
+                ['id' => Str::uuid(), 'key' => 'EKAJAYA_ENABLE', 'value' => '0', 'type' => 'text', 'label' => 'Ekajaya Integration Enable'],
+            ];
+
+            Setting::insert($settings);
         }
     }
 
