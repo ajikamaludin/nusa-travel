@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\FastboatPlaceController;
 use App\Http\Controllers\Api\FastboatTrackController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\TagController;
+use App\Http\Controllers\Api\CarRentalController;
 use App\Http\Controllers\Website\OrderController;
 use App\Http\Middleware\AuthenticateToken;
 use Illuminate\Http\Request;
@@ -33,6 +34,7 @@ Route::get('/tags', [TagController::class, 'index'])->name('api.tag.index');
 Route::get('/fastboats', [FastboatController::class, 'index'])->name('api.fastboat.index');
 Route::get('/agent', [AgentController::class, 'index'])->name('api.agent.index');
 Route::get('/fastboat/tracks', [FastboatTrackController::class, 'index'])->name('api.fasboat.track.index');
+Route::get('/car-rentals', [CarRentalController::class, 'index'])->name('api.car-rentals.index');
 
 // for payment
 Route::put('/carts/process-payment/{order}', [OrderController::class, 'payment_update'])->name('api.order.update');

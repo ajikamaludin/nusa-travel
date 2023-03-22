@@ -19,5 +19,7 @@ class Page extends Model
         'meta_tag',
         'attribute',
         'flag',
+        'original_id',
+        'lang',
     ];
 }
