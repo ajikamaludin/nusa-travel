@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\OrderAble;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class FastboatTrack extends Model
 {
@@ -48,6 +49,11 @@ class FastboatTrack extends Model
         return $this->hasMany(OrderItem::class, 'entity_id');
     }
 
+    public function trackAgent()
+    {
+        return $this->hasMany(FastboatTrackAgent::class);
+    }
+
     protected function arrivalTime(): Attribute
     {
         return Attribute::make(
@@ -59,6 +65,23 @@ class FastboatTrack extends Model
     {
         return Attribute::make(
             get: fn (string $value) => substr($value, 0, 5),
+        );
+    }
+    
+    protected function validatedPrice(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->is_agent == Customer::AGENT) {
+                    $customerId =  Auth::guard('customer')->user()->id;
+                    $price = $this->trackAgent()->where('customer_id', $customerId)->first();
+                    if ($price != null) {
+                        return $price->price;
+                    }
+                }
+
+                return $this->price;
+            },
         );
     }
 
@@ -98,23 +121,6 @@ class FastboatTrack extends Model
         // $tracks = $track->group->tracks;
         $fastboat = $track->group->fastboat;
         $places = $track->group->places()->orderBy('order', 'asc')->get();
-
-        // $capacities = [];
-        // copy all tracks to capacities
-        // foreach($tracks as $t) {
-        //     $capacity = FastboatTrackOrderCapacity::firstOrCreate([
-        //         'fastboat_track_group_id' => $track->group->id,
-        //         'fastboat_source_id' => $t->fastboat_source_id,
-        //         'fastboat_destination_id' => $t->fastboat_destination_id,
-        //         'date' => $date,
-        //     ], [
-        //         'capacity' => $fastboat->capacity,
-        //     ]);
-
-        //     $rou = $t->fastboat_source_id.'|'.$t->fastboat_destination_id;
-        //     $capacities[$rou] = $capacity;
-        // }
-        // dump(array_keys($capacities));
 
         // other track that impact
         $n = $places->count();
@@ -160,10 +166,5 @@ class FastboatTrack extends Model
                 }
             }
         }
-    }
-
-    public function trackAgent()
-    {
-        return $this->hasMany(FastboatTrackAgent::class);
     }
 }

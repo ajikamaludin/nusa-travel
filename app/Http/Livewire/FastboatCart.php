@@ -78,21 +78,12 @@ class FastboatCart extends Component
             }
         });
 
-        $tracks = FastboatTrack::with(['destination', 'source', 'group.fastboat']);
-        if (Auth::guard('customer')->check()) {
-            if (auth('customer')->user()->is_agent == 1) {
-                $customerId = auth('customer')->user()->id;
-                $tracks->leftJoin('fastboat_track_agents',function($join) use ($customerId){
-                    $join->on('fastboat_track_id','=','fastboat_tracks.id');
-                    $join->where('fastboat_track_agents.customer_id','=',$customerId);
-                })
-                ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by');
-            }
-        }
-        $tracks->whereIn('fastboat_tracks.id', $carts->keys())->get();
+        $tracks = FastboatTrack::with(['destination', 'source', 'group.fastboat'])
+            ->whereIn('id', $carts->keys())->get();
 
         $this->carts = $carts->map(function ($cart, $key) use ($tracks) {
-            $cart['track'] = $tracks->where('fastboat_tracks.id', $key)->first();
+            $cart['track'] = $tracks->where('id', $key)->first();
+            // dump($cart['track']);
             if (! property_exists($this, 'showPerson_1')) {
                 foreach (range(1, $cart['qty']) as $i => $q) {
                     $this->{"showPerson_$i"} = false;
@@ -102,6 +93,8 @@ class FastboatCart extends Component
             return $cart;
         });
 
+        dump($this->carts);
+
         if (count($this->carts) > 0 && count($this->persons) == 0) {
             $qty = collect($this->carts)->value('qty');
             foreach (range(0, $qty - 1) as $i) {
@@ -109,11 +102,11 @@ class FastboatCart extends Component
             }
         }
 
-        $origin = $this->carts->first()['track']->source->name;
-        $this->pickups = FastboatPickup::with(['car'])->whereHas('source',function ($query) use ($origin) {
-            $query->where('name', '=', $origin);
-        })
-        ->orderBy('name', 'asc')->get();
+        // $origin = $this->carts->first()['track']->source->name;
+        // $this->pickups = FastboatPickup::with(['car'])->whereHas('source',function ($query) use ($origin) {
+        //     $query->where('name', '=', $origin);
+        // })
+        // ->orderBy('name', 'asc')->get();
     }
 
     public function render()
