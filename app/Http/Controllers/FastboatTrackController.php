@@ -34,7 +34,7 @@ class FastboatTrackController extends Controller
      */
     public function create(Request $request)
     {
-        $place = FastboatPlace::query();
+        $place = FastboatPlace::query()->orderBy('name', 'asc');
 
         if ($request->place_q != '') {
             $place->where('name', 'like', "%{$request->place_q}%");
@@ -107,7 +107,7 @@ class FastboatTrackController extends Controller
      */
     public function edit(Request $request, FastboatTrackGroup $group)
     {
-        $place = FastboatPlace::query();
+        $place = FastboatPlace::query()->orderBy('name', 'asc');
 
         if ($request->place_q != '') {
             $place->where('name', 'like', "%{$request->place_q}%");

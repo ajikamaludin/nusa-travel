@@ -4,7 +4,7 @@ import { usePrevious } from 'react-use';
 import { Dropdown } from 'flowbite-react';
 import { HiPencil, HiTrash } from 'react-icons/hi';
 import { useModalState } from '@/hooks';
-import { hasPermission } from '@/utils';
+import { formatIDR, hasPermission } from '@/utils';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Pagination from '@/Components/Pagination';
@@ -48,7 +48,7 @@ export default function Index(props) {
     const canCreate = hasPermission(auth, 'create-price-agent')
     const canUpdate = hasPermission(auth, 'update-price-agent')
     const canDelete = hasPermission(auth, 'delete-price-agent')
-  
+
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -56,6 +56,7 @@ export default function Index(props) {
             flash={props.flash}
             page={'Agents'}
             action={'Harga Agent'}
+            parent={route('price-agent.index')}
         >
             <Head title="Harga Agent" />
 
@@ -84,9 +85,6 @@ export default function Index(props) {
                                             <th scope="col" className="py-3 px-6">
                                                 Track
                                             </th>
-                                            <th scope="col" className="py-3 px-6">
-                                                Price
-                                            </th>
                                             <th scope="col" className="py-3 px-6" />
                                         </tr>
                                     </thead>
@@ -99,12 +97,6 @@ export default function Index(props) {
 
                                                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                                     {priceagent?.track_group?.name} ( {priceagent?.track_group?.fastboat?.name} )
-                                                </td>
-                                                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {new Intl.NumberFormat('id-ID', {
-                                                        style: "currency",
-                                                        currency: "IDR"
-                                                    }).format(priceagent?.price)}
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown

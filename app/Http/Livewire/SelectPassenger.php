@@ -3,9 +3,12 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class SelectPassenger extends Component
 {
+    use Actions;
+    
     public $passengers;
 
     public $infants;
@@ -22,6 +25,15 @@ class SelectPassenger extends Component
 
     public function updatedInfants($value)
     {
+        if ($this->passengers < $value) {
+            $this->dialog()->error(
+                $title = 'Warning !!!',
+                $description = 'Infant cant more than persons'
+            );
+
+            $this->infants = $this->passengers;
+            return;
+        }
         $this->emit('changeInfants', $value);
     }
 }

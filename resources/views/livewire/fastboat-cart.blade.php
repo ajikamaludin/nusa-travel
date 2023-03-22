@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="bg-gray-200 p-2 rounded-b-lg">
-                            Rp {{ number_format($cart['track']->price, 0, ',', '.') }}
+                            Rp {{ number_format($cart['track']->validated_price, 0, ',', '.') }}
                         </div>
                     </div>
                     @endforeach
@@ -164,30 +164,34 @@
                     <div class="font-bold">
                         {{ __('website.Travelers Details')}}
                     </div>
-                    @foreach($persons as $i => $a) 
+                    @foreach($persons as $i => $person) 
                     <div x-data="{ open: @entangle('showPerson_' . $i).defer }">
                         <div 
                             class="mt-2 shadow-md rounded-md flex py-2 px-4 justify-between border-2 hover:bg-gray-100" 
                             x-on:click="open = ! open" 
                             x-show="!open"
                         >
-                            @if(count($persons[$i] ?? []) != 0)
-                            <div class="flex flex-row">
-                                <x-icon name="user" class="w-5 h-5 mr-2" />
-                                {{$persons[$i]['name']}}
-                            </div>
-                            <div class="text-green-500">
-                                <x-icon name="check" class="w-5 h-5" />
-                            </div>
+                            @if(isset($person['name']))
+                                <div class="flex flex-row">
+                                    <x-icon name="user" class="w-5 h-5 mr-2" />
+                                    {{$person['name']}}
+                                </div>
+                                <div class="text-green-500">
+                                    <x-icon name="check" class="w-5 h-5" />
+                                </div>
                             @else
-                            <div class="flex flex-row">
-                                <x-icon name="user" class="w-5 h-5 mr-2" />
-                                {{ __('website.Person')}} {{ $i + 1 }}
-                                <span class="text-red-500">*</span>
-                            </div>
-                            <div class="text-blue-500">
-                                <x-icon name="chevron-right" class="w-5 h-5" />
-                            </div>
+                                <div class="flex flex-row">
+                                    <x-icon name="user" class="w-5 h-5 mr-2" />
+                                    @if($person['type'] == 0)
+                                        {{ __('website.Person')}} {{ $person['key'] }}
+                                    @else
+                                        Infant {{ $person['key'] }}
+                                    @endif
+                                    <span class="text-red-500">*</span>
+                                </div>
+                                <div class="text-blue-500">
+                                    <x-icon name="chevron-right" class="w-5 h-5" />
+                                </div>
                             @endif
                         </div>
                         <div x-show="open" class="hadow-md rounded-md border-2 p-4">
@@ -251,27 +255,25 @@
                 </div> 
                 --}}
 
-                @if(count($pickups) > 0)
-                    <!-- pickups -->
-                    <div class="w-full p-4 pt-0">
-                        <div class="font-bold">
-                            Pickup ({{ __('website.Optional')}})
-                        </div>
-                        <x-select
-                            wire:model="pickup"
-                            placeholder="Pickup"
-                            :options="$pickups"
-                            :min-items-for-search="5"
-                            :clearable="true"
-                            option-label="name"
-                            option-value="name"
-                            name="from"
-                            required="true"
-                            autocomplate="off"
-                            right-icon="location-marker"
-                        />
-                    </div> 
-                @endif
+                <!-- pickups -->
+                <div class="w-full p-4 pt-0">
+                    <div class="font-bold">
+                        Pickup ({{ __('website.Optional')}})
+                    </div>
+                    <x-select
+                        wire:model="pickup"
+                        placeholder="Pickup"
+                        :options="$pickups"
+                        :min-items-for-search="5"
+                        :clearable="true"
+                        option-label="name"
+                        option-value="name"
+                        name="from"
+                        required="true"
+                        autocomplate="off"
+                        right-icon="location-marker"
+                    />
+                </div> 
 
                 <!-- continue button -->
                 <div class="w-full text-center" wire:loading.delay.long>
@@ -293,13 +295,23 @@
             @if($view == 2)
                 <!-- pessanger -->
                 <div class="w-full p-4">
-                    <div class="font-bold">
-                        {{ __('website.Passengers')}}
+                    <div class="flex flex-row font-bold items-center gap-2">
+                        <div wire:click="back" class="w-5 h-5">
+                            <x-icon name="chevron-left" class="w-5 h-5" />
+                        </div>
+                        <div>
+                            {{ __('website.Passengers')}}
+                        </div>
                     </div>
                     @foreach($persons as $person)
                     <div class="bg-white flex flex-col border-b-2 p-1">
                         <span>{{ $person['name'] }}</span>
-                        <span class="text-sm text-gray-400"> {{ $person['nation'] .' - '. $person['national_id'] }} </span>
+                        <span class="text-sm text-gray-400"> 
+                            {{ $person['nation'] .' - '. $person['national_id'] }} 
+                            @if($person['type'] == 1) 
+                                - Infant
+                            @endif
+                        </span>
                     </div>
                     @endforeach
 
@@ -325,7 +337,7 @@
                                 {{ $cart['track']->destination->name  }}
                             </span>
                             <span> x {{ $cart['qty'] }} </span>
-                            <span> {{ number_format($cart['qty'] * $cart['track']->price, 0, ',' , '.') }} </span>
+                            <span> {{ number_format($cart['qty'] * $cart['track']->validated_price, 0, ',' , '.') }} </span>
                         </div>
                     @endforeach
                     @if($pickup != '')
@@ -336,7 +348,7 @@
                             {{ $cart['track']->destination->name  }}
                         </span>
                         <span> x {{ $cart['qty'] }} </span>
-                        <span> {{ number_format($cart['qty'] * $cart['track']->price, 0, ',' , '.') }} </span>
+                        <span> {{ number_format($cart['qty'] * $cart['track']->validated_price, 0, ',' , '.') }} </span>
                     </div>
                     @endif
 

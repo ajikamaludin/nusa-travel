@@ -128,6 +128,9 @@ export default function Form(props) {
                                             <th scope="col" className="py-3 px-6">
                                                 Nation ID 
                                             </th>
+                                            <th scope="col" className="py-3 px-6">
+                                                Type
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -141,6 +144,9 @@ export default function Form(props) {
                                                 </td>
                                                 <td className="py-4 px-6">
                                                     {passenger.national_id}
+                                                </td>
+                                                <td className="py-4 px-6">
+                                                    {+passenger.type === 1 ? 'Infant' : 'Adult'}
                                                 </td>
                                             </tr>
                                         ))}

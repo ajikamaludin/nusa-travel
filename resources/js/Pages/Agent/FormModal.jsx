@@ -6,7 +6,7 @@ import FormInput from "@/Components/FormInput";
 
 import { isEmpty } from "lodash";
 
-export default function FormModalAgent(props) {
+export default function FormModal(props) {
     const { modalState } = props
     const { data, setData, post, put, processing, errors, reset, clearErrors } = useForm({
         name: '',
@@ -15,7 +15,8 @@ export default function FormModalAgent(props) {
         address: '',
         nation: '0',
         national_id: '',
-        password: ''
+        password: '',
+        token: ''
     })
 
     const handleOnChange = (event) => {
@@ -56,6 +57,7 @@ export default function FormModalAgent(props) {
                 address: customer.address,
                 nation: customer.nation,
                 national_id: customer.national_id,
+                token: customer.token,
             })
             return 
         }
@@ -119,6 +121,13 @@ export default function FormModalAgent(props) {
                 error={errors.password}
                 placeholder="leave blank to unchange"
             />
+            {data.token != '' && (
+                <FormInput
+                    type="text"
+                    value={data.token}
+                    label="Api Token"
+                />
+            )}
             <div className="flex items-center">
                 <Button
                     onClick={handleSubmit}

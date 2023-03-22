@@ -17,7 +17,7 @@
             type="number"
             placeholder="Infant" 
             name="infants" 
-            wire:model.debounce.300ms="infants"
+            wire:model="infants"
             required="true"
             min="0"
             right-icon="user"

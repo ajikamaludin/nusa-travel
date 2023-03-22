@@ -81,7 +81,6 @@ const handleCustomer=(id)=>{
     useEffect(() => {
         if (isEmpty(group) === false) {
             setIsdisableCus(true)
-           
             setData({
                 customer_id:group.customer_id,
                 fastboat_id: group.track_group.id,
@@ -96,10 +95,11 @@ const handleCustomer=(id)=>{
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={"Harga Agent"}
-            action={""}
+            page={'Agents'}
+            action={'Harga Agent'}
+            parent={route('price-agent.index')}
         >
-            <Head title={"Form"} />
+            <Head title={'Form'} />
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden p-4 shadow-sm sm:rounded-lg bg-white dark:bg-gray-800 flex flex-col ">

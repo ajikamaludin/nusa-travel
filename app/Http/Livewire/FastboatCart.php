@@ -54,6 +54,8 @@ class FastboatCart extends Component
 
     public $discount = 0;
 
+    public $infants = 0;
+
     public function mount()
     {
         $this->contact = session()->get('contact', []);
@@ -66,6 +68,7 @@ class FastboatCart extends Component
 
         $this->isAllValid = $this->checkAllValid();
 
+        $this->infants = session()->get('infants', 0);
         // $this->dropoffs = FastboatDropoff::orderBy('name', 'asc')->get();
     }
 
@@ -85,7 +88,7 @@ class FastboatCart extends Component
             $cart['track'] = $tracks->where('id', $key)->first();
 
             if (! property_exists($this, 'showPerson_1')) {
-                foreach (range(1, $cart['qty']) as $i => $q) {
+                foreach (range(1, $cart['qty'] + $this->infants) as $i => $q) {
                     $this->{"showPerson_$i"} = false;
                 }
             }
@@ -93,11 +96,22 @@ class FastboatCart extends Component
             return $cart;
         });
 
-
         if (count($this->carts) > 0 && count($this->persons) == 0) {
             $qty = collect($this->carts)->value('qty');
-            foreach (range(0, $qty - 1) as $i) {
-                $this->persons[$i] = [];
+            foreach (range(0, $qty - 1) as $key => $i) {
+                $this->persons[$i] = [
+                    'key' => $key + 1,
+                    'type' => '0',
+                ];
+            }
+
+            if ($this->infants != 0) {
+                foreach(range($i + 1, $i + $this->infants) as $key => $j) {
+                    $this->persons[$j] = [
+                        'key' => $key + 1,
+                        'type' => '1',
+                    ];
+                }
             }
         }
 
@@ -137,11 +151,6 @@ class FastboatCart extends Component
             return;
         }
 
-        $person = $this->persons[0] ?? [];
-        if ($person != [] && $person['name'] == $this->contact['name']) {
-            $this->persons[0] = $this->contact;
-        }
-
         $this->showContact = false;
         $this->validContact = true;
         $this->isAllValid = $this->checkAllValid();
@@ -149,7 +158,10 @@ class FastboatCart extends Component
 
     public function addContactToPerson()
     {
-        $this->persons[0] = $this->contact;
+        $this->persons[0] = array_merge(
+            $this->persons[0],
+            $this->contact
+        );
 
         $this->isAllValid = $this->checkAllValid();
     }
@@ -193,6 +205,11 @@ class FastboatCart extends Component
         $this->view = 2;
     }
 
+    public function back()
+    {
+        $this->view = 1;
+    }
+
     public function payment()
     {
         DB::beginTransaction();
@@ -229,7 +246,7 @@ class FastboatCart extends Component
                 'entity_order' => $cart['type'],
                 'entity_id' => $trackId,
                 'description' => $cart['track']->source->name.' - '.$cart['track']->destination->name.' | '.$cart['date'],
-                'amount' => $cart['track']->price,
+                'amount' => $cart['track']->validated_price,
                 'quantity' => $cart['qty'],
                 'date' => $cart['date'],
                 'pickup' => $pickup?->name,
@@ -249,6 +266,7 @@ class FastboatCart extends Component
                     'nation' => $person['nation'],
                     'national_id' => $person['national_id'],
                     'name' => $person['name'],
+                    'type' => $person['type'],
                 ]);
             }
         }
@@ -286,8 +304,8 @@ class FastboatCart extends Component
         $dates = [];
         $qty = collect($this->carts)->value('qty');
         collect($this->carts)->map(function ($cart) use (&$dates) {
-            $this->total += $cart['track']->price * $cart['qty'];
-            $this->total_payed += $cart['track']->price * $cart['qty'];
+            $this->total += $cart['track']->validated_price * $cart['qty'];
+            $this->total_payed += $cart['track']->validated_price * $cart['qty'];
             $dates[] = $cart['date'];
         });
 
@@ -321,7 +339,6 @@ class FastboatCart extends Component
         ->get();
 
         foreach ($promos as $promokey => $promo) {
-        // var_dump($promo->condition_type);
             switch ($promo->condition_type) {
                 case 2:
                     $datetime1 = new DateTime($promo->available_start_date);
@@ -345,7 +362,11 @@ class FastboatCart extends Component
         foreach ($promos as $promokey => $promo) {
             $isPercent = false;
             $namedic = '';
-            if ($promo->order_perday_limit < $promo->used_promo || (Auth::guard('customer')->user() != null && Auth::guard('customer')->user()->id == $promo->id && $promo->user_perday_limit < $promo->used_promo)) {
+            if ($promo->order_perday_limit < $promo->used_promo || 
+                    (Auth::guard('customer')->user() != null && 
+                        Auth::guard('customer')->user()->id == $promo->id && 
+                        $promo->user_perday_limit < $promo->used_promo)
+            ) {
                 unset($promos[$promokey]);
             } else {
                 if ($promo->condition_type != 4) {

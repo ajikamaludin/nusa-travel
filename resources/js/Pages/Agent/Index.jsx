@@ -9,7 +9,7 @@ import { useModalState } from '@/hooks';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Pagination from '@/Components/Pagination';
 import ModalConfirm from '@/Components/ModalConfirm';
-import FormModal from './FormModalAgent';
+import FormModal from './FormModal';
 import SearchInput from '@/Components/SearchInput';
 import { hasPermission } from '@/utils';
 
@@ -94,12 +94,6 @@ export default function Index(props) {
                                             <th scope="col" className="py-3 px-6">
                                                 Email
                                             </th>
-                                            <th scope="col" className="py-3 px-6">
-                                                Email Verified 
-                                            </th>
-                                            <th scope="col" className="py-3 px-6">
-                                                Token API 
-                                            </th>
                                             <th scope="col" className="py-3 px-6"/>
                                         </tr>
                                     </thead>
@@ -115,12 +109,6 @@ export default function Index(props) {
                                                 <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                                     {agent.email}
                                                 </td>
-                                                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {+agent.is_active === 1 ? 'Yes' : 'No'}
-                                                </td>
-                                                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    {agent.token}
-                                                </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown
                                                         label={"Opsi"}
@@ -130,20 +118,12 @@ export default function Index(props) {
                                                         size={'sm'}
                                                     >
                                                         {canUpdate && (
-                                                            <>
                                                             <Dropdown.Item onClick={() => toggleFormModal(agent)}>
                                                                 <div className='flex space-x-1 items-center'>
                                                                     <HiPencil/> 
                                                                     <div>Ubah</div>
                                                                 </div>
                                                             </Dropdown.Item>
-                                                            <Dropdown.Item >
-                                                                <div className='flex space-x-1 items-center'>
-                                                                    <HiPencil/> 
-                                                                    <div>Harga Agent</div>
-                                                                </div>
-                                                            </Dropdown.Item>
-                                                            </>
                                                         )}
                                                         {canDelete && (
                                                             <Dropdown.Item onClick={() => handleDeleteClick(agent)}>
