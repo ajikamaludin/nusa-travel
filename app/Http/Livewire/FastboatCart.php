@@ -83,7 +83,7 @@ class FastboatCart extends Component
 
         $this->carts = $carts->map(function ($cart, $key) use ($tracks) {
             $cart['track'] = $tracks->where('id', $key)->first();
-            // dump($cart['track']);
+
             if (! property_exists($this, 'showPerson_1')) {
                 foreach (range(1, $cart['qty']) as $i => $q) {
                     $this->{"showPerson_$i"} = false;
@@ -93,7 +93,6 @@ class FastboatCart extends Component
             return $cart;
         });
 
-        dump($this->carts);
 
         if (count($this->carts) > 0 && count($this->persons) == 0) {
             $qty = collect($this->carts)->value('qty');
