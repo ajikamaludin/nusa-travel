@@ -143,6 +143,7 @@ class EkajayaService
                 }
             }
 
+            // if no response check db for recorded placement
             if(count($tracks) == 0) {
                 Log::info('tracks api clearing');
                 // if no result fount than check db , if any remove record

@@ -111,9 +111,9 @@ class FastboatTrackAgentController extends Controller
      */
     public function destroy(FastboatTrackGroupAgent $group): void
     {
-        // dd($group);
-        $group->delete();
         $group->tracksAgent()->delete();
+        $group->delete();
+
         session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
     }
 }

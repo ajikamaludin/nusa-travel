@@ -148,6 +148,46 @@ class FastboatTrackController extends Controller
         })->sortBy('order', SORT_NATURAL);
 
         DB::beginTransaction();
+
+        $match = false;
+        if(count($places) == $group->places()->count()) {
+            $matchs = [];
+            $gplaces = $group->places()->orderBy('order', 'asc')->get();
+            foreach($gplaces as $index => $gp) {
+                $matchs[] = $places[$index]['place']->id == $gp->fastboat_place_id;
+            }
+
+            $match = !in_array(false, $matchs);
+        }
+
+        if ($match) {
+            $tracks = collect($request->tracks);
+            $group->tracks()->each(function ($gtrack) use ($tracks) {
+                $track = $tracks->where('fastboat_source_id', '=', $gtrack->fastboat_source_id)
+                ->where('fastboat_destination_id','=', $gtrack->fastboat_destination_id)->first();
+
+                $gtrack->update([
+                    'fastboat_source_id' => $track['fastboat_source_id'],
+                    'fastboat_destination_id' => $track['fastboat_destination_id'],
+                    'price' => $track['price'],
+                    'arrival_time' => $track['arrival_time'],
+                    'departure_time' => $track['departure_time'],
+                    'is_publish' => $track['is_publish'],
+                ]);
+            });
+            DB::commit();
+
+            return redirect()->route('fastboat.track.index')
+            ->with('message', ['type' => 'success', 'message' => 'Item has beed updated']);
+        }
+
+        $group->tracks()->each(function ($track) {
+            $track->trackAgent()->each(function ($agent) {
+                $agent->group()->delete();
+            });
+            $track->trackAgent()->delete();
+        });
+
         $group->places()->delete();
         $group->tracks()->delete();
 
@@ -184,7 +224,19 @@ class FastboatTrackController extends Controller
      */
     public function destroy(FastboatTrackGroup $group): void
     {
+        DB::beginTransaction();
+        $group->tracks()->each(function ($track) {
+            $track->trackAgent()->each(function ($agent) {
+                $agent->group()->delete();
+            });
+            $track->trackAgent()->delete();
+        });
+
+        $group->places()->delete();
+        $group->tracks()->delete();
         $group->delete();
+        DB::commit();
+
         session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
     }
 }

@@ -4,12 +4,19 @@ namespace App\Models;
 
 class FastboatTrackAgent extends Model
 {
+    protected $cascadeDeletes = ['group'];
+
     protected $fillable = [
         'fastboat_track_id',
         'customer_id',
         'price',
         'fastboat_track_group_agents_id',
     ];
+
+    public function group() 
+    {
+        return $this->belongsTo(FastboatTrackGroupAgent::class, 'fastboat_track_group_agents_id');
+    }
 
     public function tracks()
     {
