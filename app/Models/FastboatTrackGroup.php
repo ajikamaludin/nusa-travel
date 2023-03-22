@@ -11,7 +11,7 @@ class FastboatTrackGroup extends Model
     protected $fillable = [
         'fastboat_id',
         'name',
-        'data_source'
+        'data_source',
     ];
 
     public function fastboat()

@@ -82,6 +82,7 @@ class SettingController extends Controller
         DB::commit();
 
         Cache::flush();
+
         return redirect()->route('setting.general')
             ->with('message', ['type' => 'success', 'message' => 'Setting has beed saved']);
     }
@@ -117,6 +118,7 @@ class SettingController extends Controller
         DB::commit();
 
         Cache::flush();
+
         return redirect()->route('setting.payment')
             ->with('message', ['type' => 'success', 'message' => 'Setting has beed saved']);
     }
@@ -141,7 +143,7 @@ class SettingController extends Controller
         $request->validate([
             'ekajaya_host' => 'required|url|string|max:255',
             'ekajaya_apikey' => 'required|string|max:255|unique:customers,token',
-            'ekajaya_enable' => 'required|in:0,1'
+            'ekajaya_enable' => 'required|in:0,1',
         ], [
             'ekajaya_apikey.unique' => 'cant use key as same as local system',
         ]);
@@ -156,6 +158,7 @@ class SettingController extends Controller
         DB::commit();
 
         Cache::flush();
+
         return redirect()->route('setting.ekajaya')
             ->with('message', ['type' => 'success', 'message' => 'Setting has beed saved']);
     }
