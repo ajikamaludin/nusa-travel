@@ -9,6 +9,8 @@ use App\Models\Customer;
 use App\Models\FastboatPickup;
 use App\Models\FastboatTrack;
 use App\Models\Order;
+use App\Services\AsyncService;
+use App\Services\EkajayaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -102,6 +104,7 @@ class AgentController extends Controller
             'persons.*.name' => 'required|string|max:255|min:3',
             'persons.*.nation' => 'required|string|in:WNA,WNI',
             'persons.*.national_id' => 'required|numeric',
+            'persons.*.type' => 'nullable|in:0,1',
             'order' => 'required|array',
             'order.date' => 'required|string',
             'order.qty' => 'required|numeric',
@@ -110,7 +113,7 @@ class AgentController extends Controller
             'order.track_id' => 'required|string|exists:fastboat_tracks,id',
         ]);
 
-        if ($request->order['qty'] != count($request->persons)) {
+        if (count($request->persons) < $request->order['qty']) {
             return response()->json([
                 'message' => 'Failed',
                 'details' => 'Persons must be match with order.qty',
@@ -162,7 +165,14 @@ class AgentController extends Controller
                 'nation' => $person['nation'],
                 'national_id' => $person['national_id'],
                 'name' => $person['name'],
+                'type' => $person['type'] ?? null,
             ]);
+        }
+
+        if ($track->data_source != null) {
+            AsyncService::async(function () use ($item) {
+                EkajayaService::order($item);
+            });
         }
 
         DB::commit();
