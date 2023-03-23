@@ -23,6 +23,7 @@ class FastboatTrack extends Model
         'departure_time',
         'is_publish',
         'data_source',
+        'deleted_at',
     ];
 
     public function group()

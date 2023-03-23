@@ -16,6 +16,7 @@ class Fastboat extends Model
         'capacity',
         'cover_image',
         'data_source',
+        'deleted_at',
     ];
 
     protected $appends = ['cover_url'];

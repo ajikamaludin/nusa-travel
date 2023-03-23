@@ -12,6 +12,7 @@ class FastboatTrackGroup extends Model
         'fastboat_id',
         'name',
         'data_source',
+        'deleted_at',
     ];
 
     public function fastboat()
