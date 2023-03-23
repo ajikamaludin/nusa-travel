@@ -118,10 +118,10 @@ export default function Form(props) {
                                             Source - Destination
                                         </th>
                                         <th scope="col" className="py-3 px-6">
-                                            Arrival At
+                                            Departure At
                                         </th>
                                         <th scope="col" className="py-3 px-6">
-                                            Departure At
+                                            Arrival At
                                         </th>
                                         <th scope="col" className="py-3 px-6">
                                             Price

@@ -192,7 +192,12 @@ class FastboatCart extends Component
 
     public function checkAllValid()
     {
-        return $this->validContact && ! in_array([], $this->persons);
+        $matchs = [];
+        foreach($this->persons as $person) {
+            $matchs[] = isset($person['name']);
+        }
+
+        return $this->validContact && !in_array(false, $matchs);
     }
 
     public function continue()
