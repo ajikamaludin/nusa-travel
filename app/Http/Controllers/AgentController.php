@@ -44,7 +44,7 @@ class AgentController extends Controller
             'national_id' => $request->national_id,
             'password' => bcrypt($request->passwor),
             'is_active' => Customer::ACTIVE,
-            'is_agent' => Customer::ACTIVE,
+            'is_agent' => Customer::AGENT,
             'token' => Hash::make(Str::random(10)),
         ]);
 

@@ -56,6 +56,10 @@ class AgentController extends Controller
         );
 
         if ($request->from != '' && $request->to != '' && $request->date != '') {
+            AsyncService::async(function () use ($request) {
+                EkajayaService::search($request->from, $request->to, $request->date, 1);
+            });
+
             $query->whereHas('source', function ($query) use ($request) {
                 $query->where('name', '=', $request->from);
             });
