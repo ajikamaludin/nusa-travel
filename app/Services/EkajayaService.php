@@ -157,8 +157,6 @@ class EkajayaService
                     ['data_source', '=', EkajayaService::class],
                 ])->first();
 
-                dump([$s->name, $d->name]);
-
                 if($s != null && $d != null) {
                     $groups = FastboatTrackGroup::where([
                         ['name', '=', $s->name.' - '.$d->name],
