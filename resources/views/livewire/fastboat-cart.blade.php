@@ -314,6 +314,7 @@
                         </span>
                     </div>
                     @endforeach
+                    
 
                     @if($dropoff != '')
                     <div class="bg-white flex flex-row p-1 justify-between">
@@ -322,6 +323,23 @@
                         </span>
                     </div>
                     @endif
+                </div>
+                <!-- Cupon Promo -->
+                <div class="w-full p-4">
+                    <div class="font-bold">
+                        {{ __('website.Code Promo')}}
+                    </div>
+                        <div class="mt-2">
+                            <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="{{ __('website.Code Promo')}}" wire:model.defer="cupon.code" autocomplete="off">
+                        </div>  
+                        <div class="mt-2">
+                                <button wire:click="addCupon()" wire:loading.remove class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ">
+                                    {{ __('website.Add Cupon')}}
+                                </button>
+                                <div wire:loading.delay.long>
+                                    loading...
+                                </div>
+                            </div>
                 </div>
 
                 <!-- price details -->
@@ -353,6 +371,34 @@
                         </span>
                         </div>
                     @endif
+                   
+                    @if(count($promos) > 0)
+                    <div class="font-bold">
+                    {{ __('website.Promo applied')}}
+                    </div>
+                    <!-- <div class="p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert"> -->
+                        <!-- <span class="font-medium">{{ __('website.Promo applied')}}!</span>  -->
+                        @foreach($promos as $promo)
+                        <div class="bg-white flex flex-row border-b-2 p-1 justify-between">
+                            <span class="flex flex-row gap-1 items-center">
+                            {{ $promo['name'] }}
+                            </span>
+                        </div>
+                        @endforeach
+                    <!-- </div> -->
+                    @endif
+                    @if(count($promosManual)>0)
+                    <div class="font-bold">
+                    {{ __('website.Code applied')}}
+                    </div>
+                    @foreach($promosManual as $cp)
+                        <div class="bg-white flex flex-row border-b-2 p-1 justify-between">
+                            <span class="flex flex-row gap-1 items-center">
+                           ({{$cp['code']}}) - {{ $cp['name'] }} 
+                            </span>
+                        </div>
+                        @endforeach
+                    @endif
 
                     @if($discount != 0)
                         <div class="bg-white flex flex-row border-b-2 p-1 justify-between">
@@ -370,14 +416,7 @@
                         <span> {{ number_format($total_payed, 0, ',' , '.') }} </span>
                     </div>
 
-                    @if(count($promos) > 0)
-                    <div class="p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert">
-                        <span class="font-medium">{{ __('website.Promo applied')}}!</span> 
-                        @foreach($promos as $promo)
-                            <div>{{ $promo['name'] }}</div>
-                        @endforeach
-                    </div>
-                    @endif
+                   
                 </div>
 
                 <div wire:loading.remove class="mx-4">

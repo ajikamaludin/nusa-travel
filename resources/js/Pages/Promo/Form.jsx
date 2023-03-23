@@ -28,6 +28,7 @@ export default function Form(props) {
         amount_buys: '',
         amount_tiket: '',
         ranges_day: '',
+        is_apply:1,
     })
 
     const handleOnChange = (event) => {
@@ -110,6 +111,7 @@ export default function Form(props) {
                 amount_buys: promo.amount_buys,
                 amount_tiket: promo.amount_tiket,
                 ranges_day: promo.ranges_day,
+                is_apply:promo.is_apply,
             })
         }
     }, [promo])
@@ -233,6 +235,12 @@ export default function Form(props) {
                                 value={+data.is_active === 1}
                                 onChange={handleOnChange}
                                 label="Active"
+                            />
+                            <Checkbox
+                                name="is_apply"
+                                value={+data.is_apply === 1}
+                                onChange={handleOnChange}
+                                label="Auto Apply"
                             />
                         </div>
 

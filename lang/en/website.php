@@ -118,4 +118,8 @@ return [
     'Terms and Conditions' => 'Terms and Conditions',
     'and' => 'and',
     'Privacy and Policy' => 'Privacy and Policy',
+    'Process Order' => 'Process Order',
+    'Code Promo' => 'Code Promo',
+    'Add Cupon' => 'Add Code Promo',
+    'Cupon applied' => 'Cupon Promo',
 ];
