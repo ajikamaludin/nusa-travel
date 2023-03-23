@@ -444,7 +444,7 @@ class FastboatCart extends Component
                 ];
             }
         }
-        dd($promos);
+        // dd($promos);
         $this->total_payed = $this->total_payed - $this->discount;
     }
 
