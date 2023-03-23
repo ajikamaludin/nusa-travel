@@ -29,25 +29,73 @@ class PromoController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'code' => 'nullable|string|alpha_dash|unique:promos,code',
-            'name' => 'required|string',
-            'is_active' => 'required|in:0,1',
-            'cover_image' => 'nullable|image',
-            'discount_type' => 'exclude_if:condition_type,!=,4|nullable|in:0,1',
-            'discount_amount' => 'exclude_if:condition_type,!=,4|nullable|numeric|min:1',
-            'available_start_date' => 'nullable|date',
-            'available_end_date' => 'nullable|date|gte:available_start_date',
-            'order_start_date' => 'nullable|date',
-            'order_end_date' => 'nullable|date|gte:available_start_date',
-            'user_perday_limit' => 'nullable|numeric',
-            'order_perday_limit' => 'nullable|numeric',
-            'condition_type' => 'nullable|string',
-            'amount_buys' => 'nullable|numeric',
-            'amount_tiket' => 'exclude_if:condition_type,==,4|nullable|numeric|gt:0',
-            'ranges_day' => 'nullable|numeric',
-        ]);
+        switch ($request->condition_type) {
+            case 1:
+                $request->validate([
+                    'code' => 'nullable|string|alpha_dash|unique:promos,code',
+                    'name' => 'required|string',
+                    'is_active' => 'required|in:0,1',
+                    'cover_image' => 'nullable|image',
+                    'amount_buys' => 'required|numeric|gt:0',
+                    'discount_type' => 'required|in:0,1',
+                    'discount_amount' => 'required|numeric|min:1',
+                ]);
+                break;
+            case 2:
+                $request->validate([
+                    'code' => 'nullable|string|alpha_dash|unique:promos,code',
+                    'name' => 'required|string',
+                    'is_active' => 'required|in:0,1',
+                    'cover_image' => 'nullable|image',
+                    'available_start_date' => 'required|date',
+                    'available_end_date' => 'nullable|date|after_or_equal:available_start_date',
+                    'ranges_day' => 'required|numeric|gt:0',
+                    'discount_type' => 'required|in:0,1',
+                    'discount_amount' => 'required|numeric|min:1',
+                ]);
+                break;
+            case 3:
+                $request->validate([
+                    'code' => 'nullable|string|alpha_dash|unique:promos,code',
+                    'name' => 'required|string',
+                    'is_active' => 'required|in:0,1',
+                    'cover_image' => 'nullable|image',
+                    'order_start_date' => 'required|date',
+                    'order_end_date' => 'nullable|date|after_or_equal:order_start_date',
+                    'ranges_day' => 'required|numeric|gt:0',
+                    'discount_type' => 'required|in:0,1',
+                    'discount_amount' => 'required|numeric|min:1',
+                ]);
+                break;
+            case 4:
+                $request->validate([
+                    'code' => 'nullable|string|alpha_dash|unique:promos,code',
+                    'name' => 'required|string',
+                    'is_active' => 'required|in:0,1',
+                    'cover_image' => 'nullable|image',
+                    'amount_buys' => 'required|numeric|gt:0',
+                    'amount_tiket' => 'required|numeric|gt:0',
+                ]);
+                break;
+            default:
+                $request->validate([
+                    'code' => 'nullable|string|alpha_dash|unique:promos,code',
+                    'name' => 'required|string',
+                    'is_active' => 'required|in:0,1',
+                    'cover_image' => 'nullable|image',
+                    'discount_type' => 'required|in:0,1',
+                    'discount_amount' => 'required|numeric|min:1',
+                    'available_start_date' => 'required|date',
+                    'available_end_date' => 'nullable|date|after_or_equal:available_start_date',
+                    'order_start_date' => 'nullable|date',
+                    'order_end_date' => 'nullable|date|after_or_equal:available_start_date',
+                    'user_perday_limit' => 'nullable|numeric',
+                    'order_perday_limit' => 'nullable|numeric',
+                    'condition_type' => 'required|string',
+                ]);
+                break;
 
+        }
         if ($request->discount_type == Promo::TYPE_PERCENT) {
             $request->validate([
                 'discount_amount' => 'required|numeric|min:1|max:100',
@@ -105,29 +153,92 @@ class PromoController extends Controller
 
     public function edit(Promo $promo)
     {
+        if ($promo->available_start_date == "0000-00-00") {
+            $promo->available_start_date = '';
+        }
+        if ($promo->available_end_date == "0000-00-00") {
+            $promo->available_end_date = '';
+        }
+        if ($promo->order_start_date == "0000-00-00") {
+            $promo->order_start_date = '';
+        }
+        if ($promo->order_end_date == "0000-00-00") {
+            $promo->order_end_date = '';
+        }
+
         return inertia('Promo/Form', ['promo' => $promo]);
     }
 
     public function update(Request $request, Promo $promo)
     {
-        $request->validate([
-            'code' => 'nullable|string|alpha_dash|unique:promos,code,'.$promo->id,
-            'name' => 'required|string',
-            'is_active' => 'required|in:0,1',
-            'cover_image' => 'nullable|image',
-            'discount_type' => 'required|in:0,1',
-            'discount_amount' => 'exclude_if:condition_type,==,4|required|numeric|min:1',
-            'available_start_date' => 'nullable|date',
-            'available_end_date' => 'nullable|date|gte:available_start_date',
-            'order_start_date' => 'nullable|date',
-            'order_end_date' => 'nullable|date|gte:available_start_date',
-            'user_perday_limit' => 'nullable|numeric',
-            'order_perday_limit' => 'nullable|numeric',
-            'condition_type' => 'nullable|string',
-            'amount_buys' => 'nullable|numeric',
-            'amount_tiket' => 'exclude_unless:condition_type,==,4|required|numeric|gt:0',
-            'ranges_day' => 'nullable|numeric',
-        ]);
+        
+        switch ($request->condition_type) {
+            case 1:
+                $request->validate([
+                    'code' => 'nullable|string|alpha_dash|unique:promos,code,'.$promo->id,
+                    'name' => 'required|string',
+                    'is_active' => 'required|in:0,1',
+                    'cover_image' => 'nullable|image',
+                    'amount_buys' => 'required|numeric|gt:0',
+                    'discount_type' => 'required|in:0,1',
+                    'discount_amount' => 'required|numeric|min:1',
+                ]);
+                break;
+            case 2:
+                $request->validate([
+                    'code' => 'nullable|string|alpha_dash|unique:promos,code,'.$promo->id,
+                    'name' => 'required|string',
+                    'is_active' => 'required|in:0,1',
+                    'cover_image' => 'nullable|image',
+                    'available_start_date' => 'required|date',
+                    'available_end_date' => 'nullable|date|after_or_equal:available_start_date',
+                    'ranges_day' => 'required|numeric|gt:0',
+                    'discount_type' => 'required|in:0,1',
+                    'discount_amount' => 'required|numeric|min:1',
+                ]);
+                break;
+            case 3:
+                $request->validate([
+                    'code' => 'nullable|string|alpha_dash|unique:promos,code,'.$promo->id,
+                    'name' => 'required|string',
+                    'is_active' => 'required|in:0,1',
+                    'cover_image' => 'nullable|image',
+                    'order_start_date' => 'required|date',
+                    'order_end_date' => 'nullable|date|after_or_equal:order_start_date',
+                    'ranges_day' => 'required|numeric|gt:0',
+                    'discount_type' => 'required|in:0,1',
+                    'discount_amount' => 'required|numeric|min:1',
+                ]);
+                break;
+            case 4:
+                $request->validate([
+                    'code' => 'nullable|string|alpha_dash|unique:promos,code,'.$promo->id,
+                    'name' => 'required|string',
+                    'is_active' => 'required|in:0,1',
+                    'cover_image' => 'nullable|image',
+                    'amount_buys' => 'required|numeric|gt:0',
+                    'amount_tiket' => 'required|numeric|gt:0',
+                ]);
+                break;
+            default:
+                $request->validate([
+                    'code' => 'nullable|string|alpha_dash|unique:promos,code,'.$promo->id,
+                    'name' => 'required|string',
+                    'is_active' => 'required|in:0,1',
+                    'cover_image' => 'nullable|image',
+                    'discount_type' => 'required|in:0,1',
+                    'discount_amount' => 'required|numeric|min:1',
+                    'available_start_date' => 'required|date',
+                    'available_end_date' => 'nullable|date|after_or_equal:available_start_date',
+                    'order_start_date' => 'nullable|date',
+                    'order_end_date' => 'nullable|date|after_or_equal:order_start_date',
+                    'user_perday_limit' => 'nullable|numeric',
+                    'order_perday_limit' => 'nullable|numeric',
+                    'condition_type' => 'required|string',
+                ]);
+                break;
+
+        }
 
         if ($request->discount_type == Promo::TYPE_PERCENT) {
             $request->validate([

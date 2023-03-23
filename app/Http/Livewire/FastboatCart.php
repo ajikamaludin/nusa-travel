@@ -355,7 +355,7 @@ class FastboatCart extends Component
         })
         ->where(function ($query) use ($dates) {
             if (count($dates) > 0) {
-                $query->whereDate('order_start_date', '<=', $dates[0])
+                $query->where('order_start_date', '<=', $dates[0])
                     ->whereDate('order_end_date', '>=', $dates[0]);
             }
         })->orwhere(function ($query) {
@@ -370,13 +370,14 @@ class FastboatCart extends Component
         ->select('promos.*', DB::Raw('Count(promo_id) as used_promo,customer_id'))
         ->groupBy('promos.id')
         ->get();
+       
 
         foreach ($promos as $promokey => $promo) {
             switch ($promo->condition_type) {
                 case 2:
                     $datetime1 = new DateTime($promo->available_start_date);
                     $datetime2 = new DateTime($dates[0]);
-
+                    
                     if ($datetime1->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
                         unset($promos[$promokey]);
                     }
@@ -384,11 +385,20 @@ class FastboatCart extends Component
                 case 3:
                     $dateorder_start_date = new DateTime($promo->order_start_date);
                     $datetime2 = new DateTime($dates[0]);
-
-                    if ($dateorder_start_date->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
+                    if ($dateorder_start_date->modify('-'.$promo->ranges_day.' day') >= $datetime2) {
                         unset($promos[$promokey]);
                     }
                     break;
+                default : 
+                    if($promo->available_start_date!='0000-00-00'||$promo->order_start_date!='0000-00-00'){
+                        $dateaveil=new DateTime($promo->available_start_date);
+                        $dateOrder=new DateTime($promo->order_start_date);
+                        $datetime2 = new DateTime($dates[0]);
+                        if ($dateaveil > $datetime2||$dateOrder>$datetime2) {
+                            unset($promos[$promokey]);
+                        }
+                    }
+                    
             }
         }
 
@@ -434,7 +444,7 @@ class FastboatCart extends Component
                 ];
             }
         }
-
+        dd($promos);
         $this->total_payed = $this->total_payed - $this->discount;
     }
 
