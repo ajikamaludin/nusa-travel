@@ -122,4 +122,5 @@ return [
     'Code Promo' => 'Code Promo',
     'Add Cupon' => 'Add Code Promo',
     'Cupon applied' => 'Cupon Promo',
+    'Apply' => 'Apply',
 ];

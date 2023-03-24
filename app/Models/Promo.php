@@ -6,9 +6,9 @@ class Promo extends Model
 {
     const PROMO_ACTIVE = 1;
 
-    const PROMO_APPLY=1;
+    const PROMO_APPLY = 1;
 
-    const PROMO_NOTAPPLY=0;
+    const PROMO_NOTAPPLY = 0;
 
     const PROMO_DEACTIVE = 0;
 

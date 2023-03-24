@@ -141,7 +141,7 @@ class PromoController extends Controller
             'amount_buys' => $amount_buys,
             'amount_tiket' => $amount_tiket,
             'ranges_day' => $ranges_day,
-            'is_apply'=>$request->is_apply,
+            'is_apply' => $request->is_apply,
         ]);
 
         // TODO: handle for latter , cover_image and descrition body
@@ -159,16 +159,16 @@ class PromoController extends Controller
 
     public function edit(Promo $promo)
     {
-        if ($promo->available_start_date == "0000-00-00") {
+        if ($promo->available_start_date == '0000-00-00') {
             $promo->available_start_date = '';
         }
-        if ($promo->available_end_date == "0000-00-00") {
+        if ($promo->available_end_date == '0000-00-00') {
             $promo->available_end_date = '';
         }
-        if ($promo->order_start_date == "0000-00-00") {
+        if ($promo->order_start_date == '0000-00-00') {
             $promo->order_start_date = '';
         }
-        if ($promo->order_end_date == "0000-00-00") {
+        if ($promo->order_end_date == '0000-00-00') {
             $promo->order_end_date = '';
         }
 
@@ -177,7 +177,7 @@ class PromoController extends Controller
 
     public function update(Request $request, Promo $promo)
     {
-        
+
         switch ($request->condition_type) {
             case 1:
                 $request->validate([
@@ -290,7 +290,7 @@ class PromoController extends Controller
             'amount_buys' => $amount_buys,
             'amount_tiket' => $amount_tiket,
             'ranges_day' => $ranges_day,
-            'is_apply'=>$request->is_apply
+            'is_apply' => $request->is_apply,
         ]);
 
         // TODO: handle for latter , cover_image and descrition body

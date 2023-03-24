@@ -39,8 +39,8 @@ return new class extends Migration
             Permission::insert($permissions);
         }
 
-        $check = Setting::where('key', 'EKAJAYA_HOST')->first(); 
-        if ($check == null)  {
+        $check = Setting::where('key', 'EKAJAYA_HOST')->first();
+        if ($check == null) {
             $settings = [
                 ['id' => Str::uuid(), 'key' => 'EKAJAYA_HOST', 'value' => 'https://nusatravel.ajikamaludin.id', 'type' => 'text', 'label' => 'Ekajaya Api Host'],
                 ['id' => Str::uuid(), 'key' => 'EKAJAYA_APIKEY', 'value' => 'abc-test', 'type' => 'text', 'label' => 'Ekajaya Api Key'],
