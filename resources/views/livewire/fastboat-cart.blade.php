@@ -314,6 +314,7 @@
                         </span>
                     </div>
                     @endforeach
+                    
 
                     @if($dropoff != '')
                     <div class="bg-white flex flex-row p-1 justify-between">
@@ -370,12 +371,44 @@
                         <span> {{ number_format($total_payed, 0, ',' , '.') }} </span>
                     </div>
 
+
                     @if(count($promos) > 0)
-                    <div class="p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert">
-                        <span class="font-medium">{{ __('website.Promo applied')}}!</span> 
-                        @foreach($promos as $promo)
-                            <div>{{ $promo['name'] }}</div>
-                        @endforeach
+                        <div class="p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert"> 
+                            <span class="font-medium">{{ __('website.Promo applied')}}!</span> 
+                            @foreach($promos as $promo)
+                                <div>{{ $promo['name'] }}</div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <!-- Cupon Promo -->
+                    @if(count($promosManual) > 0)
+                        <div class="p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert"> 
+                            <span class="font-medium">{{ __('website.Promo applied')}}!</span> 
+                            @foreach($promosManual as $cp)
+                                <span class="flex flex-row gap-1 items-center">
+                                    ({{$cp['code']}}) - {{ $cp['name'] }} 
+                                </span>
+                            @endforeach
+                        </div>
+                    @else
+                    <div class="mt-2 w-full">
+                        @if($isAnyCupon) 
+                            <p class="ml-1 text-sm text-red-600 dark:text-red-500"><span class="font-medium">No Promo Found</p>
+                        @endif
+                        <div class="w-full flex flex-row justify-between gap-2">
+                            <div class="flex-1">
+                                <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg {{$isAnyCupon ? 'ring-red-500 border-red-500' : 'focus:ring-blue-500 focus:border-blue-500'}} block w-full p-2.5" placeholder="{{ __('website.Code Promo')}}" wire:model.defer="cupon.code" autocomplete="off">
+                            </div>
+                            <div>
+                                <button wire:click="addCupon()" wire:loading.remove class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ">
+                                    {{ __('website.Apply')}}
+                                </button>
+                                <div wire:loading.delay.long>
+                                    loading...
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     @endif
                 </div>

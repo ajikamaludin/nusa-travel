@@ -118,4 +118,9 @@ return [
     'Terms and Conditions' => 'Syarat dan Ketentuan',
     'and' => 'dan',
     'Privacy and Policy' => 'Privasi dan Kebijakan',
+    'Process Order' => 'Lajutkan Pemesanan',
+    'Code Promo' => 'Kode Promo',
+    'Add Cupon' => 'Masukan Kode Promo',
+    'Code applied' => 'Kupon Promo',
+    'Apply' => 'Cari',
 ];

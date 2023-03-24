@@ -30,7 +30,13 @@ class FastboatCart extends Component
 
     public $persons = [];
 
+    public $cupon = [];
+
+    public $isAnyCupon = false;
+
     public $showContact = false;
+
+    public $showCupon = false;
 
     public $dropoffs = [];
 
@@ -53,6 +59,8 @@ class FastboatCart extends Component
     public $total_payed = 0;
 
     public $promos = [];
+
+    public $promosManual = [];
 
     public $discount = 0;
 
@@ -197,7 +205,7 @@ class FastboatCart extends Component
             $matchs[] = isset($person['name']);
         }
 
-        return $this->validContact && !in_array(false, $matchs);
+        return $this->validContact && ! in_array(false, $matchs);
     }
 
     public function continue()
@@ -319,6 +327,21 @@ class FastboatCart extends Component
             }
         }
 
+        // insert promo manual
+        foreach($this->promosManual as $promo) {
+            $order->promos()->create([
+                'promo_id' => $promo['id'],
+                'promo_code' => $promo['code'],
+                'promo_amount' => $promo['amount'],
+            ]);
+            if ($promo['type'] == '4') {
+                FreeTicketPromo::create([
+                    'codition_type' => $promo['type'],
+                    'amount' => $promo['amount'],
+                ]);
+            }
+        }
+
         // send email for payment purpose
         AsyncService::async(function () use ($customer, $order) {
             Mail::to($customer->email)->send(new OrderPayment($order));
@@ -330,6 +353,104 @@ class FastboatCart extends Component
         session()->forget(['persons', 'contact', 'dropoff', 'carts', 'pickup']);
 
         return redirect()->route('customer.process-payment', $order);
+    }
+
+    public function addCupon()
+    {
+        $dates = [];
+        $qty = collect($this->carts)->value('qty');
+
+        collect($this->carts)->map(function ($cart) use (&$dates) {
+            $this->total += $cart['track']->validated_price * $cart['qty'];
+            $this->total_payed += $cart['track']->validated_price * $cart['qty'];
+            $dates[] = $cart['date'];
+        });
+
+        $promosApply = Promo::query()
+        ->where([
+            'is_apply' => Promo::PROMO_NOTAPPLY,
+            'is_active' => Promo::PROMO_ACTIVE,
+            'code' => $this->cupon['code'] ?? null,
+        ])->get();
+
+        if ($promosApply->count() == 0) {
+            $this->isAnyCupon = true;
+        }
+
+        foreach ($promosApply as $promokey => $promo) {
+            switch ($promo->condition_type) {
+                case 2:
+                    $datetime1 = new DateTime($promo->available_start_date);
+                    $datetime2 = new DateTime($dates[0]);
+
+                    if ($datetime1->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
+                        unset($promosApply[$promokey]);
+                    }
+                    break;
+                case 3:
+                    $dateorder_start_date = new DateTime($promo->order_start_date);
+                    $datetime2 = new DateTime($dates[0]);
+                    if ($dateorder_start_date->modify('-'.$promo->ranges_day.' day') >= $datetime2) {
+                        unset($promosApply[$promokey]);
+                    }
+                    break;
+                default:
+                    if($promo->available_start_date != '0000-00-00' || $promo->order_start_date != '0000-00-00') {
+                        $dateaveil = new DateTime($promo->available_start_date);
+                        $dateOrder = new DateTime($promo->order_start_date);
+                        $datetime2 = new DateTime($dates[0]);
+                        if ($dateaveil > $datetime2 || $dateOrder > $datetime2) {
+                            unset($promosApply[$promokey]);
+                        }
+                    }
+
+            }
+        }
+
+        foreach ($promosApply as $promokey => $promo) {
+            $isPercent = false;
+            $namedic = '';
+            if ($promo->order_perday_limit < $promo->used_promo ||
+                    (Auth::guard('customer')->user() != null &&
+                        Auth::guard('customer')->user()->id == $promo->id &&
+                        $promo->user_perday_limit < $promo->used_promo)
+            ) {
+                unset($promosApply[$promokey]);
+            } else {
+                if ($promo->condition_type != 4) {
+                    $mod = 1;
+                    if ($promo->condition_type == 1) {
+                        if ($qty % $promo->amount_buys == 0) {
+                            $mod = $qty / $promo->amount_buys;
+                        }
+                    }
+
+                    if ($promo->discount_type == Promo::TYPE_PERCENT) {
+                        $isPercent = true;
+                        $amount = ($this->total * $promo->discount_amount / 100) * $mod;
+                    } else {
+                        $amount = $promo->discount_amount * $mod;
+                    }
+                    $this->discount += $amount;
+
+                    $namedic = $promo->name.' ( disc. '.$promo->discount_amount.($isPercent ? '% )' : ' )');
+
+                } else {
+                    $namedic = $promo->name.' ( Free Ticket. '.$promo->amount_tiket.')';
+                }
+                $this->promosManual[] = [
+                    'id' => $promo->id,
+                    'code' => $promo->code,
+                    'name' => $namedic,
+                    'amount' => $amount ?? 0,
+                    'type' => $promo->condition_type,
+                    'order_start_date' => $promo->order_start_date,
+                    'ranges_day' => $promo->ranges_day,
+                ];
+            }
+        }
+
+        $this->total_payed = $this->total_payed - $this->discount;
     }
 
     public function applyPromos()
@@ -347,42 +468,45 @@ class FastboatCart extends Component
             $this->total_payed += $this->pickupSelected['car']['price'];
         }
 
-        $promos = Promo::where([
+        $promos = Promo::query()
+        ->where([
             'is_active' => Promo::PROMO_ACTIVE,
         ])
         ->where(function ($query) {
             $query->whereDate('available_start_date', '<=', now())
+            ->where(['is_apply' => Promo::PROMO_APPLY])
                 ->whereDate('available_end_date', '>=', now());
         })
         ->orwhere(function ($query) {
-            $query->whereNull('available_start_date')
-            ->whereNull('available_end_date');
+            $query->where('available_start_date', '=', '0000-00-00')
+            ->where(['is_apply' => Promo::PROMO_APPLY])
+            ->where('available_end_date', '=', '0000-00-00');
         })
         ->where(function ($query) use ($dates) {
             if (count($dates) > 0) {
                 $query->where('order_start_date', '<=', $dates[0])
-                    ->whereDate('order_end_date', '>=', $dates[0]);
+                ->where(['is_apply' => Promo::PROMO_APPLY])
+                    ->where('order_end_date', '>=', $dates[0]);
             }
-        })->orwhere(function ($query) {
-            $query->whereNull('order_start_date')
-                ->whereNull('order_end_date');
         })
-        ->OrWhere(function ($query) {
-            $query->whereNotNull('condition_type');
+        ->orwhere(function ($query) {
+            $query->where('order_start_date', '=', '0000-00-00')
+            ->where(['is_apply' => Promo::PROMO_APPLY])
+                ->where('order_end_date', '=', '0000-00-00');
         })
+
         ->leftJoin('order_promos', 'promo_id', '=', 'promos.id')
         ->leftJoin('orders', 'orders.id', '=', 'order_promos.order_id')
         ->select('promos.*', DB::Raw('Count(promo_id) as used_promo,customer_id'))
         ->groupBy('promos.id')
         ->get();
-       
 
         foreach ($promos as $promokey => $promo) {
             switch ($promo->condition_type) {
                 case 2:
                     $datetime1 = new DateTime($promo->available_start_date);
                     $datetime2 = new DateTime($dates[0]);
-                    
+
                     if ($datetime1->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
                         unset($promos[$promokey]);
                     }
@@ -394,16 +518,16 @@ class FastboatCart extends Component
                         unset($promos[$promokey]);
                     }
                     break;
-                default : 
-                    if($promo->available_start_date!='0000-00-00'||$promo->order_start_date!='0000-00-00'){
-                        $dateaveil=new DateTime($promo->available_start_date);
-                        $dateOrder=new DateTime($promo->order_start_date);
+                default:
+                    if($promo->available_start_date != '0000-00-00' || $promo->order_start_date != '0000-00-00') {
+                        $dateaveil = new DateTime($promo->available_start_date);
+                        $dateOrder = new DateTime($promo->order_start_date);
                         $datetime2 = new DateTime($dates[0]);
-                        if ($dateaveil > $datetime2||$dateOrder>$datetime2) {
+                        if ($dateaveil > $datetime2 || $dateOrder > $datetime2) {
                             unset($promos[$promokey]);
                         }
                     }
-                    
+
             }
         }
 

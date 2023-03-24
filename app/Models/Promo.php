@@ -6,6 +6,10 @@ class Promo extends Model
 {
     const PROMO_ACTIVE = 1;
 
+    const PROMO_APPLY = 1;
+
+    const PROMO_NOTAPPLY = 0;
+
     const PROMO_DEACTIVE = 0;
 
     const TYPE_AMOUNT = 0;
@@ -32,5 +36,6 @@ class Promo extends Model
         'amount_buys',
         'amount_tiket',
         'ranges_day',
+        'is_apply',
     ];
 }

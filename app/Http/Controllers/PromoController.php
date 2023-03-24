@@ -39,6 +39,7 @@ class PromoController extends Controller
                     'amount_buys' => 'required|numeric|gt:0',
                     'discount_type' => 'required|in:0,1',
                     'discount_amount' => 'required|numeric|min:1',
+                    'is_apply' => 'required|in:0,1',
                 ]);
                 break;
             case 2:
@@ -52,6 +53,7 @@ class PromoController extends Controller
                     'ranges_day' => 'required|numeric|gt:0',
                     'discount_type' => 'required|in:0,1',
                     'discount_amount' => 'required|numeric|min:1',
+                    'is_apply' => 'required|in:0,1',
                 ]);
                 break;
             case 3:
@@ -65,6 +67,7 @@ class PromoController extends Controller
                     'ranges_day' => 'required|numeric|gt:0',
                     'discount_type' => 'required|in:0,1',
                     'discount_amount' => 'required|numeric|min:1',
+                    'is_apply' => 'required|in:0,1',
                 ]);
                 break;
             case 4:
@@ -75,6 +78,7 @@ class PromoController extends Controller
                     'cover_image' => 'nullable|image',
                     'amount_buys' => 'required|numeric|gt:0',
                     'amount_tiket' => 'required|numeric|gt:0',
+                    'is_apply' => 'required|in:0,1',
                 ]);
                 break;
             default:
@@ -92,6 +96,7 @@ class PromoController extends Controller
                     'user_perday_limit' => 'nullable|numeric',
                     'order_perday_limit' => 'nullable|numeric',
                     'condition_type' => 'required|string',
+                    'is_apply' => 'required|in:0,1',
                 ]);
                 break;
 
@@ -136,6 +141,7 @@ class PromoController extends Controller
             'amount_buys' => $amount_buys,
             'amount_tiket' => $amount_tiket,
             'ranges_day' => $ranges_day,
+            'is_apply' => $request->is_apply,
         ]);
 
         // TODO: handle for latter , cover_image and descrition body
@@ -153,16 +159,16 @@ class PromoController extends Controller
 
     public function edit(Promo $promo)
     {
-        if ($promo->available_start_date == "0000-00-00") {
+        if ($promo->available_start_date == '0000-00-00') {
             $promo->available_start_date = '';
         }
-        if ($promo->available_end_date == "0000-00-00") {
+        if ($promo->available_end_date == '0000-00-00') {
             $promo->available_end_date = '';
         }
-        if ($promo->order_start_date == "0000-00-00") {
+        if ($promo->order_start_date == '0000-00-00') {
             $promo->order_start_date = '';
         }
-        if ($promo->order_end_date == "0000-00-00") {
+        if ($promo->order_end_date == '0000-00-00') {
             $promo->order_end_date = '';
         }
 
@@ -171,7 +177,7 @@ class PromoController extends Controller
 
     public function update(Request $request, Promo $promo)
     {
-        
+
         switch ($request->condition_type) {
             case 1:
                 $request->validate([
@@ -182,6 +188,7 @@ class PromoController extends Controller
                     'amount_buys' => 'required|numeric|gt:0',
                     'discount_type' => 'required|in:0,1',
                     'discount_amount' => 'required|numeric|min:1',
+                    'is_apply' => 'required|in:0,1',
                 ]);
                 break;
             case 2:
@@ -195,6 +202,7 @@ class PromoController extends Controller
                     'ranges_day' => 'required|numeric|gt:0',
                     'discount_type' => 'required|in:0,1',
                     'discount_amount' => 'required|numeric|min:1',
+                    'is_apply' => 'required|in:0,1',
                 ]);
                 break;
             case 3:
@@ -208,6 +216,7 @@ class PromoController extends Controller
                     'ranges_day' => 'required|numeric|gt:0',
                     'discount_type' => 'required|in:0,1',
                     'discount_amount' => 'required|numeric|min:1',
+                    'is_apply' => 'required|in:0,1',
                 ]);
                 break;
             case 4:
@@ -218,6 +227,7 @@ class PromoController extends Controller
                     'cover_image' => 'nullable|image',
                     'amount_buys' => 'required|numeric|gt:0',
                     'amount_tiket' => 'required|numeric|gt:0',
+                    'is_apply' => 'required|in:0,1',
                 ]);
                 break;
             default:
@@ -235,6 +245,7 @@ class PromoController extends Controller
                     'user_perday_limit' => 'nullable|numeric',
                     'order_perday_limit' => 'nullable|numeric',
                     'condition_type' => 'required|string',
+                    'is_apply' => 'required|in:0,1',
                 ]);
                 break;
 
@@ -279,6 +290,7 @@ class PromoController extends Controller
             'amount_buys' => $amount_buys,
             'amount_tiket' => $amount_tiket,
             'ranges_day' => $ranges_day,
+            'is_apply' => $request->is_apply,
         ]);
 
         // TODO: handle for latter , cover_image and descrition body
