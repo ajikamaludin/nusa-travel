@@ -112,13 +112,13 @@ export default function General(props) {
                                 label="Site Meta Description"
                                 error={errors.site_meta_desc}
                             />
-                            <TextArea
+                            {/* <TextArea
                                 name="site_meta_keyword"
                                 value={data.site_meta_keyword}
                                 onChange={handleOnChange}
                                 label="Site Meta Keyword"
                                 error={errors.site_meta_keyword}
-                            />
+                            /> */}
 
                             <FormFile
                                 label={'Slide 1'}

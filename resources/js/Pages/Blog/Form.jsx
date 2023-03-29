@@ -138,13 +138,13 @@ export default function Form(props) {
                             </select>
                         </div>
 
-                        <TextArea
+                        {/* <TextArea
                             name="meta_tag"
                             value={data.meta_tag}
                             onChange={handleOnChange}
                             label="MetaTag"
                             error={errors.meta_tag}
-                        />
+                        /> */}
 
                         <div className='mt-8'>
                             <Button
