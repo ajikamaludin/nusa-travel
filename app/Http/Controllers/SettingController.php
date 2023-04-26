@@ -152,7 +152,7 @@ class SettingController extends Controller
         foreach ($request->input() as $key => $value) {
             Setting::where('key', $key)->update(['value' => $value]);
         }
-        if($request->ekajaya_enable == 0) {
+        if ($request->ekajaya_enable == 0) {
             EkajayaService::clear();
         }
         DB::commit();

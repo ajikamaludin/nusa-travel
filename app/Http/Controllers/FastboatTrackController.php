@@ -150,10 +150,10 @@ class FastboatTrackController extends Controller
         DB::beginTransaction();
 
         $match = false;
-        if(count($places) == $group->places()->count()) {
+        if (count($places) == $group->places()->count()) {
             $matchs = [];
             $gplaces = $group->places()->orderBy('order', 'asc')->get();
-            foreach($gplaces as $index => $gp) {
+            foreach ($gplaces as $index => $gp) {
                 $matchs[] = $places[$index]['place']->id == $gp->fastboat_place_id;
             }
 
@@ -164,7 +164,7 @@ class FastboatTrackController extends Controller
             $tracks = collect($request->tracks);
             $group->tracks()->each(function ($gtrack) use ($tracks) {
                 $track = $tracks->where('fastboat_source_id', '=', $gtrack->fastboat_source_id)
-                ->where('fastboat_destination_id', '=', $gtrack->fastboat_destination_id)->first();
+                    ->where('fastboat_destination_id', '=', $gtrack->fastboat_destination_id)->first();
 
                 $gtrack->update([
                     'fastboat_source_id' => $track['fastboat_source_id'],
@@ -178,7 +178,7 @@ class FastboatTrackController extends Controller
             DB::commit();
 
             return redirect()->route('fastboat.track.index')
-            ->with('message', ['type' => 'success', 'message' => 'Item has beed updated']);
+                ->with('message', ['type' => 'success', 'message' => 'Item has beed updated']);
         }
 
         $group->tracks()->each(function ($track) {

@@ -8,7 +8,7 @@ trait CascadeSoftDeletes
     {
         static::deleting(function ($resource) {
             foreach ($resource->cascadeDeletes as $relation) {
-                if($resource->{$relation}()->count() != 0) {
+                if ($resource->{$relation}()->count() != 0) {
                     $resource->{$relation}()->delete();
                 }
             }

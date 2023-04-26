@@ -123,4 +123,5 @@ return [
     'Add Cupon' => 'Add Code Promo',
     'Cupon applied' => 'Cupon Promo',
     'Apply' => 'Apply',
+    'Ekajaya Fastboat' => 'Ekajaya Fastboat',
 ];

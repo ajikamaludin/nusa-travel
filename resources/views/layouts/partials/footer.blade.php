@@ -25,9 +25,18 @@
             </div>
             <div class="md:px-2">
                 <div class="text-lg md:text-xl font-bold pb-2">{{ __('website.Products')}}</div>
-                <div><a href="{{route('tour-packages.index')}}" class="hover:text-blue-500">{{ __('website.Tour Travels')}}</a></div>
-                <div><a href="{{route('fastboat')}}" class="hover:text-blue-500">{{ __('website.Fastboat')}}</a></div>
-                <div><a href="{{route('car.index')}}" class="hover:text-blue-500">{{ __('website.Car Rentals')}}</a></div>
+                <div>
+                    <a href="{{route('tour-packages.index')}}" class="hover:text-blue-500">{{ __('website.Tour Travels')}}</a>
+                </div>
+                <div>
+                    <a href="{{route('car.index')}}" class="hover:text-blue-500">{{ __('website.Car Rentals')}}</a>
+                </div>
+                <div>
+                    <a href="{{route('fastboat')}}" class="hover:text-blue-500">{{ __('website.Fastboat')}}</a>
+                </div>
+                <div>
+                    <a href="{{route('ekajaya-fastboat')}}" class="hover:text-blue-500">{{ __('website.Ekajaya Fastboat')}}</a>
+                </div>
             </div>
         </div>
     </div>

@@ -93,7 +93,7 @@ class FastboatTrack extends Model
         <p>$this->arrival_time - $this->departure_time</p>
         <p>".Carbon::parse($date)->format('d-m-Y').'</p>';
 
-        if($dropoff != null) {
+        if ($dropoff != null) {
             $detail .= "<p>Dropoff: $dropoff</p>";
         }
 
@@ -111,7 +111,7 @@ class FastboatTrack extends Model
             'date' => $date,
         ])->first();
 
-        if($cap != null) {
+        if ($cap != null) {
             return $cap->capacity;
         }
 
@@ -129,13 +129,13 @@ class FastboatTrack extends Model
         $places = $places->toArray();
         $startIndex = null;
         $endIndex = null;
-        foreach($places as $k => $place) {
+        foreach ($places as $k => $place) {
             $isStart = $track->fastboat_source_id == $places[$k]['fastboat_place_id'];
-            if($startIndex == null && $isStart) {
+            if ($startIndex == null && $isStart) {
                 $startIndex = $k;
             }
             $isEnd = $track->fastboat_destination_id == $places[$k]['fastboat_place_id'];
-            if($endIndex == null && $isEnd) {
+            if ($endIndex == null && $isEnd) {
                 $endIndex = $k;
             }
         }
@@ -155,13 +155,13 @@ class FastboatTrack extends Model
                 ], [
                     'capacity' => $fastboat->capacity,
                 ]);
-                if($isStart || $isEnd) {
+                if ($isStart || $isEnd) {
                     $capacity->update(['capacity' => $capacity->capacity - $quantity]);
                 // diantara 2 titik adalah lebih besar dari titik awal dan lebih kecil dari titik akhir
                 } elseif ($startIndex < $i && $endIndex > $j) {
                     $capacity->update(['capacity' => $capacity->capacity - $quantity]);
                 // lainnya
-                } elseif($startIndex > $i && $endIndex < $j) {
+                } elseif ($startIndex > $i && $endIndex < $j) {
                     $capacity->update(['capacity' => $capacity->capacity - $quantity]);
                 } else {
                     // nothing todo

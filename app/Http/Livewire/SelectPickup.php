@@ -18,7 +18,7 @@ class SelectPickup extends Component
         $this->pickups = FastboatPickup::whereHas(['source' => function ($query) {
             $query->where('name', $this->origin);
         }])
-        ->orderBy('name', 'asc')->get();
+            ->orderBy('name', 'asc')->get();
     }
 
     public function render()

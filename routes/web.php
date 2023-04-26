@@ -13,6 +13,7 @@ use App\Http\Controllers\Website\SignUpController;
 use App\Http\Controllers\Website\TourPackageController;
 use App\Http\Middleware\GuardCustomer;
 use App\Http\Middleware\VisitorCounter;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +25,10 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-| Test Only
+*/
+
+// Test Only
+/*
 Route::get('/test', function () {
     $markdown = new Markdown(view(), config('mail.markdown'));
 
@@ -37,16 +41,23 @@ Route::get('/test', function () {
 });
 */
 
+Route::get('/flush', function () {
+    Cache::flush();
+
+    return response()->json(['message' => 'cache cleared']);
+});
+
 Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function () {
     // Package Tours
     Route::get('/tour-packages', [TourPackageController::class, 'index'])->name('tour-packages.index');
     Route::get('/tour-packages/{package:slug}', [TourPackageController::class, 'show'])->name('tour-packages.show');
 
     // Car Rentals
-    Route::get('/car-rentals', [CarRentalController::class, 'index'])->name('car.index');
+    Route::get('/car-rental-bali', [CarRentalController::class, 'index'])->name('car.index');
 
     // Fastboat
     Route::get('/fastboat', [FastboatController::class, 'index'])->name('fastboat');
+    Route::get('/ekajaya-fastboat', [FastboatController::class, 'ekajayaFastBoat'])->name('ekajaya-fastboat');
 
     // Order
     Route::get('/carts', [OrderController::class, 'index'])->name('customer.cart');

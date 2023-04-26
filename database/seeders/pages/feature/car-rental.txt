@@ -1,0 +1,16 @@
+<section class="w-full max-w-5xl mx-auto pt-3 mt-10 px-2">
+    <h1 class="text-2xl font-bold mb-4">Discover the Best Car Rental Services in Bali</h1>
+    <p>At Nusa Travel, we provide a wide range of car rental services in Bali to cater to your every need. Whether you're looking for a self-drive car rental, a car rental with a driver, a luxury car rental, or a monthly car rental, we have it all. Our services are available at various locations across Bali, including popular destinations such as Bali Airport, Balikpapan, and Kuta.</p>
+    <h3 class="text-xl font-bold mt-6 mb-4">Car Rental Bali with Driver</h3>
+    <p>Experience the beauty of Bali with the convenience of a professional driver. Our car rental Bali with driver service offers a comfortable and hassle-free way to explore the island. Whether you need a car rental at Bali Airport or anywhere else on the island, our experienced drivers will ensure a smooth and enjoyable journey.</p>
+    <h3 class="text-xl font-bold mt-6 mb-4">Car Rental Bali Self Drive</h3>
+    <p>If you prefer the freedom to explore Bali at your own pace, our car rental Bali self drive service is the perfect option for you. Choose from a wide range of reliable and well-maintained vehicles at competitive prices to enjoy the ultimate Bali road trip experience.</p>
+    <h3 class="text-xl font-bold mt-6 mb-4">Car Rental Bali Price</h3>
+    <p>We pride ourselves on offering affordable car rental Bali prices without compromising on quality. Our competitive rates make it easy for you to find the perfect car rental solution within your budget.</p>
+    <h3 class="text-xl font-bold mt-6 mb-4">Car Rental Bali Luxury</h3>
+    <p>For those who desire an extra touch of comfort and luxury, our car rental Bali luxury service offers a selection of premium vehicles to make your journey truly unforgettable. Cruise around Bali in style with one of our high-end cars and experience the ultimate in comfort and performance.</p>
+    <h3 class="text-xl font-bold mt-6 mb-4">Car Rental Bali Monthly</h3>
+    <p>Planning an extended stay in Bali? Our car rental Bali monthly service is the perfect solution for long-term visitors. Enjoy the convenience of having a car at your disposal for the duration of your stay, and take advantage of our special discounted rates for monthly rentals.</p>
+    <h3 class="text-xl font-bold mt-6 mb-4">Car Rental Bali Kuta</h3>
+    <p>Kuta is one of the most popular destinations in Bali, known for its beautiful beaches, vibrant nightlife, and bustling shopping areas. Our car rental Bali Kuta service allows you to explore this amazing area with ease. Whether you need a car rental with a driver or a self-drive option, our Kuta-based car rental services have you covered.</p>
+</section>

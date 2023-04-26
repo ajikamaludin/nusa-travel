@@ -196,7 +196,7 @@ class Cart extends Component
                 }
             })->count();
 
-            if($carts > 0) {
+            if ($carts > 0) {
                 return true;
             }
         }

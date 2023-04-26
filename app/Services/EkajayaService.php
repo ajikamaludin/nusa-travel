@@ -41,9 +41,9 @@ class EkajayaService
 
             // call api ekajaya for search
             $response = Http::acceptJson()
-            ->withHeaders([
-                'authorization' => $apikey,
-            ])->get($host.'/api/tracks', [
+                ->withHeaders([
+                    'authorization' => $apikey,
+                ])->get($host.'/api/tracks', [
                 'from' => $source,
                 'to' => $destination,
                 'date' => $date,
@@ -55,7 +55,7 @@ class EkajayaService
 
             // if found result than record/upsert to db: tracks, capacities
             DB::beginTransaction();
-            foreach($tracks as $track) {
+            foreach ($tracks as $track) {
                 $source = FastboatPlace::withTrashed()->where('id', $track['from_id'])->first();
                 if ($source == null) {
                     $source = FastboatPlace::create([
@@ -144,7 +144,7 @@ class EkajayaService
             }
 
             // if no response check db for recorded placement
-            if(count($tracks) == 0) {
+            if (count($tracks) == 0) {
                 Log::info('tracks api clearing');
                 // if no result fount than check db , if any remove record
                 $s = FastboatPlace::where([
@@ -157,13 +157,13 @@ class EkajayaService
                     ['data_source', '=', EkajayaService::class],
                 ])->first();
 
-                if($s != null && $d != null) {
+                if ($s != null && $d != null) {
                     $groups = FastboatTrackGroup::where([
                         ['name', '=', $s->name.' - '.$d->name],
                         ['data_source', '=', EkajayaService::class],
                     ])->get();
 
-                    foreach($groups as $group) {
+                    foreach ($groups as $group) {
                         $group->tracks()->where([
                             ['fastboat_source_id', '=', $s->id],
                             ['fastboat_destination_id', '=', $d->id],
@@ -199,7 +199,7 @@ class EkajayaService
         $apikey = $setting->getValue('EKAJAYA_APIKEY');
 
         $persons = [];
-        foreach($order->passengers as $passenger) {
+        foreach ($order->passengers as $passenger) {
             $persons[] = [
                 'national_id' => $passenger['national_id'],
                 'nation' => $passenger['nation'],
@@ -208,9 +208,9 @@ class EkajayaService
         }
 
         $response = Http::acceptJson()
-        ->withHeaders([
-            'authorization' => $apikey,
-        ])->post($host.'/api/order', [
+            ->withHeaders([
+                'authorization' => $apikey,
+            ])->post($host.'/api/order', [
             'order' => [
                 'date' => $order->date,
                 'qty' => $order->quantity,

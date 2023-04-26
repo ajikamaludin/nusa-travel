@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\CarRental;
+use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -26,6 +27,7 @@ class CarRentalController extends Controller
             'cars' => $query->paginate(),
             'person' => $request->person,
             'date' => $date->format('Y-m-d'),
+            'page' => Page::where('key', 'car-rental')->first(),
         ]);
     }
 }

@@ -123,4 +123,5 @@ return [
     'Add Cupon' => 'Masukan Kode Promo',
     'Code applied' => 'Kupon Promo',
     'Apply' => 'Cari',
+    'Ekajaya Fastboat' => 'Ekajaya Fastboat',
 ];

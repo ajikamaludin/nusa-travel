@@ -33,27 +33,27 @@ class AgentController extends Controller
         $customerId = Auth::guard('authtoken')->user()->id;
 
         $query = FastboatTrack::with(['source', 'destination', 'group.fastboat'])
-        ->leftJoin('fastboat_track_agents', function ($join) use ($customerId) {
-            $join->on('fastboat_track_id', '=', 'fastboat_tracks.id');
-            $join->where('fastboat_track_agents.customer_id', '=', $customerId);
-        })
-        ->leftJoin('fastboat_track_groups', 'fastboat_track_groups.id', '=', 'fastboat_tracks.fastboat_track_group_id')
-        ->leftJoin('fastboats', 'fastboats.id', '=', 'fastboat_track_groups.fastboat_id')
-        ->select(
-            'fastboat_tracks.id as id',
-            'fastboat_tracks.fastboat_track_group_id',
-            'fastboat_tracks.fastboat_source_id',
-            'fastboat_tracks.fastboat_destination_id',
-            'arrival_time',
-            'departure_time',
-            DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'),
-            'is_publish',
-            'fastboat_tracks.created_at',
-            'fastboat_tracks.updated_at',
-            'fastboat_tracks.created_by',
-            'fastboats.capacity as capacity',
-            'fastboat_tracks.data_source',
-        );
+            ->leftJoin('fastboat_track_agents', function ($join) use ($customerId) {
+                $join->on('fastboat_track_id', '=', 'fastboat_tracks.id');
+                $join->where('fastboat_track_agents.customer_id', '=', $customerId);
+            })
+            ->leftJoin('fastboat_track_groups', 'fastboat_track_groups.id', '=', 'fastboat_tracks.fastboat_track_group_id')
+            ->leftJoin('fastboats', 'fastboats.id', '=', 'fastboat_track_groups.fastboat_id')
+            ->select(
+                'fastboat_tracks.id as id',
+                'fastboat_tracks.fastboat_track_group_id',
+                'fastboat_tracks.fastboat_source_id',
+                'fastboat_tracks.fastboat_destination_id',
+                'arrival_time',
+                'departure_time',
+                DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'),
+                'is_publish',
+                'fastboat_tracks.created_at',
+                'fastboat_tracks.updated_at',
+                'fastboat_tracks.created_by',
+                'fastboats.capacity as capacity',
+                'fastboat_tracks.data_source',
+            );
 
         if ($request->from != '' && $request->to != '' && $request->date != '') {
             AsyncService::async(function () use ($request) {

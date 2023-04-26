@@ -24,7 +24,7 @@ class Setting extends Model
     {
         if (self::$instance == null) {
             self::$instance = new Setting;
-            if(Cache::has('settings')) {
+            if (Cache::has('settings')) {
                 self::$instance->setting = Cache::get('settings');
             } else {
                 self::$instance->setting = Setting::all();
@@ -50,7 +50,7 @@ class Setting extends Model
         return $v->setting->filter(function ($item) {
             return false !== strpos($item->key, 'G_LANDING_SLIDE_');
         })->pluck('value')
-        ->toArray();
+            ->toArray();
     }
 
     public static function getByKey($key)

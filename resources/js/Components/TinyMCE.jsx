@@ -52,6 +52,8 @@ import 'tinymce/plugins/emoticons/js/emojis';
 import contentCss from 'tinymce/skins/content/default/content.min.css?inline';
 import contentUiCss from 'tinymce/skins/ui/oxide/content.min.css?inline';
 
+import generalCss from '../../css/app.css?inline';
+
 import { usePage } from '@inertiajs/react';
 
 export default function BundledEditor(props) {
@@ -148,7 +150,8 @@ export default function BundledEditor(props) {
             object_resizing: true,
             skin: false,
             content_css: false,
-            content_style: [contentCss, contentUiCss].join('\n'),
+            content_style: [contentCss, contentUiCss, generalCss].join('\n'),
+            importcss_append: true,
         }}
         {...rest}
         />

@@ -120,6 +120,9 @@
         </div>
     </div>
 
+    <!-- Services Overview -->
+    {!! $page->body !!}
+
     <!-- best picture of the month -->
     <div class="w-full max-w-7xl mx-auto pt-10 px-2">
         <div class="flex flex-col">
@@ -151,11 +154,11 @@
         </div>
     </div>
 
-    <!-- latest updates -->
+    <!-- Latest updates -->
     <div class="w-full max-w-7xl mx-auto px-2">
         <div class="flex flex-col w-full mx-auto pt-10 pb-5 text-center md:text-left">
             <div class="flex flex-row justify-between">
-                <div class="text-3xl font-bold pb-1">{{ __('website.Lastest Updates')}}</div>
+                <div class="text-3xl font-bold pb-1">Recent Updates</div>
                 <div class="see-more-container">
                     <a href="{{ route('blog.index') }}" class="inline-flex text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 items-center">
                         {{ __('website.See More')}}

@@ -11,35 +11,56 @@ class SitemapController extends Controller
     public function index(Request $request)
     {
         $limit = 20;
-        if($request->page != '') {
+        if ($request->page != '') {
             $posts = [];
 
-            if($request->page == 1) {
+            if ($request->page == 1) {
                 $pages = Page::orderBy('updated_at', 'desc')->get();
-                foreach($pages as $page) {
+                foreach ($pages as $page) {
                     $posts[] = [
                         'url' => route('page.show', $page),
                         'updated_at' => $page->updated_at->toISOString(),
                     ];
                 }
 
-                if(count($posts) < $limit) {
+                if (count($posts) < $limit) {
                     $pages = Post::orderBy('updated_at', 'desc')->limit($limit - count($posts))->get();
 
-                    foreach($pages as $post) {
+                    foreach ($pages as $post) {
                         $posts[] = [
                             'url' => route('blog.post', $post),
                             'updated_at' => $post->updated_at->toISOString(),
                         ];
                     }
                 }
+
+                $featurePages = [
+                    [
+                        'url' => route('fastboat'),
+                        'updated_at' => Page::where('key','fastboat')->value('updated_at')->toISOString(),
+                    ],
+                    [
+                        'url' => route('ekajaya-fastboat'),
+                        'updated_at' => Page::where('key','fastboat-ekajaya')->value('updated_at')->toISOString(),
+                    ],
+                    [
+                        'url' => route('tour-packages.index'),
+                        'updated_at' => Page::where('key','tour-package')->value('updated_at')->toISOString(),
+                    ],
+                    [
+                        'url' => route('car.index'),
+                        'updated_at' => Page::where('key','car-rental')->value('updated_at')->toISOString(),
+                    ],
+                ];
+
+                $posts = array_merge($posts, $featurePages);
             } else {
                 $pages = Post::orderBy('updated_at', 'desc')
-                            ->offset($request->page * $limit) //4
-                            ->limit($limit) //1
-                            ->get();
+                    ->offset($request->page * $limit) //4
+                    ->limit($limit) //1
+                    ->get();
 
-                foreach($pages as $post) {
+                foreach ($pages as $post) {
                     $posts[] = [
                         'url' => route('blog.post', $post),
                         'updated_at' => $post->updated_at->toISOString(),
@@ -48,10 +69,10 @@ class SitemapController extends Controller
             }
 
             return response()
-            ->view('sitemap/page', [
-                'posts' => $posts,
-            ], 200)
-            ->header('Content-Type', 'application/atom+xml');
+                ->view('sitemap/page', [
+                    'posts' => $posts,
+                ], 200)
+                ->header('Content-Type', 'application/atom+xml');
         }
 
         $page = Page::count(); // 5

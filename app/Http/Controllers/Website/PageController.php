@@ -21,12 +21,13 @@ class PageController extends Controller
 
         if ($request->has('q')) {
             $query->where('question', 'like', "%$request->q%")
-                    ->orWhere('answer', 'like', "%$request->q%");
+                ->orWhere('answer', 'like', "%$request->q%");
         }
 
         return view('faq', [
             'faqs' => $query->orderBy('order', 'asc')->get(),
             'q' => $request->q,
+            'page' => Page::where('key', 'faq')->first(),
         ]);
     }
 

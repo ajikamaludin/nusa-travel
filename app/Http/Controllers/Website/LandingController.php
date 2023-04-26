@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Faq;
 use App\Models\FastboatPlace;
 use App\Models\File;
+use App\Models\Page;
 use App\Models\Post;
 use App\Models\TourPackage;
 use App\Models\Visitor;
@@ -24,7 +25,11 @@ class LandingController extends Controller
 
         Visitor::track([Visitor::class, 'LANDING_PAGE']);
 
-        $posts = Post::with(['tags'])->withCount(['visitors'])->where('is_publish', Post::PUBLISH)->orderBy('created_at', 'desc')->limit(4)->get();
+        $posts = Post::with(['tags'])->withCount(['visitors'])
+            ->where('is_publish', Post::PUBLISH)
+            ->orderBy('created_at', 'desc')
+            ->limit(4)
+            ->get();
 
         return view('home', [
             'places' => FastboatPlace::whereNull('data_source')->select('name')->get()->pluck('name'),
@@ -32,6 +37,7 @@ class LandingController extends Controller
             'faqs' => Faq::orderBy('order', 'asc')->limit(4)->get(),
             'images' => File::where('show_on', '!=', 0)->orderBy('show_on', 'asc')->get(),
             'packages' => TourPackage::where('is_publish', TourPackage::PUBLISH)->orderBy('updated_at', 'desc')->limit(4)->get(),
+            'page' => Page::where('key', 'home')->first(),
         ]);
     }
 

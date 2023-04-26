@@ -73,7 +73,7 @@ class FastboatTrackAvailable extends Component
 
     public function showAvailableRoute($data)
     {
-        if($data['from'] == null || $data['to'] == null) {
+        if ($data['from'] == null || $data['to'] == null) {
             $this->dialog()->error(
                 $title = 'Warning !!!',
                 $description = 'Please choose Origin and Destination'
@@ -133,12 +133,12 @@ class FastboatTrackAvailable extends Component
             EkajayaService::search($this->from, $this->to, $this->date, $this->ways);
 
             $queryDeparture = FastboatTrack::with(['source', 'destination', 'group.fastboat'])
-            ->whereHas('source', function ($query) {
-                $query->where('name', '=', $this->from);
-            })
-            ->whereHas('destination', function ($query) {
-                $query->where('name', '=', $this->to);
-            });
+                ->whereHas('source', function ($query) {
+                    $query->where('name', '=', $this->from);
+                })
+                ->whereHas('destination', function ($query) {
+                    $query->where('name', '=', $this->to);
+                });
 
             $rdate = Carbon::createFromFormat('Y-m-d', $this->date);
             if ($rdate->isToday()) {
@@ -153,8 +153,7 @@ class FastboatTrackAvailable extends Component
                         $join->on('fastboat_track_id', '=', 'fastboat_tracks.id');
                         $join->where('fastboat_track_agents.customer_id', '=', $customerId);
                     })
-
-                    ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by');
+                        ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by');
                 }
             }
 
@@ -164,12 +163,12 @@ class FastboatTrackAvailable extends Component
                 EkajayaService::search($this->to, $this->from, $this->date, $this->ways);
 
                 $queryReturns = FastboatTrack::with(['source', 'destination'])
-                ->whereHas('source', function ($query) {
-                    $query->where('name', '=', $this->to);
-                })
-                ->whereHas('destination', function ($query) {
-                    $query->where('name', '=', $this->from);
-                });
+                    ->whereHas('source', function ($query) {
+                        $query->where('name', '=', $this->to);
+                    })
+                    ->whereHas('destination', function ($query) {
+                        $query->where('name', '=', $this->from);
+                    });
 
                 $rdate = Carbon::createFromFormat('Y-m-d', $this->rdate);
                 if ($rdate->isToday()) {
@@ -183,7 +182,7 @@ class FastboatTrackAvailable extends Component
                             $join->on('fastboat_track_id', '=', 'fastboat_tracks.id');
                             $join->where('fastboat_track_agents.customer_id', '=', $customerId);
                         })
-                        ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by');
+                            ->select('fastboat_tracks.id as id', 'fastboat_tracks.fastboat_track_group_id', 'fastboat_source_id', 'fastboat_destination_id', 'arrival_time', 'departure_time', DB::raw('COALESCE (fastboat_track_agents.price,fastboat_tracks.price) as price'), 'is_publish', 'fastboat_tracks.created_at', 'fastboat_tracks.updated_at', 'fastboat_tracks.created_by');
                     }
                 }
 

@@ -63,7 +63,7 @@ class FastboatPlaceController extends Controller
             $place->groups()->count() > 0,
         ];
 
-        if(in_array(true, $conds)) {
+        if (in_array(true, $conds)) {
             session()->flash('message', ['type' => 'error', 'message' => 'Item is in use']);
 
             return;

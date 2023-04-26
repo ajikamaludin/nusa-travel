@@ -1,0 +1,34 @@
+<div class="w-full max-w-7xl mx-auto pt-10 px-2 pb-64 md:pb-32">
+    <div class="flex flex-col">
+        <div class="flex flex-row justify-between">
+            <div class="flex flex-col">
+                <h1 class="text-3xl font-bold">Bali Fastboat Services</h1>
+                <p>At our platform, we offer tickets for several fastboat services, including <a href="ekajaya-fastboat">Ekajaya Fastboat</a>, Angle Bilabong Fastboat, and more. The currently available fastboat provider is Ekajaya, but other fastboat services will be available soon.</p>
+                <p>Here is a list of fastboat services in Bali from TripAdvisor:</p>
+                <ul>
+                    <li>1. Gili Getaway</li>
+                    <li>2. FreeBird Express</li>
+                    <li>3. Arthamas Express</li>
+                    <li>4. Gili Gili Fast Boat</li>
+                    <li>5. <a href="/ekajaya-fastboat" class="text-blue-600 hover:underline">Ekajaya Fastboat</a></li>
+                    <li>6. Gili Cat Fast Boat</li>
+                    <li>7. BlueWater Express</li>
+                    <li>8. My Day Gili</li>
+                    <li>9. Bliputu Fast Boat</li>
+                    <li>10. Fast Boat Bali Lombok Services</li>
+                    <li>11. Gilis Boat Bali</li>
+                    <li>12. Wahana Gili Ocean</li>
+                    <li>13. Semaya One Fast Cruise</li>
+                    <li>14. Angel Billabong Fast Cruise</li>
+                    <li>15. Easy Gili</li>
+                    <li>16. Sri Rejeki Express</li>
+                    <li>17. Bali Gili Fast Boat</li>
+                    <li>18. Golden Queen Fast Boat</li>
+                    <li>19. Kuda Hitam Express</li>
+                    <li>20. Sugriwa Express - Fast Boat</li>
+                    <!-- Add more list items here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+<div class="h-24 md:h-16"></div>

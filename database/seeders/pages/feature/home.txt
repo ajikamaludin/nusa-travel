@@ -1,0 +1,21 @@
+<div class="w-full max-w-7xl mx-auto pt-10 px-2">
+        <div class="flex flex-col">
+            <div class="flex flex-row justify-between">
+                <div class="flex flex-col">
+                    <div class="text-3xl font-bold">Discover Indonesia with Nusa Travel</div>
+                    <p class="text-gray-400">Nusa Travel is your one-stop travel partner for an unforgettable Indonesian adventure. From fastboat services to tour packages and car rentals, we've got you covered.</p>
+                    
+                    <h3 class="text-xl font-semibold mt-4"><a href="/ekajaya-fastboat" class="hover:text-blue-500">Premium Ekajaya Fastboat Services</a></h3>
+                    <p class="text-gray-400">Explore Bali and its stunning neighboring islands with speed, comfort, and safety aboard Ekajaya Fastboat, one of the leading fast boat operators in the region. Enjoy easy booking, unbeatable deals, personalized assistance, and exclusive promotions.</p>
+                    
+                    <h3 class="text-xl font-semibold mt-4"><a href="/tour-packages" class="hover:text-blue-500">Tailor-made Tour Packages</a></h3>
+                    <p class="text-gray-400">Experience the best of Indonesia with our exclusive tour packages, carefully crafted to suit your preferences and budget. Discover hidden gems, iconic landmarks, and immerse yourself in the rich culture of this beautiful archipelago.</p>
+                    
+                    <h3 class="text-xl font-semibold mt-4"><a href="/car-rental-bali" class="hover:text-blue-500">Affordable Car Rentals</a></h3>
+                    <p class="text-gray-400">Travel at your own pace with our affordable car rental services, offering a wide selection of well-maintained vehicles to choose from. Enjoy the freedom and convenience of exploring Indonesia's diverse destinations on your terms.</p>
+                    
+                    <p class="text-gray-400 mt-4">Embark on an unforgettable journey with Nusa Travel today!</p>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -35,4 +35,7 @@
     <div class="max-w-7xl mx-auto mb-5 px-1">
         {{$packages->links()}}
     </div>
+
+    <!-- SEO Article -->
+    {!! $page->body !!}
 @endsection

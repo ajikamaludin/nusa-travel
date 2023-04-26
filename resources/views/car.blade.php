@@ -23,4 +23,6 @@
     @endif
 
     <div class="py-10"></div>
+    {!! $page->body !!}
+    <div class="h-24 md:h-16"></div>
 @endsection

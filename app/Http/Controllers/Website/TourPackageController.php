@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use App\Models\TourPackage;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,7 @@ class TourPackageController extends Controller
 
         return view('packages', [
             'packages' => $query->paginate(),
+            'page' => Page::where('key', 'tour-package')->first(),
         ]);
     }
 

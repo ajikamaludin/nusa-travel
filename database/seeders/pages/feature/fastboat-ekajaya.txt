@@ -1,0 +1,50 @@
+<div class="w-full max-w-7xl mx-auto pt-10 px-2 pb-64 md:pb-32">
+    <div class="flex flex-col">
+        <div class="flex flex-row justify-between">
+            <div class="flex flex-col">
+                <h1 class="text-3xl font-bold">Premium Ekajaya Fastboat Services</h1>
+                <p class="text-gray-400">Nusa Travel proudly offers Ekajaya Fastboat services, ensuring fast and dependable connections among Bali, Lombok, Nusa Lembongan, Nusa Penida, Nusa Ceningan, and the Gili Islands. Experience the beauty of Indonesia with our first-class Ekajaya Fastboat services, designed for your comfort and enjoyment.</p>
+                <h2 class="text-2xl font-semibold mt-4">Selecting Ekajaya Fastboat</h2>
+                <p class="text-gray-400">Ekajaya Fastboat is a premier fast boat operator in the region, known for its quickness, safety, and exceptional service. The modern vessels are engineered to deliver a seamless and pleasurable journey to your favorite destinations, such as Gili Trawangan, Gili Air, Gili Meno, and Lombok.</p>
+                <h3 class="text-xl font-semibold mt-4">Advantages of Reserving with Nusa Travel:</h3>
+                <ul class="list-disc list-inside">
+                    <li>Effortless online reservation for Ekajaya Fastboat tickets</li>
+                    <li>Affordable prices and unbeatable offers</li>
+                    <li>Customized support from our experienced travel specialists</li>
+                    <li>Exclusive deals and markdowns for our esteemed clientele</li>
+                </ul>
+                <h3 class="text-xl font-semibold mt-4">Ekajaya Fastboat Features</h3>
+                <p class="text-gray-400">Experience exceptional quality with Ekajaya Fastboat's aluminum vessels built to international standards. Key features include:</p>
+                <ul class="list-disc list-inside">
+                    <li>4x Volvo D16 750 HP engines for high speed and comfort</li>
+                    <li>Accredited captain and crew</li>
+                    <li>Capacity for 210 passengers</li>
+                    <li>Fully air-conditioned cabin</li>
+                    <li>Spacious and furnished with high-quality seating</li>
+                    <li>Sun deck for a relaxing experience</li>
+                    <li>Comprehensive safety equipment</li>
+                    <li>Modern entertainment system with LCD TV and DVD player</li>
+                    <li>Advanced GPS technology and ship-to-shore radio</li>
+                    <li>Life rafts and fire extinguishers for added safety</li>
+                    <li>Onboard toilet facilities</li>
+                </ul>
+
+
+                <h3 class="text-xl font-semibold mt-4">Journey in Luxury and Elegance</h3>
+                <p class="text-gray-400">Experience the ease of fast boat services from Bali to Gili Trawangan, Gili Air, Gili Meno, and Lombok, with several daily departures. Ekajaya's advanced and well-maintained fleet guarantees a comfortable and stress-free voyage, allowing you to unwind and appreciate the stunning scenery.</p>
+
+                <h3 class="text-xl font-semibold mt-4">Popular Fastboat Itineraries</h3>
+                <p class="text-gray-400">Ekajaya Fastboat serves in-demand routes, such as:</p>
+                <ul class="list-disc list-inside">
+                    <li>Bali to Gili Trawangan, Gili Air, Gili Meno, and Lombok</li>
+                    <li>Gili Trawangan to Bali, Gili Air, Gili Meno, and Lombok</li>
+                    <li>Gili Air to Bali, Gili Trawangan, Gili Meno, and Lombok</li>
+                    <li>Lombok to Bali, Gili Trawangan, Gili Air, and Gili Meno</li>
+                </ul>
+                
+                <p class="text-gray-400 mt-4">Set sail on an extraordinary island-hopping escapade with Nusa Travel and Ekajaya Fastboat now!</p>
+            </div>
+        </div>
+    </div>
+    <div class="h-24 md:h-16"></div>
+</div>

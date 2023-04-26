@@ -117,7 +117,7 @@ class FastboatCart extends Component
             }
 
             if ($this->infants != 0) {
-                foreach(range($i + 1, $i + $this->infants) as $key => $j) {
+                foreach (range($i + 1, $i + $this->infants) as $key => $j) {
                     $this->persons[$j] = [
                         'key' => $key + 1,
                         'type' => '1',
@@ -130,7 +130,7 @@ class FastboatCart extends Component
         $this->pickups = FastboatPickup::with(['car'])->whereHas('source', function ($query) use ($origin) {
             $query->where('id', '=', $origin);
         })
-        ->orderBy('name', 'asc')->get();
+            ->orderBy('name', 'asc')->get();
     }
 
     public function render()
@@ -201,7 +201,7 @@ class FastboatCart extends Component
     public function checkAllValid()
     {
         $matchs = [];
-        foreach($this->persons as $person) {
+        foreach ($this->persons as $person) {
             $matchs[] = isset($person['name']);
         }
 
@@ -300,7 +300,7 @@ class FastboatCart extends Component
             }
         }
 
-        if($pickup != null) {
+        if ($pickup != null) {
             $date = collect($this->carts)->value('date');
             $order->items()->create([
                 'entity_order' => CarRental::class,
@@ -328,7 +328,7 @@ class FastboatCart extends Component
         }
 
         // insert promo manual
-        foreach($this->promosManual as $promo) {
+        foreach ($this->promosManual as $promo) {
             $order->promos()->create([
                 'promo_id' => $promo['id'],
                 'promo_code' => $promo['code'],
@@ -367,11 +367,11 @@ class FastboatCart extends Component
         });
 
         $promosApply = Promo::query()
-        ->where([
-            'is_apply' => Promo::PROMO_NOTAPPLY,
-            'is_active' => Promo::PROMO_ACTIVE,
-            'code' => $this->cupon['code'] ?? null,
-        ])->get();
+            ->where([
+                'is_apply' => Promo::PROMO_NOTAPPLY,
+                'is_active' => Promo::PROMO_ACTIVE,
+                'code' => $this->cupon['code'] ?? null,
+            ])->get();
 
         if ($promosApply->count() == 0) {
             $this->isAnyCupon = true;
@@ -395,7 +395,7 @@ class FastboatCart extends Component
                     }
                     break;
                 default:
-                    if($promo->available_start_date != '0000-00-00' || $promo->order_start_date != '0000-00-00') {
+                    if ($promo->available_start_date != '0000-00-00' || $promo->order_start_date != '0000-00-00') {
                         $dateaveil = new DateTime($promo->available_start_date);
                         $dateOrder = new DateTime($promo->order_start_date);
                         $datetime2 = new DateTime($dates[0]);
@@ -469,37 +469,36 @@ class FastboatCart extends Component
         }
 
         $promos = Promo::query()
-        ->where([
-            'is_active' => Promo::PROMO_ACTIVE,
-        ])
-        ->where(function ($query) {
-            $query->whereDate('available_start_date', '<=', now())
-            ->where(['is_apply' => Promo::PROMO_APPLY])
-                ->whereDate('available_end_date', '>=', now());
-        })
-        ->orwhere(function ($query) {
-            $query->where('available_start_date', '=', '0000-00-00')
-            ->where(['is_apply' => Promo::PROMO_APPLY])
-            ->where('available_end_date', '=', '0000-00-00');
-        })
-        ->where(function ($query) use ($dates) {
-            if (count($dates) > 0) {
-                $query->where('order_start_date', '<=', $dates[0])
-                ->where(['is_apply' => Promo::PROMO_APPLY])
-                    ->where('order_end_date', '>=', $dates[0]);
-            }
-        })
-        ->orwhere(function ($query) {
-            $query->where('order_start_date', '=', '0000-00-00')
-            ->where(['is_apply' => Promo::PROMO_APPLY])
-                ->where('order_end_date', '=', '0000-00-00');
-        })
-
-        ->leftJoin('order_promos', 'promo_id', '=', 'promos.id')
-        ->leftJoin('orders', 'orders.id', '=', 'order_promos.order_id')
-        ->select('promos.*', DB::Raw('Count(promo_id) as used_promo,customer_id'))
-        ->groupBy('promos.id')
-        ->get();
+            ->where([
+                'is_active' => Promo::PROMO_ACTIVE,
+            ])
+            ->where(function ($query) {
+                $query->whereDate('available_start_date', '<=', now())
+                    ->where(['is_apply' => Promo::PROMO_APPLY])
+                    ->whereDate('available_end_date', '>=', now());
+            })
+            ->orwhere(function ($query) {
+                $query->where('available_start_date', '=', '0000-00-00')
+                    ->where(['is_apply' => Promo::PROMO_APPLY])
+                    ->where('available_end_date', '=', '0000-00-00');
+            })
+            ->where(function ($query) use ($dates) {
+                if (count($dates) > 0) {
+                    $query->where('order_start_date', '<=', $dates[0])
+                        ->where(['is_apply' => Promo::PROMO_APPLY])
+                        ->where('order_end_date', '>=', $dates[0]);
+                }
+            })
+            ->orwhere(function ($query) {
+                $query->where('order_start_date', '=', '0000-00-00')
+                    ->where(['is_apply' => Promo::PROMO_APPLY])
+                    ->where('order_end_date', '=', '0000-00-00');
+            })
+            ->leftJoin('order_promos', 'promo_id', '=', 'promos.id')
+            ->leftJoin('orders', 'orders.id', '=', 'order_promos.order_id')
+            ->select('promos.*', DB::Raw('Count(promo_id) as used_promo,customer_id'))
+            ->groupBy('promos.id')
+            ->get();
 
         foreach ($promos as $promokey => $promo) {
             switch ($promo->condition_type) {
@@ -519,7 +518,7 @@ class FastboatCart extends Component
                     }
                     break;
                 default:
-                    if($promo->available_start_date != '0000-00-00' || $promo->order_start_date != '0000-00-00') {
+                    if ($promo->available_start_date != '0000-00-00' || $promo->order_start_date != '0000-00-00') {
                         $dateaveil = new DateTime($promo->available_start_date);
                         $dateOrder = new DateTime($promo->order_start_date);
                         $datetime2 = new DateTime($dates[0]);

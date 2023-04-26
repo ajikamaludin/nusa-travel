@@ -49,6 +49,16 @@ services:
     networks:
       nusa:
         ipv4_address: 10.5.0.99
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: nusa-phpmyadmin
+    ports:
+      - "8001:80"
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306 
+    networks:
+      - nusa
   nodejs:
     image: node:16-alpine
     container_name: nusa-node

@@ -75,7 +75,7 @@ class OrderController extends Controller
             ];
         });
 
-        if(in_array(null, $carts->toArray())) {
+        if (in_array(null, $carts->toArray())) {
             session()->remove('carts');
 
             return redirect()->route('home.index');
@@ -112,7 +112,7 @@ class OrderController extends Controller
         ]);
 
         // send email that order has been payed if status is 1
-        if($order->payment_status == Order::PAYMENT_SUCESS) {
+        if ($order->payment_status == Order::PAYMENT_SUCESS) {
             AsyncService::async(function () use ($order) {
                 Mail::to($order->customer->email)->send(new OrderInvoice($order));
             });
@@ -182,7 +182,7 @@ class OrderController extends Controller
     {
         $carts = session()->get('carts') ?? [];
 
-        if(count($carts) == 0) {
+        if (count($carts) == 0) {
             return redirect()->route('home.index');
         }
 

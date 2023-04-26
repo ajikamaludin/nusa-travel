@@ -31,7 +31,7 @@ class MidtransService
             ];
         });
 
-        if($this->order->total_discount > 0) {
+        if ($this->order->total_discount > 0) {
             $items->add([
                 'id' => 'Discount',
                 'price' => -$this->order->total_discount,

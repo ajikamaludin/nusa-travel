@@ -34,6 +34,7 @@ class DummySeeder extends Seeder
         $this->car_rentals();
         $this->tour_packages();
         $this->agent();
+        $this->feature_page();
     }
 
     public function setting()
@@ -130,6 +131,26 @@ class DummySeeder extends Seeder
             ['key' => 'cookiepolicy', 'title' => 'Cookie Policy', 'file' => '/pages/cookiepolicy.txt'],
             ['key' => 'aboutus', 'title' => 'About Us', 'file' => '/pages/aboutus.txt'],
             ['key' => 'schedule', 'title' => 'Schedule', 'file' => '/pages/schedule.txt'],
+        ];
+
+        foreach ($pages as $page) {
+            Page::create([
+                'key' => $page['key'],
+                'title' => $page['title'],
+                'body' => file_get_contents(__DIR__.$page['file']),
+            ]);
+        }
+    }
+
+    public function feature_page()
+    {
+        $pages = [
+            ['key' => 'home', 'title' => 'feature-home', 'file' => '/pages/feature/home.txt'],
+            ['key' => 'car-rental', 'title' => 'feature-car-rental', 'file' => '/pages/feature/car-rental.txt'],
+            ['key' => 'faq', 'title' => 'feature-faq', 'file' => '/pages/feature/faq.txt'],
+            ['key' => 'fastboat-ekajaya', 'title' => 'feature-fastboat-ekajaya', 'file' => '/pages/feature/fastboat-ekajaya.txt'],
+            ['key' => 'fastboat', 'title' => 'feature-fastboat', 'file' => '/pages/feature/fastboat.txt'],
+            ['key' => 'tour-package', 'title' => 'feature-tour-package', 'file' => '/pages/feature/tour-package.txt'],
         ];
 
         foreach ($pages as $page) {

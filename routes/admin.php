@@ -164,7 +164,7 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::put('/orders/{order}', [OrderController::class, 'update'])->name('order.update');
         Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
 
-         //Agen
+        //Agen
         Route::get('/agent', [AgentController::class, 'index'])->name('agent.index');
         Route::post('/agent', [AgentController::class, 'store'])->name('agent.store');
         Route::put('/agent/{agent}', [AgentController::class, 'update'])->name('agent.update');

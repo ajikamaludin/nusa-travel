@@ -15,7 +15,8 @@
         @foreach($posts as $post)
         <div class="hover:-translate-y-2 ease-in duration-150 shadow bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
             <a href="{{ route('blog.post', $post) }}">
-                <img class="rounded-t-lg" src="{{asset($post->cover_image)}}" alt="" />
+                <!-- Set the fixed height and add the object-cover class -->
+                <img class="rounded-t-lg w-full h-48 object-cover" src="{{asset($post->cover_image)}}" alt="" />
             </a>
             <div class="p-3 md:p-5 space-y-1">
                 <a href="{{ route('blog.post', $post) }}">

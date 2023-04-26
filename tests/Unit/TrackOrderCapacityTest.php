@@ -91,7 +91,7 @@ class TrackOrderCapacityTest extends TestCase
         $capacities = [];
         $datas = [];
         $data = [18, 18, 18, 18, 18, 18];
-        foreach($tracks as $i => $t) {
+        foreach ($tracks as $i => $t) {
             $capacity = FastboatTrackOrderCapacity::where([
                 'fastboat_track_group_id' => $track->group->id,
                 'fastboat_source_id' => $t->fastboat_source_id,
@@ -132,7 +132,7 @@ class TrackOrderCapacityTest extends TestCase
         $capacities = [];
         $datas = [];
         $data = [16, 16, 16, 18, 18, 18];
-        foreach($tracks as $i => $t) {
+        foreach ($tracks as $i => $t) {
             $capacity = FastboatTrackOrderCapacity::where([
                 'fastboat_track_group_id' => $track->group->id,
                 'fastboat_source_id' => $t->fastboat_source_id,
@@ -174,7 +174,7 @@ class TrackOrderCapacityTest extends TestCase
         $capacities = [];
         $datas = [];
         $data = [16, 14, 14, 16, 16, 18];
-        foreach($tracks as $i => $t) {
+        foreach ($tracks as $i => $t) {
             $capacity = FastboatTrackOrderCapacity::where([
                 'fastboat_track_group_id' => $track->group->id,
                 'fastboat_source_id' => $t->fastboat_source_id,
@@ -216,7 +216,7 @@ class TrackOrderCapacityTest extends TestCase
         $capacities = [];
         $datas = [];
         $data = [16, 14, 12, 16, 14, 16];
-        foreach($tracks as $i => $t) {
+        foreach ($tracks as $i => $t) {
             $capacity = FastboatTrackOrderCapacity::where([
                 'fastboat_track_group_id' => $track->group->id,
                 'fastboat_source_id' => $t->fastboat_source_id,
@@ -248,7 +248,7 @@ class TrackOrderCapacityTest extends TestCase
         $manyPlaces = $max;
         $places = [];
 
-        foreach(range(0, $manyPlaces) as $p) {
+        foreach (range(0, $manyPlaces) as $p) {
             $place_x = FastboatPlace::create([
                 'name' => $p,
             ]);
@@ -306,13 +306,13 @@ class TrackOrderCapacityTest extends TestCase
         $endIndex = null;
 
         $trackArray = $track->group->places->load(['place'])->toArray();
-        foreach($trackArray as $k => $place) {
+        foreach ($trackArray as $k => $place) {
             $isStart = $track->fastboat_source_id == $place['fastboat_place_id'];
-            if($startIndex == null && $isStart) {
+            if ($startIndex == null && $isStart) {
                 $startIndex = $k;
             }
             $isEnd = $track->fastboat_destination_id == $place['fastboat_place_id'];
-            if($endIndex == null && $isEnd) {
+            if ($endIndex == null && $isEnd) {
                 $endIndex = $k;
             }
         }
@@ -338,7 +338,7 @@ class TrackOrderCapacityTest extends TestCase
             }
         }
 
-        foreach($tracks as $i => $t) {
+        foreach ($tracks as $i => $t) {
             $capacity = FastboatTrackOrderCapacity::where([
                 'fastboat_track_group_id' => $track->group->id,
                 'fastboat_source_id' => $t->fastboat_source_id,
