@@ -7,7 +7,7 @@
 - make lazy load image on home page
 - generate ticket on order (pdf generated)
 - Order Show Agent Name and Can Be Filter Order By Agent
-- di data api karena capacity hanya masuk kepal maka harus diubah ke order rcapacity [bug]
+- di data api karena capacity hanya masuk kepal maka harus diubah ke order rcapacity [bug] [PENDING]
 - Post Blog With Multilang AutoTranslate Service ( <https://www.deepl.com/en/docs-api> ) [PENDING]
 
 - minta connect ke globaltix :
