@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\Page;
+use App\Models\Permission;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 return new class extends Migration
 {
@@ -42,7 +44,7 @@ return new class extends Migration
         if (! Schema::hasTable('unavailable_dates')) {
             Schema::create('unavailable_dates', function (Blueprint $table) {
                 $table->uuid('id')->primary();
-                $table->timestamp('close_date');
+                $table->date('close_date', 0)->nullable();
 
                 $table->timestamps();
                 $table->softDeletes();
@@ -51,6 +53,21 @@ return new class extends Migration
                 $table->uuid('deleted_by')->nullable();
             });
         }
+
+        $permission = Permission::where('name', 'view-unavailable-date')->exists();
+        
+        if (! $permission) {
+            $permissions = [
+                ['id' => Str::uuid(), 'label' => 'View Unavailable Date', 'name' => 'view-unavailable-date'],
+                ['id' => Str::uuid(), 'label' => 'Create Unavailable Date', 'name' => 'create-unavailable-date'],
+                ['id' => Str::uuid(), 'label' => 'Update Unavailable Date', 'name' => 'update-unavailable-date'],
+                ['id' => Str::uuid(), 'label' => 'Delete Unavailable Date', 'name' => 'delete-unavailable-date'],
+            ];
+
+            foreach ($permissions as $permission) {
+                Permission::insert($permission);
+            }
+        }
     }
 
     /**
@@ -58,6 +75,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('unavailable_dates');
     }
 };

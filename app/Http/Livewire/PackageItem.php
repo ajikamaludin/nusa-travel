@@ -4,11 +4,15 @@ namespace App\Http\Livewire;
 
 use App\Models\Order;
 use App\Models\TourPackage;
+use App\Models\UnavailableDate;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class PackageItem extends Component
 {
+    use Actions;
+
     public $package;
 
     public $quantity;
@@ -31,6 +35,13 @@ class PackageItem extends Component
 
     public function addCart()
     {
+        // check available date 
+        $check = UnavailableDate::whereDate('close_date', $this->date);
+        if ($check->exists()) {
+            $this->dialog()->error('Warning !!!',__('website.Ordered Date Unavailable'));
+            return;
+        }
+
         $this->quantity = 1;
         $this->checkTotal();
     }

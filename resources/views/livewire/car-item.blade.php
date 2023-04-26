@@ -1,4 +1,4 @@
-<div class="px-6 py-4 mb-1 shadow items-center flex flex-col md:flex-row border-2 border-gray-200 rounded scale-100 hover:scale-105 hover:z-50">
+<div class="px-6 py-4 mb-1 shadow items-center flex flex-col md:flex-row border-2 border-gray-200 rounded scale-100 hover:scale-105 hover:z-30">
     <div class="flex md:w-1/6 mx-2">
         <img src="{{ $car->image_url }}" alt="{{ $car->name }}"/>
     </div>

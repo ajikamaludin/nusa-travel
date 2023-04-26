@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\FastboatTrack;
+use App\Models\UnavailableDate;
 use App\Services\EkajayaService;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -74,11 +75,7 @@ class FastboatTrackAvailable extends Component
     public function showAvailableRoute($data)
     {
         if ($data['from'] == null || $data['to'] == null) {
-            $this->dialog()->error(
-                $title = 'Warning !!!',
-                $description = 'Please choose Origin and Destination'
-            );
-
+            $this->dialog()->error('Warning !!!', __('website.Please choose Origin and Destination'));
             return;
         }
 
@@ -128,6 +125,16 @@ class FastboatTrackAvailable extends Component
 
     public function fetch()
     {
+        // check available date 
+        $check = UnavailableDate::whereDate('close_date', $this->date);
+        if ($this->ways == 2) { 
+            $check->orWhereDate('close_date', $this->rdate);
+        }
+
+        if ($check->exists()) {
+            return;
+        }
+
         if ($this->from != null && $this->to != null) {
             $this->show = true;
             EkajayaService::search($this->from, $this->to, $this->date, $this->ways);

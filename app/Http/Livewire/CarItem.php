@@ -4,11 +4,15 @@ namespace App\Http\Livewire;
 
 use App\Models\CarRental;
 use App\Models\Order;
+use App\Models\UnavailableDate;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class CarItem extends Component
 {
+    use Actions;
+
     public $car;
 
     public $date;
@@ -20,6 +24,13 @@ class CarItem extends Component
 
     public function addCart()
     {
+        // check available date 
+        $check = UnavailableDate::whereDate('close_date', $this->date);
+        if ($check->exists()) {
+            $this->dialog()->error('Warning !!!',__('website.Ordered Date Unavailable'));
+            return;
+        }
+
         if (Auth::guard('customer')->check()) {
             $this->user();
         } else {

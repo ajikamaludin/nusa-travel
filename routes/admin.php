@@ -22,6 +22,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TourPackageController;
+use App\Http\Controllers\UnavailableDateController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Support\Facades\Route;
@@ -177,5 +178,11 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::get('/price-agent/tracks/{group}', [FastboatTrackAgentController::class, 'edit'])->name('price-agent.trackagent.edit');
         Route::put('/price-agent/tracks/{group}', [FastboatTrackAgentController::class, 'update'])->name('price-agent.track.update');
         Route::delete('/price-agent/tracks/{group}', [FastboatTrackAgentController::class, 'destroy'])->name('price-agent.track.destroy');
+    
+        // Unavailable Date
+        Route::get('/unavailable-date', [UnavailableDateController::class, 'index'])->name('unavailable-date.index');
+        Route::post('/unavailable-date', [UnavailableDateController::class, 'store'])->name('unavailable-date.store');
+        Route::put('/unavailable-date/{date}', [UnavailableDateController::class, 'update'])->name('unavailable-date.update');
+        Route::delete('/unavailable-date/{date}', [UnavailableDateController::class, 'destroy'])->name('unavailable-date.destroy');
     });
 });

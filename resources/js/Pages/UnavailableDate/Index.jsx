@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { router } from '@inertiajs/react';
-import { usePrevious } from 'react-use';
 import { Head } from '@inertiajs/react';
 import { Button, Dropdown } from 'flowbite-react';
 import { HiPencil, HiTrash } from 'react-icons/hi';
@@ -10,62 +9,44 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Pagination from '@/Components/Pagination';
 import ModalConfirm from '@/Components/ModalConfirm';
 import FormModal from './FormModal';
-import SearchInput from '@/Components/SearchInput';
-import { hasPermission } from '@/utils';
+import { dateToString, formatDate, hasPermission } from '@/utils';
 
 export default function Index(props) {
     const { query: { links, data }, auth } = props
-    
-    const [search, setSearch] = useState('')
-    const preValue = usePrevious(search)
 
     const confirmModal = useModalState()
     const formModal = useModalState()
 
-    const toggleFormModal = (tag = null) => {
-        formModal.setData(tag)
+    const toggleFormModal = (date = null) => {
+        formModal.setData(date)
         formModal.toggle()
     }
 
-    const handleDeleteClick = (tag) => {
-        confirmModal.setData(tag)
+    const handleDeleteClick = (date) => {
+        confirmModal.setData(date)
         confirmModal.toggle()
     }
 
     const onDelete = () => {
         if(confirmModal.data !== null) {
-            router.delete(route('tag.destroy', confirmModal.data.id))
+            router.delete(route('unavailable-date.destroy', confirmModal.data.id))
         }
     }
 
-    const params = { q: search }
-    useEffect(() => {
-        if (preValue) {
-            router.get(
-                route(route().current()),
-                { q: search },
-                {
-                    replace: true,
-                    preserveState: true,
-                }
-            )
-        }
-    }, [search])
-
-    const canCreate = hasPermission(auth, 'create-fastboat-place')
-    const canUpdate = hasPermission(auth, 'update-fastboat-place')
-    const canDelete = hasPermission(auth, 'delete-fastboat-place')
+    const canCreate = hasPermission(auth, 'create-unavailable-date')
+    const canUpdate = hasPermission(auth, 'update-unavailable-date')
+    const canDelete = hasPermission(auth, 'delete-unavailable-date')
 
     return (
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={'Blog'}
-            action={'Tag'}
-            parent={route('tag.index')}
+            page={'Unavailable Date'}
+            action={''}
+            parent={route('unavailable-date.index')}
         >
-            <Head title="Tag" />
+            <Head title="Unavailable Date" />
 
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8 ">
@@ -74,12 +55,6 @@ export default function Index(props) {
                             {canCreate && (
                                 <Button size="sm" onClick={() => toggleFormModal()}>Tambah</Button>
                             )}
-                            <div className="flex items-center">
-                                <SearchInput
-                                    onChange={e => setSearch(e.target.value)}
-                                    value={search}
-                                />
-                            </div>
                         </div>
                         <div className='overflow-auto'>
                             <div>
@@ -87,16 +62,16 @@ export default function Index(props) {
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="py-3 px-6">
-                                                Name
+                                                Date
                                             </th>
                                             <th scope="col" className="py-3 px-6"/>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {data.map(tag => (
-                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={tag.id}>
+                                        {data.map(dates => (
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={dates.id}>
                                                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    {tag.name}
+                                                    {formatDate(dates.close_date)}
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown
@@ -107,7 +82,7 @@ export default function Index(props) {
                                                         size={'sm'}
                                                     >
                                                         {canUpdate && (
-                                                            <Dropdown.Item onClick={() => toggleFormModal(tag)}>
+                                                            <Dropdown.Item onClick={() => toggleFormModal(dates)}>
                                                                 <div className='flex space-x-1 items-center'>
                                                                     <HiPencil/> 
                                                                     <div>Ubah</div>
@@ -115,7 +90,7 @@ export default function Index(props) {
                                                             </Dropdown.Item>
                                                         )}
                                                         {canDelete && (
-                                                            <Dropdown.Item onClick={() => handleDeleteClick(tag)}>
+                                                            <Dropdown.Item onClick={() => handleDeleteClick(dates)}>
                                                                 <div className='flex space-x-1 items-center'>
                                                                     <HiTrash/> 
                                                                     <div>Hapus</div>
@@ -130,7 +105,7 @@ export default function Index(props) {
                                 </table>
                             </div>
                             <div className='w-full flex items-center justify-center'>
-                                <Pagination links={links} params={params}/>
+                                <Pagination links={links}/>
                             </div>
                         </div>
                     </div>

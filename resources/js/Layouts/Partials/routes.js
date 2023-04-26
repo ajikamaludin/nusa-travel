@@ -17,6 +17,7 @@ import {
     HiOutlineQuestionMarkCircle,
     HiOutlineReceiptTax,
     HiCog,
+    HiOutlineCalendar,
 } from "react-icons/hi";
 
 export default [
@@ -137,6 +138,14 @@ export default [
         route: route("order.index"),
         active: "order.*",
         permission: "view-order",
+    },
+    {
+        name: "Close Order Date",
+        show: true,
+        icon: HiOutlineCalendar,
+        route: route("unavailable-date.index"),
+        active: "unavailable-date.*",
+        permission: "view-unavailable-date",
     },
     {
         name: "Blog",

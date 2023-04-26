@@ -5,7 +5,7 @@ namespace App\Models;
 
 class UnavailableDate extends Model
 {
-    protected $attributes = [
+    protected $fillable = [
         'close_date'
     ];
 }

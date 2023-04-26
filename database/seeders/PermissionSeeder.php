@@ -117,6 +117,11 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'Create Fastboat Pickup', 'name' => 'create-fastboat-pickup'],
             ['id' => Str::uuid(), 'label' => 'Update Fastboat Pickup', 'name' => 'update-fastboat-pickup'],
             ['id' => Str::uuid(), 'label' => 'Delete Fastboat Pickup', 'name' => 'delete-fastboat-pickup'],
+
+            ['id' => Str::uuid(), 'label' => 'View Unavailable Date', 'name' => 'view-unavailable-date'],
+            ['id' => Str::uuid(), 'label' => 'Create Unavailable Date', 'name' => 'create-unavailable-date'],
+            ['id' => Str::uuid(), 'label' => 'Update Unavailable Date', 'name' => 'update-unavailable-date'],
+            ['id' => Str::uuid(), 'label' => 'Delete Unavailable Date', 'name' => 'delete-unavailable-date'],
         ];
 
         foreach ($permissions as $permission) {

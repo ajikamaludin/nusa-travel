@@ -124,4 +124,6 @@ return [
     'Code applied' => 'Kupon Promo',
     'Apply' => 'Cari',
     'Ekajaya Fastboat' => 'Ekajaya Fastboat',
+    'Please choose Origin and Destination' => 'Silahkan pilih tujuan and detinasi',
+    'Ordered Date Unavailable' => 'Order pada tanggal dipilih tidak tersedia'
 ];

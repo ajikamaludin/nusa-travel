@@ -1,6 +1,8 @@
 @extends('layouts.home')
 
 @section('content')
+    <x-dialog z-index="z-50" blur="md" align="center" />
+
     <!-- Slide -->
     @if($package->images != null)
     <div class="w-full max-w-7xl mx-auto">

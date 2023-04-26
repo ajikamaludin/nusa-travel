@@ -2,7 +2,7 @@
 
 - [DONE] content update to sync: home, tour-packages, fastboat (& ekajaya-fastboat), car-rental-bali, faq,
 - [DONE] update sitemap
-- fitur closing-order by date | dapat melakukan close order pada date tertentu
+- [DONE] fitur closing-order by date | dapat melakukan close order pada date tertentu
 - make thumbnail on upload
 - make lazy load image on home page
 - generate ticket on order (pdf generated)
