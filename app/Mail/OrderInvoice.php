@@ -67,7 +67,7 @@ class OrderInvoice extends Mailable
         if ($this->ticketPath != null) {
             return [
                 Attachment::fromPath(public_path($this->ticketPath))
-                    ->as('ticket-#'.$this->order->code.'.pdf')
+                    ->as('ticket-#'.$this->order->order_code.'.pdf')
                     ->withMime('application/pdf'),
             ];
         }

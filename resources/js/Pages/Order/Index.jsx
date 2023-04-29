@@ -10,13 +10,15 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Pagination from '@/Components/Pagination';
 import ModalConfirm from '@/Components/ModalConfirm';
 import SearchInput from '@/Components/SearchInput';
+import CustomerSelectionInput from '../Customer/SelectionInput';
 import { hasPermission } from '@/utils';
 
 export default function Index(props) {
     const { query: { links, data }, auth } = props
     
+    const [agent, setAgent] = useState(null)
     const [search, setSearch] = useState('')
-    const preValue = usePrevious(search)
+    const preValue = usePrevious({search, agent})
 
     const confirmModal = useModalState()
 
@@ -31,19 +33,19 @@ export default function Index(props) {
         }
     }
 
-    const params = { q: search }
+    const params = { q: search, agent: agent }
     useEffect(() => {
         if (preValue) {
             router.get(
                 route(route().current()),
-                { q: search },
+                { q: search, agent: agent },
                 {
                     replace: true,
                     preserveState: true,
                 }
             )
         }
-    }, [search])
+    }, [search, agent])
 
     // const canCreate = hasPermission(auth, 'create-order')
     const canUpdate = hasPermission(auth, 'update-order')
@@ -63,11 +65,19 @@ export default function Index(props) {
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8 ">
                     <div className="p-6 overflow-hidden shadow-sm sm:rounded-lg bg-gray-200 dark:bg-gray-800 space-y-4">
-                        <div className='flex justify-end'>
+                        <div className='flex justify-between'>
                             {/* {canCreate && (
                                 <Link href={route("order.create")} className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>Tambah</Link>
                             )} */}
+                            <div>
+                                <CustomerSelectionInput
+                                    placeholder="Filter: agent"
+                                    itemSelected={agent}
+                                    onItemSelected={(id) => setAgent(id)}
+                                />
+                            </div>
                             <div className="flex items-center">
+                                
                                 <SearchInput
                                     onChange={e => setSearch(e.target.value)}
                                     value={search}
@@ -110,7 +120,7 @@ export default function Index(props) {
                                                     {+order.customer.is_agent === 1 ? order.customer.name : ' - '}
                                                 </td>
                                                 <td className="py-4 px-6">
-                                                    {order.customer.name}
+                                                    {order.passenger_name}
                                                 </td>
                                                 <td className="py-4 px-6">
                                                     {order.order_date_formated}

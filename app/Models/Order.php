@@ -38,7 +38,12 @@ class Order extends Model
         'pickup',
     ];
 
-    protected $appends = ['order_date_formated', 'payment_status_text', 'payment_status_color'];
+    protected $appends = [
+        'order_date_formated', 
+        'payment_status_text', 
+        'payment_status_color',
+        'passenger_name'
+    ];
 
     public function customer()
     {
@@ -111,6 +116,19 @@ class Order extends Model
         return Attribute::make(
             get: function () {
                 return number_format($this->total_amount, 0, ',', '.');
+            }
+        );
+    }
+
+    protected function passengerName(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $item = $this->items()->first();
+                if ($item->entity_order == FastboatTrack::class) {
+                    return $item->passengers()->first()->name;
+                }
+                return $this->customer->name;
             }
         );
     }

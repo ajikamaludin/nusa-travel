@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\CarRentalController;
+use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\FastboatController;
 use App\Http\Controllers\Api\FastboatPlaceController;
 use App\Http\Controllers\Api\FastboatTrackController;
@@ -35,6 +36,7 @@ Route::get('/fastboats', [FastboatController::class, 'index'])->name('api.fastbo
 Route::get('/agent', [AgentController::class, 'index'])->name('api.agent.index');
 Route::get('/fastboat/tracks', [FastboatTrackController::class, 'index'])->name('api.fasboat.track.index');
 Route::get('/car-rentals', [CarRentalController::class, 'index'])->name('api.car-rentals.index');
+Route::get('/customers', [CustomerController::class, 'index'])->name('api.customer.index');
 
 // for payment
 Route::put('/carts/process-payment/{order}', [OrderController::class, 'payment_update'])->name('api.order.update');

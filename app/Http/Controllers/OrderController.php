@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -12,11 +13,15 @@ class OrderController extends Controller
     {
         $query = Order::query()->with(['customer'])->where('order_type', Order::TYPE_ORDER);
 
-        if ($request->has('q')) {
-            $query->where('order_code', 'like', "%{$request->q}%")
-                ->orWhereHas('customer', function ($q) use ($request) {
-                    $q->where('name', 'like', "%$request->q%");
-                });
+        if ($request->q != '') {
+            $query->where('order_code', 'like', "%{$request->q}%");
+        }
+
+        if ($request->agent != '') {
+            $query->whereHas('customer', function ($q) use ($request) {
+                $q->where('id', 'like', "%$request->agent%")
+                ->where('is_agent', Customer::AGENT);
+            });
         }
 
         return inertia('Order/Index', [

@@ -20,7 +20,10 @@ class AgentController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Customer::query()->where('is_agent', '1')->where('is_active', '1');
+        $query = Customer::query()
+            ->where('is_agent', Customer::AGENT)
+            ->where('is_active', Customer::ACTIVE);
+
         if ($request->has('q')) {
             $query->where('name', 'like', "%{$request->q}%");
         }

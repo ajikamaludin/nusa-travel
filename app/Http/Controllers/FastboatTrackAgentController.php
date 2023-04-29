@@ -15,9 +15,15 @@ class FastboatTrackAgentController extends Controller
     {
         $query = FastboatTrackGroupAgent::query()->with('trackGroup.fastboat', 'customer');
 
-        if ($request->has('q')) {
+        if ($request->q != '') {
             $query->whereHas('customer', function ($query) use ($request) {
                 $query->where('name', 'like', "%$request->q%");
+            });
+        }
+
+        if ($request->agent != '') {
+            $query->whereHas('customer', function ($query) use ($request) {
+                $query->where('id', 'like', "%$request->agent%");
             });
         }
 
