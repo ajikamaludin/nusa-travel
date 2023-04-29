@@ -3,8 +3,8 @@
 - [DONE] content update to sync: home, tour-packages, fastboat (& ekajaya-fastboat), car-rental-bali, faq,
 - [DONE] update sitemap
 - [DONE] fitur closing-order by date | dapat melakukan close order pada date tertentu
-- make thumbnail on upload
-- make lazy load image on home page
+- [PENDING] make thumbnail on upload
+- [DONE] make lazy load image on home page
 - generate ticket on order (pdf generated)
 - Order Show Agent Name and Can Be Filter Order By Agent
 - di data api karena capacity hanya masuk kepal maka harus diubah ke order rcapacity [bug] [PENDING]

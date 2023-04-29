@@ -30,7 +30,7 @@
 @section('content')
     <!-- Hero Blog -->
     <section class="w-full min-h-[250px] relative flex flex-col items-center justify-center">
-        <img src="{{asset( $images[rand(0, count($images) - 1)]['path_url'] )}}" class="w-full brightness-75  h-full rounded object-cover blur-[1px] absolute top-0" alt="...">
+        <img src="{{asset( $images[rand(0, count($images) - 1)]['path_url'] )}}" loading="lazy" class="w-full brightness-75  h-full rounded object-cover blur-[1px] absolute top-0" alt="...">
         <div class="relative text-white text-center space-y-2">
             <h1 class=" text-4xl md:text-6xl font-semibold outlined-black">{{ __('website.Inspiring your holiday')}}</h1>
             <p class="text-base md:text-lg">{{ __('website.Explore fun, culture and more')}}</p>
@@ -41,7 +41,7 @@
     <section class="w-full mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4 py-2 md:py-5 px-1 parent-container">
         @foreach($images as $index => $image)
         <figure class="{{ $index == 0 ? 'md:col-span-2' : '' }} relative transition-all duration-300 cursor-pointer filter  grayscale hover:grayscale-0" href="{{ $image->path_url }}">
-            <img class="rounded-lg object-cover h-full w-full" src="{{ $image->path_url }}" alt="{{ $image->name }}"/>
+            <img class="rounded-lg object-cover h-full w-full" src="{{ $image->path_url }}" loading="lazy" alt="{{ $image->name }}"/>
             <figcaption class="absolute px-4 text-xl text-white outlined-black bottom-6">
                 <p>{{ $image->name }}</p>
             </figcaption>

@@ -13,6 +13,7 @@ use App\Http\Controllers\Website\SignUpController;
 use App\Http\Controllers\Website\TourPackageController;
 use App\Http\Middleware\GuardCustomer;
 use App\Http\Middleware\VisitorCounter;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,11 @@ Route::get('/test', function () {
     ]);
 });
 */
+Route::get('/ticket', function () {
+    // $pdf = Pdf::loadView('pdf.ticket')->setPaper('latter', 'landscape')->setOption(['dpi' => 400]);
+    // return $pdf->stream();
+    return view('pdf.ticket');
+});
 
 Route::get('/flush', function () {
     Cache::flush();
