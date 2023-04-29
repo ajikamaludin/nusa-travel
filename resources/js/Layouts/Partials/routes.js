@@ -18,6 +18,7 @@ import {
     HiOutlineReceiptTax,
     HiCog,
     HiOutlineCalendar,
+    HiOutlineTicket,
 } from "react-icons/hi";
 
 export default [
@@ -328,11 +329,19 @@ export default [
                 permission: "view-setting",
             },
             {
-                name: "Ekajaya API Integ.",
+                name: "Nusa Integration",
                 show: true,
                 icon: HiCog,
                 route: route("setting.ekajaya"),
                 active: "setting.ekajaya",
+                permission: "view-setting",
+            },
+            {
+                name: "GlobalTix",
+                show: true,
+                icon: HiOutlineTicket,
+                route: route("setting.globaltix"),
+                active: "setting.globaltix",
                 permission: "view-setting",
             },
         ],

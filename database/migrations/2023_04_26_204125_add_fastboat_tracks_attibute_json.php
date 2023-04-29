@@ -2,6 +2,7 @@
 
 use App\Models\Page;
 use App\Models\Permission;
+use App\Models\Setting;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -64,9 +65,20 @@ return new class extends Migration
                 ['id' => Str::uuid(), 'label' => 'Delete Unavailable Date', 'name' => 'delete-unavailable-date'],
             ];
 
-            foreach ($permissions as $permission) {
-                Permission::insert($permission);
-            }
+            Permission::insert($permission);
+        }
+
+        $setting = Setting::where('key', 'GLOBALTIX_HOST')->exists();
+
+        if (! $setting) {
+            $settings = [
+                ['id' => Str::uuid(), 'key' => 'GLOBALTIX_HOST', 'value' => 'https://uat-api.globaltix.com/api', 'type' => 'text', 'label' => 'GlobalTix Api Host'],
+                ['id' => Str::uuid(), 'key' => 'GLOBALTIX_USERNAME', 'value' => 'business@nusa.travel', 'type' => 'text', 'label' => 'GlobalTix Username'],
+                ['id' => Str::uuid(), 'key' => 'GLOBALTIX_PASSWORD', 'value' => '12345', 'type' => 'text', 'label' => 'GlobalTix Password'],
+                ['id' => Str::uuid(), 'key' => 'GLOBALTIX_ENABLE', 'value' => '0', 'type' => 'text', 'label' => 'GlobalTix Integration Enable'],
+            ];
+
+            Setting::insert($settings);
         }
     }
 

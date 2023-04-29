@@ -162,4 +162,41 @@ class SettingController extends Controller
         return redirect()->route('setting.ekajaya')
             ->with('message', ['type' => 'success', 'message' => 'Setting has beed saved']);
     }
+
+    public function globaltix()
+    {
+        $setting = Setting::where('key', 'like', 'GLOBALTIX_%')->orderBy('key', 'asc')->get();
+
+        $setting = $setting->map(function ($item) {
+            return [
+                $item->key => $item->value,
+            ];
+        });
+
+        return inertia('Setting/Globaltix', [
+            'setting' => (object) $setting,
+        ]);
+    }
+
+    public function updateGlobaltix(Request $request)
+    {
+        $request->validate([
+            'globaltix_host' => 'required|url|string|max:255',
+            'globaltix_enable' => 'required|in:0,1',
+            'globaltix_password' => 'required|string',
+            'globaltix_username' => 'required|string',
+        ]);
+
+        DB::beginTransaction();
+        foreach ($request->input() as $key => $value) {
+            Setting::where('key', $key)->update(['value' => $value]);
+        }
+
+        DB::commit();
+
+        Cache::flush();
+
+        return redirect()->route('setting.globaltix')
+            ->with('message', ['type' => 'success', 'message' => 'Setting has beed saved']);
+    }
 }

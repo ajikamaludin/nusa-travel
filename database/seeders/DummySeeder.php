@@ -78,6 +78,10 @@ class DummySeeder extends Seeder
             ['id' => Str::uuid(), 'key' => 'EKAJAYA_HOST', 'value' => 'https://nusatravel.ajikamaludin.id', 'type' => 'text', 'label' => 'Ekajaya Api Host'],
             ['id' => Str::uuid(), 'key' => 'EKAJAYA_APIKEY', 'value' => 'abc-test', 'type' => 'text', 'label' => 'Ekajaya Api Key'],
             ['id' => Str::uuid(), 'key' => 'EKAJAYA_ENABLE', 'value' => '0', 'type' => 'text', 'label' => 'Ekajaya Integration Enable'],
+            ['id' => Str::uuid(), 'key' => 'GLOBALTIX_HOST', 'value' => 'https://uat-api.globaltix.com/api', 'type' => 'text', 'label' => 'GlobalTix Api Host'],
+            ['id' => Str::uuid(), 'key' => 'GLOBALTIX_USERNAME', 'value' => 'business@nusa.travel', 'type' => 'text', 'label' => 'GlobalTix Username'],
+            ['id' => Str::uuid(), 'key' => 'GLOBALTIX_PASSWORD', 'value' => '12345', 'type' => 'text', 'label' => 'GlobalTix Password'],
+            ['id' => Str::uuid(), 'key' => 'GLOBALTIX_ENABLE', 'value' => '0', 'type' => 'text', 'label' => 'GlobalTix Integration Enable'],
         ];
 
         Setting::insert($setting);

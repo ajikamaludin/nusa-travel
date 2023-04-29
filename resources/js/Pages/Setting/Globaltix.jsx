@@ -9,9 +9,10 @@ export default function Payment(props) {
     const { setting } = props
     
     const {data, setData, post, processing, errors} = useForm({
-        ekajaya_apikey: setting[0].EKAJAYA_APIKEY,
-        ekajaya_enable: setting[1].EKAJAYA_ENABLE,
-        ekajaya_host: setting[2].EKAJAYA_HOST,
+        globaltix_enable: setting[0].GLOBALTIX_ENABLE,
+        globaltix_host: setting[1].GLOBALTIX_HOST,
+        globaltix_password: setting[2].GLOBALTIX_PASSWORD,
+        globaltix_username: setting[3].GLOBALTIX_USERNAME,
     })
 
     const handleOnChange = (event) => {
@@ -19,7 +20,7 @@ export default function Payment(props) {
     }
 
     const handleSubmit = () => {
-        post(route('setting.update-ekajaya'))
+        post(route('setting.update-globaltix'))
     }
 
     return (
@@ -28,33 +29,40 @@ export default function Payment(props) {
             errors={props.errors}
             flash={props.flash}
             page={"Setting"}
-            action={"Nusa API Integration"}
+            action={"Globaltix API Integration"}
             parent={route(route().current())}
         >
-            <Head title="Nusa API Integration" />
+            <Head title="Globaltix API Integration" />
 
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden p-4 shadow-sm sm:rounded-lg bg-white dark:bg-gray-800 flex flex-col">
-                        <div className='text-xl font-bold mb-4'>Nusa API Integration</div>
+                        <div className='text-xl font-bold mb-4'>Globaltix API Integration</div>
                         <FormInput
-                            name="ekajaya_host"
-                            value={data.ekajaya_host}
+                            name="globaltix_host"
+                            value={data.globaltix_host}
                             onChange={handleOnChange}
                             label="API Host"
-                            error={errors.ekajaya_host}
+                            error={errors.globaltix_host}
                         />
                         <FormInput
-                            name="ekajaya_apikey"
-                            value={data.ekajaya_apikey}
+                            name="globaltix_username"
+                            value={data.globaltix_username}
                             onChange={handleOnChange}
-                            label="API Key"
-                            error={errors.ekajaya_apikey}
+                            label="API Username"
+                            error={errors.globaltix_username}
+                        />
+                        <FormInput
+                            name="globaltix_password"
+                            value={data.globaltix_password}
+                            onChange={handleOnChange}
+                            label="API Password"
+                            error={errors.globaltix_password}
                         />
                         <Checkbox
                             label='Enable'
-                            value={+data.ekajaya_enable === 1}
-                            name="ekajaya_enable"
+                            value={+data.globaltix_enable === 1}
+                            name="globaltix_enable"
                             onChange={handleOnChange}
                         />
                         <div className='mt-2'>
