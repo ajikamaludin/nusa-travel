@@ -164,6 +164,7 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('order.edit');
         Route::put('/orders/{order}', [OrderController::class, 'update'])->name('order.update');
         Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
+        Route::get('/orders/{order}/fastboat/ticket/download', [OrderController::class, 'ticket_download'])->name('order.ticket.download');
 
         //Agen
         Route::get('/agent', [AgentController::class, 'index'])->name('agent.index');

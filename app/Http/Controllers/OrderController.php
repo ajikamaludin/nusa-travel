@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -63,5 +64,16 @@ class OrderController extends Controller
         $order->delete();
 
         session()->flash('message', ['type' => 'success', 'message' => 'Order has beed deleted']);
+    }
+
+    public function ticket_download(Order $order)
+    {
+        $item = $order->items()->first();
+
+        $pdf = Pdf::loadView('pdf.ticket', ['item' => $item]);
+
+        $pdf->setPaper([0,0,850,350]);
+        
+        return $pdf->stream();
     }
 }

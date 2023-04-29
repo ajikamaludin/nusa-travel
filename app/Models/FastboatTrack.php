@@ -19,8 +19,8 @@ class FastboatTrack extends Model
         'fastboat_source_id',
         'fastboat_destination_id',
         'price',
-        'arrival_time',
-        'departure_time',
+        'arrival_time', //kedatangan
+        'departure_time', //keberangkatan
         'is_publish',
         'data_source',
         'deleted_at',

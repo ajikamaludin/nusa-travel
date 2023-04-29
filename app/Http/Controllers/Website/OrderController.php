@@ -139,7 +139,6 @@ class OrderController extends Controller
 
             if ($request->transaction_status == 'settlement' || $request->transaction_status == 'capture') {
                 $order->fill(['payment_status' => Order::PAYMENT_SUCESS]);
-
                 // send email that order has been payed if status is 1
                 AsyncService::async(function () use ($order) {
                     Mail::to($order->customer->email)->send(new OrderInvoice($order));

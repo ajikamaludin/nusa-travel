@@ -81,4 +81,13 @@ class OrderItem extends Model
             }
         );
     }
+
+    protected function dateDotFormated(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return Carbon::parse($this->date)->format('d.m.Y');
+            }
+        );
+    }
 }

@@ -40,12 +40,20 @@ Route::get('/test', function () {
         'wait' => $order->created_at->addDay()->format('d M Y H:i'),
     ]);
 });
-*/
+
 Route::get('/ticket', function () {
-    // $pdf = Pdf::loadView('pdf.ticket')->setPaper('latter', 'landscape')->setOption(['dpi' => 400]);
-    // return $pdf->stream();
-    return view('pdf.ticket');
+    $pdf = Pdf::loadView('pdf.ticket');
+
+    $pdf->setPaper([0,0,850,350]);
+    // $pdf->setPaper('A4', 'landscape');
+    
+    $pdf->save('tickets/ticket.pdf');
+    
+    return $pdf->stream();
+
+    // return view('pdf.ticket');
 });
+*/
 
 Route::get('/flush', function () {
     Cache::flush();

@@ -10,7 +10,7 @@ class AsyncService
 {
     public static function async(Closure $closure)
     {
-        Loop::addTimer(0, async(function () use ($closure) {
+        Loop::addTimer(0.1, async(function () use ($closure) {
             $closure();
         }));
     }
