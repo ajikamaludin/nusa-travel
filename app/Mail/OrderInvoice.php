@@ -16,6 +16,7 @@ class OrderInvoice extends Mailable
     use Queueable, SerializesModels;
 
     protected $ticketPath = null;
+
     /**
      * Create a new message instance.
      */
@@ -28,8 +29,8 @@ class OrderInvoice extends Mailable
             $this->ticketPath = 'tickets/'.$order->id.'.pdf';
 
             Pdf::loadView('pdf.ticket', ['item' => $item])
-            ->setPaper([0,0,850,350])
-            ->save($this->ticketPath);
+                ->setPaper([0, 0, 850, 350])
+                ->save($this->ticketPath);
         }
     }
 

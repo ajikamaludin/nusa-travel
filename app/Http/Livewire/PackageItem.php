@@ -35,10 +35,11 @@ class PackageItem extends Component
 
     public function addCart()
     {
-        // check available date 
+        // check available date
         $check = UnavailableDate::whereDate('close_date', $this->date);
         if ($check->exists()) {
-            $this->dialog()->error('Warning !!!',__('website.Ordered Date Unavailable'));
+            $this->dialog()->error('Warning !!!', __('website.Ordered Date Unavailable'));
+
             return;
         }
 

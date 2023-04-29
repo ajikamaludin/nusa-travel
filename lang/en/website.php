@@ -125,5 +125,5 @@ return [
     'Apply' => 'Apply',
     'Ekajaya Fastboat' => 'Ekajaya Fastboat',
     'Please choose Origin and Destination' => 'Please choose Origin and Destination',
-    'Ordered Date Unavailable' => 'Ordered Date Unavailable'
+    'Ordered Date Unavailable' => 'Ordered Date Unavailable',
 ];

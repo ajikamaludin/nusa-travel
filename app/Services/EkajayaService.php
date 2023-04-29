@@ -44,10 +44,10 @@ class EkajayaService
                 ->withHeaders([
                     'authorization' => $apikey,
                 ])->get($host.'/api/tracks', [
-                'from' => $source,
-                'to' => $destination,
-                'date' => $date,
-            ]);
+                    'from' => $source,
+                    'to' => $destination,
+                    'date' => $date,
+                ]);
 
             $tracks = $response->json('data');
 
@@ -211,15 +211,15 @@ class EkajayaService
             ->withHeaders([
                 'authorization' => $apikey,
             ])->post($host.'/api/order', [
-            'order' => [
-                'date' => $order->date,
-                'qty' => $order->quantity,
-                'price' => $order->amount,
-                'total_payed' => $order->quantity * $order->amount,
-                'track_id' => $order->entity_id,
-            ],
-            'persons' => $persons,
-        ]);
+                'order' => [
+                    'date' => $order->date,
+                    'qty' => $order->quantity,
+                    'price' => $order->amount,
+                    'total_payed' => $order->quantity * $order->amount,
+                    'track_id' => $order->entity_id,
+                ],
+                'persons' => $persons,
+            ]);
 
         Log::info('order create response', [$response->json()]);
     }

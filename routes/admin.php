@@ -179,7 +179,7 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::get('/price-agent/tracks/{group}', [FastboatTrackAgentController::class, 'edit'])->name('price-agent.trackagent.edit');
         Route::put('/price-agent/tracks/{group}', [FastboatTrackAgentController::class, 'update'])->name('price-agent.track.update');
         Route::delete('/price-agent/tracks/{group}', [FastboatTrackAgentController::class, 'destroy'])->name('price-agent.track.destroy');
-    
+
         // Unavailable Date
         Route::get('/unavailable-date', [UnavailableDateController::class, 'index'])->name('unavailable-date.index');
         Route::post('/unavailable-date', [UnavailableDateController::class, 'store'])->name('unavailable-date.store');

@@ -72,8 +72,8 @@ class OrderController extends Controller
 
         $pdf = Pdf::loadView('pdf.ticket', ['item' => $item]);
 
-        $pdf->setPaper([0,0,850,350]);
-        
+        $pdf->setPaper([0, 0, 850, 350]);
+
         return $pdf->stream();
     }
 }

@@ -9,7 +9,7 @@ use WireUi\Traits\Actions;
 class Fastboat extends Component
 {
     use Actions;
-    
+
     protected $listeners = [
         'changePassengers' => 'changePassenger',
         'changeInfants' => 'changeInfant',
@@ -40,14 +40,15 @@ class Fastboat extends Component
 
     public function showAvailableRoute()
     {
-        // check available date 
+        // check available date
         $check = UnavailableDate::whereDate('close_date', $this->date);
-        if ($this->ways == 2) { 
+        if ($this->ways == 2) {
             $check->orWhereDate('close_date', $this->rdate);
         }
 
         if ($check->exists()) {
-            $this->dialog()->error('Warning !!!',__('website.Ordered Date Unavailable'));
+            $this->dialog()->error('Warning !!!', __('website.Ordered Date Unavailable'));
+
             return;
         }
 

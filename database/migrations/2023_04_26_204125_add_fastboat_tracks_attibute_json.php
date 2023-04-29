@@ -55,7 +55,7 @@ return new class extends Migration
         }
 
         $permission = Permission::where('name', 'view-unavailable-date')->exists();
-        
+
         if (! $permission) {
             $permissions = [
                 ['id' => Str::uuid(), 'label' => 'View Unavailable Date', 'name' => 'view-unavailable-date'],

@@ -46,9 +46,9 @@ Route::get('/ticket', function () {
 
     $pdf->setPaper([0,0,850,350]);
     // $pdf->setPaper('A4', 'landscape');
-    
+
     $pdf->save('tickets/ticket.pdf');
-    
+
     return $pdf->stream();
 
     // return view('pdf.ticket');

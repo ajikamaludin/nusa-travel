@@ -37,19 +37,19 @@ class SitemapController extends Controller
                 $featurePages = [
                     [
                         'url' => route('fastboat'),
-                        'updated_at' => Page::where('key','fastboat')->value('updated_at')->toISOString(),
+                        'updated_at' => Page::where('key', 'fastboat')->value('updated_at')->toISOString(),
                     ],
                     [
                         'url' => route('ekajaya-fastboat'),
-                        'updated_at' => Page::where('key','fastboat-ekajaya')->value('updated_at')->toISOString(),
+                        'updated_at' => Page::where('key', 'fastboat-ekajaya')->value('updated_at')->toISOString(),
                     ],
                     [
                         'url' => route('tour-packages.index'),
-                        'updated_at' => Page::where('key','tour-package')->value('updated_at')->toISOString(),
+                        'updated_at' => Page::where('key', 'tour-package')->value('updated_at')->toISOString(),
                     ],
                     [
                         'url' => route('car.index'),
-                        'updated_at' => Page::where('key','car-rental')->value('updated_at')->toISOString(),
+                        'updated_at' => Page::where('key', 'car-rental')->value('updated_at')->toISOString(),
                     ],
                 ];
 
