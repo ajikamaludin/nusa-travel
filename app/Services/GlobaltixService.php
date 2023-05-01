@@ -221,13 +221,13 @@ class GlobaltixService
             if (str($question->question)->contains('KTP')) {
                 $questions[] = [
                     'id' => $question->id,
-                    'answer' => $order->customer->national_id,
+                    'answer' => $order->customer->national_id ?? ' - ',
                 ];
             }
             if (str($question->question)->contains('Nationality')) {
                 $questions[] = [
                     'id' => $question->id,
-                    'answer' => $order->customer->nation,
+                    'answer' => $order->customer->nation ?? ' - ',
                 ];
             }
             if (str($question->question)->contains('Age')) {

@@ -12,23 +12,5 @@
 
 - minta connect ke globaltix :
   - [DONE] tambah setting [username, password, globaltix_enable]
-  - tambah attribute di track untuk [product_id, ticket_type, question], notes nya adalah untuk kapasitas selalu hit ke globaltix dengan melakukan caching selama 5 menit
-  - yang harus diubah adalah nambah setting, nambah fitur mapping, perubahan listing track, order web, listing api, order api
-
-```json
-{
-  "product_id": "",
-  "product_name": "",
-  "ticketType": {
-    "id" : "",
-    "name": "",
-    "original_price": "",
-  },
-  "question" : {
-    "id": "",
-    "text": "",
-    "map_to": "", //name, national_id, age (only for child)
-    "default_answer": "",
-  }
-}
-```
+  - [DONE] tambah attribute di track untuk [product_id, ticket_type, question], notes nya adalah untuk kapasitas selalu hit ke globaltix dengan melakukan caching selama 5 menit
+  - [DONE] yang harus diubah adalah nambah setting, nambah fitur mapping, perubahan listing track, order web, listing api, order api

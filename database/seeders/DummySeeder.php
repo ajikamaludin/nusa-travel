@@ -204,6 +204,7 @@ class DummySeeder extends Seeder
             'password' => bcrypt('password'),
             'address' => 'indonesia',
             'nation' => Customer::WNA,
+            'national_id' => 1234,
             'is_active' => Customer::ACTIVE,
             'email_varified_at' => now(),
         ]);
@@ -569,6 +570,7 @@ class DummySeeder extends Seeder
             'password' => bcrypt('password'),
             'address' => 'indonesia',
             'nation' => Customer::WNI,
+            'national_id' => 1235,
             'is_active' => Customer::ACTIVE,
             'email_varified_at' => now(),
             'is_agent' => Customer::AGENT,

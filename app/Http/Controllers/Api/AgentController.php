@@ -9,8 +9,10 @@ use App\Models\Customer;
 use App\Models\FastboatPickup;
 use App\Models\FastboatTrack;
 use App\Models\Order;
+use App\Models\OrderItemPassenger;
 use App\Services\AsyncService;
 use App\Services\EkajayaService;
+use App\Services\GlobaltixService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -97,6 +99,7 @@ class AgentController extends Controller
                 'fastboat_tracks.updated_at',
                 DB::raw('COALESCE (fastboat_track_order_capacities.capacity,fastboats.capacity) as capacity'),
                 'fastboat_tracks.data_source',
+                'fastboat_tracks.attribute_json',
             );
 
         }
@@ -113,7 +116,7 @@ class AgentController extends Controller
             'persons.*.national_id' => 'required|numeric',
             'persons.*.type' => 'nullable|in:0,1',
             'order' => 'required|array',
-            'order.date' => 'required|string',
+            'order.date' => 'required|date|after:yesterday',
             'order.qty' => 'required|numeric',
             'order.price' => 'required|numeric',
             'order.total_payed' => 'required|numeric',
@@ -172,13 +175,19 @@ class AgentController extends Controller
                 'nation' => $person['nation'],
                 'national_id' => $person['national_id'],
                 'name' => $person['name'],
-                'type' => $person['type'] ?? null,
+                'type' => $person['type'] ?? OrderItemPassenger::TYPE_PERSON,
             ]);
         }
 
-        if ($track->data_source != null) {
+        if ($track->data_source == EkajayaService::class) {
             AsyncService::async(function () use ($item) {
                 EkajayaService::order($item);
+            });
+        }
+
+        if ($track->data_source == GlobaltixService::class) {
+            AsyncService::async(function () use ($item) {
+                GlobaltixService::order($item);
             });
         }
 

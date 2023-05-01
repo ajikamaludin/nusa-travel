@@ -18,9 +18,9 @@ class Customer extends Authenticatable
 
     const ACTIVE = 1;
 
-    const WNI = 0;
+    const WNI = 'WNI';
 
-    const WNA = 1;
+    const WNA = 'WNA';
 
     const AGENT = 1;
 
