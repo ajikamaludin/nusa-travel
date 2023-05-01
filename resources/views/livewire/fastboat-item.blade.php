@@ -2,16 +2,13 @@
     <div class="flex flex-row justify-between">
         <div class="text-base">
             <p>
-                {{ $track->group->fastboat->name }}
+                {{ $track->alternative_name }}
             </p>
             {{-- <p class="text-xs text-gray-400">{{ $track->group->fastboat->number }}</p> --}}
             <p class="text-xs text-gray-400">
-                @if($track->data_source != null)
-                    By Ekajaya, 
-                @endif
-                {{ __('website.seats')}}: {{ $track->group->fastboat->capacity }}
+                {{ $track->data_source_display }}
+                {{ __('website.seats')}}: {{ $capacity }}
             </p>
-            
         </div>
         <div class="text-base text-right">
             <span class="font-bold flex-none"> Rp {{ number_format($track->validated_price, 0, ',' , '.') }}</span><span class="text-xs">/pax</span>

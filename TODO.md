@@ -11,8 +11,24 @@
 - Post Blog With Multilang AutoTranslate Service ( <https://www.deepl.com/en/docs-api> ) [PENDING]
 
 - minta connect ke globaltix :
-  - tambah setting [username, password, globaltix_enable]
+  - [DONE] tambah setting [username, password, globaltix_enable]
   - tambah attribute di track untuk [product_id, ticket_type, question], notes nya adalah untuk kapasitas selalu hit ke globaltix dengan melakukan caching selama 5 menit
   - yang harus diubah adalah nambah setting, nambah fitur mapping, perubahan listing track, order web, listing api, order api
 
-unavailable_dates
+```json
+{
+  "product_id": "",
+  "product_name": "",
+  "ticketType": {
+    "id" : "",
+    "name": "",
+    "original_price": "",
+  },
+  "question" : {
+    "id": "",
+    "text": "",
+    "map_to": "", //name, national_id, age (only for child)
+    "default_answer": "",
+  }
+}
+```

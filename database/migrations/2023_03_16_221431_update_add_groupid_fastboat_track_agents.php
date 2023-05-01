@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('fastboat_track_agent_group_id');
         });
 
-        $check = Permission::where('name', 'view-price-agent')->first();
-        if ($check == null) {
+        $check = Permission::where('name', 'view-price-agent')->exists();
+        if (! $check && Permission::count() != 0) {
             $permissions = [
                 ['id' => Str::uuid(), 'label' => 'Create Agent', 'name' => 'create-agent'],
                 ['id' => Str::uuid(), 'label' => 'Update Agent', 'name' => 'update-agent'],

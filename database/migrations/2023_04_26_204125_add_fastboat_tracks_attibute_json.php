@@ -17,7 +17,7 @@ return new class extends Migration
     {
         $page = Page::where('title', 'feature-home')->exists();
 
-        if (! $page) {
+        if (! $page && Page::count() != 0) {
             $pages = [
                 ['key' => 'home', 'title' => 'feature-home', 'file' => '/../seeders/pages/feature/home.txt'],
                 ['key' => 'car-rental', 'title' => 'feature-car-rental', 'file' => '/../seeders/pages/feature/car-rental.txt'],
@@ -42,6 +42,12 @@ return new class extends Migration
             });
         }
 
+        if (! Schema::hasColumn('order_items', 'globaltix_response_json')) {
+            Schema::table('order_items', function (Blueprint $table) {
+                $table->text('globaltix_response_json')->nullable();
+            });
+        }
+
         if (! Schema::hasTable('unavailable_dates')) {
             Schema::create('unavailable_dates', function (Blueprint $table) {
                 $table->uuid('id')->primary();
@@ -57,20 +63,25 @@ return new class extends Migration
 
         $permission = Permission::where('name', 'view-unavailable-date')->exists();
 
-        if (! $permission) {
+        if (! $permission && Permission::count() != 0) {
             $permissions = [
                 ['id' => Str::uuid(), 'label' => 'View Unavailable Date', 'name' => 'view-unavailable-date'],
                 ['id' => Str::uuid(), 'label' => 'Create Unavailable Date', 'name' => 'create-unavailable-date'],
                 ['id' => Str::uuid(), 'label' => 'Update Unavailable Date', 'name' => 'update-unavailable-date'],
                 ['id' => Str::uuid(), 'label' => 'Delete Unavailable Date', 'name' => 'delete-unavailable-date'],
+
+                ['id' => Str::uuid(), 'label' => 'Create Globaltix to Track', 'name' => 'create-globaltix-to-track'],
+                ['id' => Str::uuid(), 'label' => 'Update Globaltix to Track', 'name' => 'update-globaltix-to-track'],
+                ['id' => Str::uuid(), 'label' => 'View Globaltix to Track', 'name' => 'view-globaltix-to-track'],
+                ['id' => Str::uuid(), 'label' => 'Delete Globaltix to Track', 'name' => 'delete-globaltix-to-track'],
             ];
 
-            Permission::insert($permission);
+            Permission::insert($permissions);
         }
 
         $setting = Setting::where('key', 'GLOBALTIX_HOST')->exists();
 
-        if (! $setting) {
+        if (! $setting && Setting::count() != 0) {
             $settings = [
                 ['id' => Str::uuid(), 'key' => 'GLOBALTIX_HOST', 'value' => 'https://uat-api.globaltix.com/api', 'type' => 'text', 'label' => 'GlobalTix Api Host'],
                 ['id' => Str::uuid(), 'key' => 'GLOBALTIX_USERNAME', 'value' => 'business@nusa.travel', 'type' => 'text', 'label' => 'GlobalTix Username'],

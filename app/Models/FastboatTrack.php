@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Traits\OrderAble;
+use App\Services\EkajayaService;
+use App\Services\GlobaltixService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +26,11 @@ class FastboatTrack extends Model
         'is_publish',
         'data_source',
         'deleted_at',
+        'attribute_json',
+    ];
+
+    protected $appends = [
+        'alternative_name',
     ];
 
     public function group()
@@ -87,6 +94,41 @@ class FastboatTrack extends Model
         );
     }
 
+    protected function dataSourceDisplay(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->data_source == EkajayaService::class) {
+                    return 'By Ekajaya ; ';
+                }
+
+                if ($this->data_source == GlobaltixService::class) {
+                    return 'By Globaltix ; ';
+                }
+
+                return '';
+            },
+        );
+    }
+
+    protected function alternativeName(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->data_source == GlobaltixService::class) {
+                    $data = json_decode($this->attribute_json);
+                    if (auth('web')->check()) {
+                        return $data->ticket_type->option_name.' ('.$data->id.'|'.$data->ticket_type->id.')';
+                    }
+
+                    return $data->ticket_type->option_name;
+                }
+
+                return $this->group?->fastboat->name ?? '';
+            },
+        );
+    }
+
     public function detail($date, $dropoff = null)
     {
         $detail = "<p>$this->order_detail (Fastboat)</p>
@@ -99,11 +141,26 @@ class FastboatTrack extends Model
 
         $detail .= '<p>@ '.number_format($this->price, '0', ',', ' .').'</p>';
 
+        if ($this->data_source == GlobaltixService::class) {
+            $detail .= '<p>By Globaltix </p>';
+        }
+        if ($this->data_source == EkajayaService::class) {
+            $detail .= '<p>By Ekajaya </p>';
+        }
+
         return $detail;
     }
 
     public function getCapacity($date)
     {
+        if ($this->data_source == GlobaltixService::class) {
+            $data = json_decode($this->attribute_json);
+            $capacity = GlobaltixService::getCheckAvailability($data->ticket_type->id, $date);
+            $this->total = $capacity['total'];
+
+            return $capacity['available'];
+        }
+
         $cap = FastboatTrackOrderCapacity::where([
             'fastboat_track_group_id' => $this->fastboat_track_group_id,
             'fastboat_source_id' => $this->fastboat_source_id,
@@ -120,6 +177,11 @@ class FastboatTrack extends Model
 
     public static function updateTrackUsage(FastboatTrack $track, $date, $quantity)
     {
+        // uneed update track usage for global tix
+        if ($track->data_source == GlobaltixService::class) {
+            return;
+        }
+
         // $tracks = $track->group->tracks;
         $fastboat = $track->group->fastboat;
         $places = $track->group->places()->orderBy('order', 'asc')->get();

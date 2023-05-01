@@ -20,8 +20,8 @@ export default function Index(props) {
 
     const confirmModal = useModalState()
 
-    const handleDeleteClick = (place) => {
-        confirmModal.setData(place)
+    const handleDeleteClick = (fastboat) => {
+        confirmModal.setData(fastboat)
         confirmModal.toggle()
     }
 

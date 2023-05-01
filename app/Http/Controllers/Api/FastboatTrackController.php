@@ -11,7 +11,6 @@ class FastboatTrackController extends Controller
 {
     public function index(Request $request)
     {
-
         $query = FastboatTrackGroup::query()->whereNull('data_source')->with([
             'fastboat',
             'places.place',

@@ -39,10 +39,10 @@ class Order extends Model
     ];
 
     protected $appends = [
-        'order_date_formated', 
-        'payment_status_text', 
+        'order_date_formated',
+        'payment_status_text',
         'payment_status_color',
-        'passenger_name'
+        'passenger_name',
     ];
 
     public function customer()
@@ -128,6 +128,7 @@ class Order extends Model
                 if ($item->entity_order == FastboatTrack::class) {
                     return $item->passengers()->first()->name;
                 }
+
                 return $this->customer->name;
             }
         );

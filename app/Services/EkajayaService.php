@@ -180,9 +180,9 @@ class EkajayaService
         }
     }
 
-    public static function order(OrderItem $order)
+    public static function order(OrderItem $item)
     {
-        if ($order->entity_order != FastboatTrack::class) {
+        if ($item->entity_order != FastboatTrack::class) {
             Log::info('order not fastboat track');
 
             return;
@@ -199,7 +199,7 @@ class EkajayaService
         $apikey = $setting->getValue('EKAJAYA_APIKEY');
 
         $persons = [];
-        foreach ($order->passengers as $passenger) {
+        foreach ($item->passengers as $passenger) {
             $persons[] = [
                 'national_id' => $passenger['national_id'],
                 'nation' => $passenger['nation'],
@@ -212,11 +212,11 @@ class EkajayaService
                 'authorization' => $apikey,
             ])->post($host.'/api/order', [
                 'order' => [
-                    'date' => $order->date,
-                    'qty' => $order->quantity,
-                    'price' => $order->amount,
-                    'total_payed' => $order->quantity * $order->amount,
-                    'track_id' => $order->entity_id,
+                    'date' => $item->date,
+                    'qty' => $item->quantity,
+                    'price' => $item->amount,
+                    'total_payed' => $item->quantity * $item->amount,
+                    'track_id' => $item->entity_id,
                 ],
                 'persons' => $persons,
             ]);

@@ -10,9 +10,11 @@ use App\Models\FastboatPickup;
 use App\Models\FastboatTrack;
 use App\Models\FreeTicketPromo;
 use App\Models\Order;
+use App\Models\OrderItemPassenger;
 use App\Models\Promo;
 use App\Services\AsyncService;
 use App\Services\EkajayaService;
+use App\Services\GlobaltixService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -112,7 +114,7 @@ class FastboatCart extends Component
             foreach (range(0, $qty - 1) as $key => $i) {
                 $this->persons[$i] = [
                     'key' => $key + 1,
-                    'type' => '0',
+                    'type' => OrderItemPassenger::TYPE_PERSON,
                 ];
             }
 
@@ -120,17 +122,19 @@ class FastboatCart extends Component
                 foreach (range($i + 1, $i + $this->infants) as $key => $j) {
                     $this->persons[$j] = [
                         'key' => $key + 1,
-                        'type' => '1',
+                        'type' => OrderItemPassenger::TYPE_INFANT,
                     ];
                 }
             }
         }
 
         $origin = $this->carts->first()['track']->source->id;
-        $this->pickups = FastboatPickup::with(['car'])->whereHas('source', function ($query) use ($origin) {
-            $query->where('id', '=', $origin);
-        })
-            ->orderBy('name', 'asc')->get();
+        $this->pickups = FastboatPickup::with(['car'])
+            ->whereHas('source', function ($query) use ($origin) {
+                $query->where('id', '=', $origin);
+            })
+            ->orderBy('name', 'asc')
+            ->get();
     }
 
     public function render()
@@ -278,9 +282,15 @@ class FastboatCart extends Component
                 // 'dropoff_id' => $dropoff?->id,
             ]);
 
-            if ($cart['track']->data_source != null) {
+            if ($cart['track']->data_source == EkajayaService::class) {
                 AsyncService::async(function () use ($item) {
                     EkajayaService::order($item);
+                });
+            }
+
+            if ($cart['track']->data_source == GlobaltixService::class) {
+                AsyncService::async(function () use ($item) {
+                    GlobaltixService::order($item);
                 });
             }
 

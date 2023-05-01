@@ -21,9 +21,15 @@ class OrderItem extends Model
         'dropoff_id',
         'pickup',
         'pickup_id',
+        'globaltix_response_json'
     ];
 
     protected $appends = ['detail'];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
 
     public function item()
     {

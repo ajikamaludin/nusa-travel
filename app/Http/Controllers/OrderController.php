@@ -20,7 +20,7 @@ class OrderController extends Controller
         if ($request->agent != '') {
             $query->whereHas('customer', function ($q) use ($request) {
                 $q->where('id', 'like', "%$request->agent%")
-                ->where('is_agent', Customer::AGENT);
+                    ->where('is_agent', Customer::AGENT);
             });
         }
 

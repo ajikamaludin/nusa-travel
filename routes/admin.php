@@ -13,6 +13,7 @@ use App\Http\Controllers\FastboatTrackAgentController;
 use App\Http\Controllers\FastboatTrackController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\GlobaltixController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
@@ -187,5 +188,13 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::post('/unavailable-date', [UnavailableDateController::class, 'store'])->name('unavailable-date.store');
         Route::put('/unavailable-date/{date}', [UnavailableDateController::class, 'update'])->name('unavailable-date.update');
         Route::delete('/unavailable-date/{date}', [UnavailableDateController::class, 'destroy'])->name('unavailable-date.destroy');
+
+        // Globaltix
+        Route::get('/globaltix-fastboat', [GlobaltixController::class, 'index'])->name('fastboat.globaltix.index');
+        Route::get('/globaltix-fastboat/create', [GlobaltixController::class, 'create'])->name('fastboat.globaltix.create');
+        Route::post('/globaltix-fastboat', [GlobaltixController::class, 'store'])->name('fastboat.globaltix.store');
+        Route::get('/globaltix-fastboat/{track}', [GlobaltixController::class, 'edit'])->name('fastboat.globaltix.edit');
+        Route::post('/globaltix-fastboat/{track}', [GlobaltixController::class, 'update'])->name('fastboat.globaltix.update');
+        Route::delete('/globaltix-fastboat/{track}', [GlobaltixController::class, 'destroy'])->name('fastboat.globaltix.destroy');
     });
 });

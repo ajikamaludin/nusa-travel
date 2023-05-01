@@ -13,7 +13,7 @@ class FastboatPlaceController extends Controller
      */
     public function index(Request $request): Response
     {
-        $query = FastboatPlace::query()->whereNUll('data_source');
+        $query = FastboatPlace::query()->whereNull('data_source');
 
         if ($request->has('q')) {
             $query->where('name', 'like', "%{$request->q}%");

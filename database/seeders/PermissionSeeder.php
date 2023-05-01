@@ -122,6 +122,11 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'Create Unavailable Date', 'name' => 'create-unavailable-date'],
             ['id' => Str::uuid(), 'label' => 'Update Unavailable Date', 'name' => 'update-unavailable-date'],
             ['id' => Str::uuid(), 'label' => 'Delete Unavailable Date', 'name' => 'delete-unavailable-date'],
+
+            ['id' => Str::uuid(), 'label' => 'Create Globaltix to Track', 'name' => 'create-globaltix-to-track'],
+            ['id' => Str::uuid(), 'label' => 'Update Globaltix to Track', 'name' => 'update-globaltix-to-track'],
+            ['id' => Str::uuid(), 'label' => 'View Globaltix to Track', 'name' => 'view-globaltix-to-track'],
+            ['id' => Str::uuid(), 'label' => 'Delete Globaltix to Track', 'name' => 'delete-globaltix-to-track'],
         ];
 
         foreach ($permissions as $permission) {

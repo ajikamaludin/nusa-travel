@@ -76,6 +76,14 @@ export default [
                 permission: "view-fastboat-track",
             },
             {
+                name: "Globaltix Track",
+                show: true,
+                icon: HiClipboardList,
+                route: route("fastboat.globaltix.index"),
+                active: "fastboat.globaltix.*",
+                permission: "view-globaltix-to-track",
+            },
+            {
                 name: "Promo",
                 show: true,
                 icon: HiOutlineReceiptTax,

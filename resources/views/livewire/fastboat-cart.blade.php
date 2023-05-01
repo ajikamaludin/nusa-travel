@@ -36,7 +36,7 @@
                                 {{ $cart['track']->arrival_time }} - {{ $cart['track']->departure_time }}
                             </div>
                             <div class="text-gray-500 text-xs font-bold">
-                                {{ $cart['track']->group->fastboat->name }}
+                                {{ $cart['track']->alternative_name  }}
                             </div>
                         </div>
                         <div class="bg-gray-200 p-2 rounded-b-lg">

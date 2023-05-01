@@ -27,8 +27,8 @@ return new class extends Migration
             $table->uuid('deleted_by')->nullable();
         });
 
-        $check = Permission::where('name', 'view-fastboat-pickup')->first();
-        if ($check == null) {
+        $check = Permission::where('name', 'view-fastboat-pickup')->exists();
+        if (! $check && Permission::count() != 0) {
             $permissions = [
                 ['id' => Str::uuid(), 'label' => 'View Fastboat Pickup', 'name' => 'view-fastboat-pickup'],
                 ['id' => Str::uuid(), 'label' => 'Create Fastboat Pickup', 'name' => 'create-fastboat-pickup'],
@@ -39,8 +39,8 @@ return new class extends Migration
             Permission::insert($permissions);
         }
 
-        $check = Setting::where('key', 'EKAJAYA_HOST')->first();
-        if ($check == null) {
+        $check = Setting::where('key', 'EKAJAYA_HOST')->exists();
+        if (! $check && Setting::count() != 0) {
             $settings = [
                 ['id' => Str::uuid(), 'key' => 'EKAJAYA_HOST', 'value' => 'https://nusatravel.ajikamaludin.id', 'type' => 'text', 'label' => 'Ekajaya Api Host'],
                 ['id' => Str::uuid(), 'key' => 'EKAJAYA_APIKEY', 'value' => 'abc-test', 'type' => 'text', 'label' => 'Ekajaya Api Key'],

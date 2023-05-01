@@ -52,7 +52,7 @@
                             </td>
                             <td class="px-2">
                                 <div>Marine</div>
-                                <div class="font-bold">{{ $item->item->group->fastboat->number }}</div>
+                                <div class="font-bold">{{ $item->item->group?->fastboat->number ?? ' - ' }}</div>
                             </td>
                         </tr>
                     </table>
@@ -116,7 +116,7 @@
                                 </td>
                                 <td class="px-2">
                                     <div>Ferry</div>
-                                    <div class="font-bold">{{ $item->item->group->fastboat->number }}</div>
+                                    <div class="font-bold">{{ $item->item->group?->fastboat->number ?? ' - ' }}</div>
                                 </td>
                             </tr>
                         </table>

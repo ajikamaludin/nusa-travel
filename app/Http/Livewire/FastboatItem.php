@@ -23,9 +23,12 @@ class FastboatItem extends Component
 
     public $avalaible;
 
+    public $capacity;
+
     public function booted()
     {
         $this->avalaible = $this->track->getCapacity($this->date);
+        $this->capacity = $this->track->group?->fastboat->capacity ?? $this->track->total;
     }
 
     public function render()
