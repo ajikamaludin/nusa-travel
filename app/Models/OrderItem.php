@@ -21,7 +21,7 @@ class OrderItem extends Model
         'dropoff_id',
         'pickup',
         'pickup_id',
-        'globaltix_response_json'
+        'globaltix_response_json',
     ];
 
     protected $appends = ['detail'];

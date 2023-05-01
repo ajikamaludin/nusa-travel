@@ -190,7 +190,16 @@ class GlobaltixService
 
         Log::info(self::class, [$url, $accessToken, [$response->status(), 'response' => $response->json()]]);
 
-        $data = $response->json('data')[0];
+        $data = $response->json('data');
+
+        if ($data == null) {
+            $data = [
+                'available' => 0,
+                'total' => 0,
+            ];
+        } else {
+            $data = $data[0];
+        }
 
         return [
             'available' => $data['available'],
@@ -211,7 +220,7 @@ class GlobaltixService
         $track = $item->item;
         $ticket = json_decode($track->attribute_json);
 
-        foreach($ticket->ticket_type->questions as $question) {
+        foreach ($ticket->ticket_type->questions as $question) {
             if (str($question->question)->contains('Name')) {
                 $questions[] = [
                     'id' => $question->id,
@@ -242,16 +251,16 @@ class GlobaltixService
             'ticketTypes' => [[
                 'index' => 0,
                 'id' => $ticket->ticket_type->id,
-                'fromResellerId' => null, 
+                'fromResellerId' => null,
                 'quantity' => $quantity,
                 'redeemStart' => null,
-                'redeemEnd' => null, 
+                'redeemEnd' => null,
                 'visitDate' => $item->date,
-                'questionList' => $questions
+                'questionList' => $questions,
             ]],
             'customerName' => $order->customer->name,
             'email' => $order->customer->email,
-            'paymentMethod' => 'CREDIT'
+            'paymentMethod' => 'CREDIT',
         ];
 
         $url = $host.'/transaction/create';
@@ -263,17 +272,17 @@ class GlobaltixService
             ->post($url, $data);
 
         Log::info(self::class, [
-            $url, 
-            $accessToken, 
+            $url,
+            $accessToken,
             [
                 $response->status(),
                 'data' => $data,
-                'response' => $response->json()
+                'response' => $response->json(),
             ],
         ]);
 
         $item->update([
-            'globaltix_response_json' => json_encode($response->json())
+            'globaltix_response_json' => json_encode($response->json()),
         ]);
     }
 }

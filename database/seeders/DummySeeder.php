@@ -82,6 +82,7 @@ class DummySeeder extends Seeder
             ['id' => Str::uuid(), 'key' => 'GLOBALTIX_USERNAME', 'value' => 'business@nusa.travel', 'type' => 'text', 'label' => 'GlobalTix Username'],
             ['id' => Str::uuid(), 'key' => 'GLOBALTIX_PASSWORD', 'value' => '12345', 'type' => 'text', 'label' => 'GlobalTix Password'],
             ['id' => Str::uuid(), 'key' => 'GLOBALTIX_ENABLE', 'value' => '0', 'type' => 'text', 'label' => 'GlobalTix Integration Enable'],
+            ['id' => Str::uuid(), 'key' => 'DEEPLCOM_AUTHKEY', 'value' => '0', 'type' => 'text', 'label' => 'GlobalTix Integration Enable'],
         ];
 
         Setting::insert($setting);

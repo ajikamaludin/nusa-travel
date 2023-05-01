@@ -13,7 +13,6 @@ use App\Http\Controllers\Website\SignUpController;
 use App\Http\Controllers\Website\TourPackageController;
 use App\Http\Middleware\GuardCustomer;
 use App\Http\Middleware\VisitorCounter;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 

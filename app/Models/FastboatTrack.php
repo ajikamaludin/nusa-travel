@@ -120,6 +120,7 @@ class FastboatTrack extends Model
                     if (auth('web')->check()) {
                         return $data->ticket_type->option_name.' ('.$data->id.'|'.$data->ticket_type->id.')';
                     }
+
                     return $data->ticket_type->option_name;
                 }
 
