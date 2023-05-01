@@ -7,5 +7,6 @@
         :without-time="true"
         :clearable="false"
         name="return_date"
+        display-format="DD/MM/YYYY"
     />
 </div>
