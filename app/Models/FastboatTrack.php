@@ -99,11 +99,11 @@ class FastboatTrack extends Model
         return Attribute::make(
             get: function () {
                 if ($this->data_source == EkajayaService::class) {
-                    return 'By Ekajaya ; ';
+                    return 'By Nusa Travel. ; ';
                 }
 
                 if ($this->data_source == GlobaltixService::class) {
-                    return 'By Globaltix ; ';
+                    return 'By Ekajaya ; ';
                 }
 
                 return '';
@@ -118,7 +118,7 @@ class FastboatTrack extends Model
                 if ($this->data_source == GlobaltixService::class) {
                     $data = json_decode($this->attribute_json);
                     if (auth('web')->check()) {
-                        return $data->ticket_type->option_name.' ('.$data->id.'|'.$data->ticket_type->id.')';
+                        return $data->ticket_type->option_name . ' (' . $data->id . '|' . $data->ticket_type->id . ')';
                     }
 
                     return $data->ticket_type->option_name;
@@ -133,20 +133,15 @@ class FastboatTrack extends Model
     {
         $detail = "<p>$this->order_detail (Fastboat)</p>
         <p>$this->arrival_time - $this->departure_time</p>
-        <p>".Carbon::parse($date)->format('d-m-Y').'</p>';
+        <p>" . Carbon::parse($date)->format('d-m-Y') . '</p>';
 
         if ($dropoff != null) {
             $detail .= "<p>Dropoff: $dropoff</p>";
         }
 
-        $detail .= '<p>@ '.number_format($this->price, '0', ',', ' .').'</p>';
+        $detail .= '<p>@ ' . number_format($this->price, '0', ',', ' .') . '</p>';
 
-        if ($this->data_source == GlobaltixService::class) {
-            $detail .= '<p>By Globaltix </p>';
-        }
-        if ($this->data_source == EkajayaService::class) {
-            $detail .= '<p>By Ekajaya </p>';
-        }
+        $detail .= "<p>$this->data_source_display </p>";
 
         return $detail;
     }
@@ -219,10 +214,10 @@ class FastboatTrack extends Model
                 ]);
                 if ($isStart || $isEnd) {
                     $capacity->update(['capacity' => $capacity->capacity - $quantity]);
-                // diantara 2 titik adalah lebih besar dari titik awal dan lebih kecil dari titik akhir
+                    // diantara 2 titik adalah lebih besar dari titik awal dan lebih kecil dari titik akhir
                 } elseif ($startIndex < $i && $endIndex > $j) {
                     $capacity->update(['capacity' => $capacity->capacity - $quantity]);
-                // lainnya
+                    // lainnya
                 } elseif ($startIndex > $i && $endIndex < $j) {
                     $capacity->update(['capacity' => $capacity->capacity - $quantity]);
                 } else {

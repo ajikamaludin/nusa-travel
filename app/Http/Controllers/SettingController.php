@@ -169,7 +169,7 @@ class SettingController extends Controller
 
         $setting = $setting->map(function ($item) {
             return [
-                $item->key => $item->value,
+                $item->key => $item->type == 'image' ? asset($item->value) : $item->value,
             ];
         });
 
@@ -185,11 +185,18 @@ class SettingController extends Controller
             'globaltix_enable' => 'required|in:0,1',
             'globaltix_password' => 'required|string',
             'globaltix_username' => 'required|string',
+            'logo' => 'nullable|image'
         ]);
 
         DB::beginTransaction();
-        foreach ($request->input() as $key => $value) {
+        foreach ($request->except(['logo']) as $key => $value) {
             Setting::where('key', $key)->update(['value' => $value]);
+        }
+
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $file->store('uploads', 'public');
+            Setting::where('key', 'GLOBALTIX_LOGO')->update(['value' => $file->hashName('uploads')]);
         }
 
         DB::commit();

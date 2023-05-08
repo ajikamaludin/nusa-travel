@@ -27,6 +27,7 @@ class GlobaltixController extends Controller
     {
         $request->validate([
             'attribute_json' => 'required',
+            'attribute_json.ticket_type' => 'required',
             'fastboat_source_id' => 'required|exists:fastboat_places,id',
             'fastboat_destination_id' => 'required|exists:fastboat_places,id',
             'price' => 'required|numeric',
@@ -61,6 +62,7 @@ class GlobaltixController extends Controller
     {
         $request->validate([
             'attribute_json' => 'required',
+            'attribute_json.ticket_type' => 'required',
             'fastboat_source_id' => 'required|exists:fastboat_places,id',
             'fastboat_destination_id' => 'required|exists:fastboat_places,id',
             'price' => 'required|numeric',
@@ -89,6 +91,5 @@ class GlobaltixController extends Controller
         $track->delete();
 
         session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
-
     }
 }
