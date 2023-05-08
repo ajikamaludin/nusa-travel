@@ -13,6 +13,7 @@ use App\Http\Controllers\Website\SignUpController;
 use App\Http\Controllers\Website\TourPackageController;
 use App\Http\Middleware\GuardCustomer;
 use App\Http\Middleware\VisitorCounter;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
@@ -54,10 +55,13 @@ Route::get('/ticket', function () {
 });
 */
 
-Route::get('/flush', function () {
-    Cache::flush();
+Route::get('/optimize', function () {
+    Artisan::call('optimize:clear', []);
 
-    return response()->json(['message' => 'cache cleared']);
+    return response()->json([
+        'message' => 'optimize',
+        'output' => Artisan::output()
+    ]);
 });
 
 Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function () {
