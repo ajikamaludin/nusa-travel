@@ -6,6 +6,8 @@ use App\Models\File;
 use App\Models\Post;
 use App\Models\PostTag;
 use App\Models\Tag;
+use App\Services\AsyncService;
+use App\Services\DeeplService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Response;
@@ -17,7 +19,7 @@ class PostController extends Controller
      */
     public function index(Request $request): Response
     {
-        $query = Post::query();
+        $query = Post::query()->whereNull(['lang']);
 
         if ($request->has('q')) {
             $query->where('title', 'like', "%{$request->q}%");
@@ -73,6 +75,10 @@ class PostController extends Controller
             ]);
         }
 
+        AsyncService::async(function () use ($post) {
+            DeeplService::translatePost($post);
+        });
+
         return redirect()->route('post.index')
             ->with('message', ['type' => 'success', 'message' => 'Post has beed saved']);
     }
@@ -125,6 +131,10 @@ class PostController extends Controller
                 'tag_id' => $tag['id'],
             ]);
         }
+
+        AsyncService::async(function () use ($post) {
+            DeeplService::translatePost($post);
+        });
 
         return redirect()->route('post.index')
             ->with('message', ['type' => 'success', 'message' => 'Post has beed updated']);

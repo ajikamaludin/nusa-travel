@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -14,7 +16,6 @@ class ProfileController extends Controller
         return view('customer.profile', [
             'customer' => Customer::find($request->user()->id),
         ]);
-
     }
 
     public function apitoken(Request $request)
@@ -24,12 +25,23 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function regenerate(Request $request)
+    {
+        $customer = Customer::find($request->user()->id);
+        $customer->update([
+            'token' => Hash::make(Str::random(10)),
+        ]);
+
+        return redirect()->route('customer.apitoken')
+            ->with('message', ['type' => 'success', 'message' => 'api token regenerate success']);
+    }
+
     public function update(Request $request)
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|unique:customers,email,'.$request->user()->id,
-            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255|unique:customers,phone,'.$request->user()->id,
+            'email' => 'required|unique:customers,email,' . $request->user()->id,
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255|unique:customers,phone,' . $request->user()->id,
             'address' => 'nullable|string',
             'nation' => 'nullable|string',
             'national_id' => 'nullable|numeric',

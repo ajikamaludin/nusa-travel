@@ -129,5 +129,7 @@ return [
     'Chinese' => '中文',
     'Adults' => '成年人',
     'Infants' => '婴幼儿',
-    'under 3 years' => '3岁以下'
+    'under 3 years' => '3岁以下',
+    'Regenerate' => 'Regenerate',
+    'Recent Updates' => '最近更新'
 ];

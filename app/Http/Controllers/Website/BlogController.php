@@ -5,12 +5,18 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Visitor;
+use App\Services\GeneralService;
 
 class BlogController extends Controller
 {
     public function index()
     {
-        $posts = Post::with(['tags'])->withCount(['visitors'])->where('is_publish', Post::PUBLISH)->orderBy('created_at', 'desc');
+        $locale = GeneralService::getLocale();
+        $posts = Post::with(['tags'])
+            ->withCount(['visitors'])
+            ->where('lang', $locale)
+            ->where('is_publish', Post::PUBLISH)
+            ->orderBy('created_at', 'desc');
 
         return view('blog', [
             'posts' => $posts->paginate(12),

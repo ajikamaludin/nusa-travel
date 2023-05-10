@@ -10,6 +10,7 @@ use App\Models\Page;
 use App\Models\Post;
 use App\Models\TourPackage;
 use App\Models\Visitor;
+use App\Services\GeneralService;
 use Illuminate\Http\Request;
 
 class LandingController extends Controller
@@ -25,8 +26,10 @@ class LandingController extends Controller
 
         Visitor::track([Visitor::class, 'LANDING_PAGE']);
 
+        $locale = GeneralService::getLocale();
         $posts = Post::with(['tags'])->withCount(['visitors'])
             ->where('is_publish', Post::PUBLISH)
+            ->where('lang', $locale)
             ->orderBy('created_at', 'desc')
             ->limit(4)
             ->get();

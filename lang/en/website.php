@@ -129,5 +129,7 @@ return [
     'Chinese' => 'Chinese',
     'Adults' => 'Adults',
     'Infants' => 'Infants',
-    'under 3 years' => 'under 3 years'
+    'under 3 years' => 'under 3 years',
+    'Regenerate' => 'Regenerate',
+    'Recent Updates' => 'Recent Updates'
 ];

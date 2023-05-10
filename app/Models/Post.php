@@ -43,6 +43,11 @@ class Post extends Model
         return $this->hasMany(Visitor::class, 'related_model_id', 'id');
     }
 
+    public function translate()
+    {
+        return $this->hasMany(Post::class, 'original_id');
+    }
+
     protected function publish(): Attribute
     {
         return Attribute::make(
