@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::get('/', fn () => 'Ok!');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -38,6 +39,9 @@ Route::get('/agent', [AgentController::class, 'index'])->name('api.agent.index')
 Route::get('/fastboat/tracks', [FastboatTrackController::class, 'index'])->name('api.fasboat.track.index');
 Route::get('/car-rentals', [CarRentalController::class, 'index'])->name('api.car-rentals.index');
 Route::get('/customers', [CustomerController::class, 'index'])->name('api.customer.index');
+
+// globaltix
+Route::get('/globaltix/tracks', [GlobaltixController::class, 'tracks'])->name('api.globaltix.track');
 Route::get('/globaltix/products', [GlobaltixController::class, 'products'])->name('api.globaltix.product');
 Route::get('/globaltix/options', [GlobaltixController::class, 'options'])->name('api.globaltix.option');
 

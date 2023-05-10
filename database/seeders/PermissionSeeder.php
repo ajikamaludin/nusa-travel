@@ -129,9 +129,7 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'Delete Globaltix to Track', 'name' => 'delete-globaltix-to-track'],
         ];
 
-        foreach ($permissions as $permission) {
-            Permission::insert($permission);
-        }
+        Permission::insert($permissions);
 
         $role = Role::create(['name' => 'admin']);
 

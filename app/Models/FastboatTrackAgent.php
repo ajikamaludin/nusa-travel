@@ -7,10 +7,11 @@ class FastboatTrackAgent extends Model
     protected $cascadeDeletes = ['group'];
 
     protected $fillable = [
+        'fastboat_track_agent_group_id',
         'fastboat_track_id',
         'customer_id',
         'price',
-        'fastboat_track_agent_group_id',
+        'data_source'
     ];
 
     public function group()
@@ -31,15 +32,5 @@ class FastboatTrackAgent extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
-    }
-
-    public function fastboat()
-    {
-        return $this->belongsTo(Fastboat::class);
-    }
-
-    public function places()
-    {
-        return $this->hasMany(FastboatTrackOrder::class);
     }
 }

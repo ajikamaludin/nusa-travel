@@ -13,6 +13,7 @@ use App\Http\Controllers\FastboatTrackAgentController;
 use App\Http\Controllers\FastboatTrackController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\GlobaltixAgentController;
 use App\Http\Controllers\GlobaltixController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
@@ -196,5 +197,11 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::get('/globaltix-fastboat/{track}', [GlobaltixController::class, 'edit'])->name('fastboat.globaltix.edit');
         Route::post('/globaltix-fastboat/{track}', [GlobaltixController::class, 'update'])->name('fastboat.globaltix.update');
         Route::delete('/globaltix-fastboat/{track}', [GlobaltixController::class, 'destroy'])->name('fastboat.globaltix.destroy');
+
+        //Globaltix Agen Price
+        Route::get('/globaltix-price-agent', [GlobaltixAgentController::class, 'index'])->name('globaltix-price-agent.index');
+        Route::post('/globaltix-price-agent', [GlobaltixAgentController::class, 'store'])->name('globaltix-price-agent.store');
+        Route::put('/globaltix-price-agent/{trackAgent}', [GlobaltixAgentController::class, 'update'])->name('globaltix-price-agent.update');
+        Route::delete('/globaltix-price-agent/{trackAgent}', [GlobaltixAgentController::class, 'destroy'])->name('globaltix-price-agent.destroy');
     });
 });

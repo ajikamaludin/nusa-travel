@@ -11,13 +11,15 @@ class FastboatTrackController extends Controller
 {
     public function index(Request $request)
     {
-        $query = FastboatTrackGroup::query()->whereNull('data_source')->with([
-            'fastboat',
-            'places.place',
-            'tracks.source',
-            'tracks.destination',
-            'tracks',
-        ]);
+        $query = FastboatTrackGroup::query()
+            ->whereNull('data_source')
+            ->with([
+                'fastboat',
+                'places.place',
+                'tracks.source',
+                'tracks.destination',
+                'tracks',
+            ]);
 
         if ($request->customer_id != '') {
             $trackGrupsAgentIds = FastboatTrackGroupAgent::where('customer_id', $request->customer_id)->get()->pluck('fastboat_track_group_id');
