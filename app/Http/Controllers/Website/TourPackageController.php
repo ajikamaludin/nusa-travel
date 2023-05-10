@@ -13,9 +13,11 @@ class TourPackageController extends Controller
     {
         $query = TourPackage::where('is_publish', TourPackage::PUBLISH)->orderBy('updated_at', 'desc');
 
+        $page = Page::where('key', 'tour-package')->first()->getTranslate();
+
         return view('packages', [
             'packages' => $query->paginate(),
-            'page' => Page::where('key', 'tour-package')->first(),
+            'page' => $page,
         ]);
     }
 

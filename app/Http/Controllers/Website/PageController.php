@@ -6,13 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Faq;
 use App\Models\File;
 use App\Models\Page;
+use App\Services\GeneralService;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
     public function show(Page $page)
     {
-        return view('page', ['page' => $page]);
+        return view('page', [
+            'page' => $page->getTranslate()
+        ]);
     }
 
     public function faq(Request $request)
@@ -24,10 +27,11 @@ class PageController extends Controller
                 ->orWhere('answer', 'like', "%$request->q%");
         }
 
+        $page = Page::where('key', 'faq')->first()->getTranslate();
         return view('faq', [
             'faqs' => $query->orderBy('order', 'asc')->get(),
             'q' => $request->q,
-            'page' => Page::where('key', 'faq')->first(),
+            'page' => $page,
         ]);
     }
 

@@ -34,13 +34,15 @@ class LandingController extends Controller
             ->limit(4)
             ->get();
 
+        $page = Page::where('key', 'home')->first()->getTranslate();
+
         return view('home', [
             'places' => FastboatPlace::whereNull('data_source')->select('name')->get()->pluck('name'),
             'posts' => $posts,
             'faqs' => Faq::orderBy('order', 'asc')->limit(4)->get(),
             'images' => File::where('show_on', '!=', 0)->orderBy('show_on', 'asc')->get(),
             'packages' => TourPackage::where('is_publish', TourPackage::PUBLISH)->orderBy('updated_at', 'desc')->limit(4)->get(),
-            'page' => Page::where('key', 'home')->first(),
+            'page' => $page,
         ]);
     }
 

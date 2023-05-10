@@ -21,6 +21,7 @@ class FastboatController extends Controller
             $rdate = Carbon::createFromFormat('m/d/Y', $request->return_date);
         }
 
+        $page = Page::where('key', 'fastboat')->first()->getTranslate();
         $data = [
             'ways' => $request->ways ?? 1,
             'from' => $request->from,
@@ -29,7 +30,7 @@ class FastboatController extends Controller
             'rdate' => $rdate->format('Y-m-d'),
             'no_passengers' => $request->no_passengers ?? '1',
             'infants' => $request->infants ?? '0',
-            'page' => Page::where('key', 'fastboat')->first(),
+            'page' => $page,
         ];
 
         return view('fastboat', $data);
@@ -47,6 +48,7 @@ class FastboatController extends Controller
             $rdate = Carbon::createFromFormat('m/d/Y', $request->return_date);
         }
 
+        $page = Page::where('key', 'fastboat-ekajaya')->first()->getTranslate();
         $data = [
             'ways' => $request->ways ?? 1,
             'from' => $request->from,
@@ -55,7 +57,7 @@ class FastboatController extends Controller
             'rdate' => $rdate->format('Y-m-d'),
             'no_passengers' => $request->no_passengers ?? '1',
             'infants' => $request->infants ?? '0',
-            'page' => Page::where('key', 'fastboat-ekajaya')->first(),
+            'page' => $page,
         ];
 
         return view('ekajaya-fastboat', $data);

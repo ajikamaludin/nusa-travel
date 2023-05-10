@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Page;
 use App\Models\Post;
 use App\Models\PostTag;
 use App\Models\Setting;
@@ -18,7 +19,7 @@ class DeeplService
             $translator = new \DeepL\Translator(Setting::getByKey('G_DEEPL_AUTHKEY'));
             $result = $translator->translateText([$title, $text], self::SOURCE, $lang);
             info('translated', $result);
-            $results[$lang] = [$result[0]->text, $result[1]->text,];
+            $results[$lang] = [$result[0]->text, $result[1]->text];
         }
 
         return $results;
@@ -54,7 +55,26 @@ class DeeplService
         }
     }
 
-    // TODO: make migrate service to check is any post and page not translated
+    public static function translatePage(Page $page)
+    {
+        foreach (self::TRANSTO as $lang) {
+            $translator = new \DeepL\Translator(Setting::getByKey('G_DEEPL_AUTHKEY'));
+            $result = $translator->translateText($page->body, self::SOURCE, $lang);
+            info('translated', [$result]);
 
-
+            Page::updateOrCreate([
+                'lang' => $lang,
+                'original_id' => $page->id
+            ], [
+                'key' => $lang . '/' . $page->key,
+                'title' => $page->title,
+                'body' => $result->text,
+                'meta_tag' => $page->meta_tag,
+                'attribute' => $page->attribute,
+                'flag' => $page->flag,
+                'original_id' => $page->id,
+                'lang' => $lang,
+            ]);
+        }
+    }
 }

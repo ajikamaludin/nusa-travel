@@ -23,11 +23,12 @@ class CarRentalController extends Controller
             $date = Carbon::createFromFormat('Y-m-d', $request->date);
         }
 
+        $page = Page::where('key', 'car-rental')->first()->getTranslate();
         return view('car', [
             'cars' => $query->paginate(),
             'person' => $request->person,
             'date' => $date->format('Y-m-d'),
-            'page' => Page::where('key', 'car-rental')->first(),
+            'page' => $page,
         ]);
     }
 }
