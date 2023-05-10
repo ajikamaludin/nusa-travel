@@ -17,7 +17,7 @@ return new class extends Migration
     {
         $page = Page::where('title', 'feature-home')->exists();
 
-        if (! $page && Page::count() != 0) {
+        if (!$page && Page::count() != 0) {
             $pages = [
                 ['key' => 'home', 'title' => 'feature-home', 'file' => '/../seeders/pages/feature/home.txt'],
                 ['key' => 'car-rental', 'title' => 'feature-car-rental', 'file' => '/../seeders/pages/feature/car-rental.txt'],
@@ -31,24 +31,24 @@ return new class extends Migration
                 Page::create([
                     'key' => $page['key'],
                     'title' => $page['title'],
-                    'body' => file_get_contents(__DIR__.$page['file']),
+                    'body' => file_get_contents(__DIR__ . $page['file']),
                 ]);
             }
         }
 
-        if (! Schema::hasColumn('fastboat_tracks', 'attribute_json')) {
+        if (!Schema::hasColumn('fastboat_tracks', 'attribute_json')) {
             Schema::table('fastboat_tracks', function (Blueprint $table) {
                 $table->text('attribute_json')->nullable();
             });
         }
 
-        if (! Schema::hasColumn('order_items', 'globaltix_response_json')) {
+        if (!Schema::hasColumn('order_items', 'globaltix_response_json')) {
             Schema::table('order_items', function (Blueprint $table) {
                 $table->text('globaltix_response_json')->nullable();
             });
         }
 
-        if (! Schema::hasTable('unavailable_dates')) {
+        if (!Schema::hasTable('unavailable_dates')) {
             Schema::create('unavailable_dates', function (Blueprint $table) {
                 $table->uuid('id')->primary();
                 $table->date('close_date', 0)->nullable();
@@ -63,7 +63,7 @@ return new class extends Migration
 
         $permission = Permission::where('name', 'view-unavailable-date')->exists();
 
-        if (! $permission && Permission::count() != 0) {
+        if (!$permission && Permission::count() != 0) {
             $permissions = [
                 ['id' => Str::uuid(), 'label' => 'View Unavailable Date', 'name' => 'view-unavailable-date'],
                 ['id' => Str::uuid(), 'label' => 'Create Unavailable Date', 'name' => 'create-unavailable-date'],
@@ -81,7 +81,7 @@ return new class extends Migration
 
         $setting = Setting::where('key', 'GLOBALTIX_HOST')->exists();
 
-        if (! $setting && Setting::count() != 0) {
+        if (!$setting && Setting::count() != 0) {
             $settings = [
                 ['id' => Str::uuid(), 'key' => 'GLOBALTIX_HOST', 'value' => 'https://uat-api.globaltix.com/api', 'type' => 'text', 'label' => 'GlobalTix Api Host'],
                 ['id' => Str::uuid(), 'key' => 'GLOBALTIX_USERNAME', 'value' => 'business@nusa.travel', 'type' => 'text', 'label' => 'GlobalTix Username'],

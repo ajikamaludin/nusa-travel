@@ -32,6 +32,7 @@ export default function General(props) {
         ),
         whatsapp_url: extractValue(props.setting, 'G_WHATSAPP_URL'),
         whatsapp_text: extractValue(props.setting, 'G_WHATSAPP_TEXT'),
+        deepl_authkey: extractValue(props.setting, 'G_DEEPL_AUTHKEY'),
         logo: null,
         site_logo: extractValue(props.setting, 'G_SITE_LOGO'),
         slide1: null,
@@ -175,7 +176,7 @@ export default function General(props) {
                                 />
                             }
                         />
-                        <div className="border-2 rounded-lg p-2">
+                        <div className="border-2 rounded-lg p-2 mb-4">
                             <FormInput
                                 name="whatsapp_text"
                                 value={data.whatsapp_text}
@@ -199,6 +200,13 @@ export default function General(props) {
                                 error={errors.whatsapp_float_enable}
                             />
                         </div>
+                        <FormInput
+                            name="deepl_authkey"
+                            value={data.deepl_authkey}
+                            onChange={handleOnChange}
+                            label="Deepl Authkey"
+                            error={errors.deepl_authkey}
+                        />
                         <div className="mt-4">
                             <Button
                                 onClick={handleSubmit}

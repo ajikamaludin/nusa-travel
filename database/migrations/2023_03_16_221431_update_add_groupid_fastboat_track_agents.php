@@ -14,11 +14,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('fastboat_track_agents', function (Blueprint $table) {
-            $table->string('fastboat_track_agent_group_id');
+            $table->string('fastboat_track_agent_group_id')->nullable();
         });
 
         $check = Permission::where('name', 'view-price-agent')->exists();
-        if (! $check && Permission::count() != 0) {
+        if (!$check && Permission::count() != 0) {
             $permissions = [
                 ['id' => Str::uuid(), 'label' => 'Create Agent', 'name' => 'create-agent'],
                 ['id' => Str::uuid(), 'label' => 'Update Agent', 'name' => 'update-agent'],

@@ -19,7 +19,7 @@
         </div>
         <div class="text-base text-right">
             <span class="font-bold flex-none"> Rp {{ number_format($track->validated_price, 0, ',', '.') }}</span><span
-                class="text-xs">/pax</span>
+                class="text-xs">/{{ __('website.pax') }}</span>
             <p class="text-xs text-gray-400">{{ __('website.availability') }}: {{ $avalaible }}</p>
         </div>
     </div>

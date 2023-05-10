@@ -126,4 +126,8 @@ return [
     'Ekajaya Fastboat' => 'Ekajaya Fastboat',
     'Please choose Origin and Destination' => 'Please choose Origin and Destination',
     'Ordered Date Unavailable' => 'Ordered Date Unavailable',
+    'Chinese' => 'Chinese',
+    'Adults' => 'Adults',
+    'Infants' => 'Infants',
+    'under 3 years' => 'under 3 years'
 ];

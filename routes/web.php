@@ -113,11 +113,11 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     // Landing
     Route::get('/accept-cookie', [LandingController::class, 'acceptCookie'])->name('accept.cookie');
     Route::get('/{locale?}', [LandingController::class, 'index'])->name('home.index')
-        ->whereIn('locale', ['en', 'id']);
+        ->whereIn('locale', ['en', 'id', 'zh']);
 
     // Sitemap
     Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 });
 
-require __DIR__.'/admin.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/admin.php';
+require __DIR__ . '/auth.php';

@@ -87,7 +87,7 @@ class DummySeeder extends Seeder
             ['id' => Str::uuid(), 'key' => 'GLOBALTIX_ENABLE', 'value' => '0', 'type' => 'text', 'label' => 'GlobalTix Integration Enable'],
             ['id' => Str::uuid(), 'key' => 'GLOBALTIX_LOGO', 'value' => 'images/logo_ekajaya.png', 'type' => 'image', 'label' => 'GlobalTix Logo'],
 
-            ['id' => Str::uuid(), 'key' => 'DEEPLCOM_AUTHKEY', 'value' => '0', 'type' => 'text', 'label' => 'Deepl Translation Api Key'],
+            ['id' => Str::uuid(), 'key' => 'G_DEEPL_AUTHKEY', 'value' => '8d17f9dd-0b69-f305-0d1e-ec73aee8269c', 'type' => 'text', 'label' => 'Deepl Translation Api Key'],
         ];
 
         Setting::insert($setting);

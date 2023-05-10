@@ -126,4 +126,8 @@ return [
     'Ekajaya Fastboat' => 'Ekajaya Fastboat',
     'Please choose Origin and Destination' => 'Silahkan pilih tujuan and detinasi',
     'Ordered Date Unavailable' => 'Order pada tanggal dipilih tidak tersedia',
+    'Chinese' => 'Chinese',
+    'Adults' => 'Dewasa',
+    'Infants' => 'Anak',
+    'under 3 years' => 'dibawah 3 tahun'
 ];
