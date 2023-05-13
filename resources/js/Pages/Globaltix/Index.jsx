@@ -1,42 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { router, Link } from "@inertiajs/react";
-import { usePrevious } from "react-use";
-import { Head } from "@inertiajs/react";
-import { Button, Dropdown } from "flowbite-react";
-import { HiPencil, HiTrash } from "react-icons/hi";
-import { useModalState } from "@/hooks";
+import React, { useEffect, useState } from 'react'
+import { router, Link } from '@inertiajs/react'
+import { usePrevious } from 'react-use'
+import { Head } from '@inertiajs/react'
+import { Button, Dropdown } from 'flowbite-react'
+import { HiPencil, HiTrash } from 'react-icons/hi'
+import { useModalState } from '@/hooks'
 
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import Pagination from "@/Components/Pagination";
-import ModalConfirm from "@/Components/ModalConfirm";
-import SearchInput from "@/Components/SearchInput";
-import { formatIDR, hasPermission } from "@/utils";
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import Pagination from '@/Components/Pagination'
+import ModalConfirm from '@/Components/ModalConfirm'
+import SearchInput from '@/Components/SearchInput'
+import { formatIDR, hasPermission } from '@/utils'
 
 export default function Index(props) {
     const {
         query: { links, data },
         auth,
-    } = props;
+    } = props
 
-    const [search, setSearch] = useState("");
-    const preValue = usePrevious(search);
+    const [search, setSearch] = useState('')
+    const preValue = usePrevious(search)
 
-    const confirmModal = useModalState();
+    const confirmModal = useModalState()
 
     const handleDeleteClick = (track) => {
-        confirmModal.setData(track);
-        confirmModal.toggle();
-    };
+        confirmModal.setData(track)
+        confirmModal.toggle()
+    }
 
     const onDelete = () => {
         if (confirmModal.data !== null) {
             router.delete(
-                route("fastboat.globaltix.destroy", confirmModal.data.id)
-            );
+                route('fastboat.globaltix.destroy', confirmModal.data.id)
+            )
         }
-    };
+    }
 
-    const params = { q: search };
+    const params = { q: search }
     useEffect(() => {
         if (preValue) {
             router.get(
@@ -46,22 +46,22 @@ export default function Index(props) {
                     replace: true,
                     preserveState: true,
                 }
-            );
+            )
         }
-    }, [search]);
+    }, [search])
 
-    const canCreate = hasPermission(auth, "create-globaltix-to-track");
-    const canUpdate = hasPermission(auth, "update-globaltix-to-track");
-    const canDelete = hasPermission(auth, "delete-globaltix-to-track");
+    const canCreate = hasPermission(auth, 'create-globaltix-to-track')
+    const canUpdate = hasPermission(auth, 'update-globaltix-to-track')
+    const canDelete = hasPermission(auth, 'delete-globaltix-to-track')
 
     return (
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={"Globaltix Track"}
-            action={""}
-            parent={route("fastboat.globaltix.index")}
+            page={'Globaltix Track'}
+            action={''}
+            parent={route('fastboat.globaltix.index')}
         >
             <Head title="Globaltix Track" />
 
@@ -71,7 +71,7 @@ export default function Index(props) {
                         <div className="flex justify-between">
                             {canCreate && (
                                 <Link
-                                    href={route("fastboat.globaltix.create")}
+                                    href={route('fastboat.globaltix.create')}
                                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
                                 >
                                     Tambah
@@ -111,6 +111,12 @@ export default function Index(props) {
                                                 scope="col"
                                                 className="py-3 px-6"
                                             >
+                                                Time Slot
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="py-3 px-6"
+                                            >
                                                 Publish
                                             </th>
                                             <th
@@ -135,7 +141,8 @@ export default function Index(props) {
                                                     scope="row"
                                                     className="py-4 px-6"
                                                 >
-                                                    {track.source.name} - {track.destination.name}
+                                                    {track.source.name} -{' '}
+                                                    {track.destination.name}
                                                 </td>
                                                 <td
                                                     scope="row"
@@ -147,21 +154,29 @@ export default function Index(props) {
                                                     scope="row"
                                                     className="py-4 px-6"
                                                 >
-                                                    {+track.is_publish === 1 ? 'Yes' : 'No'}
+                                                    {track.arrival_time}
+                                                </td>
+                                                <td
+                                                    scope="row"
+                                                    className="py-4 px-6"
+                                                >
+                                                    {+track.is_publish === 1
+                                                        ? 'Yes'
+                                                        : 'No'}
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown
-                                                        label={"Opsi"}
+                                                        label={'Opsi'}
                                                         floatingArrow={true}
                                                         arrowIcon={true}
                                                         dismissOnClick={true}
-                                                        size={"sm"}
+                                                        size={'sm'}
                                                     >
                                                         {canUpdate && (
                                                             <Dropdown.Item>
                                                                 <Link
                                                                     href={route(
-                                                                        "fastboat.globaltix.edit",
+                                                                        'fastboat.globaltix.edit',
                                                                         track
                                                                     )}
                                                                     className="flex space-x-1 items-center"
@@ -205,5 +220,5 @@ export default function Index(props) {
             </div>
             <ModalConfirm modalState={confirmModal} onConfirm={onDelete} />
         </AuthenticatedLayout>
-    );
+    )
 }

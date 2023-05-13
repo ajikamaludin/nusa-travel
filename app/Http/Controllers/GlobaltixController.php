@@ -12,7 +12,12 @@ class GlobaltixController extends Controller
     public function index(Request $request)
     {
         $query = FastboatTrack::with(['source', 'destination'])
-            ->where('data_source', GlobaltixService::class);
+            ->where('data_source', GlobaltixService::class)
+            ->orderBy('updated_at', 'desc');
+
+        if ($request->q != '') {
+            $query->where('attribute_json', 'like', "%$request->q%");
+        }
 
         return inertia('Globaltix/Index', [
             'query' => $query->paginate(),

@@ -4,6 +4,7 @@ import { usePage } from '@inertiajs/react'
 import axios from 'axios'
 import { HiChevronDown, HiChevronUp, HiX } from 'react-icons/hi'
 import { Spinner } from 'flowbite-react'
+import { formatIDR } from '@/utils'
 
 export default function SelectionInput(props) {
     const ref = useRef()
@@ -46,7 +47,11 @@ export default function SelectionInput(props) {
     const handleSelectItem = (item) => {
         setIsSelected(true)
         onItemSelected(item.id)
-        setSelected(item.alternative_name)
+        setSelected(
+            `${item.alternative_name} - (${item.arrival_time}, ${formatIDR(
+                item.price
+            )})`
+        )
         setIsOpen(false)
     }
 
@@ -118,7 +123,11 @@ export default function SelectionInput(props) {
         if (itemSelected !== null) {
             const item = showItems.find((item) => item.id === itemSelected)
             if (item) {
-                setSelected(item.alternative_name)
+                setSelected(
+                    `${item.alternative_name} - (${
+                        item.arrival_time
+                    }, ${formatIDR(item.price)})`
+                )
                 setIsSelected(true)
             }
             return
@@ -232,6 +241,15 @@ export default function SelectionInput(props) {
                                                                     {
                                                                         item.alternative_name
                                                                     }
+                                                                    {' - '}(
+                                                                    {
+                                                                        item.arrival_time
+                                                                    }
+                                                                    ,{' '}
+                                                                    {formatIDR(
+                                                                        item.price
+                                                                    )}
+                                                                    )
                                                                 </span>
                                                             </div>
                                                         </div>

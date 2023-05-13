@@ -11,7 +11,8 @@ class GlobaltixAgentController extends Controller
     public function index(Request $request)
     {
         $query = FastboatTrackAgent::with(['customer', 'track'])
-            ->where('data_source', GlobaltixService::class);
+            ->where('data_source', GlobaltixService::class)
+            ->orderBy('updated_at', 'desc');
 
         if ($request->agent != '') {
             $query->where('customer_id', $request->agent);
