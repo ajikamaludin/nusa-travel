@@ -165,7 +165,7 @@ class GlobaltixService
             $options[] = [
                 'name' => $d['name'],
                 'description' => $d['description'],
-                'time_slot' => $d['timeSlot'][0],
+                'time_slots' => $d['timeSlot'],
                 'questions' => $d['questions'],
                 'ticket_type_id' => $d['ticketType'][0]['id'],
                 'ticket_type_name' => $d['ticketType'][0]['name'],
@@ -176,7 +176,7 @@ class GlobaltixService
         return $options;
     }
 
-    public static function getCheckAvailability($ticketTypeId, $date)
+    public static function getCheckAvailability($ticketTypeId, $date, $timeslot = "00:00")
     {
         $setting = Setting::getInstance();
         $host = $setting->getValue('GLOBALTIX_HOST');
@@ -198,18 +198,26 @@ class GlobaltixService
 
         $data = $response->json('data');
 
-        if ($data == null) {
-            $data = [
-                'available' => 0,
-                'total' => 0,
-            ];
-        } else {
-            $data = $data[0];
+        $avability = [
+            'id' => null,
+            'available' => 0,
+            'total' => 0,
+        ];
+
+        if ($data != null) {
+            foreach ($data as $time) {
+                $check = strpos($time['time'], $timeslot);
+                if ($check != false) {
+                    $avability = $time;
+                    break;
+                }
+            }
         }
 
         return [
-            'available' => $data['available'],
-            'total' => $data['total'],
+            'id' => $avability['id'],
+            'available' => $avability['available'],
+            'total' => $avability['total'],
         ];
     }
 
@@ -225,6 +233,12 @@ class GlobaltixService
         $quantity = $item->passengers()->where('type', OrderItemPassenger::TYPE_PERSON)->count();
         $track = $item->item;
         $ticket = json_decode($track->attribute_json);
+        $event = self::getCheckAvailability($ticket->ticket_type->id, $item->date, $ticket->ticket_type->time_slot);
+
+        if ($event['id'] == null) {
+            $item->update(['item_addtional_info_json' => 'avability null when order']);
+            return null;
+        }
 
         foreach ($ticket->ticket_type->questions as $question) {
             if (str($question->question)->contains('Name')) {
@@ -265,6 +279,7 @@ class GlobaltixService
         }
 
         $data = [
+            // TODO: changes ticket type to each 1 pessenger quantity 1
             'ticketTypes' => [[
                 'index' => 0,
                 'id' => $ticket->ticket_type->id,
@@ -273,11 +288,13 @@ class GlobaltixService
                 'redeemStart' => null,
                 'redeemEnd' => null,
                 'visitDate' => $item->date,
+                'event_id' => $event['id'],
                 'questionList' => $questions,
             ]],
             'customerName' => $order->customer->name,
             'email' => $order->customer->email,
             'paymentMethod' => 'CREDIT',
+            'newModel' => true,
         ];
 
         $url = $host . '/transaction/create';
@@ -301,5 +318,7 @@ class GlobaltixService
         $item->update([
             'globaltix_response_json' => json_encode($response->json()),
         ]);
+
+        return;
     }
 }

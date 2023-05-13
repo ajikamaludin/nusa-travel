@@ -150,7 +150,7 @@ class FastboatTrack extends Model
     {
         if ($this->data_source == GlobaltixService::class) {
             $data = json_decode($this->attribute_json);
-            $capacity = GlobaltixService::getCheckAvailability($data->ticket_type->id, $date);
+            $capacity = GlobaltixService::getCheckAvailability($data->ticket_type->id, $date, $data->ticket_type->time_slot);
             $this->total = $capacity['total'];
 
             return $capacity['available'];

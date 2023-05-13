@@ -20,6 +20,7 @@ export default function Form(props) {
     const [loading, setLoading] = useState(false)
     const [options, setOptions] = useState([])
     const [selectedOptionIndex, setSelectedOptionIndex] = useState('')
+    const [timeslots, setTimeSlots] = useState([])
     const { data, setData, post, processing, errors } = useForm({
         attribute_json: null,
         fastboat_source_id: null,
@@ -72,7 +73,20 @@ export default function Form(props) {
                 id: option.ticket_type_id,
                 name: option.ticket_type_name,
                 price: option.ticket_type_price,
-                time_slot: option.time_slot,
+            },
+        })
+    }
+
+    const handleSelectTimeSlot = (time_slot) => {
+        setData({
+            ...data,
+            arrival_time: time_slot,
+            attribute_json: {
+                ...data.attribute_json,
+                ticket_type: {
+                    ...data.attribute_json.ticket_type,
+                    time_slot: time_slot,
+                },
             },
         })
     }
@@ -124,6 +138,14 @@ export default function Form(props) {
         }
     }, [track])
 
+    useEffect(() => {
+        if (selectedOptionIndex === '') {
+            setTimeSlots([])
+            return
+        }
+        setTimeSlots(options[selectedOptionIndex].time_slots)
+    }, [selectedOptionIndex])
+
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -136,7 +158,7 @@ export default function Form(props) {
             <Head title={'Form'} />
 
             <div className="mx-auto sm:px-6 lg:px-8">
-                <div className="overflow-hidden p-4 shadow-sm sm:rounded-lg bg-white dark:bg-gray-800 flex flex-col min-h-screen">
+                <div className="overflow-hidden p-4 shadow-sm sm:rounded-lg bg-white dark:bg-gray-800 flex flex-col h-[1200px]">
                     <div className="text-xl font-bold mb-4">
                         {'Globaltix Track'}
                     </div>
@@ -181,6 +203,38 @@ export default function Form(props) {
                                     </p>
                                 )}
                             </div>
+                            <div>
+                                <label
+                                    htmlFor="first_name"
+                                    className="block my-2 text-sm font-medium text-gray-900"
+                                >
+                                    Time Slot
+                                </label>
+                                <select
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    onChange={(e) =>
+                                        handleSelectTimeSlot(e.target.value)
+                                    }
+                                    value={
+                                        data.attribute_json?.ticket_type
+                                            ?.time_slot
+                                    }
+                                >
+                                    <option value=""></option>
+                                    {timeslots.map((timeslot, index) => (
+                                        <option value={timeslot} key={index}>
+                                            {timeslot}
+                                        </option>
+                                    ))}
+                                </select>
+                                {errors[
+                                    'attribute_json.ticket_type.time_slot'
+                                ] && (
+                                    <p className="mb-2 text-sm text-red-600 dark:text-red-500">
+                                        {'The option timeslot is required.'}
+                                    </p>
+                                )}
+                            </div>
                             {data.attribute_json?.ticket_type && (
                                 <>
                                     <div className="mt-2" />
@@ -194,10 +248,7 @@ export default function Form(props) {
                                         } \n\n Harga: ${formatIDR(
                                             data.attribute_json.ticket_type
                                                 ?.price
-                                        )} \n\n Time Selected: ${
-                                            data.attribute_json.ticket_type
-                                                ?.time_slot
-                                        }`}
+                                        )}`}
                                         readOnly={true}
                                         rows={14}
                                     />

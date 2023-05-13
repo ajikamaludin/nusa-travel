@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\FastboatTrack;
 use App\Services\GlobaltixService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GlobaltixController extends Controller
 {
@@ -28,6 +29,7 @@ class GlobaltixController extends Controller
         $request->validate([
             'attribute_json' => 'required',
             'attribute_json.ticket_type' => 'required',
+            'attribute_json.ticket_type.time_slot' => 'required',
             'fastboat_source_id' => 'required|exists:fastboat_places,id',
             'fastboat_destination_id' => 'required|exists:fastboat_places,id',
             'price' => 'required|numeric',
@@ -63,6 +65,7 @@ class GlobaltixController extends Controller
         $request->validate([
             'attribute_json' => 'required',
             'attribute_json.ticket_type' => 'required',
+            'attribute_json.ticket_type.time_slot' => 'required',
             'fastboat_source_id' => 'required|exists:fastboat_places,id',
             'fastboat_destination_id' => 'required|exists:fastboat_places,id',
             'price' => 'required|numeric',
@@ -88,7 +91,10 @@ class GlobaltixController extends Controller
 
     public function destroy(FastboatTrack $track)
     {
+        DB::beginTransaction();
+        $track->trackAgent()->delete();
         $track->delete();
+        DB::commit();
 
         session()->flash('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
     }

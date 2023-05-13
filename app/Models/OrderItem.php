@@ -21,7 +21,8 @@ class OrderItem extends Model
         'dropoff_id',
         'pickup',
         'pickup_id',
-        'globaltix_response_json',
+        'globaltix_response_json', //to trace globaltix order response
+        'item_addtional_info_json' //to trace what item ordered detail
     ];
 
     protected $appends = ['detail'];

@@ -13,12 +13,12 @@ class FastboatController extends Controller
     {
         $date = now();
         if ($request->date != '') {
-            $date = Carbon::createFromFormat('m/d/Y', $request->date);
+            $date = Carbon::createFromFormat('d/m/Y', $request->date);
         }
 
         $rdate = Carbon::parse($date)->addDays(2);
         if ($request->return_date != '') {
-            $rdate = Carbon::createFromFormat('m/d/Y', $request->return_date);
+            $rdate = Carbon::createFromFormat('d/m/Y', $request->return_date);
         }
 
         $page = Page::where('key', 'fastboat')->first()->getTranslate();
