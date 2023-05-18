@@ -1,6 +1,5 @@
 # TODO
 
--   time options [DONE]
 -   forgot password [PENDING]
 -   make thumbnail on upload [PENDING]
 -   di data api karena capacity hanya masuk kepal maka harus diubah ke order rcapacity [bug] [PENDING]
