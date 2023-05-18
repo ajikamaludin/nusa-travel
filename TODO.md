@@ -1,6 +1,7 @@
 # TODO
 
 -   forgot password [PENDING]
+-   logo bisa ganti untuk halaman admin dengan custom build [DONE]
 -   make thumbnail on upload [PENDING]
 -   di data api karena capacity hanya masuk kepal maka harus diubah ke order rcapacity [bug] [PENDING]
 
