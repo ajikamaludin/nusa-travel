@@ -33,8 +33,8 @@ class SelectReturnDate extends Component
         if ($value != '') {
             $date = Carbon::createFromFormat('Y-m-d', $value);
             if ($date->gte($this->rdate)) {
-                $this->min = $date;
-                $this->rdate = $date;
+                $this->min = $date->format('Y-m-d');
+                $this->rdate = $date->format('Y-m-d');
             }
         }
     }
