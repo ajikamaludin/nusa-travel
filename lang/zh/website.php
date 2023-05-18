@@ -131,5 +131,11 @@ return [
     'Infants' => '婴幼儿',
     'under 3 years' => '3岁以下',
     'Regenerate' => 'Regenerate',
-    'Recent Updates' => '最近更新'
+    'Recent Updates' => '最近更新',
+    'Password Confirmation' => '确认密码',
+    'Forgot Password' => '忘记密码',
+    'Forgot password desc' => '输入用于创建 Klook 帐户的电子邮件地址，我们将向您发送一个订单链接，您可以重置密码',
+    'Next' => '下一个',
+    'Create New Password' => '创建新密码',
+    'Change' => '改变',
 ];

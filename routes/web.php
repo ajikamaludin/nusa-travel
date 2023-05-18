@@ -4,6 +4,7 @@ use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Website\BlogController;
 use App\Http\Controllers\Website\CarRentalController;
 use App\Http\Controllers\Website\FastboatController;
+use App\Http\Controllers\Website\ForgotPasswordController;
 use App\Http\Controllers\Website\LandingController;
 use App\Http\Controllers\Website\LoginController;
 use App\Http\Controllers\Website\OrderController;
@@ -83,6 +84,13 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     Route::get('/orders', [OrderController::class, 'orders'])->name('customer.orders');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('customer.order');
 
+    // forgot password
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('customer.forgot-password.index');
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])->name('customer.forgot-password.store');
+    Route::get('/forgot-password/{customer:reset_token}', [ForgotPasswordController::class, 'show'])->name('customer.forgot-password.show');
+    Route::post('/forgot-password/{customer:reset_token}', [ForgotPasswordController::class, 'update'])->name('customer.forgot-password.update');
+
+
     // Login / Register
     Route::middleware('guest:customer')->group(function () {
         Route::get('/login', [LoginController::class, 'index'])->name('customer.login');
@@ -121,4 +129,4 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
 });
 
 require __DIR__ . '/admin.php';
-require __DIR__ . '/auth.php';
+// require __DIR__ . '/auth.php';

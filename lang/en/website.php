@@ -131,5 +131,12 @@ return [
     'Infants' => 'Infants',
     'under 3 years' => 'under 3 years',
     'Regenerate' => 'Regenerate',
-    'Recent Updates' => 'Recent Updates'
+    'Recent Updates' => 'Recent Updates',
+    'Password Confirmation' => 'Password Confirmation',
+    'Forgot Password' => 'Forgot password',
+    'Forgot password desc' => 'Enter the email address used to create the Klook account and we\'ll send you an order link
+    you can reset password',
+    'Next' => 'Next',
+    'Create New Password' => 'Create New Password',
+    'Change' => 'Change',
 ];

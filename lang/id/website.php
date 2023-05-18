@@ -131,5 +131,11 @@ return [
     'Infants' => 'Anak',
     'under 3 years' => 'dibawah 3 tahun',
     'Regenerate' => 'Regenerate',
-    'Recent Updates' => 'Recent Updates'
+    'Recent Updates' => 'Recent Updates',
+    'Forgot Password' => 'Buat ulang sandi',
+    'Forgot password desc' => 'Masukkan alamat email yang digunakan untuk membuat akun Klook dan kami akan mengirimkan link agar
+    kamu bisa membuat ulang password',
+    'Next' => 'Lanjut',
+    'Create New Password' => 'Buat Sandi Baru',
+    'Change' => 'Ubah',
 ];
