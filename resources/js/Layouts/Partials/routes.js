@@ -21,6 +21,8 @@ import {
     HiOutlineTicket,
 } from 'react-icons/hi'
 
+const showGlobaltix = import.meta.env.VITE_BUILD_GLOBALTIX === 'true'
+
 export default [
     {
         name: 'Dashboard',
@@ -77,7 +79,7 @@ export default [
             },
             {
                 name: 'Track [Globaltix]',
-                show: true,
+                show: showGlobaltix,
                 icon: HiClipboardList,
                 route: route('fastboat.globaltix.index'),
                 active: 'fastboat.globaltix.*',
@@ -140,7 +142,7 @@ export default [
             },
             {
                 name: 'Harga [Globaltix]',
-                show: true,
+                show: showGlobaltix,
                 icon: HiCash,
                 route: route('globaltix-price-agent.index'),
                 active: 'globaltix-price-agent.*',
@@ -354,7 +356,7 @@ export default [
             },
             {
                 name: 'GlobalTix',
-                show: true,
+                show: showGlobaltix,
                 icon: HiOutlineTicket,
                 route: route('setting.globaltix'),
                 active: 'setting.globaltix',
