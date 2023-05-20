@@ -13,6 +13,7 @@ use App\Http\Controllers\Website\ProfileController as CustomerProfileController;
 use App\Http\Controllers\Website\SignUpController;
 use App\Http\Controllers\Website\TourPackageController;
 use App\Http\Middleware\GuardCustomer;
+use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\VisitorCounter;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
@@ -110,19 +111,28 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
         Route::post('/profile/logout', [CustomerProfileController::class, 'destroy'])->name('customer.logout');
     });
 
-    // Blog
-    Route::get('/page/blog', [BlogController::class, 'index'])->name('blog.index');
-    // Detail Blog
-    Route::get('page/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.post');
-    // Page
+
+    Route::get('/', fn () => redirect()->route('home.index', ['locale' => app()->getLocale()]));
+    Route::prefix('/{locale}')
+        ->whereIn('locale', ['en', 'id', 'zh'])
+        ->middleware([SetLocale::class])
+        ->group(function () {
+            // Landing Page
+            Route::get('/', [LandingController::class, 'index'])->name('home.index');
+            // Blog
+            Route::get('/page/blog', [BlogController::class, 'index'])->name('blog.index');
+            // Detail Blog
+            Route::get('page/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.post');
+            // Page
+            Route::get('/page/{page:key}', [PageController::class, 'show'])->name('page.show');
+        });
+
+    // Static Page
     Route::get('/page/gallery', [PageController::class, 'gallery'])->name('page.gallery');
     Route::get('/page/faq', [PageController::class, 'faq'])->name('page.faq');
-    Route::get('/page/{page:key}', [PageController::class, 'show'])->name('page.show');
 
-    // Landing
+    // Accept Cookie
     Route::get('/accept-cookie', [LandingController::class, 'acceptCookie'])->name('accept.cookie');
-    Route::get('/{locale?}', [LandingController::class, 'index'])->name('home.index')
-        ->whereIn('locale', ['en', 'id', 'zh']);
 
     // Sitemap
     Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');

@@ -138,4 +138,5 @@ return [
     'Next' => '下一个',
     'Create New Password' => '创建新密码',
     'Change' => '改变',
+    'Process Order Fastboat' => '流程订单快艇',
 ];

@@ -138,4 +138,5 @@ return [
     'Next' => 'Lanjut',
     'Create New Password' => 'Buat Sandi Baru',
     'Change' => 'Ubah',
+    'Process Order Fastboat' => 'Proses Order Fastboat',
 ];

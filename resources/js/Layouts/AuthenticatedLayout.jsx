@@ -1,19 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import ApplicationLogo from '@/Components/Defaults/ApplicationLogo';
-import Dropdown from '@/Components/Defaults/Dropdown';
-import { Link } from '@inertiajs/react';
-import { Breadcrumb } from 'flowbite-react';
+import React, { useState, useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import ApplicationLogo from '@/Components/Defaults/ApplicationLogo'
+import Dropdown from '@/Components/Defaults/Dropdown'
+import { Link } from '@inertiajs/react'
+import { Breadcrumb } from 'flowbite-react'
 import { HiMenu, HiChevronDown, HiHome } from 'react-icons/hi'
-import { router } from '@inertiajs/react';
-import SidebarNav from './Partials/SidebarNav';
+import { router } from '@inertiajs/react'
+import SidebarNav from './Partials/SidebarNav'
 
-export default function Authenticated({ auth, children, flash, page = '', action = '', parent = null}) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+export default function Authenticated({
+    auth,
+    children,
+    flash,
+    page = '',
+    action = '',
+    parent = null,
+}) {
+    const [showingNavigationDropdown, setShowingNavigationDropdown] =
+        useState(false)
 
     useEffect(() => {
         if (flash.message !== null) {
-            toast(flash.message.message, {type: flash.message.type})
+            toast(flash.message.message, { type: flash.message.type })
         }
     }, [flash])
 
@@ -28,7 +36,6 @@ export default function Authenticated({ auth, children, flash, page = '', action
                                     <ApplicationLogo className="block h-12 w-auto fill-current" />
                                 </Link>
                             </div>
-
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
@@ -41,15 +48,30 @@ export default function Authenticated({ auth, children, flash, page = '', action
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150 dark:bg-gray-700 dark:hover:text-gray-50 dark:text-gray-200 gap-2"
                                             >
                                                 {auth.user.name}
-                                                <HiChevronDown/>
+                                                <HiChevronDown />
                                             </button>
                                         </span>
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('home.index')} target='_blank'>Visit Site</Dropdown.Link>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
+                                        <Dropdown.Link
+                                            href={route('home.index', {
+                                                locale: 'en',
+                                            })}
+                                            target="_blank"
+                                        >
+                                            Visit Site
+                                        </Dropdown.Link>
+                                        <Dropdown.Link
+                                            href={route('profile.edit')}
+                                        >
+                                            Profile
+                                        </Dropdown.Link>
+                                        <Dropdown.Link
+                                            href={route('logout')}
+                                            method="post"
+                                            as="button"
+                                        >
                                             Log Out
                                         </Dropdown.Link>
                                     </Dropdown.Content>
@@ -59,45 +81,54 @@ export default function Authenticated({ auth, children, flash, page = '', action
 
                         <div className="-mr-2 flex items-center sm:hidden space-x-2">
                             <button
-                                onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
+                                onClick={() =>
+                                    setShowingNavigationDropdown(
+                                        (previousState) => !previousState
+                                    )
+                                }
                                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
                             >
-                                <HiMenu/>
+                                <HiMenu />
                             </button>
                         </div>
                     </div>
                 </div>
-
             </nav>
 
-            <div className='flex-1 flex flex-row'>
-                <div className={`w-fit ${showingNavigationDropdown ? 'absolute h-screen z-10' : 'md:block hidden'}`}>
-                    <SidebarNav user={auth.user}/>
+            <div className="flex-1 flex flex-row">
+                <div
+                    className={`w-fit ${
+                        showingNavigationDropdown
+                            ? 'absolute h-screen z-10'
+                            : 'md:block hidden'
+                    }`}
+                >
+                    <SidebarNav user={auth.user} />
                 </div>
-                <main className='w-full'>
+                <main className="w-full">
                     {page !== '' && (
-                        <Breadcrumb
-                            className="bg-gray-200 py-3 px-5 mb-2 dark:bg-gray-700"
-                        >
+                        <Breadcrumb className="bg-gray-200 py-3 px-5 mb-2 dark:bg-gray-700">
                             <Breadcrumb.Item
-                                onClick={() => router.visit(parent !== null ? parent : route('dashboard'))}
+                                onClick={() =>
+                                    router.visit(
+                                        parent !== null
+                                            ? parent
+                                            : route('dashboard')
+                                    )
+                                }
                                 icon={HiHome}
                             >
-                                <p className='mt-0.5'>{page}</p>
+                                <p className="mt-0.5">{page}</p>
                             </Breadcrumb.Item>
                             {action !== '' && (
-                                <Breadcrumb.Item>
-                                    {action}
-                                </Breadcrumb.Item>
+                                <Breadcrumb.Item>{action}</Breadcrumb.Item>
                             )}
                         </Breadcrumb>
                     )}
-                    <div className='py-4'>
-                        {children}
-                    </div>
+                    <div className="py-4">{children}</div>
                 </main>
             </div>
             <ToastContainer />
         </div>
-    );
+    )
 }

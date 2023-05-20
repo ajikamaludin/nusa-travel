@@ -23,13 +23,13 @@ class BlogController extends Controller
         ]);
     }
 
-    public function show(Post $post)
+    public function show(string $locale, Post $post)
     {
         Visitor::track([Post::class, $post->id]);
         $post = $post->loadCount(['visitors']);
 
         return view('blog-post', [
-            'post' => $post,
+            'post' => $post->getTranslate(),
         ]);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Services\DeeplService;
+use App\Services\GeneralService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
 
@@ -22,6 +24,7 @@ class Post extends Model
         'is_publish',
         'original_id',
         'lang',
+        'created_by'
     ];
 
     protected $appends = ['publish', 'image_url', 'publish_at', 'date_for_human'];
@@ -94,5 +97,19 @@ class Post extends Model
         return Attribute::make(
             get: fn () => Str::substr(strip_tags($this->body), 0, 100),
         );
+    }
+
+    public function getTranslate()
+    {
+        $locale = GeneralService::getLocale();
+        if ($locale != null) {
+            $page = $this->translate()->where('lang', $locale)->first();
+            if ($page == null) {
+                DeeplService::translatePost($this);
+                $page = $this->translate()->where('lang', $locale)->first();
+            }
+            return $page;
+        }
+        return $this;
     }
 }

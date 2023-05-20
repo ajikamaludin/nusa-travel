@@ -6,13 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Faq;
 use App\Models\File;
 use App\Models\Page;
+use App\Models\Visitor;
 use App\Services\GeneralService;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function show(Page $page)
+    public function show(string $locale, Page $page)
     {
+        Visitor::track([Page::class, $page->id]);
+
         return view('page', [
             'page' => $page->getTranslate()
         ]);

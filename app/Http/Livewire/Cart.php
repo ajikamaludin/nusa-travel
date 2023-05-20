@@ -6,6 +6,7 @@ use App\Mail\OrderPayment;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Services\AsyncService;
+use App\Services\GeneralService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
@@ -52,7 +53,7 @@ class Cart extends Component
 
     public function submit()
     {
-        if (! $this->isAuth) {
+        if (!$this->isAuth) {
             $this->validate();
             $order = $this->createOrder();
         } else {
@@ -109,7 +110,7 @@ class Cart extends Component
         $this->updateCart();
 
         if (count($this->carts) <= 0) {
-            redirect()->route('home.index');
+            redirect()->route('home.index', ['locale' => GeneralService::getLocale('en')]);
         }
     }
 
@@ -133,6 +134,7 @@ class Cart extends Component
                 ]);
             }
         } else {
+            dump('this');
             session(['carts' => $this->carts]);
         }
         $this->updateTotal();
@@ -144,6 +146,7 @@ class Cart extends Component
         foreach ($this->carts as $cart) {
             $this->total += ($cart['qty'] * $cart['price']);
         }
+        $this->isFastboat = $this->isFastboat();
     }
 
     public function createOrder()
@@ -180,13 +183,12 @@ class Cart extends Component
         DB::commit();
         session()->remove('carts');
 
-        // TODO: send email that order created ans has a link todo payment
-
         return $order;
     }
 
     public function isFastboat()
     {
+        dump($this->carts);
         $carts = session('carts') ?? [];
 
         if (count($carts) > 0) {
@@ -195,6 +197,7 @@ class Cart extends Component
                     return $cart;
                 }
             })->count();
+            dump($carts);
 
             if ($carts > 0) {
                 return true;

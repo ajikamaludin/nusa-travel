@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Setting;
 use App\Models\TourPackage;
 use App\Services\AsyncService;
+use App\Services\GeneralService;
 use App\Services\MidtransService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,7 @@ class OrderController extends Controller
         }
 
         if ($cart == null) {
-            return redirect()->route('home.index');
+            return redirect()->route('home.index', ['locale' => GeneralService::getLocale('en')]);
         }
 
         $carts = collect($cart)->map(function ($cart, $id) {
@@ -50,7 +51,19 @@ class OrderController extends Controller
             if ($entity instanceof FastboatTrack) {
                 $detail = $entity->detail($cart['date']);
                 $price = $entity->price;
+
+                return [
+                    'id' => $entity->id,
+                    'name' => $entity->order_detail,
+                    'detail' => $detail,
+                    'price' => $price,
+                    'qty' => $cart['qty'],
+                    'type' => $cart['type'],
+                    'date' => $cart['date'],
+                    'fastboat_cart' => '1'
+                ];
             }
+
             if ($entity instanceof CarRental) {
                 $detail = $entity->detail($cart['date']);
                 $price = $entity->price;
@@ -61,7 +74,7 @@ class OrderController extends Controller
             }
 
             if ($entity == null) {
-                return;
+                return null;
             }
 
             return [
@@ -78,7 +91,7 @@ class OrderController extends Controller
         if (in_array(null, $carts->toArray())) {
             session()->remove('carts');
 
-            return redirect()->route('home.index');
+            return redirect()->route('home.index', ['locale' => GeneralService::getLocale('en')]);
         }
 
         return view('cart', [
@@ -182,7 +195,7 @@ class OrderController extends Controller
         $carts = session()->get('carts') ?? [];
 
         if (count($carts) == 0) {
-            return redirect()->route('home.index');
+            return redirect()->route('home.index', ['locale' => GeneralService::getLocale('en')]);
         }
 
         return view('fastboat-cart');

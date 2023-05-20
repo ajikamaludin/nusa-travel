@@ -139,4 +139,5 @@ return [
     'Next' => 'Next',
     'Create New Password' => 'Create New Password',
     'Change' => 'Change',
+    'Process Order Fastboat' => 'Process Order Fastboat',
 ];

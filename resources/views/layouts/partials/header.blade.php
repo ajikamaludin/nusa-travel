@@ -31,7 +31,7 @@
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                             aria-labelledby="dropdownDefaultButton">
                             <li>
-                                <a href="{{ route('home.index') }}/id"
+                                <a href="{{ route('home.index', ['locale' => 'id']) }}"
                                     class="inline-flex w-full items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white gap-1">
                                     <img src="{{ asset('images/flag_indonesia.png') }}" class="h-3 w-4"
                                         alt="nation" />
@@ -39,14 +39,14 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('home.index') }}/en"
+                                <a href="{{ route('home.index', ['locale' => 'en']) }}"
                                     class="inline-flex w-full items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white gap-1">
                                     <img src="{{ asset('images/flag_usa.png') }}" class="h-3 w-4" alt="nation" />
                                     <p>{{ __('website.English') }}</p>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('home.index') }}/zh"
+                                <a href="{{ route('home.index', ['locale' => 'zh']) }}"
                                     class="inline-flex w-full items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white gap-1">
                                     <img src="{{ asset('images/flag_zh.svg') }}" class="h-3 w-4" alt="nation" />
                                     <p>{{ __('website.Chinese') }}</p>

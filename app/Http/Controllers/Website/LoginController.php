@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Services\GeneralService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,13 +36,13 @@ class LoginController extends Controller
 
         $isAllowed = Auth::guard('customer')->attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => Customer::ACTIVE], $request->remember);
 
-        if (! $isAllowed) {
+        if (!$isAllowed) {
             return redirect()->route('customer.login')
                 ->with('message', ['type' => 'error', 'message' => 'Credential not valid']);
         }
 
         session()->remove('carts');
 
-        return redirect()->route('home.index');
+        return redirect()->route('home.index', ['locale' => GeneralService::getLocale('en')]);
     }
 }

@@ -15,15 +15,8 @@ use Illuminate\Http\Request;
 
 class LandingController extends Controller
 {
-    public function index(Request $request, $locale = null)
+    public function index()
     {
-        if ($locale != null) {
-            app()->setLocale($locale);
-            session(['locale' => $locale]);
-
-            return redirect()->back();
-        }
-
         Visitor::track([Visitor::class, 'LANDING_PAGE']);
 
         $locale = GeneralService::getLocale();

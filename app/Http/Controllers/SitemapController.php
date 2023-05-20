@@ -17,7 +17,7 @@ class SitemapController extends Controller
             $posts = [];
 
             if ($request->page == 1) {
-                $pages = Page::whereNull('lang')->orderBy('updated_at', 'desc')->get();
+                $pages = Page::whereNull('lang')->where('title', 'not like', 'feature%')->orderBy('updated_at', 'desc')->get();
                 $blogs = Post::whereNull('lang')->orderBy('updated_at', 'desc')->limit($limit)->get();
 
                 foreach ($lang as $locale) {
@@ -27,28 +27,28 @@ class SitemapController extends Controller
                             'updated_at' => $page->updated_at->toISOString(),
                         ];
                     }
-
-                    $featurePages = [
-                        [
-                            'url' => route('fastboat', ['locale' => $locale]),
-                            'updated_at' => Page::where('key', 'fastboat')->value('updated_at')->toISOString(),
-                        ],
-                        [
-                            'url' => route('ekajaya-fastboat', ['locale' => $locale]),
-                            'updated_at' => Page::where('key', 'fastboat-ekajaya')->value('updated_at')->toISOString(),
-                        ],
-                        [
-                            'url' => route('tour-packages.index', ['locale' => $locale]),
-                            'updated_at' => Page::where('key', 'tour-package')->value('updated_at')->toISOString(),
-                        ],
-                        [
-                            'url' => route('car.index', ['locale' => $locale]),
-                            'updated_at' => Page::where('key', 'car-rental')->value('updated_at')->toISOString(),
-                        ],
-                    ];
-
-                    $posts = array_merge($posts, $featurePages);
                 }
+
+                $featurePages = [
+                    [
+                        'url' => route('fastboat'),
+                        'updated_at' => Page::where('key', 'fastboat')->value('updated_at')->toISOString(),
+                    ],
+                    [
+                        'url' => route('ekajaya-fastboat'),
+                        'updated_at' => Page::where('key', 'fastboat-ekajaya')->value('updated_at')->toISOString(),
+                    ],
+                    [
+                        'url' => route('tour-packages.index'),
+                        'updated_at' => Page::where('key', 'tour-package')->value('updated_at')->toISOString(),
+                    ],
+                    [
+                        'url' => route('car.index'),
+                        'updated_at' => Page::where('key', 'car-rental')->value('updated_at')->toISOString(),
+                    ],
+                ];
+
+                $posts = array_merge($posts, $featurePages);
 
                 foreach ($lang as $locale) {
                     foreach ($blogs as $post) {

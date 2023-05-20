@@ -43,6 +43,7 @@ class DeeplService
                 'is_publish' => $post->is_publish,
                 'original_id' => $post->id,
                 'lang' => $lang,
+                'created_by' => $post->created_by
             ]);
 
             PostTag::where('post_id', $transPost->id)->delete();
