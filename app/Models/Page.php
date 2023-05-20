@@ -39,8 +39,10 @@ class Page extends Model
                 DeeplService::translatePage($this);
                 $page = $this->translate()->where('lang', $locale)->first();
             }
+
             return $page;
         }
+
         return $this;
     }
 }

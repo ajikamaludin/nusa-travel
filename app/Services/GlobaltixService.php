@@ -36,7 +36,7 @@ class GlobaltixService
         $host = $setting->getValue('GLOBALTIX_HOST');
         $username = $setting->getValue('GLOBALTIX_USERNAME');
         $password = $setting->getValue('GLOBALTIX_PASSWORD');
-        $url = $host . '/auth/login';
+        $url = $host.'/auth/login';
 
         $response = Http::acceptJson()
             ->post($url, [
@@ -48,7 +48,7 @@ class GlobaltixService
 
         if ($response->ok()) {
             $data = $response->json('data');
-            $token = $data['token_type'] . ' ' . $data['access_token'];
+            $token = $data['token_type'].' '.$data['access_token'];
             Cache::put(self::ACCESS_TOKEN, $token, $data['expires_in']);
 
             return $token;
@@ -63,10 +63,10 @@ class GlobaltixService
 
     private static function getApiProducts($host, $accessToken = '', $page = 1)
     {
-        $key = self::class . '.products.' . $page;
-        $url = $host . '/product/list';
+        $key = self::class.'.products.'.$page;
+        $url = $host.'/product/list';
 
-        if (!Cache::has($key)) {
+        if (! Cache::has($key)) {
             $response = Http::acceptJson()
                 ->withHeaders([
                     'Accept-Version' => '1.0',
@@ -130,15 +130,15 @@ class GlobaltixService
 
     public static function getOptions($productId)
     {
-        $key = self::class . '.product/options.' . $productId;
+        $key = self::class.'.product/options.'.$productId;
 
-        if (!Cache::has($key)) {
+        if (! Cache::has($key)) {
             $setting = Setting::getInstance();
             $host = $setting->getValue('GLOBALTIX_HOST');
 
             $accessToken = self::auth();
 
-            $url = $host . '/product/options';
+            $url = $host.'/product/options';
             $response = Http::acceptJson()
                 ->withHeaders([
                     'Accept-Version' => '1.0',
@@ -176,14 +176,23 @@ class GlobaltixService
         return $options;
     }
 
-    public static function getCheckAvailability($ticketTypeId, $date, $timeslot = "00:00")
+    public static function getCheckAvailability($ticketTypeId, $date, $timeslot = '00:00')
     {
         $setting = Setting::getInstance();
         $host = $setting->getValue('GLOBALTIX_HOST');
 
+        $enabled = $setting->getValue('GLOBALTIX_ENABLE');
+        if ($enabled == 0) {
+            return [
+                'id' => null,
+                'available' => 0,
+                'total' => 0,
+            ];
+        }
+
         $accessToken = self::auth();
 
-        $url = $host . '/ticketType/checkEventAvailability';
+        $url = $host.'/ticketType/checkEventAvailability';
         $response = Http::acceptJson()
             ->withHeaders([
                 'Accept-Version' => '1.0',
@@ -237,7 +246,8 @@ class GlobaltixService
 
         if ($event['id'] == null) {
             $item->update(['item_addtional_info_json' => 'avability null when order']);
-            return null;
+
+            return;
         }
 
         foreach ($ticket->ticket_type->questions as $question) {
@@ -246,6 +256,7 @@ class GlobaltixService
                     'id' => $question->id,
                     'answer' => $order->customer->name,
                 ];
+
                 continue;
             }
             if (str($question->question)->contains('KTP')) {
@@ -253,6 +264,7 @@ class GlobaltixService
                     'id' => $question->id,
                     'answer' => $order->customer->national_id ?? ' - ',
                 ];
+
                 continue;
             }
             if (str($question->question)->contains('Nationality')) {
@@ -260,6 +272,7 @@ class GlobaltixService
                     'id' => $question->id,
                     'answer' => $order->customer->nation ?? ' - ',
                 ];
+
                 continue;
             }
             if (str($question->question)->contains('Age')) {
@@ -267,6 +280,7 @@ class GlobaltixService
                     'id' => $question->id,
                     'answer' => ' - ',
                 ];
+
                 continue;
             }
             if (str($question->question)->contains('Phone')) {
@@ -274,6 +288,7 @@ class GlobaltixService
                     'id' => $question->id,
                     'answer' => $order->customer->phone ?? ' - ',
                 ];
+
                 continue;
             }
         }
@@ -297,7 +312,7 @@ class GlobaltixService
             'newModel' => true,
         ];
 
-        $url = $host . '/transaction/create';
+        $url = $host.'/transaction/create';
         $response = Http::acceptJson()
             ->withHeaders([
                 'Accept-Version' => '1.0',
@@ -319,6 +334,5 @@ class GlobaltixService
             'globaltix_response_json' => json_encode($response->json()),
         ]);
 
-        return;
     }
 }

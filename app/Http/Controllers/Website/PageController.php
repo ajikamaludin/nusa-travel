@@ -7,7 +7,6 @@ use App\Models\Faq;
 use App\Models\File;
 use App\Models\Page;
 use App\Models\Visitor;
-use App\Services\GeneralService;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -17,7 +16,7 @@ class PageController extends Controller
         Visitor::track([Page::class, $page->id]);
 
         return view('page', [
-            'page' => $page->getTranslate()
+            'page' => $page->getTranslate(),
         ]);
     }
 
@@ -31,6 +30,7 @@ class PageController extends Controller
         }
 
         $page = Page::where('key', 'faq')->first()->getTranslate();
+
         return view('faq', [
             'faqs' => $query->orderBy('order', 'asc')->get(),
             'q' => $request->q,

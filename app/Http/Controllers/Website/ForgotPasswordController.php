@@ -21,7 +21,7 @@ class ForgotPasswordController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required|email'
+            'email' => 'required|email',
         ]);
 
         $customer = Customer::where('email', $request->email)->first();
@@ -39,19 +39,19 @@ class ForgotPasswordController extends Controller
     public function show(Customer $customer)
     {
         return view('forgot/reset-password', [
-            'customer' => $customer
+            'customer' => $customer,
         ]);
     }
 
     public function update(Request $request, Customer $customer)
     {
         $request->validate([
-            'password' => 'required|min:8|confirmed'
+            'password' => 'required|min:8|confirmed',
         ]);
 
         $customer->update([
             'password' => bcrypt($request->password),
-            'reset_token' => Str::random(254)
+            'reset_token' => Str::random(254),
         ]);
         AsyncService::async(function () use ($customer) {
             Mail::to($customer->email)->send(new CustomerResetPassword($customer));

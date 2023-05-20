@@ -62,7 +62,7 @@ class Order extends Model
 
     public static function generateCode()
     {
-        return Str::upper(Str::random(6)) . now()->format('dmY');
+        return Str::upper(Str::random(6)).now()->format('dmY');
     }
 
     protected function paymentStatusColor(): Attribute

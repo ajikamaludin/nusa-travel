@@ -36,7 +36,7 @@ class LoginController extends Controller
 
         $isAllowed = Auth::guard('customer')->attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => Customer::ACTIVE], $request->remember);
 
-        if (!$isAllowed) {
+        if (! $isAllowed) {
             return redirect()->route('customer.login')
                 ->with('message', ['type' => 'error', 'message' => 'Credential not valid']);
         }

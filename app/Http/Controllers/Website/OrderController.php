@@ -60,7 +60,7 @@ class OrderController extends Controller
                     'qty' => $cart['qty'],
                     'type' => $cart['type'],
                     'date' => $cart['date'],
-                    'fastboat_cart' => '1'
+                    'fastboat_cart' => '1',
                 ];
             }
 
@@ -74,7 +74,7 @@ class OrderController extends Controller
             }
 
             if ($entity == null) {
-                return null;
+                return;
             }
 
             return [

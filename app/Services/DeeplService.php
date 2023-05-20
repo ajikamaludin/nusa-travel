@@ -10,6 +10,7 @@ use App\Models\Setting;
 class DeeplService
 {
     const SOURCE = 'en';
+
     const TRANSTO = ['id', 'zh'];
 
     public static function translate($text, $title)
@@ -30,7 +31,7 @@ class DeeplService
         $translateds = self::translate($post->body, $post->title);
 
         foreach ($translateds as $lang => $translate) {
-            $slug =  str($translate[0])->slug() == "" ? $post->slug . '-' . $lang : str($translate[0])->slug();
+            $slug = str($translate[0])->slug() == '' ? $post->slug.'-'.$lang : str($translate[0])->slug();
             $transPost = Post::updateOrCreate([
                 'original_id' => $post->id,
                 'lang' => $lang,
@@ -43,7 +44,7 @@ class DeeplService
                 'is_publish' => $post->is_publish,
                 'original_id' => $post->id,
                 'lang' => $lang,
-                'created_by' => $post->created_by
+                'created_by' => $post->created_by,
             ]);
 
             PostTag::where('post_id', $transPost->id)->delete();
@@ -65,9 +66,9 @@ class DeeplService
 
             Page::updateOrCreate([
                 'lang' => $lang,
-                'original_id' => $page->id
+                'original_id' => $page->id,
             ], [
-                'key' => $lang . '/' . $page->key,
+                'key' => $lang.'/'.$page->key,
                 'title' => $page->title,
                 'body' => $result->text,
                 'meta_tag' => $page->meta_tag,

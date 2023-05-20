@@ -3,12 +3,10 @@
 namespace App\Http\Middleware;
 
 use App\Models\Visitor;
-use App\Services\GeneralService;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
-
 use function React\Async\async;
 use React\EventLoop\Loop;
 

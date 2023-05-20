@@ -18,7 +18,7 @@ return new class extends Migration
         });
 
         $check = Permission::where('name', 'view-price-agent')->exists();
-        if (!$check && Permission::count() != 0) {
+        if (! $check && Permission::count() != 0) {
             $permissions = [
                 ['id' => Str::uuid(), 'label' => 'Create Agent', 'name' => 'create-agent'],
                 ['id' => Str::uuid(), 'label' => 'Update Agent', 'name' => 'update-agent'],

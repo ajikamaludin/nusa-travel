@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-
 class GeneralService
 {
     public static function getLocale()

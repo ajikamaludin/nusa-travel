@@ -16,7 +16,6 @@ use App\Http\Middleware\GuardCustomer;
 use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\VisitorCounter;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,7 +61,7 @@ Route::get('/optimize', function () {
 
     return response()->json([
         'message' => 'optimize',
-        'output' => Artisan::output()
+        'output' => Artisan::output(),
     ]);
 });
 
@@ -91,7 +90,6 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     Route::get('/forgot-password/{customer:reset_token}', [ForgotPasswordController::class, 'show'])->name('customer.forgot-password.show');
     Route::post('/forgot-password/{customer:reset_token}', [ForgotPasswordController::class, 'update'])->name('customer.forgot-password.update');
 
-
     // Login / Register
     Route::middleware('guest:customer')->group(function () {
         Route::get('/login', [LoginController::class, 'index'])->name('customer.login');
@@ -110,7 +108,6 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
         Route::post('/profile/p', [CustomerProfileController::class, 'password'])->name('customer.password');
         Route::post('/profile/logout', [CustomerProfileController::class, 'destroy'])->name('customer.logout');
     });
-
 
     Route::get('/', fn () => redirect()->route('home.index', ['locale' => app()->getLocale()]));
     Route::prefix('/{locale}')
@@ -138,5 +135,5 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 });
 
-require __DIR__ . '/admin.php';
-require __DIR__ . '/auth.php';
+require __DIR__.'/admin.php';
+require __DIR__.'/auth.php';

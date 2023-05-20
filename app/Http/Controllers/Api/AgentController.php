@@ -58,6 +58,7 @@ class AgentController extends Controller
                 'fastboat_tracks.created_by',
                 'fastboats.capacity as capacity',
                 'fastboat_tracks.data_source',
+                'fastboat_tracks.attribute_json',
             );
 
         if ($request->from != '' && $request->to != '' && $request->date != '') {
@@ -83,7 +84,6 @@ class AgentController extends Controller
                 $join->on('fastboat_track_order_capacities.fastboat_source_id', '=', 'fastboat_tracks.fastboat_source_id');
                 $join->on('fastboat_track_order_capacities.fastboat_destination_id', '=', 'fastboat_tracks.fastboat_destination_id');
                 $join->where('fastboat_track_order_capacities.date', '=', $request->date);
-
             });
 
             $query->select(
@@ -101,7 +101,6 @@ class AgentController extends Controller
                 'fastboat_tracks.data_source',
                 'fastboat_tracks.attribute_json',
             );
-
         }
 
         return new FastboatTracksCollection($query->paginate());

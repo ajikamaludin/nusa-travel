@@ -24,6 +24,7 @@ class CarRentalController extends Controller
         }
 
         $page = Page::where('key', 'car-rental')->first()->getTranslate();
+
         return view('car', [
             'cars' => $query->paginate(),
             'person' => $request->person,

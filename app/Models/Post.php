@@ -24,7 +24,7 @@ class Post extends Model
         'is_publish',
         'original_id',
         'lang',
-        'created_by'
+        'created_by',
     ];
 
     protected $appends = ['publish', 'image_url', 'publish_at', 'date_for_human'];
@@ -108,8 +108,10 @@ class Post extends Model
                 DeeplService::translatePost($this);
                 $page = $this->translate()->where('lang', $locale)->first();
             }
+
             return $page;
         }
+
         return $this;
     }
 }

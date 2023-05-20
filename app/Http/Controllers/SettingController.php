@@ -187,7 +187,7 @@ class SettingController extends Controller
             'globaltix_enable' => 'required|in:0,1',
             'globaltix_password' => 'required|string',
             'globaltix_username' => 'required|string',
-            'logo' => 'nullable|image'
+            'logo' => 'nullable|image',
         ]);
 
         DB::beginTransaction();
