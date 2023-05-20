@@ -11,58 +11,62 @@ class SitemapController extends Controller
     public function index(Request $request)
     {
         $limit = 20;
+        $lang = ['en', 'id', 'zh'];
+
         if ($request->page != '') {
             $posts = [];
 
             if ($request->page == 1) {
-                $pages = Page::orderBy('updated_at', 'desc')->get();
-                foreach ($pages as $page) {
-                    $posts[] = [
-                        'url' => route('page.show', $page),
-                        'updated_at' => $page->updated_at->toISOString(),
+                $pages = Page::whereNull('lang')->orderBy('updated_at', 'desc')->get();
+                $blogs = Post::whereNull('lang')->orderBy('updated_at', 'desc')->limit($limit)->get();
+
+                foreach ($lang as $locale) {
+                    foreach ($pages as $page) {
+                        $posts[] = [
+                            'url' => route('page.show', ['locale' => $locale, 'page' => $page]),
+                            'updated_at' => $page->updated_at->toISOString(),
+                        ];
+                    }
+
+                    $featurePages = [
+                        [
+                            'url' => route('fastboat', ['locale' => $locale]),
+                            'updated_at' => Page::where('key', 'fastboat')->value('updated_at')->toISOString(),
+                        ],
+                        [
+                            'url' => route('ekajaya-fastboat', ['locale' => $locale]),
+                            'updated_at' => Page::where('key', 'fastboat-ekajaya')->value('updated_at')->toISOString(),
+                        ],
+                        [
+                            'url' => route('tour-packages.index', ['locale' => $locale]),
+                            'updated_at' => Page::where('key', 'tour-package')->value('updated_at')->toISOString(),
+                        ],
+                        [
+                            'url' => route('car.index', ['locale' => $locale]),
+                            'updated_at' => Page::where('key', 'car-rental')->value('updated_at')->toISOString(),
+                        ],
                     ];
+
+                    $posts = array_merge($posts, $featurePages);
                 }
 
-                if (count($posts) < $limit) {
-                    $pages = Post::orderBy('updated_at', 'desc')->limit($limit - count($posts))->get();
-
-                    foreach ($pages as $post) {
+                foreach ($lang as $locale) {
+                    foreach ($blogs as $post) {
                         $posts[] = [
-                            'url' => route('blog.post', $post),
+                            'url' => route('blog.post', ['locale' => $locale, 'post' => $post]),
                             'updated_at' => $post->updated_at->toISOString(),
                         ];
                     }
                 }
-
-                $featurePages = [
-                    [
-                        'url' => route('fastboat'),
-                        'updated_at' => Page::where('key', 'fastboat')->value('updated_at')->toISOString(),
-                    ],
-                    [
-                        'url' => route('ekajaya-fastboat'),
-                        'updated_at' => Page::where('key', 'fastboat-ekajaya')->value('updated_at')->toISOString(),
-                    ],
-                    [
-                        'url' => route('tour-packages.index'),
-                        'updated_at' => Page::where('key', 'tour-package')->value('updated_at')->toISOString(),
-                    ],
-                    [
-                        'url' => route('car.index'),
-                        'updated_at' => Page::where('key', 'car-rental')->value('updated_at')->toISOString(),
-                    ],
-                ];
-
-                $posts = array_merge($posts, $featurePages);
             } else {
-                $pages = Post::orderBy('updated_at', 'desc')
+                $posts = Post::whereNull('lang')->orderBy('updated_at', 'desc')
                     ->offset($request->page * $limit) //4
                     ->limit($limit) //1
                     ->get();
 
-                foreach ($pages as $post) {
+                foreach ($posts as $post) {
                     $posts[] = [
-                        'url' => route('blog.post', $post),
+                        'url' => route('blog.post', ['locale' => 'en', 'post' => $post]),
                         'updated_at' => $post->updated_at->toISOString(),
                     ];
                 }
@@ -75,14 +79,18 @@ class SitemapController extends Controller
                 ->header('Content-Type', 'application/atom+xml');
         }
 
-        $page = Page::count(); // 5
-        $post = Post::count(); // 4
-        $data = $post / $limit;
-        $data = floor($data) <= 0 ? 1 : floor($data);
+        $page = Page::whereNull('lang')->count(); // 13
+        $post = Post::whereNull('lang')->count(); // 4
+        $data = ($post + $page) / $limit;
+        $total = $data;
+        $data = ceil($data) <= 0 ? 1 : ceil($data);
 
         return response()
             ->view('sitemap/index', [
                 'pages' => range(1, $data),
+                'total' => $total,
+                'post' => $post,
+                'page' => $page,
             ], 200)
             ->header('Content-Type', 'application/atom+xml');
     }

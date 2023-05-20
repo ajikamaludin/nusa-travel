@@ -42,6 +42,8 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user && echo "$user:$user" 
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
+RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+
 # Set working directory
 WORKDIR /var/www
 

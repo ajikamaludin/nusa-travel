@@ -1,7 +1,14 @@
 # TODO
 
--   forgot password [DONE]
--   logo bisa ganti untuk halaman admin dengan custom build [DONE]
+-   CARTNYA DIFILTER UNTUK NON-FASTBOAT JANGAN CAMPUR BUG [TODO]
+-   NUSA TRACK (MAPPING) [TODO]
+-   BENERIN SITEMAP [DONE]
+-   LANG DI URL [TODO]
+
+-   NAMBAH KE INTEGRASI PAYMENT DENGAN DOKU
+-   NAMBAH API UNTUK TOUR PACKAGE dan CAR RENTAL (NASTED AND MAPPING)
+-   DELETE CUSTOMER ACCOUNT
+-   NAMbAH KE INTEGRASI PAYMENT DENGAN PAYPAL
 -   make thumbnail on upload [PENDING]
 -   di data api karena capacity hanya masuk kepal maka harus diubah ke order rcapacity [bug] [PENDING]
 
