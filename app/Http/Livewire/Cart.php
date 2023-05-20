@@ -134,7 +134,6 @@ class Cart extends Component
                 ]);
             }
         } else {
-            dump('this');
             session(['carts' => $this->carts]);
         }
         $this->updateTotal();
@@ -188,7 +187,6 @@ class Cart extends Component
 
     public function isFastboat()
     {
-        dump($this->carts);
         $carts = session('carts') ?? [];
 
         if (count($carts) > 0) {
@@ -197,7 +195,6 @@ class Cart extends Component
                     return $cart;
                 }
             })->count();
-            dump($carts);
 
             if ($carts > 0) {
                 return true;
