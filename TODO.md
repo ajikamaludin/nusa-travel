@@ -1,6 +1,6 @@
 # TODO
 
--   NUSA TRACK (MAPPING) [TODO] -> cara mapping adalah ekajaya controller, jika track sudah ada tidak boleh insert double, harga adalah yang sudah di set / insert awal, untuk cek mana yang sudah di custom user atau belum bisa add json field di fastboat_tracks.attribute_json
+-   NUSA TRACK (MAPPING) [DONE]
 -   BENERIN SITEMAP [DONE]
 -   LANG DI URL [DONE]
 -   CARTNYA DIFILTER UNTUK NON-FASTBOAT JANGAN CAMPUR BUG [DONE]
