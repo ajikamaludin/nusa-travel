@@ -28,9 +28,9 @@ class EkajayaService
         $host = $setting->getValue('EKAJAYA_HOST');
         $apikey = $setting->getValue('EKAJAYA_APIKEY');
 
-        $key = $ways.'|'.$source.'_'.$destination.':'.$date;
+        $key = $ways . '|' . $source . '_' . $destination . ':' . $date;
 
-        $check = ! Cache::has($key);
+        $check = !Cache::has($key);
         if (app()->isProduction() == false) {
             $check = true;
         }
@@ -43,7 +43,7 @@ class EkajayaService
             $response = Http::acceptJson()
                 ->withHeaders([
                     'authorization' => $apikey,
-                ])->get($host.'/api/tracks', [
+                ])->get($host . '/api/tracks', [
                     'from' => $source,
                     'to' => $destination,
                     'date' => $date,
@@ -101,7 +101,7 @@ class EkajayaService
                 if ($group == null) {
                     $group = FastboatTrackGroup::create([
                         'fastboat_id' => $fastboat->id,
-                        'name' => $track['from'].' - '.$track['to'],
+                        'name' => $track['from'] . ' - ' . $track['to'],
                         'data_source' => EkajayaService::class,
                     ]);
                 } else {
@@ -133,7 +133,7 @@ class EkajayaService
                     $fastboatTrack->update([
                         'arrival_time' => $track['arrival_time'],
                         'departure_time' => $track['departure_time'],
-                        'price' => $track['price'],
+                        'price' => $track['price'], // TODO: harga tidak perlu di update
                         'fastboat_source_id' => $source->id,
                         'fastboat_destination_id' => $destination->id,
                         'is_publish' => 1,
@@ -159,7 +159,7 @@ class EkajayaService
 
                 if ($s != null && $d != null) {
                     $groups = FastboatTrackGroup::where([
-                        ['name', '=', $s->name.' - '.$d->name],
+                        ['name', '=', $s->name . ' - ' . $d->name],
                         ['data_source', '=', EkajayaService::class],
                     ])->get();
 
@@ -210,7 +210,7 @@ class EkajayaService
         $response = Http::acceptJson()
             ->withHeaders([
                 'authorization' => $apikey,
-            ])->post($host.'/api/order', [
+            ])->post($host . '/api/order', [
                 'order' => [
                     'date' => $item->date,
                     'qty' => $item->quantity,
