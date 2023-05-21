@@ -34,9 +34,9 @@ Process to payment
 
 @component('mail::subcopy')
     By clicking the Payment button. you agree to the 
-    <a href="{{ route('page.show', ['page' => 'term-of-service']) }}" target="_blank" class="text-blue-500">Terms and Conditions </a>
+    <a href="{{ route('page.show', ['locale'=> 'en', 'page' => 'term-of-service']) }}" target="_blank" class="text-blue-500">Terms and Conditions </a>
     and 
-    <a href="{{ route('page.show', ['page' => 'privacy-policy']) }}" target="_blank" class="text-blue-500">Privacy and Policy</a>
+    <a href="{{ route('page.show', ['locale'=> 'en', 'page' => 'privacy-policy']) }}" target="_blank" class="text-blue-500">Privacy and Policy</a>
 @endcomponent
 Thanks,<br>
 {{ config('app.name') }}

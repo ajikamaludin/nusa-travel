@@ -62,9 +62,7 @@ class AgentController extends Controller
             );
 
         if ($request->from != '' && $request->to != '' && $request->date != '') {
-            AsyncService::async(function () use ($request) {
-                EkajayaService::search($request->from, $request->to, $request->date, 1);
-            });
+            EkajayaService::search($request->from, $request->to, $request->date, 1);
 
             $query->whereHas('source', function ($query) use ($request) {
                 $query->where('name', '=', $request->from);
@@ -158,7 +156,7 @@ class AgentController extends Controller
         $item = $order->items()->create([
             'entity_order' => FastboatTrack::class,
             'entity_id' => $track->id,
-            'description' => $track->source->name.' - '.$track->destination->name.' | '.$request->order['date'],
+            'description' => $track->source->name . ' - ' . $track->destination->name . ' | ' . $request->order['date'],
             'amount' => $request->order['price'],
             'quantity' => $request->order['qty'],
             'date' => $request->order['date'],

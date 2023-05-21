@@ -53,7 +53,7 @@ class Cart extends Component
 
     public function submit()
     {
-        if (! $this->isAuth) {
+        if (!$this->isAuth) {
             $this->validate();
             $order = $this->createOrder();
         } else {

@@ -423,9 +423,9 @@
                 </div>
                 <div class="px-4 text-sm text-gray-400">
                     {{ __('website.By clicking the Payment button. you agree to the')}} 
-                    <a href="{{ route('page.show', ['page' => 'term-of-service']) }}" target="_blank" class="text-blue-500">{{ __('website.Terms and Conditions')}} </a>
+                    <a href="{{ route('page.show', ['locale'=> 'en', 'page' => 'term-of-service']) }}" target="_blank" class="text-blue-500">{{ __('website.Terms and Conditions')}} </a>
                     {{ __('website.and')}} 
-                    <a href="{{ route('page.show', ['page' => 'privacy-policy']) }}" target="_blank" class="text-blue-500">{{ __('website.Privacy and Policy')}}</a>
+                    <a href="{{ route('page.show', ['locale'=> 'en', 'page' => 'privacy-policy']) }}" target="_blank" class="text-blue-500">{{ __('website.Privacy and Policy')}}</a>
                 </div>
             @endif
 

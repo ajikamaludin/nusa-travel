@@ -25,9 +25,9 @@ This mail is valid tickets of your order with the following details:
 
 @component('mail::subcopy')
     Any order with this email prove that you accepted and agree to the 
-    <a href="{{ route('page.show', ['page' => 'term-of-service']) }}" target="_blank" class="text-blue-500">Terms and Conditions </a>
+    <a href="{{ route('page.show', ['locale'=> 'en', 'page' => 'term-of-service']) }}" target="_blank" class="text-blue-500">Terms and Conditions </a>
     and 
-    <a href="{{ route('page.show', ['page' => 'privacy-policy']) }}" target="_blank" class="text-blue-500">Privacy and Policy</a>
+    <a href="{{ route('page.show', ['locale'=> 'en', 'page' => 'privacy-policy']) }}" target="_blank" class="text-blue-500">Privacy and Policy</a>
 @endcomponent
 Thanks,<br>
 {{ config('app.name') }}

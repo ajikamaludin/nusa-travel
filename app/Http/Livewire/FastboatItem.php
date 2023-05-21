@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\FastboatTrack;
+use App\Services\EkajayaService;
 use Livewire\Component;
 
 class FastboatItem extends Component
@@ -25,10 +26,15 @@ class FastboatItem extends Component
 
     public $capacity;
 
+    public $showCapacity = true;
+
     public function booted()
     {
         $this->avalaible = $this->track->getCapacity($this->date);
         $this->capacity = $this->track->group?->fastboat->capacity ?? $this->track->total;
+        if ($this->track->data_source == EkajayaService::class) {
+            $this->showCapacity = false;
+        }
     }
 
     public function render()

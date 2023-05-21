@@ -13,7 +13,9 @@
                 {{-- <p class="text-xs text-gray-400">{{ $track->group->fastboat->number }}</p> --}}
                 <p class="text-xs text-gray-400">
                     {{ $track->data_source_display }}
+                    @if($showCapacity)
                     {{ __('website.seats') }}: {{ $capacity }}
+                    @endif
                 </p>
             </div>
         </div>

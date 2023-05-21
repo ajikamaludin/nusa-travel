@@ -150,6 +150,13 @@ class SettingController extends Controller
             'ekajaya_apikey.unique' => 'cant use key as same as local system',
         ]);
 
+        // Check 
+        $check = EkajayaService::check($request->ekajaya_host);
+        if (!$check) {
+            return redirect()->route('setting.ekajaya')
+                ->with('message', ['type' => 'error', 'message' => 'Not valid API Integration HOST']);
+        }
+
         DB::beginTransaction();
         foreach ($request->input() as $key => $value) {
             Setting::where('key', $key)->update(['value' => $value]);

@@ -4,11 +4,11 @@ namespace App\Services;
 
 class GeneralService
 {
-    public static function getLocale()
+    public static function getLocale($default = null)
     {
         $locale = session()->get('locale');
         if (in_array($locale, ['en', null, ''])) {
-            $locale = null;
+            $locale = $default;
         }
 
         return $locale;
