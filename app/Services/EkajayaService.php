@@ -30,7 +30,7 @@ class EkajayaService
         return true;
     }
 
-    public function tracks()
+    public static function tracks()
     {
         $setting = Setting::getInstance();
         $enable = $setting->getValue('EKAJAYA_ENABLE');
@@ -65,14 +65,15 @@ class EkajayaService
             Log::info($key, [$tracks]);
 
             // if found result than record/upsert to db: tracks, capacities
-            $places = [];
             foreach ($tracks as $track) {
-                $places[] = self::handleUpdateTrack($track);
+                self::handleUpdateTrack($track);
             }
 
             // if has been in database but deleted in api
-            foreach ($places as $place) {
-                self::removeDiscrepancy($place['source'], $place['destination'], $tracks);
+            $dbcheck = FastboatTrack::where('data_source', EkajayaService::class);
+            if (count($tracks) != $dbcheck->count()) {
+                $excludeIds = collect($tracks)->pluck('id')->toArray();
+                $dbcheck->whereNotIn('id', $excludeIds)->delete();
             }
 
             // if no response check db for recorded placement
@@ -136,6 +137,13 @@ class EkajayaService
 
             // if no response check db for recorded placement
             if (count($tracks) == 0) {
+                if (count($places) == 0) {
+                    // no response at all
+                    $source = FastboatPlace::where('name', $source)->where('data_source', EkajayaService::class)->first();
+                    $destination = FastboatPlace::where('name', $destination)->where('data_source', EkajayaService::class)->first();
+                    self::clearSpecific($source, $destination);
+                }
+                // spesific same place diff items
                 foreach ($places as $place) {
                     self::clearSpecific($place['source'], $place['destination']);
                 }

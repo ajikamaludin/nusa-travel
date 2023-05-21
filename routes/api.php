@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\CarRentalController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\EkajayaController;
 use App\Http\Controllers\Api\FastboatController;
 use App\Http\Controllers\Api\FastboatPlaceController;
 use App\Http\Controllers\Api\FastboatTrackController;
@@ -45,6 +46,9 @@ Route::get('/customers', [CustomerController::class, 'index'])->name('api.custom
 Route::get('/globaltix/tracks', [GlobaltixController::class, 'tracks'])->name('api.globaltix.track');
 Route::get('/globaltix/products', [GlobaltixController::class, 'products'])->name('api.globaltix.product');
 Route::get('/globaltix/options', [GlobaltixController::class, 'options'])->name('api.globaltix.option');
+
+// ekajaya
+Route::get('/ekajaya/tracks', [EkajayaController::class, 'tracks'])->name('api.ekajaya.track');
 
 // for payment
 Route::put('/carts/process-payment/{order}', [OrderController::class, 'payment_update'])->name('api.order.update');

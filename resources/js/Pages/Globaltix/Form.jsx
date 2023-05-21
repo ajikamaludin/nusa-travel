@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { isEmpty } from 'lodash'
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'

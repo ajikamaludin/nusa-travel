@@ -201,7 +201,9 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
 
         // Ekajaya
         Route::get('/ekajaya-fastboat', [EkajayaController::class, 'index'])->name('fastboat.ekajaya.index');
+        Route::get('/ekajaya-fastboat/create', [EkajayaController::class, 'create'])->name('fastboat.ekajaya.create');
         Route::post('/ekajaya-fastboat', [EkajayaController::class, 'store'])->name('fastboat.ekajaya.store');
+        Route::get('/ekajaya-fastboat/{track}', [EkajayaController::class, 'edit'])->name('fastboat.ekajaya.edit');
         Route::post('/ekajaya-fastboat/{track}', [EkajayaController::class, 'update'])->name('fastboat.ekajaya.update');
         Route::delete('/ekajaya-fastboat/{track}', [EkajayaController::class, 'destroy'])->name('fastboat.ekajaya.destroy');
 

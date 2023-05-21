@@ -81,9 +81,9 @@ export default [
                 name: 'Track [API]',
                 show: true,
                 icon: HiClipboardList,
-                route: route('fastboat.track.index'),
-                active: 'fastboat.track.*',
-                permission: 'view-fastboat-track',
+                route: route('fastboat.ekajaya.index'),
+                active: 'fastboat.ekajaya.*',
+                permission: 'view-ekajaya-to-track',
             },
             {
                 name: 'Track [Globaltix]',

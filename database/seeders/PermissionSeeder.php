@@ -127,6 +127,11 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'Update Globaltix to Track', 'name' => 'update-globaltix-to-track'],
             ['id' => Str::uuid(), 'label' => 'View Globaltix to Track', 'name' => 'view-globaltix-to-track'],
             ['id' => Str::uuid(), 'label' => 'Delete Globaltix to Track', 'name' => 'delete-globaltix-to-track'],
+
+            ['id' => Str::uuid(), 'label' => 'Create API Integration Track', 'name' => 'create-ekajaya-to-track'],
+            ['id' => Str::uuid(), 'label' => 'Update API Integration Track', 'name' => 'update-ekajaya-to-track'],
+            ['id' => Str::uuid(), 'label' => 'View API Integration Track', 'name' => 'view-ekajaya-to-track'],
+            ['id' => Str::uuid(), 'label' => 'Delete API Integration Track', 'name' => 'delete-ekajaya-to-track'],
         ];
 
         Permission::insert($permissions);

@@ -31,6 +31,7 @@ class FastboatTrack extends Model
 
     protected $appends = [
         'alternative_name',
+        'time_text'
     ];
 
     public function group()
@@ -126,6 +127,15 @@ class FastboatTrack extends Model
 
                 return $this->group?->fastboat->name ?? '';
             },
+        );
+    }
+
+    protected function timeText(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->arrival_time . ' - ' . $this->departure_time;
+            }
         );
     }
 
