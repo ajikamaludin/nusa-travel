@@ -78,6 +78,14 @@ export default [
                 permission: 'view-fastboat-track',
             },
             {
+                name: 'Track [API]',
+                show: true,
+                icon: HiClipboardList,
+                route: route('fastboat.track.index'),
+                active: 'fastboat.track.*',
+                permission: 'view-fastboat-track',
+            },
+            {
                 name: 'Track [Globaltix]',
                 show: showGlobaltix,
                 icon: HiClipboardList,
@@ -347,7 +355,7 @@ export default [
                 permission: 'view-setting',
             },
             {
-                name: 'Nusa Integration',
+                name: 'API Integration',
                 show: true,
                 icon: HiCog,
                 route: route('setting.ekajaya'),

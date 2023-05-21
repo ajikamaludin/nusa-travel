@@ -30,7 +30,7 @@ class EkajayaService
         return true;
     }
 
-    public function getTracks()
+    public function tracks()
     {
         $setting = Setting::getInstance();
         $enable = $setting->getValue('EKAJAYA_ENABLE');
@@ -65,126 +65,19 @@ class EkajayaService
             Log::info($key, [$tracks]);
 
             // if found result than record/upsert to db: tracks, capacities
-            DB::beginTransaction();
+            $places = [];
             foreach ($tracks as $track) {
-                $source = FastboatPlace::withTrashed()->where('id', $track['from_id'])->first();
-                if ($source == null) {
-                    $source = FastboatPlace::create([
-                        'id' => $track['from_id'],
-                        'name' => $track['from'],
-                        'data_source' => EkajayaService::class,
-                    ]);
-                } else {
-                    $source->update([
-                        'name' => $track['from'],
-                        'deleted_at' => null,
-                    ]);
-                }
+                $places[] = self::handleUpdateTrack($track);
+            }
 
-                $destination = FastboatPlace::withTrashed()->where('id', $track['to_id'])->first();
-                if ($destination == null) {
-                    $destination = FastboatPlace::create([
-                        'id' => $track['to_id'],
-                        'name' => $track['to'],
-                        'data_source' => EkajayaService::class,
-                    ]);
-                } else {
-                    $destination->update(['name' => $track['to']]);
-                }
-
-                $fastboat = Fastboat::withTrashed()->where('id', $track['fastboat_id'])->first();
-                if ($fastboat == null) {
-                    $fastboat = Fastboat::create([
-                        'id' => $track['fastboat_id'],
-                        'name' => $track['fastboat'],
-                        'capacity' => $track['capacity'],
-                        'data_source' => EkajayaService::class,
-                    ]);
-                } else {
-                    $fastboat->update([
-                        'name' => $track['fastboat'],
-                        'capacity' => $track['capacity'],
-                        'deleted_at' => null,
-                    ]);
-                }
-
-                $group = FastboatTrackGroup::withTrashed()->where('fastboat_id', $fastboat->id)->first();
-                if ($group == null) {
-                    $group = FastboatTrackGroup::create([
-                        'fastboat_id' => $fastboat->id,
-                        'name' => $track['from'] . ' - ' . $track['to'],
-                        'data_source' => EkajayaService::class,
-                    ]);
-                } else {
-                    $group->update(['deleted_at' => null]);
-                }
-
-                FastboatTrackOrderCapacity::where([
-                    ['fastboat_track_group_id', '=', $group->id],
-                    ['fastboat_source_id', '=', $source->id],
-                    ['fastboat_destination_id', '=', $destination->id],
-                ])->delete();
-
-                $fastboatTrack = $group->tracks()->withTrashed()->where([
-                    'id' => $track['id'],
-                ])->first();
-
-                if ($fastboatTrack == null) {
-                    $group->tracks()->create([
-                        'id' => $track['id'],
-                        'arrival_time' => $track['arrival_time'],
-                        'departure_time' => $track['departure_time'],
-                        'price' => $track['price'],
-                        'fastboat_source_id' => $source->id,
-                        'fastboat_destination_id' => $destination->id,
-                        'is_publish' => 1,
-                        'data_source' => EkajayaService::class,
-                    ]);
-                } else {
-                    $fastboatTrack->update([
-                        'arrival_time' => $track['arrival_time'],
-                        'departure_time' => $track['departure_time'],
-                        'price' => $track['price'], // TODO: harga tidak perlu di update
-                        'fastboat_source_id' => $source->id,
-                        'fastboat_destination_id' => $destination->id,
-                        'is_publish' => 1,
-                        'data_source' => EkajayaService::class,
-                        'deleted_at' => null,
-                    ]);
-                }
+            // if has been in database but deleted in api
+            foreach ($places as $place) {
+                self::removeDiscrepancy($place['source'], $place['destination'], $tracks);
             }
 
             // if no response check db for recorded placement
             if (count($tracks) == 0) {
-                Log::info('tracks api clearing');
-                // if no result fount than check db , if any remove record
-                $s = FastboatPlace::where([
-                    ['name', '=', $source],
-                    ['data_source', '=', EkajayaService::class],
-                ])->first();
-
-                $d = FastboatPlace::where([
-                    ['name', '=', $destination],
-                    ['data_source', '=', EkajayaService::class],
-                ])->first();
-
-                if ($s != null && $d != null) {
-                    $groups = FastboatTrackGroup::where([
-                        ['name', '=', $s->name . ' - ' . $d->name],
-                        ['data_source', '=', EkajayaService::class],
-                    ])->get();
-
-                    foreach ($groups as $group) {
-                        $group->tracks()->where([
-                            ['fastboat_source_id', '=', $s->id],
-                            ['fastboat_destination_id', '=', $d->id],
-                        ])->delete();
-
-                        FastboatTrackOrderCapacity::where([
-                            ['fastboat_track_group_id', '=', $group->id],
-                        ])->delete();
-                    }
-                }
+                self::clear();
             }
 
             DB::commit();
@@ -230,137 +123,21 @@ class EkajayaService
 
             // if found result than record/upsert to db: tracks, capacities
             DB::beginTransaction();
+
+            $places = [];
             foreach ($tracks as $track) {
-                $source = FastboatPlace::withTrashed()->where('id', $track['from_id'])->first();
-                if ($source == null) {
-                    $source = FastboatPlace::create([
-                        'id' => $track['from_id'],
-                        'name' => $track['from'],
-                        'data_source' => EkajayaService::class,
-                    ]);
-                } else {
-                    $source->update([
-                        'name' => $track['from'],
-                        'deleted_at' => null,
-                    ]);
-                }
-
-                $destination = FastboatPlace::withTrashed()->where('id', $track['to_id'])->first();
-                if ($destination == null) {
-                    $destination = FastboatPlace::create([
-                        'id' => $track['to_id'],
-                        'name' => $track['to'],
-                        'data_source' => EkajayaService::class,
-                    ]);
-                } else {
-                    $destination->update(['name' => $track['to']]);
-                }
-
-                $fastboat = Fastboat::withTrashed()->where('id', $track['fastboat_id'])->first();
-                if ($track['source'] == GlobaltixService::class) {
-                    $fastboat = Fastboat::withTrashed()->where('name', $track['fastboat'])->first();
-                    $track['fastboat_id'] = Str::uuid();
-                }
-                if ($fastboat == null) {
-                    $fastboat = Fastboat::create([
-                        'id' => $track['fastboat_id'],
-                        'name' => $track['fastboat'],
-                        'capacity' => $track['capacity'],
-                        'data_source' => EkajayaService::class,
-                    ]);
-                } else {
-                    $fastboat->update([
-                        'name' => $track['fastboat'],
-                        'capacity' => $track['capacity'],
-                        'deleted_at' => null,
-                    ]);
-                }
-
-                $group = FastboatTrackGroup::withTrashed()->where('fastboat_id', $fastboat->id)->first();
-                if ($group == null) {
-                    $group = FastboatTrackGroup::create([
-                        'fastboat_id' => $fastboat->id,
-                        'name' => $track['from'] . ' - ' . $track['to'],
-                        'data_source' => EkajayaService::class,
-                    ]);
-                } else {
-                    $group->update(['deleted_at' => null]);
-                }
-
-                FastboatTrackOrderCapacity::where([
-                    ['fastboat_track_group_id', '=', $group->id],
-                    ['fastboat_source_id', '=', $source->id],
-                    ['fastboat_destination_id', '=', $destination->id],
-                ])->delete();
-
-                $fastboatTrack = $group->tracks()->withTrashed()->where([
-                    'id' => $track['id'],
-                ])->first();
-
-                if ($fastboatTrack == null) {
-                    $group->tracks()->create([
-                        'id' => $track['id'],
-                        'arrival_time' => $track['arrival_time'],
-                        'departure_time' => $track['departure_time'],
-                        'price' => $track['price'],
-                        'fastboat_source_id' => $source->id,
-                        'fastboat_destination_id' => $destination->id,
-                        'is_publish' => 1,
-                        'data_source' => EkajayaService::class,
-                    ]);
-                } else {
-                    $fastboatTrack->update([
-                        'arrival_time' => $track['arrival_time'],
-                        'departure_time' => $track['departure_time'],
-                        'price' => $track['price'], // TODO: harga tidak perlu di update
-                        'fastboat_source_id' => $source->id,
-                        'fastboat_destination_id' => $destination->id,
-                        'is_publish' => 1,
-                        'data_source' => EkajayaService::class,
-                        'deleted_at' => null,
-                    ]);
-                }
+                $places[] = self::handleUpdateTrack($track);
             }
 
             // if has been in database but deleted in api
-            $dbcheck = FastboatTrack::where('fastboat_source_id', $source->id)
-                ->where('fastboat_destination_id', $destination->id)
-                ->where('data_source', EkajayaService::class);
-            if (count($tracks) != $dbcheck->count()) {
-                $excludeIds = collect($tracks)->pluck('id')->toArray();
-                $dbcheck->whereNotIn('id', $excludeIds)->delete();
+            foreach ($places as $place) {
+                self::removeDiscrepancy($place['source'], $place['destination'], $tracks);
             }
 
             // if no response check db for recorded placement
             if (count($tracks) == 0) {
-                Log::info('tracks api clearing');
-                // if no result fount than check db , if any remove record
-                $s = FastboatPlace::where([
-                    ['name', '=', $source],
-                    ['data_source', '=', EkajayaService::class],
-                ])->first();
-
-                $d = FastboatPlace::where([
-                    ['name', '=', $destination],
-                    ['data_source', '=', EkajayaService::class],
-                ])->first();
-
-                if ($s != null && $d != null) {
-                    $groups = FastboatTrackGroup::where([
-                        ['name', '=', $s->name . ' - ' . $d->name],
-                        ['data_source', '=', EkajayaService::class],
-                    ])->get();
-
-                    foreach ($groups as $group) {
-                        $group->tracks()->where([
-                            ['fastboat_source_id', '=', $s->id],
-                            ['fastboat_destination_id', '=', $d->id],
-                        ])->delete();
-
-                        FastboatTrackOrderCapacity::where([
-                            ['fastboat_track_group_id', '=', $group->id],
-                        ])->delete();
-                    }
+                foreach ($places as $place) {
+                    self::clearSpecific($place['source'], $place['destination']);
                 }
             }
 
@@ -418,5 +195,138 @@ class EkajayaService
         FastboatTrackGroup::where('data_source', EkajayaService::class)->delete();
         Fastboat::where('data_source', EkajayaService::class)->delete();
         FastboatPlace::where('data_source', EkajayaService::class)->delete();
+    }
+
+    private static function handleUpdateTrack(array $track): array
+    {
+        $source = FastboatPlace::withTrashed()->where('id', $track['from_id'])->first();
+        if ($source == null) {
+            $source = FastboatPlace::create([
+                'id' => $track['from_id'],
+                'name' => $track['from'],
+                'data_source' => EkajayaService::class,
+            ]);
+        } else {
+            $source->update([
+                'name' => $track['from'],
+                'deleted_at' => null,
+            ]);
+        }
+
+        $destination = FastboatPlace::withTrashed()->where('id', $track['to_id'])->first();
+        if ($destination == null) {
+            $destination = FastboatPlace::create([
+                'id' => $track['to_id'],
+                'name' => $track['to'],
+                'data_source' => EkajayaService::class,
+            ]);
+        } else {
+            $destination->update(['name' => $track['to']]);
+        }
+
+        $fastboat = Fastboat::withTrashed()->where('id', $track['fastboat_id'])->first();
+        if ($track['source'] == GlobaltixService::class) {
+            $fastboat = Fastboat::withTrashed()->where('name', $track['fastboat'])->first();
+            $track['fastboat_id'] = Str::uuid();
+        }
+        if ($fastboat == null) {
+            $fastboat = Fastboat::create([
+                'id' => $track['fastboat_id'],
+                'name' => $track['fastboat'],
+                'capacity' => $track['capacity'],
+                'data_source' => EkajayaService::class,
+            ]);
+        } else {
+            $fastboat->update([
+                'name' => $track['fastboat'],
+                'capacity' => $track['capacity'],
+                'deleted_at' => null,
+            ]);
+        }
+
+        $group = FastboatTrackGroup::withTrashed()->where('fastboat_id', $fastboat->id)->first();
+        if ($group == null) {
+            $group = FastboatTrackGroup::create([
+                'fastboat_id' => $fastboat->id,
+                'name' => $track['from'] . ' - ' . $track['to'],
+                'data_source' => EkajayaService::class,
+            ]);
+        } else {
+            $group->update(['deleted_at' => null]);
+        }
+
+        FastboatTrackOrderCapacity::where([
+            ['fastboat_track_group_id', '=', $group->id],
+            ['fastboat_source_id', '=', $source->id],
+            ['fastboat_destination_id', '=', $destination->id],
+        ])->delete();
+
+        $fastboatTrack = $group->tracks()->withTrashed()->where('id', $track['id'])->first();
+        if ($fastboatTrack == null) {
+            $group->tracks()->create([
+                'id' => $track['id'],
+                'arrival_time' => $track['arrival_time'],
+                'departure_time' => $track['departure_time'],
+                'price' => $track['price'],
+                'fastboat_source_id' => $source->id,
+                'fastboat_destination_id' => $destination->id,
+                'is_publish' => 1,
+                'data_source' => EkajayaService::class,
+            ]);
+        } else {
+            $price = $track['price'];
+            if ($fastboatTrack->attribute_json != null) {
+                $price = $fastboatTrack->price;
+            }
+            $fastboatTrack->update([
+                'arrival_time' => $track['arrival_time'],
+                'departure_time' => $track['departure_time'],
+                'price' => $price,
+                'fastboat_source_id' => $source->id,
+                'fastboat_destination_id' => $destination->id,
+                'is_publish' => 1,
+                'data_source' => EkajayaService::class,
+                'deleted_at' => null,
+            ]);
+        }
+
+        return [
+            'source' => $source,
+            'destination' => $destination
+        ];
+    }
+
+    private static function clearSpecific(FastboatPlace $source, FastboatPlace $destination)
+    {
+        Log::info('tracks api clearing');
+        // if no result fount than check db , if any remove record
+        if ($source != null && $destination != null) {
+            $groups = FastboatTrackGroup::where([
+                ['name', '=', $source->name . ' - ' . $destination->name],
+                ['data_source', '=', EkajayaService::class],
+            ])->get();
+
+            foreach ($groups as $group) {
+                $group->tracks()->where([
+                    ['fastboat_source_id', '=', $source->id],
+                    ['fastboat_destination_id', '=', $destination->id],
+                ])->delete();
+
+                FastboatTrackOrderCapacity::where([
+                    ['fastboat_track_group_id', '=', $group->id],
+                ])->delete();
+            }
+        }
+    }
+
+    private static function removeDiscrepancy(FastboatPlace $source, FastboatPlace $destination, array $tracks = [])
+    {
+        $dbcheck = FastboatTrack::where('fastboat_source_id', $source->id)
+            ->where('fastboat_destination_id', $destination->id)
+            ->where('data_source', EkajayaService::class);
+        if (count($tracks) != $dbcheck->count()) {
+            $excludeIds = collect($tracks)->pluck('id')->toArray();
+            $dbcheck->whereNotIn('id', $excludeIds)->delete();
+        }
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CarRentalController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EkajayaController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FastboatController;
 use App\Http\Controllers\FastboatDropoffController;
@@ -197,6 +198,12 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::get('/globaltix-fastboat/{track}', [GlobaltixController::class, 'edit'])->name('fastboat.globaltix.edit');
         Route::post('/globaltix-fastboat/{track}', [GlobaltixController::class, 'update'])->name('fastboat.globaltix.update');
         Route::delete('/globaltix-fastboat/{track}', [GlobaltixController::class, 'destroy'])->name('fastboat.globaltix.destroy');
+
+        // Ekajaya
+        Route::get('/ekajaya-fastboat', [EkajayaController::class, 'index'])->name('fastboat.ekajaya.index');
+        Route::post('/ekajaya-fastboat', [EkajayaController::class, 'store'])->name('fastboat.ekajaya.store');
+        Route::post('/ekajaya-fastboat/{track}', [EkajayaController::class, 'update'])->name('fastboat.ekajaya.update');
+        Route::delete('/ekajaya-fastboat/{track}', [EkajayaController::class, 'destroy'])->name('fastboat.ekajaya.destroy');
 
         //Globaltix Agen Price
         Route::get('/globaltix-price-agent', [GlobaltixAgentController::class, 'index'])->name('globaltix-price-agent.index');
