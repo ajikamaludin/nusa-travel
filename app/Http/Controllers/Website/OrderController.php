@@ -49,7 +49,7 @@ class OrderController extends Controller
         $carts = collect($cart)->map(function ($cart, $id) {
             $entity = $cart['type']::find($id);
             if ($entity instanceof FastboatTrack) {
-                $detail = $entity->detail($cart['date']);
+                $detail = $entity->detail($cart['date'], null, $entity->price);
                 $price = $entity->price;
 
                 return [

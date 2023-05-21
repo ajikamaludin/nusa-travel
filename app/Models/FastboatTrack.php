@@ -139,7 +139,7 @@ class FastboatTrack extends Model
         );
     }
 
-    public function detail($date, $dropoff = null)
+    public function detail($date, $dropoff = null, $price)
     {
         $detail = "<p>$this->order_detail (Fastboat)</p>
         <p>$this->arrival_time - $this->departure_time</p>
@@ -149,7 +149,7 @@ class FastboatTrack extends Model
             $detail .= "<p>Dropoff: $dropoff</p>";
         }
 
-        $detail .= '<p>@ ' . number_format($this->price, '0', ',', ' .') . '</p>';
+        $detail .= '<p>@ ' . number_format($price, '0', ',', ' .') . '</p>';
 
         $detail .= "<p>$this->data_source_display </p>";
 
