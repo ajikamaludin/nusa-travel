@@ -101,7 +101,7 @@ class AgentController extends Controller
             );
         }
 
-        return new FastboatTracksCollection($query->paginate());
+        return new FastboatTracksCollection($query->get());
     }
 
     public function order(Request $request)

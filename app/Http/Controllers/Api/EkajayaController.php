@@ -18,6 +18,20 @@ class EkajayaController extends Controller
         $query = FastboatTrack::with(['source', 'destination'])
             ->where('data_source', EkajayaService::class);
 
+        if ($request->q != '') {
+            $query->where(function ($query) use ($request) {
+                $query->whereHas('source', function ($query) use ($request) {
+                    $query->where('name', 'like', "%$request->q%");
+                })
+                    ->orWhereHas('destination', function ($query) use ($request) {
+                        $query->where('name', 'like', "%$request->q%");
+                    })
+                    ->orWhereHas('group.fastboat', function ($query) use ($request) {
+                        $query->where('name', 'like', "%$request->q%");
+                    });
+            });
+        }
+
         return $query->get();
     }
 }
