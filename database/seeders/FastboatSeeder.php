@@ -91,11 +91,11 @@ class FastboatSeeder extends Seeder
         $groups = [
             [
                 'fastboat_id' => $fastboats->first()->id,
-                'name' => $SENGGIGI->name . ' - ' . $SERANGAN->name,
+                'name' => $SENGGIGI->name.' - '.$SERANGAN->name,
             ],
             [
                 'fastboat_id' => $fastboats->last()->id,
-                'name' => $SERANGAN->name . ' - ' . $SENGGIGI->name,
+                'name' => $SERANGAN->name.' - '.$SENGGIGI->name,
             ],
         ];
 
@@ -118,8 +118,8 @@ class FastboatSeeder extends Seeder
                         'fastboat_source_id' => $place->id,
                         'fastboat_destination_id' => $places[$j]->id,
                         'price' => $i == 0 && $j == 2 ? 100000 : 50000,
-                        'arrival_time' => $i == 0 && $j == 2 ? '11:00:00' : 10 + $j + $g . ':00:00',
-                        'departure_time' => $i == 0 && $j == 2 ? '13:00:00' : 11 + $j + $g . ':00:00',
+                        'arrival_time' => $i == 0 && $j == 2 ? '11:00:00' : 10 + $j + $g.':00:00',
+                        'departure_time' => $i == 0 && $j == 2 ? '13:00:00' : 11 + $j + $g.':00:00',
                         'is_publish' => 1,
                     ]);
                 }

@@ -6,6 +6,7 @@ import Button from '@/Components/Button'
 import { Head, Link, useForm } from '@inertiajs/react'
 import FormInput from '@/Components/FormInput'
 import { formatDate, formatIDR } from '@/utils'
+import TextArea from '@/Components/TextArea'
 
 export default function Form(props) {
     const { order } = props
@@ -75,6 +76,12 @@ export default function Form(props) {
                             name="total"
                             value={formatIDR(order.total_amount)}
                             label="Total Payed"
+                            readOnly={true}
+                        />
+                        <FormInput
+                            name="payment_channel"
+                            value={order.payment_channel}
+                            label="Payment Channel"
                             readOnly={true}
                         />
                         <FormInput
@@ -273,11 +280,12 @@ export default function Form(props) {
                                 </tbody>
                             </table>
                         </div>
-                        <FormInput
+                        <TextArea
                             name="payment_Response"
                             value={order.payment_response}
                             label="Payment Response"
                             readOnly={true}
+                            rows={10}
                         />
                         <div className="my-8">
                             <Link

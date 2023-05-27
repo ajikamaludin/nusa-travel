@@ -2,8 +2,6 @@
 
 use App\Models\Permission;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 return new class extends Migration
@@ -16,7 +14,7 @@ return new class extends Migration
 
         $permission = Permission::where('name', 'create-ekajaya-to-track')->exists();
 
-        if (!$permission && Permission::count() != 0) {
+        if (! $permission && Permission::count() != 0) {
             $permissions = [
                 ['id' => Str::uuid(), 'label' => 'Create API Integration Track', 'name' => 'create-ekajaya-to-track'],
                 ['id' => Str::uuid(), 'label' => 'Update API Integration Track', 'name' => 'update-ekajaya-to-track'],
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // 
+        //
     }
 };

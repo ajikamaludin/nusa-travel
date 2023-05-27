@@ -1,22 +1,13 @@
 import React from 'react'
+import { Head, router, useForm } from '@inertiajs/react'
+
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import FormInput from '@/Components/FormInput'
 import Button from '@/Components/Button'
-import { Head, router, useForm } from '@inertiajs/react'
 import TextArea from '@/Components/TextArea'
 import FormFile from '@/Components/FormFile'
 import Checkbox from '@/Components/Checkbox'
-
-const extractValue = (set, key) => {
-    const find = set.find((s) => s.key === key)
-    if (find !== null) {
-        if (find.type === 'image') {
-            return find?.url
-        }
-        return find?.value
-    }
-    return ''
-}
+import { extractValue } from './utils'
 
 export default function General(props) {
     const { data, setData, post, reset, processing, errors } = useForm({

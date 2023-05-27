@@ -72,6 +72,13 @@ class DummySeeder extends Seeder
             ['id' => Str::uuid(), 'key' => 'midtrans_server_key', 'value' => 'SB-Mid-server-UA0LQbY4aALV0CfLLX1v7xs8', 'type' => 'text', 'label' => 'Midtrans Server Key'],
             ['id' => Str::uuid(), 'key' => 'midtrans_client_key', 'value' => 'SB-Mid-client-xqqkspzoZOM10iUG', 'type' => 'text', 'label' => 'Midtrans Client Key'],
             ['id' => Str::uuid(), 'key' => 'midtrans_merchant_id', 'value' => 'G561244367', 'type' => 'text', 'label' => 'Midtrans Merchatn Id'],
+            ['id' => Str::uuid(), 'key' => 'midtrans_enable', 'value' => '0', 'type' => 'text', 'label' => 'Midtrans Enable'],
+            ['id' => Str::uuid(), 'key' => 'midtrans_logo', 'value' => 'images/midtrans_logo.png', 'type' => 'image', 'label' => 'Midtrans Logo'],
+
+            ['id' => Str::uuid(), 'key' => 'DOKU_SECRET_KEY', 'value' => 'SK-Dtars5hbz5paIAMqk5zE', 'type' => 'text', 'label' => 'Doku Secret Key'],
+            ['id' => Str::uuid(), 'key' => 'DOKU_CLIENT_ID', 'value' => 'BRN-0207-1683016182128', 'type' => 'text', 'label' => 'Doku Client ID'],
+            ['id' => Str::uuid(), 'key' => 'DOKU_ENABLE', 'value' => '0', 'type' => 'text', 'label' => 'Doku Enable Payment'],
+            ['id' => Str::uuid(), 'key' => 'DOKU_LOGO', 'value' => 'images/doku_logo.png', 'type' => 'image', 'label' => 'DOKU Logo'],
 
             ['id' => Str::uuid(), 'key' => 'G_WHATSAPP_FLOAT_ENABLE', 'value' => '1', 'type' => 'checkbox', 'label' => 'Whatsapp Float Button Enable'],
             ['id' => Str::uuid(), 'key' => 'G_WHATSAPP_URL', 'value' => 'https://wa.me/6287820231626', 'type' => 'text', 'label' => 'Whatsapp Url'],

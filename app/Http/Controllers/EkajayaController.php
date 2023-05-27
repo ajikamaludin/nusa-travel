@@ -10,10 +10,10 @@ class EkajayaController extends Controller
 {
     public function index(Request $request)
     {
-        // listing track yang datasourcenya ekajaya dan sudah 
+        // listing track yang datasourcenya ekajaya dan sudah
         $query = FastboatTrack::with(['source', 'destination'])->where([
             ['data_source', '=', EkajayaService::class],
-            ['attribute_json', '!=', null]
+            ['attribute_json', '!=', null],
         ])->orderBy('updated_at', 'desc');
 
         if ($request->q != '') {
@@ -62,7 +62,7 @@ class EkajayaController extends Controller
     public function edit(FastboatTrack $track)
     {
         return inertia('Ekajaya/Form', [
-            'track' => $track
+            'track' => $track,
         ]);
     }
 

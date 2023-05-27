@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Setting;
 use App\Models\TourPackage;
 use App\Services\AsyncService;
+use App\Services\DokuPaymentService;
 use App\Services\GeneralService;
 use App\Services\MidtransService;
 use Illuminate\Http\Request;
@@ -49,19 +50,23 @@ class OrderController extends Controller
         $carts = collect($cart)->map(function ($cart, $id) {
             $entity = $cart['type']::find($id);
             if ($entity instanceof FastboatTrack) {
-                $detail = $entity->detail($cart['date'], null, $entity->price);
-                $price = $entity->price;
+                return;
+                /**
+                 * remove fastboat from carts
+                    $detail = $entity->detail($cart['date'], null, $entity->price);
+                    $price = $entity->price;
 
-                return [
-                    'id' => $entity->id,
-                    'name' => $entity->order_detail,
-                    'detail' => $detail,
-                    'price' => $price,
-                    'qty' => $cart['qty'],
-                    'type' => $cart['type'],
-                    'date' => $cart['date'],
-                    'fastboat_cart' => '1',
-                ];
+                    return [
+                        'id' => $entity->id,
+                        'name' => $entity->order_detail,
+                        'detail' => $detail,
+                        'price' => $price,
+                        'qty' => $cart['qty'],
+                        'type' => $cart['type'],
+                        'date' => $cart['date'],
+                        'fastboat_cart' => '1',
+                    ];
+                 */
             }
 
             if ($entity instanceof CarRental) {
@@ -88,11 +93,19 @@ class OrderController extends Controller
             ];
         });
 
-        if (in_array(null, $carts->toArray())) {
+        $carts = $carts->filter(function ($item) {
+            if ($item != null) {
+                return $item;
+            }
+        });
+
+        if (in_array(null, $carts->toArray()) || count($carts->toArray()) == 0) {
             session()->remove('carts');
 
             return redirect()->route('home.index', ['locale' => GeneralService::getLocale('en')]);
         }
+
+        session(['carts' => $carts]);
 
         return view('cart', [
             'carts' => $carts,
@@ -101,17 +114,37 @@ class OrderController extends Controller
 
     public function payment(Order $order)
     {
-        if ($order->payment_token == null) {
-            $token = (new MidtransService($order, Setting::getByKey('midtrans_server_key')))->getSnapToken();
-            $order->update(['payment_token' => $token]);
-        } else {
-            $token = $order->payment_token;
+        if ($order->payment_channel == Setting::PAYMENT_MIDTRANS) {
+            if ($order->payment_token == null) {
+                $token = (new MidtransService($order, Setting::getByKey('midtrans_server_key')))->getSnapToken();
+                $order->update(['payment_token' => $token]);
+            } else {
+                $token = $order->payment_token;
+            }
+
+            return view('payment.midtrans', [
+                'order' => $order,
+                'snap_token' => $token,
+            ]);
         }
 
-        return view('payment', [
-            'order' => $order,
-            'snap_token' => $token,
-        ]);
+        if ($order->payment_channel == Setting::PAYMENT_DOKU) {
+            if ($order->payment_token == null) {
+                $doku = (new DokuPaymentService($order, Setting::getByKey('DOKU_CLIENT_ID'), Setting::getByKey('DOKU_SECRET_KEY')))->getPaymentUrl();
+                if ($doku == null) {
+                    throw new \Exception('Doku Error');
+                }
+                $doku = json_encode($doku);
+                $order->update(['payment_token' => $doku]);
+            }
+
+            $doku = json_decode($order->payment_token);
+
+            return view('payment.doku', [
+                'order' => $order,
+                'payment_url' => $doku->response->payment->url,
+            ]);
+        }
     }
 
     public function payment_update(Request $request, Order $order)
@@ -120,7 +153,6 @@ class OrderController extends Controller
         $order->update([
             'payment_status' => $request->payment_status,
             'payment_response' => json_encode($request->result),
-            'payment_channel' => $request->result['transaction_status'],
             'payment_type' => $request->result['payment_type'],
         ]);
 
@@ -147,7 +179,6 @@ class OrderController extends Controller
             $order->fill([
                 'payment_response' => json_encode($request->all()),
                 'payment_type' => $request->result['payment_type'],
-                'payment_channel' => $request->result['transaction_status'],
             ]);
 
             if ($request->transaction_status == 'settlement' || $request->transaction_status == 'capture') {
@@ -160,6 +191,40 @@ class OrderController extends Controller
                 $order->fill(['payment_status' => Order::PAYMENT_PENDING]);
             } else {
                 $order->fill(['payment_status' => Order::PAYMENT_ERROR]);
+            }
+
+            $order->save();
+        }
+
+        DB::commit();
+
+        return response()->json([
+            'status' => 'ok',
+            'order' => $order,
+        ]);
+    }
+
+    public function payment_notification_doku(Request $request)
+    {
+        DB::beginTransaction();
+        $order = Order::where('order_code', $request->order['invoice_number'])->first();
+
+        if ($order != null && $order->payment_status != Order::PAYMENT_SUCESS) {
+            $order->fill([
+                'payment_response' => json_encode($request->all()),
+                'payment_type' => $request->channel['id'],
+            ]);
+
+            if ($request->transaction['status'] == 'SUCCESS') {
+                $order->fill(['payment_status' => Order::PAYMENT_SUCESS]);
+                // send email that order has been payed if status is 1
+                AsyncService::async(function () use ($order) {
+                    Mail::to($order->customer->email)->send(new OrderInvoice($order));
+                });
+            } elseif ($request->transaction['status'] == 'FAILED') {
+                $order->fill(['payment_status' => Order::PAYMENT_ERROR]);
+            } else {
+                $order->fill(['payment_status' => Order::PAYMENT_PENDING]);
             }
 
             $order->save();

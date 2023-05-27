@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,12 +13,20 @@ class Setting extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
+    const PAYMENT_MIDTRANS = 'midtrans';
+
+    const PAYMENT_DOKU = 'DOKU';
+
     public static $instance;
 
     protected $fillalble = [
         'key',
         'value',
         'type',
+    ];
+
+    protected $appends = [
+        'url',
     ];
 
     public static function getInstance(): Setting
@@ -30,7 +39,6 @@ class Setting extends Model
                 self::$instance->setting = Setting::all();
                 Cache::put('settings', self::$instance->setting, now()->addDay());
             }
-
         }
 
         return self::$instance;
@@ -56,5 +64,36 @@ class Setting extends Model
     public static function getByKey($key)
     {
         return Setting::where('key', $key)->value('value');
+    }
+
+    public function getEnablePayment()
+    {
+        $setting = self::getInstance();
+        $midtrans = $setting->setting->where('key', 'midtrans_enable')->value('value');
+        $doku = $setting->setting->where('key', 'DOKU_ENABLE')->value('value');
+
+        $payments = collect();
+        if ($midtrans == 1) {
+            $logo = $setting->setting->where('key', 'midtrans_logo')->first();
+            $payments->add(['name' => self::PAYMENT_MIDTRANS, 'logo' => $logo->url]);
+        }
+
+        if ($doku == 1) {
+            $logo = $setting->setting->where('key', 'DOKU_LOGO')->first();
+            $payments->add(['name' => self::PAYMENT_DOKU, 'logo' => $logo->url]);
+        }
+
+        return $payments->toArray();
+    }
+
+    protected function url(): Attribute
+    {
+        return Attribute::make(get: function () {
+            if ($this->type == 'image') {
+                return asset($this->value);
+            }
+
+            return '';
+        });
     }
 }

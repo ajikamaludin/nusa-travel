@@ -5,14 +5,18 @@ namespace App\Http\Livewire;
 use App\Mail\OrderPayment;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Setting;
 use App\Services\AsyncService;
 use App\Services\GeneralService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class Cart extends Component
 {
+    use Actions;
+
     public $carts;
 
     public $total;
@@ -31,6 +35,10 @@ class Cart extends Component
 
     public $isFastboat = false;
 
+    public $payments = [];
+
+    public $selectedPayment = null;
+
     protected $rules = [
         'name' => 'required|string|max:255|min:3',
         'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:20',
@@ -41,6 +49,9 @@ class Cart extends Component
 
     public function mount()
     {
+        $this->payments = (new Setting)->getEnablePayment();
+        $this->selectedPayment = count($this->payments) >= 1 ? $this->payments[0] : null;
+
         $this->isFastboat = $this->isFastboat();
         $this->isAuth = auth('customer')->check();
         $this->updateTotal();
@@ -53,7 +64,12 @@ class Cart extends Component
 
     public function submit()
     {
-        if (!$this->isAuth) {
+        if ($this->selectedPayment == null) {
+            $this->dialog()->error('Warning !!!', 'Payment system disabled');
+
+            return;
+        }
+        if (! $this->isAuth) {
             $this->validate();
             $order = $this->createOrder();
         } else {
@@ -66,6 +82,7 @@ class Cart extends Component
                 'total_amount' => $this->total,
                 'order_type' => Order::TYPE_ORDER,
                 'date' => now(),
+                'payment_channel' => $this->selectedPayment['name'],
             ]);
         }
 
@@ -167,6 +184,7 @@ class Cart extends Component
             'total_amount' => $this->total,
             'order_type' => Order::TYPE_ORDER,
             'date' => now(),
+            'payment_channel' => $this->selectedPayment['name'],
         ]);
 
         foreach ($this->carts as $cart) {
@@ -202,5 +220,10 @@ class Cart extends Component
         }
 
         return false;
+    }
+
+    public function setSelectedPayment($index)
+    {
+        $this->selectedPayment = $this->payments[$index];
     }
 }

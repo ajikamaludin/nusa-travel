@@ -156,7 +156,7 @@ class AgentController extends Controller
         $item = $order->items()->create([
             'entity_order' => FastboatTrack::class,
             'entity_id' => $track->id,
-            'description' => $track->source->name . ' - ' . $track->destination->name . ' | ' . $request->order['date'],
+            'description' => $track->source->name.' - '.$track->destination->name.' | '.$request->order['date'],
             'amount' => $request->order['price'],
             'quantity' => $request->order['qty'],
             'date' => $request->order['date'],

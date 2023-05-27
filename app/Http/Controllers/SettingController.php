@@ -16,14 +16,6 @@ class SettingController extends Controller
     {
         $setting = Setting::where('key', 'like', 'g_%')->orderBy('key', 'asc')->get();
 
-        $setting = $setting->map(function ($s) {
-            if ($s->type === 'image') {
-                $s->url = asset($s->value);
-            }
-
-            return $s;
-        });
-
         return inertia('Setting/General', [
             'setting' => $setting,
         ]);
@@ -91,17 +83,15 @@ class SettingController extends Controller
 
     public function payment(): Response
     {
-        $setting = Setting::where('key', 'like', 'midtrans%')->orderBy('key', 'asc')->get();
-
-        $setting = $setting->map(function ($item) {
-            return [
-                $item->key => $item->value,
-            ];
-        });
+        $setting = Setting::where('key', 'like', 'midtrans%')
+            ->orWhere('key', 'like', 'DOKU%')
+            ->orderBy('key', 'asc')
+            ->get();
 
         return inertia('Setting/Payment', [
-            'setting' => (object) $setting,
-            'notification_url' => route('api.notification.payment'),
+            'setting' => $setting,
+            'midtrans_notification_url' => route('api.notification.payment'),
+            'doku_notification_url' => route('api.notification.payment_doku'),
         ]);
     }
 
@@ -111,11 +101,29 @@ class SettingController extends Controller
             'midtrans_client_key' => 'required|string|max:255',
             'midtrans_server_key' => 'required|string|max:255',
             'midtrans_merchant_id' => 'required|string|max:255',
+            'midtrans_enable' => 'required|in:0,1',
+            'midtrans_logo_file' => 'nullable|image',
+            'DOKU_SECRET_KEY' => 'required|string|max:255',
+            'DOKU_CLIENT_ID' => 'required|string|max:255',
+            'DOKU_ENABLE' => 'required|in:0,1',
+            'DOKU_LOGO_FILE' => 'nullable|image',
         ]);
 
         DB::beginTransaction();
-        foreach ($request->input() as $key => $value) {
+        foreach ($request->except(['midtrans_logo_file', 'DOKU_LOGO_FILE']) as $key => $value) {
             Setting::where('key', $key)->update(['value' => $value]);
+        }
+
+        if ($request->hasFile('midtrans_logo_file')) {
+            $file = $request->file('midtrans_logo_file');
+            $file->store('uploads', 'public');
+            Setting::where('key', 'midtrans_logo')->update(['value' => $file->hashName('uploads')]);
+        }
+
+        if ($request->hasFile('DOKU_LOGO_FILE')) {
+            $file = $request->file('DOKU_LOGO_FILE');
+            $file->store('uploads', 'public');
+            Setting::where('key', 'DOKU_LOGO')->update(['value' => $file->hashName('uploads')]);
         }
         DB::commit();
 
@@ -150,9 +158,9 @@ class SettingController extends Controller
             'ekajaya_apikey.unique' => 'cant use key as same as local system',
         ]);
 
-        // Check 
+        // Check
         $check = EkajayaService::check($request->ekajaya_host);
-        if (!$check) {
+        if (! $check) {
             return redirect()->route('setting.ekajaya')
                 ->with('message', ['type' => 'error', 'message' => 'Not valid API Integration HOST']);
         }

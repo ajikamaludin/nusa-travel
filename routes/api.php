@@ -50,9 +50,13 @@ Route::get('/globaltix/options', [GlobaltixController::class, 'options'])->name(
 // ekajaya
 Route::get('/ekajaya/tracks', [EkajayaController::class, 'tracks'])->name('api.ekajaya.track');
 
-// for payment
+// for payment midtrans
 Route::put('/carts/process-payment/{order}', [OrderController::class, 'payment_update'])->name('api.order.update');
-Route::post('/notification-payment', [OrderController::class, 'payment_notification'])->name('api.notification.payment');
+Route::post('/midtrans/notification-payment', [OrderController::class, 'payment_notification'])->name('api.notification.payment');
+Route::post('/doku/notification-payment', [OrderController::class, 'payment_notification_doku'])->name('api.notification.payment_doku');
+
+// for payment doku
+// TODO
 
 // api for agents
 Route::middleware([AuthenticateToken::class])->group(function () {
