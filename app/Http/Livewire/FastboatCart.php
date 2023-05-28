@@ -12,6 +12,7 @@ use App\Models\FreeTicketPromo;
 use App\Models\Order;
 use App\Models\OrderItemPassenger;
 use App\Models\Promo;
+use App\Models\Setting;
 use App\Services\AsyncService;
 use App\Services\EkajayaService;
 use App\Services\GlobaltixService;
@@ -68,8 +69,15 @@ class FastboatCart extends Component
 
     public $infants = 0;
 
+    public $payments = [];
+
+    public $selectedPayment = null;
+
     public function mount()
     {
+        $this->payments = (new Setting)->getEnablePayment();
+        $this->selectedPayment = count($this->payments) >= 1 ? $this->payments[0] : null;
+
         $this->contact = session()->get('contact', []);
         if ($this->contact != []) {
             $this->validContact = true;
@@ -103,7 +111,7 @@ class FastboatCart extends Component
         $this->carts = $carts->map(function ($cart, $key) use ($tracks) {
             $cart['track'] = $tracks->where('id', $key)->first();
 
-            if (! property_exists($this, 'showPerson_1')) {
+            if (!property_exists($this, 'showPerson_1')) {
                 foreach (range(1, $cart['qty'] + $this->infants) as $i => $q) {
                     $this->{"showPerson_$i"} = false;
                 }
@@ -147,7 +155,7 @@ class FastboatCart extends Component
 
     public function toggle()
     {
-        $this->show = ! $this->show;
+        $this->show = !$this->show;
     }
 
     public function saveContact()
@@ -212,7 +220,7 @@ class FastboatCart extends Component
             $matchs[] = isset($person['name']);
         }
 
-        return $this->validContact && ! in_array(false, $matchs);
+        return $this->validContact && !in_array(false, $matchs);
     }
 
     public function continue()
@@ -265,6 +273,7 @@ class FastboatCart extends Component
             'order_type' => Order::TYPE_ORDER,
             'date' => now(),
             'pickup' => $pickup['name'] ?? null,
+            'payment_channel' => $this->selectedPayment['name'],
         ]);
 
         // $dropoff = FastboatDropoff::where('name', $this->dropoff)->first();
@@ -274,7 +283,7 @@ class FastboatCart extends Component
             $item = $order->items()->create([
                 'entity_order' => $cart['type'],
                 'entity_id' => $trackId,
-                'description' => $cart['track']->source->name.' - '.$cart['track']->destination->name.' | '.$cart['date'],
+                'description' => $cart['track']->source->name . ' - ' . $cart['track']->destination->name . ' | ' . $cart['date'],
                 'amount' => $cart['track']->validated_price,
                 'quantity' => $cart['qty'],
                 'date' => $cart['date'],
@@ -319,7 +328,7 @@ class FastboatCart extends Component
             $order->items()->create([
                 'entity_order' => CarRental::class,
                 'entity_id' => $pickup['car']['id'],
-                'description' => 'Pickup: '.$pickup['name'].'| '.$date,
+                'description' => 'Pickup: ' . $pickup['name'] . '| ' . $date,
                 'amount' => $pickup['car']['price'],
                 'quantity' => 1,
                 'date' => $date,
@@ -397,14 +406,14 @@ class FastboatCart extends Component
                     $datetime1 = new DateTime($promo->available_start_date);
                     $datetime2 = new DateTime($dates[0]);
 
-                    if ($datetime1->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
+                    if ($datetime1->modify('-' . $promo->ranges_day . ' day') <= $datetime2) {
                         unset($promosApply[$promokey]);
                     }
                     break;
                 case 3:
                     $dateorder_start_date = new DateTime($promo->order_start_date);
                     $datetime2 = new DateTime($dates[0]);
-                    if ($dateorder_start_date->modify('-'.$promo->ranges_day.' day') >= $datetime2) {
+                    if ($dateorder_start_date->modify('-' . $promo->ranges_day . ' day') >= $datetime2) {
                         unset($promosApply[$promokey]);
                     }
                     break;
@@ -447,9 +456,9 @@ class FastboatCart extends Component
                     }
                     $this->discount += $amount;
 
-                    $namedic = $promo->name.' ( disc. '.$promo->discount_amount.($isPercent ? '% )' : ' )');
+                    $namedic = $promo->name . ' ( disc. ' . $promo->discount_amount . ($isPercent ? '% )' : ' )');
                 } else {
-                    $namedic = $promo->name.' ( Free Ticket. '.$promo->amount_tiket.')';
+                    $namedic = $promo->name . ' ( Free Ticket. ' . $promo->amount_tiket . ')';
                 }
                 $this->promosManual[] = [
                     'id' => $promo->id,
@@ -519,14 +528,14 @@ class FastboatCart extends Component
                     $datetime1 = new DateTime($promo->available_start_date);
                     $datetime2 = new DateTime($dates[0]);
 
-                    if ($datetime1->modify('-'.$promo->ranges_day.' day') <= $datetime2) {
+                    if ($datetime1->modify('-' . $promo->ranges_day . ' day') <= $datetime2) {
                         unset($promos[$promokey]);
                     }
                     break;
                 case 3:
                     $dateorder_start_date = new DateTime($promo->order_start_date);
                     $datetime2 = new DateTime($dates[0]);
-                    if ($dateorder_start_date->modify('-'.$promo->ranges_day.' day') >= $datetime2) {
+                    if ($dateorder_start_date->modify('-' . $promo->ranges_day . ' day') >= $datetime2) {
                         unset($promos[$promokey]);
                     }
                     break;
@@ -569,9 +578,9 @@ class FastboatCart extends Component
                     }
                     $this->discount += $amount;
 
-                    $namedic = $promo->name.' ( disc. '.$promo->discount_amount.($isPercent ? '% )' : ' )');
+                    $namedic = $promo->name . ' ( disc. ' . $promo->discount_amount . ($isPercent ? '% )' : ' )');
                 } else {
-                    $namedic = $promo->name.' ( Free Ticket. '.$promo->amount_tiket.')';
+                    $namedic = $promo->name . ' ( Free Ticket. ' . $promo->amount_tiket . ')';
                 }
                 $this->promos[] = [
                     'id' => $promo->id,
@@ -592,5 +601,10 @@ class FastboatCart extends Component
     {
         $this->pickupSelected = collect($this->pickups)->where('name', $value)->first()->toArray();
         session(['pickup' => $this->pickupSelected]);
+    }
+
+    public function setSelectedPayment($index)
+    {
+        $this->selectedPayment = $this->payments[$index];
     }
 }

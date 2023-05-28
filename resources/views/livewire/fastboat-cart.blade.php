@@ -413,6 +413,21 @@
                     @endif
                 </div>
 
+                {{-- Payment options --}}
+                @if(count($payments) > 1)
+                    <div class="px-4">
+                        <h2 class="font-bold mb-2">Payment Options</h2>
+                        <div class="flex flex-row justify-between space-x-1">
+                        @foreach($payments as $index => $payment)
+                            <div class="flex flex-row justify-around space-x-1 items-center w-1/2 rounded-md shadow-md border border-gray-400 h-12 p-4" wire:click="setSelectedPayment({{ $index }})">
+                                <input type="radio" name="payment" value="{{ $payment['name'] }}" {{ $payment['name'] == $selectedPayment['name'] ? 'checked' : '' }}/>
+                                <img src="{{ $payment['logo'] }}" class="object-contain h-8" alt="{{ $payment['name'] }}"/>
+                            </div>
+                        @endforeach
+                        </div>
+                    </div>
+                @endif
+
                 <div wire:loading.remove class="mx-4">
                     <button 
                         class="w-full text-left mt-4 mb-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
