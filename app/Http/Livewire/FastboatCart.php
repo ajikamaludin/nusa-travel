@@ -22,9 +22,12 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Nette\Utils\DateTime;
+use WireUi\Traits\Actions;
 
 class FastboatCart extends Component
 {
+    use Actions;
+
     public $show = true;
 
     public $carts = [];
@@ -247,6 +250,11 @@ class FastboatCart extends Component
 
     public function payment()
     {
+        if ($this->selectedPayment == null) {
+            $this->dialog()->error('Warning !!!', 'Payment system disabled');
+
+            return;
+        }
         DB::beginTransaction();
         if (Auth::guard('customer')->check()) {
             $customer = Auth::guard('customer')->user();

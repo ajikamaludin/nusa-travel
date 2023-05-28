@@ -6,6 +6,7 @@
     align="center"
     x-on:close="$openModal('myModal')"
 >
+    <x-dialog z-index="z-50" blur="md" align="center" />
     <div class="relative w-full h-full max-w-2xl md:h-auto">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow items-center h-full md:h-auto">
