@@ -42,11 +42,22 @@ class Customer extends Authenticatable
         'national_id',
         'is_agent',
         'token',
+        'deposite_balance'
     ];
 
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function depositeHistories()
+    {
+        return $this->hasMany(DepositHistory::class);
+    }
+
+    public function tracksAgent()
+    {
+        return $this->hasMany(FastboatTrackAgent::class);
     }
 
     public static function hardSearch($phone, $national_id, $email, $data = []): Customer
@@ -77,10 +88,5 @@ class Customer extends Authenticatable
         }
 
         return $customer;
-    }
-
-    public function tracksAgent()
-    {
-        return $this->hasMany(FastboatTrackAgent::class);
     }
 }
