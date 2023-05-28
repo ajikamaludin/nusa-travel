@@ -145,6 +145,24 @@ class OrderController extends Controller
                 'payment_url' => $doku->response->payment->url,
             ]);
         }
+
+        if ($order->payment_channel == Setting::PAYMENT_DOKU_CREDIT) {
+            if ($order->payment_token == null) {
+                $doku = (new DokuPaymentService($order, Setting::getByKey('DOKU_CLIENT_ID'), Setting::getByKey('DOKU_SECRET_KEY')))->getCreditCardPaymentUrl();
+                if ($doku == null) {
+                    throw new \Exception('Doku Error');
+                }
+                $doku = json_encode($doku);
+                $order->update(['payment_token' => $doku]);
+            }
+
+            $doku = json_decode($order->payment_token);
+
+            return view('payment.doku_credit_card', [
+                'order' => $order,
+                'payment_url' => $doku->credit_card_payment_page->url,
+            ]);
+        }
     }
 
     public function payment_update(Request $request, Order $order)

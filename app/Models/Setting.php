@@ -17,6 +17,8 @@ class Setting extends Model
 
     const PAYMENT_DOKU = 'DOKU';
 
+    const PAYMENT_DOKU_CREDIT = 'DOKU_CREDIT_CARD';
+
     public static $instance;
 
     protected $fillalble = [
@@ -81,6 +83,9 @@ class Setting extends Model
         if ($doku == 1) {
             $logo = $setting->setting->where('key', 'DOKU_LOGO')->first();
             $payments->add(['name' => self::PAYMENT_DOKU, 'logo' => $logo->url]);
+
+            // enable credit card direct payment page
+            // $payments->add(['name' => self::PAYMENT_DOKU_CREDIT, 'logo' => 'CARD_CREDIT']);
         }
 
         return $payments->toArray();
