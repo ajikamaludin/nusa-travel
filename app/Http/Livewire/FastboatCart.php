@@ -100,7 +100,7 @@ class FastboatCart extends Component
     {
         $carts = session()->get('carts') ?? [];
         if (count($carts) == 0) {
-            return redirect()->route('fastboat.index');
+            return redirect()->route('fastboat');
         }
         $carts = collect($carts)->filter(function ($cart) {
             if (array_key_exists('fastboat_cart', $cart)) {
