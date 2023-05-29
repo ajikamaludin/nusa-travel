@@ -12,6 +12,7 @@ use App\Models\FastboatTrack;
 use App\Models\FastboatTrackAgent;
 use App\Models\Order;
 use App\Models\OrderItemPassenger;
+use App\Models\Setting;
 use App\Services\AsyncService;
 use App\Services\EkajayaService;
 use App\Services\GlobaltixService;
@@ -140,6 +141,7 @@ class AgentController extends Controller
             'total_amount' => $request->order['total_payed'],
             'order_type' => Order::TYPE_ORDER,
             'date' => now(),
+            'payment_channel' => Setting::DEPOSITE_AGENT
         ]);
 
         $balance = $order->customer->deposite_balance;
