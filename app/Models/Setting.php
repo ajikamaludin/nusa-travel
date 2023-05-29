@@ -19,6 +19,8 @@ class Setting extends Model
 
     const PAYMENT_DOKU_CREDIT = 'DOKU_CREDIT_CARD';
 
+    const DEPOSITE_AGENT = 'DEPOSITE AGENT';
+
     public static $instance;
 
     protected $fillalble = [
