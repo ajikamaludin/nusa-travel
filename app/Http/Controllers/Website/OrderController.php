@@ -196,6 +196,9 @@ class OrderController extends Controller
 
             return redirect()->route('customer.order', $order);
         }
+
+        return redirect()->route('customer.orders')
+            ->with('message', ['type' => 'error', 'message' => 'Order Payment not configure, Please contact site administrator']);
     }
 
     public function payment_update(Request $request, Order $order)
