@@ -16,7 +16,9 @@
                 </div>
                 <div class="mb-6 text-center">
                     <div class="text-2xl font-extrabold">Hai, {{ auth()->user()->name }}</div>
-                    <div class="text-base mt-1">Balance: {{ number_format(auth()->user()->deposite_balance, 0, ',', '.') }}</div>
+                    @if(auth()->user()->is_agent =='1')
+                        <div class="text-base mt-1">Balance: {{ number_format(auth()->user()->deposite_balance, 0, ',', '.') }}</div>
+                    @endif
                 </div>
                 <div class="flex flex-col gap-1">
                     <a href="{{ route('customer.profile') }}" class="rounded-lg shadow p-2 border bg-gray-50 hover:bg-gray-200">{{ __('website.Profile')}}</a>
