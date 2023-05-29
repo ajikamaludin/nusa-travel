@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FastboatTracksCollection;
 use App\Http\Resources\PickupsCollection;
+use App\Mail\OrderInvoice;
 use App\Models\Customer;
 use App\Models\FastboatPickup;
 use App\Models\FastboatTrack;
+use App\Models\FastboatTrackAgent;
 use App\Models\Order;
 use App\Models\OrderItemPassenger;
 use App\Services\AsyncService;
@@ -17,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AgentController extends Controller
 {
@@ -118,6 +121,7 @@ class AgentController extends Controller
             'order.price' => 'required|numeric',
             'order.total_payed' => 'required|numeric',
             'order.track_id' => 'required|string|exists:fastboat_tracks,id',
+            'pay_with_credit' => 'required|in:0,1',
         ]);
 
         if (count($request->persons) < $request->order['qty']) {
@@ -138,6 +142,31 @@ class AgentController extends Controller
             'date' => now(),
         ]);
 
+        $balance = $order->customer->deposite_balance;
+        // harga normal
+        $track = FastboatTrack::where('id', $request->order['track_id'])->first();
+        $price = $track->price;
+        // harga agent
+        $trackAgent = FastboatTrackAgent::where([
+            ['customer_id', '=', $customerId],
+            ['fastboat_track_id', '=', $request->order['track_id']]
+        ])->first();
+        if ($trackAgent != null) {
+            $price = $trackAgent->price;
+        }
+        $totalOrder = $price * $request->order['qty'];
+        if ($request->pay_with_credit == 1 && $totalOrder <= $balance) {
+            $order->customer->update(['deposite_balance' => $balance - $totalOrder]);
+            $order->customer->depositeHistories()->create([
+                'credit' => $totalOrder,
+                'description' => 'Payed for Order #' . $order->order_code,
+            ]);
+
+            $order->update([
+                'payment_status' => Order::PAYMENT_SUCESS,
+            ]);
+        }
+
         $track = FastboatTrack::with(['source', 'destination', 'group.fastboat'])
             ->where('id', $request->order['track_id'])
             ->first();
@@ -156,7 +185,7 @@ class AgentController extends Controller
         $item = $order->items()->create([
             'entity_order' => FastboatTrack::class,
             'entity_id' => $track->id,
-            'description' => $track->source->name.' - '.$track->destination->name.' | '.$request->order['date'],
+            'description' => $track->source->name . ' - ' . $track->destination->name . ' | ' . $request->order['date'],
             'amount' => $request->order['price'],
             'quantity' => $request->order['qty'],
             'date' => $request->order['date'],

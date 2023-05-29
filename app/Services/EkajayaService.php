@@ -21,7 +21,7 @@ class EkajayaService
 
     public static function check($host)
     {
-        $response = Http::acceptJson()->get($host.'/api');
+        $response = Http::acceptJson()->get($host . '/api');
 
         if ($response->json('app_name') != self::key) {
             return false;
@@ -46,7 +46,7 @@ class EkajayaService
 
         $key = 'all_tracks';
 
-        $check = ! Cache::has($key);
+        $check = !Cache::has($key);
         if (app()->isProduction() == false) {
             $check = true;
         }
@@ -59,7 +59,7 @@ class EkajayaService
             $response = Http::acceptJson()
                 ->withHeaders([
                     'authorization' => $apikey,
-                ])->get($host.'/api/tracks');
+                ])->get($host . '/api/tracks');
 
             $tracks = $response->json('data');
 
@@ -98,9 +98,9 @@ class EkajayaService
         $host = $setting->getValue('EKAJAYA_HOST');
         $apikey = $setting->getValue('EKAJAYA_APIKEY');
 
-        $key = $ways.'|'.$source.'_'.$destination.':'.$date;
+        $key = $ways . '|' . $source . '_' . $destination . ':' . $date;
 
-        $check = ! Cache::has($key);
+        $check = !Cache::has($key);
         if (app()->isProduction() == false) {
             $check = true;
         }
@@ -113,7 +113,7 @@ class EkajayaService
             $response = Http::acceptJson()
                 ->withHeaders([
                     'authorization' => $apikey,
-                ])->get($host.'/api/tracks', [
+                ])->get($host . '/api/tracks', [
                     'from' => $source,
                     'to' => $destination,
                     'date' => $date,
@@ -184,7 +184,7 @@ class EkajayaService
         $response = Http::acceptJson()
             ->withHeaders([
                 'authorization' => $apikey,
-            ])->post($host.'/api/order', [
+            ])->post($host . '/api/order', [
                 'order' => [
                     'date' => $item->date,
                     'qty' => $item->quantity,
@@ -193,6 +193,7 @@ class EkajayaService
                     'track_id' => $item->entity_id,
                 ],
                 'persons' => $persons,
+                'pay_with_credit' => 1,
             ]);
 
         Log::info('order create response', [$response->json()]);
@@ -257,7 +258,7 @@ class EkajayaService
         if ($group == null) {
             $group = FastboatTrackGroup::create([
                 'fastboat_id' => $fastboat->id,
-                'name' => $track['from'].' - '.$track['to'],
+                'name' => $track['from'] . ' - ' . $track['to'],
                 'data_source' => EkajayaService::class,
             ]);
         } else {
@@ -311,7 +312,7 @@ class EkajayaService
         // if no result fount than check db , if any remove record
         if ($source != null && $destination != null) {
             $groups = FastboatTrackGroup::where([
-                ['name', '=', $source->name.' - '.$destination->name],
+                ['name', '=', $source->name . ' - ' . $destination->name],
                 ['data_source', '=', EkajayaService::class],
             ])->get();
 
