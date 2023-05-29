@@ -422,7 +422,11 @@
                         @foreach($payments as $index => $payment)
                             <div class="flex flex-row justify-around space-x-1 items-center w-1/2 rounded-md shadow-md border border-gray-400 h-12 p-4" wire:click="setSelectedPayment({{ $index }})">
                                 <input type="radio" name="payment" value="{{ $payment['name'] }}" {{ $payment['name'] == $selectedPayment['name'] ? 'checked' : '' }}/>
-                                <img src="{{ $payment['logo'] }}" class="object-contain h-8" alt="{{ $payment['name'] }}"/>
+                                @if($payment['logo'] != null) 
+                                    <img src="{{ $payment['logo'] }}" class="object-contain h-8" alt="{{ $payment['name'] }}"/>
+                                @else
+                                    <p class="font-bold">{{ $payment['display_name'] }}</p>
+                                @endif
                             </div>
                         @endforeach
                         </div>
