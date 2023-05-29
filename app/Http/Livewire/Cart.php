@@ -49,7 +49,7 @@ class Cart extends Component
 
     public function mount()
     {
-        $this->payments = (new Setting)->getEnablePayment();
+        $this->payments = (new GeneralService)->getEnablePayment(auth()->user()?->id);
         $this->selectedPayment = count($this->payments) >= 1 ? $this->payments[0] : null;
 
         $this->isFastboat = $this->isFastboat();
@@ -69,7 +69,7 @@ class Cart extends Component
 
             return;
         }
-        if (! $this->isAuth) {
+        if (!$this->isAuth) {
             $this->validate();
             $order = $this->createOrder();
         } else {

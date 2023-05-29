@@ -15,6 +15,7 @@ use App\Models\Promo;
 use App\Models\Setting;
 use App\Services\AsyncService;
 use App\Services\EkajayaService;
+use App\Services\GeneralService;
 use App\Services\GlobaltixService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -78,7 +79,7 @@ class FastboatCart extends Component
 
     public function mount()
     {
-        $this->payments = (new Setting)->getEnablePayment();
+        $this->payments = (new GeneralService)->getEnablePayment();
         $this->selectedPayment = count($this->payments) >= 1 ? $this->payments[0] : null;
 
         $this->contact = session()->get('contact', []);

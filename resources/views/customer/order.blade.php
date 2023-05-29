@@ -3,6 +3,10 @@
 @section('main')
     <div class="px-4">
         <p class="text-2xl font-bold mb-6 border-b-2 border-gray-200">{{ __('website.Order')}}</p>
+            @if (session()->has('message'))
+                <x-alert type="{{ session()->get('message.type') }}" message="{{ session()->get('message.message') }}" />
+            @endif
+
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

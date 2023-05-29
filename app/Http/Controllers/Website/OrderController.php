@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Mail\OrderInvoice;
 use App\Models\CarRental;
+use App\Models\Customer;
 use App\Models\FastboatTrack;
 use App\Models\Order;
 use App\Models\Setting;
@@ -112,7 +113,7 @@ class OrderController extends Controller
         ]);
     }
 
-    public function payment(Order $order)
+    public function payment(Request $request, Order $order)
     {
         if ($order->payment_channel == Setting::PAYMENT_MIDTRANS) {
             if ($order->payment_token == null) {
@@ -162,6 +163,38 @@ class OrderController extends Controller
                 'order' => $order,
                 'payment_url' => $doku->credit_card_payment_page->url,
             ]);
+        }
+
+        if ($order->payment_channel == Setting::DEPOSITE_AGENT) {
+            if ($order->customer->is_agent != Customer::AGENT) {
+                return redirect()->route('customer.orders')
+                    ->with('message', ['type' => 'error', 'message' => 'Payment Rejected, Please contact site administrator']);
+            }
+
+            $balance = $order->customer->deposite_balance;
+            if ($order->total_amount > $balance) {
+                return redirect()->route('customer.orders')
+                    ->with('message', ['type' => 'error', 'message' => 'Insufficient Balance']);
+            }
+
+            DB::beginTransaction();
+            $order->customer->update(['deposite_balance' => $balance - $order->total_amount]);
+            $order->customer->depositeHistories()->create([
+                'credit' => $order->total_amount,
+                'description' => 'Payed for Order #' . $order->order_code,
+            ]);
+
+            $order->update([
+                'payment_status' => Order::PAYMENT_SUCESS,
+            ]);
+
+            AsyncService::async(function () use ($order) {
+                Mail::to($order->customer->email)->send(new OrderInvoice($order));
+            });
+
+            DB::commit();
+
+            return redirect()->route('customer.order', $order);
         }
     }
 

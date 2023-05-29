@@ -98,14 +98,18 @@
                                     </div>
                                 </div>
                             @endif
-
+                            
                             @if(count($payments) > 1)
                                 <h2 class="font-bold mb-2">Payment Options</h2>
                                 <div class="flex flex-col justify-between space-y-2">
                                 @foreach($payments as $index => $payment)
-                                    <div class="flex flex-row justify-between items-center space-x-1" wire:click="setSelectedPayment({{ $index }})">
+                                    <div class="flex flex-row justify-between items-center space-x-1 p-2 px-4 border shadow rounded min-h-[75px]" wire:click="setSelectedPayment({{ $index }})">
                                         <input type="radio" name="payment" value="{{ $payment['name'] }}" {{ $payment['name'] == $selectedPayment['name'] ? 'checked' : '' }}/>
-                                        <img src="{{ $payment['logo'] }}" class="object-fill w-[80%]" alt="{{ $payment['name'] }}"/>
+                                        @if($payment['logo'] != null) 
+                                            <img src="{{ $payment['logo'] }}" class="object-fill w-[80%]" alt="{{ $payment['name'] }}"/>
+                                        @else
+                                            <p class="font-bold">{{ $payment['display_name'] }}</p>
+                                        @endif
                                     </div>
                                 @endforeach
                                 </div>
