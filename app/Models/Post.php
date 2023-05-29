@@ -103,15 +103,26 @@ class Post extends Model
     {
         $locale = GeneralService::getLocale();
         if ($locale != null) {
-            $page = $this->translate()->where('lang', $locale)->first();
-            if ($page == null) {
-                DeeplService::translatePost($this);
-                $page = $this->translate()->where('lang', $locale)->first();
+            $post = $this;
+            if ($this->original_id == null) {
+                $post = Post::where([
+                    ['original_id', '=', $this->id],
+                    ['lang', '=', $locale]
+                ])->first();
+                // handle unkhow url access
+                // if ($post == null) {
+                //     DeeplService::translatePost($this);
+                //     $post = Post::where([
+                //         ['original_id', '=', $this->id],
+                //         ['lang', '=', $locale]
+                //     ])->first();
+                // }
+                if ($post == null) {
+                    $post = $this;
+                }
             }
-
-            return $page;
+            return $post;
         }
-
         return $this;
     }
 }
