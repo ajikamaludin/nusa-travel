@@ -1,58 +1,15 @@
 # TODO
 
--   NAMBAH KE INTEGRASI PAYMENT DENGAN DOKU [DONE] (hanya VA, selain itu ada CREDIT CARD ERROR MID TID)
 -   DEPOSIT AGENT DAN HISTORY TRANSAKSI [TODO]
+    -   TOPUP DI ADMIN [DONE]
+    -   HISTORY TRANSAKSI DI WEBSITE AGENT [DONE]
+    -   TRANSAKSI DENGAN PEMBAYARAN CREDIT DI WEB [TODO]
+    -   TRANSAKSI DENGAN PEMBAYARAN CREDIT DI API [TODO]
 -   CARTNYA DIFILTER UNTUK NON-FASTBOAT JANGAN CAMPUR BUG [DONE]
+-   NAMBAH KE INTEGRASI PAYMENT DENGAN DOKU [DONE] (hanya VA, selain itu ada CREDIT CARD ERROR MID TID)
 
 -   DELETE CUSTOMER ACCOUNT [PENDING]
--   NAMbAH KE INTEGRASI PAYMENT DENGAN PAYPAL [PENDING]
+-   NAMBAH KE INTEGRASI PAYMENT DENGAN PAYPAL [PENDING]
 -   NAMBAH API UNTUK TOUR PACKAGE dan CAR RENTAL (NASTED AND MAPPING) [PENDING]
 -   make thumbnail on upload [PENDING]
--   di data api karena capacity hanya masuk kepal maka harus diubah ke order rcapacity [bug] [PENDING]
-
-### example order
-
-yang di order adalah event id karena menentukan jam
-
-```json
-{
-    "newModel": true,
-    "alternateEmail": "",
-    "creditCardCurrencyId": null,
-    "customerName": "A",
-    "email": "aji.kamaludin2021@gmail.com",
-    "groupName": "",
-    "groupBooking": false,
-    "groupNoOfMember": 1,
-    "isGrabPayPurchase": false,
-    "isInstantRedeemAll": false,
-    "isSingleCodeForGroup": true,
-    "mobileNumber": "",
-    "mobilePrefix": "",
-    "otherInfo": { "partnerReference": "" },
-    "passportNumber": "",
-    "paymentMethod": "CREDIT",
-    "remarks": "",
-    "ticketTypes": [
-        {
-            "fromResellerId": null,
-            "id": 14074,
-            "quantity": 1,
-            "sellingPrice": null,
-            "visitDate": "2023-05-19",
-            "index": 0,
-            "questionList": [
-                { "id": 20965, "answer": "A", "ticketIndex": 0 },
-                { "id": 20966, "answer": "A", "ticketIndex": 0 },
-                { "id": 20967, "answer": "A", "ticketIndex": 0 },
-                { "id": 20968, "answer": "A", "ticketIndex": 0 }
-            ],
-            "event_id": 837767,
-            "packageItems": [],
-            "visitDateSettings": []
-        }
-    ],
-    "promoCodeId": null,
-    "promotionType": null
-}
-```
+-   di data api karena capacity hanya masuk kepal maka harus diubah ke order rcapacity [bug] [PENDING] (solusi bisa dengan ketika order melakukan hit ulang api untuk memastikan kapasitas tersedia)

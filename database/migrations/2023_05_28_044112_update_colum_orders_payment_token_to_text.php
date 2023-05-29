@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Permission;
 use App\Models\Setting;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -31,6 +32,19 @@ return new class extends Migration
             ];
 
             Setting::insert($settings);
+        }
+
+        // deposite agent permission
+        $permission = Permission::where('name', 'create-deposite-agent')->exists();
+        if (!$permission && Permission::count() != 0) {
+            $permissions = [
+                ['id' => Str::uuid(), 'label' => 'Create Deposite Agent', 'name' => 'create-deposite-agent'],
+                ['id' => Str::uuid(), 'label' => 'Update Deposite Agent', 'name' => 'update-deposite-agent'],
+                ['id' => Str::uuid(), 'label' => 'View Deposite Agent', 'name' => 'view-deposite-agent'],
+                ['id' => Str::uuid(), 'label' => 'Delete Deposite Agent', 'name' => 'delete-deposite-agent'],
+            ];
+
+            Permission::insert($permissions);
         }
     }
 

@@ -89,7 +89,7 @@ export default function SelectionInput(props) {
             .get(route('api.globaltix.track', { q: q, all: all }), {
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + auth.user.jwt_token,
+                    // Authorization: 'Bearer ' + auth.user.jwt_token,
                 },
             })
             .then((response) => {

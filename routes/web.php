@@ -106,6 +106,9 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
         Route::post('/apitoken/regenerate', [CustomerProfileController::class, 'regenerate'])->name('customer.apitoken.regenerate');
         Route::post('/profile', [CustomerProfileController::class, 'update']);
         Route::post('/profile/p', [CustomerProfileController::class, 'password'])->name('customer.password');
+        Route::get('/danger-area', [CustomerProfileController::class, 'danger_area'])->name('customer.danger_area');
+        Route::get('/deposite-transaction', [CustomerProfileController::class, 'deposite'])->name('customer.deposite');
+        Route::post('/danger-area/customer/delete', [CustomerProfileController::class, 'close_customer'])->name('customer.delete');
         Route::post('/profile/logout', [CustomerProfileController::class, 'destroy'])->name('customer.logout');
     });
 
@@ -135,5 +138,5 @@ Route::middleware([VisitorCounter::class, GuardCustomer::class])->group(function
     Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 });
 
-require __DIR__.'/admin.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/admin.php';
+require __DIR__ . '/auth.php';

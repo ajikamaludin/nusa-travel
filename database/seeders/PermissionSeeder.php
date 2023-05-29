@@ -132,6 +132,11 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'Update API Integration Track', 'name' => 'update-ekajaya-to-track'],
             ['id' => Str::uuid(), 'label' => 'View API Integration Track', 'name' => 'view-ekajaya-to-track'],
             ['id' => Str::uuid(), 'label' => 'Delete API Integration Track', 'name' => 'delete-ekajaya-to-track'],
+
+            ['id' => Str::uuid(), 'label' => 'Create Deposite Agent', 'name' => 'create-deposite-agent'],
+            ['id' => Str::uuid(), 'label' => 'Update Deposite Agent', 'name' => 'update-deposite-agent'],
+            ['id' => Str::uuid(), 'label' => 'View Deposite Agent', 'name' => 'view-deposite-agent'],
+            ['id' => Str::uuid(), 'label' => 'Delete Deposite Agent', 'name' => 'delete-deposite-agent'],
         ];
 
         Permission::insert($permissions);

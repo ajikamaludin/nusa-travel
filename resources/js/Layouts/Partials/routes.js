@@ -156,6 +156,14 @@ export default [
                 active: 'globaltix-price-agent.*',
                 permission: 'view-price-agent',
             },
+            {
+                name: 'Deposite',
+                show: true,
+                icon: HiOutlineCash,
+                route: route('deposite-agent.index'),
+                active: 'deposite-agent.*',
+                permission: 'view-deposite-agent',
+            },
         ],
     },
     {

@@ -4,6 +4,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CarRentalController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DepositeAgentController;
 use App\Http\Controllers\EkajayaController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FastboatController;
@@ -212,5 +213,10 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::post('/globaltix-price-agent', [GlobaltixAgentController::class, 'store'])->name('globaltix-price-agent.store');
         Route::put('/globaltix-price-agent/{trackAgent}', [GlobaltixAgentController::class, 'update'])->name('globaltix-price-agent.update');
         Route::delete('/globaltix-price-agent/{trackAgent}', [GlobaltixAgentController::class, 'destroy'])->name('globaltix-price-agent.destroy');
+
+        //Deposite Agent
+        Route::get('/deposite-agent', [DepositeAgentController::class, 'index'])->name('deposite-agent.index');
+        Route::post('/deposite-agent', [DepositeAgentController::class, 'store'])->name('deposite-agent.store');
+        Route::delete('/deposite-agent/{history}', [DepositeAgentController::class, 'destroy'])->name('deposite-agent.destroy');
     });
 });

@@ -4,6 +4,9 @@ namespace App\Models;
 
 class DepositHistory extends Model
 {
+    const VALID = 1;
+    const INVALID = 0;
+
     protected $fillable = [
         'customer_id',
         'debit',
@@ -15,6 +18,6 @@ class DepositHistory extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class)->withTrashed();
     }
 }

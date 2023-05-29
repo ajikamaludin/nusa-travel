@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\DepositHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -40,8 +41,8 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|unique:customers,email,'.$request->user()->id,
-            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255|unique:customers,phone,'.$request->user()->id,
+            'email' => 'required|unique:customers,email,' . $request->user()->id,
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255|unique:customers,phone,' . $request->user()->id,
             'address' => 'nullable|string',
             'nation' => 'nullable|string',
             'national_id' => 'nullable|numeric',
@@ -77,5 +78,35 @@ class ProfileController extends Controller
         Auth::guard('customer')->logout();
 
         return redirect()->route('customer.login');
+    }
+
+    public function danger_area()
+    {
+        return view('customer/danger_area');
+    }
+
+    public function close_customer(Request $request)
+    {
+        $customer = Customer::find($request->user()->id);
+
+        $customer->update([
+            'name' => 'Deleted User',
+            'is_active' => Customer::DEACTIVE
+        ]);
+
+        Auth::guard('customer')->logout();
+
+        return redirect()->route('customer.login')
+            ->with('message', ['type' => 'success', 'message' => 'Your account is deleted']);
+    }
+
+    public function deposite(Request $request)
+    {
+        $query = DepositHistory::where('customer_id', $request->user()->id)
+            ->orderBy('created_at', 'desc');
+
+        return view('customer/deposite_transaction', [
+            'histories' => $query->paginate()
+        ]);
     }
 }

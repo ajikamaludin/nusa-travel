@@ -16,18 +16,25 @@
                 </div>
                 <div class="mb-6 text-center">
                     <div class="text-2xl font-extrabold">Hai, {{ auth()->user()->name }}</div>
+                    <div class="text-base mt-1">Balance: {{ number_format(auth()->user()->deposite_balance, 0, ',', '.') }}</div>
                 </div>
                 <div class="flex flex-col gap-1">
-                    <a href="{{ route('customer.profile') }}" class="rounded-lg shadow p-2 hover:bg-gray-200">{{ __('website.Profile')}}</a>
-                    <a href="{{ route('customer.orders') }}" class="rounded-lg shadow p-2 hover:bg-gray-200">{{ __('website.Order')}}</a>
+                    <a href="{{ route('customer.profile') }}" class="rounded-lg shadow p-2 border bg-gray-50 hover:bg-gray-200">{{ __('website.Profile')}}</a>
+                    <a href="{{ route('customer.orders') }}" class="rounded-lg shadow p-2 border bg-gray-50 hover:bg-gray-200">{{ __('website.Order')}}</a>
                     @if(auth()->user()->is_agent =='1')
-                        <a href="{{ route('customer.apitoken') }}" class="rounded-lg shadow p-2 hover:bg-gray-200">Api Token</a>
+                        <a href="{{ route('customer.deposite') }}" class="rounded-lg shadow p-2 border bg-gray-50 hover:bg-gray-200">
+                            Deposite Transaction
+                        </a>
+                        <a href="{{ route('customer.apitoken') }}" class="rounded-lg shadow p-2 border bg-gray-50 hover:bg-gray-200">Api</a>
+                        <a href="{{ route('customer.danger_area') }}" class="rounded-lg shadow p-2 border bg-gray-50 hover:bg-gray-200">Other</a>
                     @endif
                 </div>
                 <form method="POST" action="{{ route('customer.logout') }}" class="pt-10">
                     @csrf
                     <input type="hidden" name="">
-                    <button type="submit" class="rounded-lg shadow p-2 w-full hover:bg-gray-200 text-left">{{__('website.Logout')}}</button>
+                    <button type="submit" class="rounded-lg shadow p-2 border w-full bg-gray-50 hover:bg-gray-200 text-left">
+                        {{__('website.Logout')}}
+                    </button>
                 </form>
             </div>
             <div class="w-full md:w-3/4">
