@@ -142,7 +142,9 @@ class EkajayaService
                     // no response at all
                     $source = FastboatPlace::where('name', $source)->where('data_source', EkajayaService::class)->first();
                     $destination = FastboatPlace::where('name', $destination)->where('data_source', EkajayaService::class)->first();
-                    self::clearSpecific($source, $destination);
+                    if ($source != null && $destination != null) {
+                        self::clearSpecific($source, $destination);
+                    }
                 }
                 // spesific same place diff items
                 foreach ($places as $place) {

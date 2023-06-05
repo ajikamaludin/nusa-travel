@@ -18,3 +18,19 @@ rsync -arP -e 'ssh -p 224' --exclude=node_modules --exclude=.git --exclude=.env 
 
 -   Export Latest Database for backup, and for migrate/upgrade on local
 -   Backup any image in public/uploads
+
+### Build
+
+#### Swiftbooking
+
+-   changes .env
+    VITE_BUILD_OPT="partner"
+-   npm run build
+-   zip the folder
+
+#### Nusa
+
+-   changes .env
+    VITE_BUILD_OPT="nusa"
+-   npm run build
+-   zip the folder

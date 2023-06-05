@@ -13,6 +13,7 @@ import axios from 'axios'
 import { Spinner } from 'flowbite-react'
 import TextArea from '@/Components/TextArea'
 import { formatIDR } from '@/utils'
+import { toast } from 'react-toastify'
 
 export default function Form(props) {
     const { track } = props
@@ -105,9 +106,14 @@ export default function Form(props) {
             .then((res) => {
                 setOptions(res.data)
                 if (withSelected) {
-                    setSelectedOptionIndex(
-                        res.data.findIndex((op) => op.ticket_type_id === typeId)
+                    const selectedIndex = res.data.findIndex(
+                        (op) => op.ticket_type_id === typeId
                     )
+                    if (selectedIndex !== -1) {
+                        setSelectedOptionIndex(selectedIndex)
+                    } else {
+                        toast.error('Mapping Globaltix Loss')
+                    }
                 }
             })
             .catch((err) => {
@@ -139,6 +145,7 @@ export default function Form(props) {
     }, [track])
 
     useEffect(() => {
+        console.log(selectedOptionIndex)
         if (selectedOptionIndex === '') {
             setTimeSlots([])
             return
