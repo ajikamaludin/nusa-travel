@@ -41,8 +41,8 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|unique:customers,email,' . $request->user()->id,
-            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255|unique:customers,phone,' . $request->user()->id,
+            'email' => 'required|unique:customers,email,'.$request->user()->id,
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255|unique:customers,phone,'.$request->user()->id,
             'address' => 'nullable|string',
             'nation' => 'nullable|string',
             'national_id' => 'nullable|numeric',
@@ -91,7 +91,7 @@ class ProfileController extends Controller
 
         $customer->update([
             'name' => 'Deleted User',
-            'is_active' => Customer::DEACTIVE
+            'is_active' => Customer::DEACTIVE,
         ]);
 
         Auth::guard('customer')->logout();
@@ -106,7 +106,7 @@ class ProfileController extends Controller
             ->orderBy('created_at', 'desc');
 
         return view('customer/deposite_transaction', [
-            'histories' => $query->paginate()
+            'histories' => $query->paginate(),
         ]);
     }
 }

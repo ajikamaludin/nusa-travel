@@ -45,7 +45,7 @@ class GeneralService
                 $payments->add([
                     'name' => Setting::DEPOSITE_AGENT,
                     'logo' => null,
-                    'display_name' => "Balance: $balance"
+                    'display_name' => "Balance: $balance",
                 ]);
             }
         }

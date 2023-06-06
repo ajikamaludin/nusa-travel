@@ -273,9 +273,9 @@ class EkajayaService
             ['fastboat_destination_id', '=', $destination->id],
         ])->delete();
 
-        $fastboatTrack = $group->tracks()->withTrashed()->where('id', $track['id'])->first();
+        $fastboatTrack = FastboatTrack::withTrashed()->where('id', $track['id'])->first();
         if ($fastboatTrack == null) {
-            $group->tracks()->create([
+            FastboatTrack::create([
                 'id' => $track['id'],
                 'arrival_time' => $track['arrival_time'],
                 'departure_time' => $track['departure_time'],

@@ -20,7 +20,7 @@ return new class extends Migration
 
         // setting payment
         $setting = Setting::where('key', 'midtrans_enable')->exists();
-        if (!$setting && Setting::count() != 0) {
+        if (! $setting && Setting::count() != 0) {
             $settings = [
                 ['id' => Str::uuid(), 'key' => 'midtrans_enable', 'value' => '0', 'type' => 'text', 'label' => 'Midtrans Enable'],
                 ['id' => Str::uuid(), 'key' => 'midtrans_logo', 'value' => 'images/midtrans_logo.png', 'type' => 'image', 'label' => 'Midtrans Logo'],
@@ -36,7 +36,7 @@ return new class extends Migration
 
         // deposite agent permission
         $permission = Permission::where('name', 'create-deposite-agent')->exists();
-        if (!$permission && Permission::count() != 0) {
+        if (! $permission && Permission::count() != 0) {
             $permissions = [
                 ['id' => Str::uuid(), 'label' => 'Create Deposite Agent', 'name' => 'create-deposite-agent'],
                 ['id' => Str::uuid(), 'label' => 'Update Deposite Agent', 'name' => 'update-deposite-agent'],

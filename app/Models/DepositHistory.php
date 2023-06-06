@@ -5,6 +5,7 @@ namespace App\Models;
 class DepositHistory extends Model
 {
     const VALID = 1;
+
     const INVALID = 0;
 
     protected $fillable = [

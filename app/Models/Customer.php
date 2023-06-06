@@ -42,7 +42,7 @@ class Customer extends Authenticatable
         'national_id',
         'is_agent',
         'token',
-        'deposite_balance'
+        'deposite_balance',
     ];
 
     public function orders()

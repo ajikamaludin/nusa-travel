@@ -181,7 +181,7 @@ class OrderController extends Controller
             $order->customer->update(['deposite_balance' => $balance - $order->total_amount]);
             $order->customer->depositeHistories()->create([
                 'credit' => $order->total_amount,
-                'description' => 'Payed for Order #' . $order->order_code,
+                'description' => 'Payed for Order #'.$order->order_code,
             ]);
 
             $order->update([

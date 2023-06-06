@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FastboatTracksCollection;
 use App\Http\Resources\PickupsCollection;
-use App\Mail\OrderInvoice;
 use App\Models\Customer;
 use App\Models\FastboatPickup;
 use App\Models\FastboatTrack;
@@ -20,7 +19,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
 class AgentController extends Controller
 {
@@ -141,7 +139,7 @@ class AgentController extends Controller
             'total_amount' => $request->order['total_payed'],
             'order_type' => Order::TYPE_ORDER,
             'date' => now(),
-            'payment_channel' => Setting::DEPOSITE_AGENT
+            'payment_channel' => Setting::DEPOSITE_AGENT,
         ]);
 
         $balance = $order->customer->deposite_balance;
@@ -151,7 +149,7 @@ class AgentController extends Controller
         // harga agent
         $trackAgent = FastboatTrackAgent::where([
             ['customer_id', '=', $customerId],
-            ['fastboat_track_id', '=', $request->order['track_id']]
+            ['fastboat_track_id', '=', $request->order['track_id']],
         ])->first();
         if ($trackAgent != null) {
             $price = $trackAgent->price;
@@ -161,7 +159,7 @@ class AgentController extends Controller
             $order->customer->update(['deposite_balance' => $balance - $totalOrder]);
             $order->customer->depositeHistories()->create([
                 'credit' => $totalOrder,
-                'description' => 'Payed for Order #' . $order->order_code,
+                'description' => 'Payed for Order #'.$order->order_code,
             ]);
 
             $order->update([
@@ -187,7 +185,7 @@ class AgentController extends Controller
         $item = $order->items()->create([
             'entity_order' => FastboatTrack::class,
             'entity_id' => $track->id,
-            'description' => $track->source->name . ' - ' . $track->destination->name . ' | ' . $request->order['date'],
+            'description' => $track->source->name.' - '.$track->destination->name.' | '.$request->order['date'],
             'amount' => $request->order['price'],
             'quantity' => $request->order['qty'],
             'date' => $request->order['date'],

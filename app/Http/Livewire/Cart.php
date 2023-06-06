@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Mail\OrderPayment;
 use App\Models\Customer;
 use App\Models\Order;
-use App\Models\Setting;
 use App\Services\AsyncService;
 use App\Services\GeneralService;
 use Illuminate\Support\Facades\DB;
@@ -69,7 +68,7 @@ class Cart extends Component
 
             return;
         }
-        if (!$this->isAuth) {
+        if (! $this->isAuth) {
             $this->validate();
             $order = $this->createOrder();
         } else {

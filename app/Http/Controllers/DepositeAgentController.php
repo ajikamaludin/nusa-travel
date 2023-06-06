@@ -48,6 +48,7 @@ class DepositeAgentController extends Controller
     {
         if ($history->created_by != $request->user()->id) {
             session()->flash('message', ['type' => 'error', 'message' => 'Item can\'t be delete']);
+
             return;
         }
 

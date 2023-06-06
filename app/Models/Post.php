@@ -107,7 +107,7 @@ class Post extends Model
             if ($this->original_id == null) {
                 $post = Post::where([
                     ['original_id', '=', $this->id],
-                    ['lang', '=', $locale]
+                    ['lang', '=', $locale],
                 ])->first();
                 // handle unkhow url access
                 // if ($post == null) {
@@ -121,8 +121,10 @@ class Post extends Model
                     $post = $this;
                 }
             }
+
             return $post;
         }
+
         return $this;
     }
 }
