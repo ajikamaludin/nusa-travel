@@ -282,6 +282,7 @@ class EkajayaService
                 'price' => $track['price'],
                 'fastboat_source_id' => $source->id,
                 'fastboat_destination_id' => $destination->id,
+                'fastboat_track_group_id' => $group->id,
                 'is_publish' => 1,
                 'data_source' => EkajayaService::class,
             ]);
