@@ -34,3 +34,11 @@ rsync -arP -e 'ssh -p 224' --exclude=node_modules --exclude=.git --exclude=.env 
     VITE_BUILD_OPT="nusa"
 -   npm run build
 -   zip the folder
+
+#### Singgahsiniaja
+
+-   changes .env
+    VITE_BUILD_OPT="partner"
+    VITE_BUILD_GLOBALTIX=false
+-   npm run build
+-   zip the folder

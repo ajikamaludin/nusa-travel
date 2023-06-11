@@ -149,6 +149,14 @@ export default [
                 permission: 'view-price-agent',
             },
             {
+                name: 'Harga [API]',
+                show: true,
+                icon: HiCash,
+                route: route('ekajaya-price-agent.index'),
+                active: 'ekajaya-price-agent.index',
+                permission: 'view-price-agent',
+            },
+            {
                 name: 'Harga [Globaltix]',
                 show: showGlobaltix,
                 icon: HiCash,

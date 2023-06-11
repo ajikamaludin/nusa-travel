@@ -6,6 +6,7 @@ use App\Http\Controllers\CarRentalController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepositeAgentController;
 use App\Http\Controllers\EkajayaController;
+use App\Http\Controllers\EkajayaSubAgentController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FastboatController;
 use App\Http\Controllers\FastboatDropoffController;
@@ -218,5 +219,11 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         Route::get('/deposite-agent', [DepositeAgentController::class, 'index'])->name('deposite-agent.index');
         Route::post('/deposite-agent', [DepositeAgentController::class, 'store'])->name('deposite-agent.store');
         Route::delete('/deposite-agent/{history}', [DepositeAgentController::class, 'destroy'])->name('deposite-agent.destroy');
+
+        //Ekajaya Agen Price
+        Route::get('/ekajaya-price-agent', [EkajayaSubAgentController::class, 'index'])->name('ekajaya-price-agent.index');
+        Route::post('/ekajaya-price-agent', [EkajayaSubAgentController::class, 'store'])->name('ekajaya-price-agent.store');
+        Route::put('/ekajaya-price-agent/{trackAgent}', [EkajayaSubAgentController::class, 'update'])->name('ekajaya-price-agent.update');
+        Route::delete('/ekajaya-price-agent/{trackAgent}', [EkajayaSubAgentController::class, 'destroy'])->name('ekajaya-price-agent.destroy');
     });
 });
