@@ -41,8 +41,8 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|unique:customers,email,'.$request->user()->id,
-            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255|unique:customers,phone,'.$request->user()->id,
+            'email' => 'required|unique:customers,email,' . $request->user()->id,
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255|unique:customers,phone,' . $request->user()->id,
             'address' => 'nullable|string',
             'nation' => 'nullable|string',
             'national_id' => 'nullable|numeric',
@@ -87,11 +87,14 @@ class ProfileController extends Controller
 
     public function close_customer(Request $request)
     {
+        $request->validate(['deleted_reason' => 'required|string']);
+
         $customer = Customer::find($request->user()->id);
 
         $customer->update([
             'name' => 'Deleted User',
             'is_active' => Customer::DEACTIVE,
+            'deleted_reason' => $request->reason
         ]);
 
         Auth::guard('customer')->logout();

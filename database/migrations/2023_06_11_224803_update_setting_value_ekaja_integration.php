@@ -22,6 +22,10 @@ return new class extends Migration
 
             Setting::insert($settings);
         }
+
+        Schema::table('customers', function (Blueprint $table) {
+            $table->text('deleted_reason')->nullable();
+        });
     }
 
     /**
