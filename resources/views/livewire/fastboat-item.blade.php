@@ -6,6 +6,11 @@
                     <img src="{{ asset($setting->getValue('GLOBALTIX_LOGO')) }}" class="object-fill" />
                 </div>
             @endif
+            @if ($track->data_source == \App\Services\EkajayaService::class)
+                <div class="w-20 mr-4">
+                    <img src="{{ asset($setting->getValue('EKAJAYA_LOGO')) }}" class="object-fill" />
+                </div>
+            @endif
             <div class="text-base">
                 <p>
                     {{ $track->alternative_name }}

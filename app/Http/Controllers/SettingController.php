@@ -137,12 +137,6 @@ class SettingController extends Controller
     {
         $setting = Setting::where('key', 'like', 'ekajaya_%')->orderBy('key', 'asc')->get();
 
-        $setting = $setting->map(function ($item) {
-            return [
-                $item->key => $item->value,
-            ];
-        });
-
         return inertia('Setting/Ekajaya', [
             'setting' => (object) $setting,
         ]);
@@ -154,23 +148,31 @@ class SettingController extends Controller
             'ekajaya_host' => 'required|url|string|max:255',
             'ekajaya_apikey' => 'required|string|max:255|unique:customers,token',
             'ekajaya_enable' => 'required|in:0,1',
+            'ekajaya_mark' => 'required|string',
+            'ekajaya_logo' => 'nullable|image'
         ], [
             'ekajaya_apikey.unique' => 'cant use key as same as local system',
         ]);
 
         // Check
         $check = EkajayaService::check($request->ekajaya_host);
-        if (! $check) {
+        if (!$check) {
             return redirect()->route('setting.ekajaya')
                 ->with('message', ['type' => 'error', 'message' => 'Not valid API Integration HOST']);
         }
 
         DB::beginTransaction();
-        foreach ($request->input() as $key => $value) {
+        foreach ($request->except(['ekajaya_logo']) as $key => $value) {
             Setting::where('key', $key)->update(['value' => $value]);
         }
         if ($request->ekajaya_enable == 0) {
             EkajayaService::clear();
+        }
+
+        if ($request->hasFile('ekajaya_logo')) {
+            $file = $request->file('ekajaya_logo');
+            $file->store('uploads', 'public');
+            Setting::where('key', 'ekajaya_logo')->update(['value' => $file->hashName('uploads')]);
         }
         DB::commit();
 

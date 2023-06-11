@@ -63,7 +63,7 @@ export default function Payment(props) {
                                 <img
                                     src={`${data.globaltix_logo}`}
                                     className="w-40 mb-1"
-                                    alt="site logo"
+                                    alt="globaltix logo"
                                 />
                             }
                         />

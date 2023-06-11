@@ -1,17 +1,23 @@
 import React from 'react'
+import { Head, useForm, router } from '@inertiajs/react'
+
+import { extractValue } from './utils'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import FormInput from '@/Components/FormInput'
+import FormFile from '@/Components/FormFile'
 import Button from '@/Components/Button'
-import { Head, useForm } from '@inertiajs/react'
 import Checkbox from '@/Components/Checkbox'
 
 export default function Payment(props) {
     const { setting } = props
 
     const { data, setData, post, processing, errors } = useForm({
-        ekajaya_apikey: setting[0].EKAJAYA_APIKEY,
-        ekajaya_enable: setting[1].EKAJAYA_ENABLE,
-        ekajaya_host: setting[2].EKAJAYA_HOST,
+        ekajaya_apikey: extractValue(setting, 'EKAJAYA_APIKEY'),
+        ekajaya_enable: extractValue(setting, 'EKAJAYA_ENABLE'),
+        ekajaya_host: extractValue(setting, 'EKAJAYA_HOST'),
+        ekajaya_logo: null,
+        ekajaya_logo_url: extractValue(setting, 'EKAJAYA_LOGO'),
+        ekajaya_mark: extractValue(setting, 'EKAJAYA_MARK'),
     })
 
     const handleOnChange = (event) => {
@@ -26,7 +32,11 @@ export default function Payment(props) {
     }
 
     const handleSubmit = () => {
-        post(route('setting.update-ekajaya'))
+        post(route('setting.update-ekajaya'), {
+            onSuccess: () => {
+                setTimeout(() => router.get(route(route().current())), 3000)
+            },
+        })
     }
 
     return (
@@ -46,6 +56,27 @@ export default function Payment(props) {
                         <div className="text-xl font-bold mb-4">
                             API Integration
                         </div>
+                        <FormFile
+                            label={'Logo'}
+                            onChange={(e) =>
+                                setData('ekajaya_logo', e.target.files[0])
+                            }
+                            error={errors.ekajaya_logo}
+                            preview={
+                                <img
+                                    src={`${data.ekajaya_logo_url}`}
+                                    className="w-40 mb-1"
+                                    alt="ekajaya logo"
+                                />
+                            }
+                        />
+                        <FormInput
+                            name="ekajaya_mark"
+                            value={data.ekajaya_mark}
+                            onChange={handleOnChange}
+                            label="API Mark"
+                            error={errors.ekajaya_mark}
+                        />
                         <FormInput
                             name="ekajaya_host"
                             value={data.ekajaya_host}

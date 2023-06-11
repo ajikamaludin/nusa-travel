@@ -87,6 +87,8 @@ class DummySeeder extends Seeder
             ['id' => Str::uuid(), 'key' => 'EKAJAYA_HOST', 'value' => 'https://nusatravel.ajikamaludin.id', 'type' => 'text', 'label' => 'Ekajaya Api Host'],
             ['id' => Str::uuid(), 'key' => 'EKAJAYA_APIKEY', 'value' => 'abc-test', 'type' => 'text', 'label' => 'Ekajaya Api Key'],
             ['id' => Str::uuid(), 'key' => 'EKAJAYA_ENABLE', 'value' => '0', 'type' => 'text', 'label' => 'Ekajaya Integration Enable'],
+            ['id' => Str::uuid(), 'key' => 'EKAJAYA_LOGO', 'value' => 'images/logo_ekajaya.png', 'type' => 'image', 'label' => 'Ekajaya Logo'],
+            ['id' => Str::uuid(), 'key' => 'EKAJAYA_MARK', 'value' => 'By Integrated', 'type' => 'image', 'label' => 'Ekajaya Mark'],
 
             ['id' => Str::uuid(), 'key' => 'GLOBALTIX_HOST', 'value' => 'https://uat-api.globaltix.com/api', 'type' => 'text', 'label' => 'GlobalTix Api Host'],
             ['id' => Str::uuid(), 'key' => 'GLOBALTIX_USERNAME', 'value' => 'business@nusa.travel', 'type' => 'text', 'label' => 'GlobalTix Username'],
@@ -126,7 +128,7 @@ class DummySeeder extends Seeder
                 'cover_image' => $p['image'],
                 'is_publish' => Post::PUBLISH,
                 'title' => $p['title'],
-                'body' => file_get_contents(__DIR__.$p['file']),
+                'body' => file_get_contents(__DIR__ . $p['file']),
                 'created_by' => User::first()->id,
             ]);
 
@@ -154,7 +156,7 @@ class DummySeeder extends Seeder
             Page::create([
                 'key' => $page['key'],
                 'title' => $page['title'],
-                'body' => file_get_contents(__DIR__.$page['file']),
+                'body' => file_get_contents(__DIR__ . $page['file']),
             ]);
         }
     }
@@ -174,7 +176,7 @@ class DummySeeder extends Seeder
             Page::create([
                 'key' => $page['key'],
                 'title' => $page['title'],
-                'body' => file_get_contents(__DIR__.$page['file']),
+                'body' => file_get_contents(__DIR__ . $page['file']),
             ]);
         }
     }
@@ -358,7 +360,7 @@ class DummySeeder extends Seeder
             [
                 'name' => 'PENIDA DAY TOUR ( WEST )',
                 'title' => 'PENIDA DAY TOUR ( WEST )',
-                'body' => file_get_contents(__DIR__.'/packages/1.txt'),
+                'body' => file_get_contents(__DIR__ . '/packages/1.txt'),
                 'meta_tag' => 'PENIDA DAY TOUR ( WEST )',
                 'price' => '475000',
                 'cover_image' => 'images/post4.webp',
@@ -389,7 +391,7 @@ class DummySeeder extends Seeder
             [
                 'name' => 'PENIDA DAY TOUR ( EAST )',
                 'title' => 'PENIDA DAY TOUR ( EAST )',
-                'body' => file_get_contents(__DIR__.'/packages/2.txt'),
+                'body' => file_get_contents(__DIR__ . '/packages/2.txt'),
                 'meta_tag' => 'PENIDA DAY TOUR ( EAST )',
                 'price' => '475000',
                 'cover_image' => 'images/post3.webp',
@@ -420,7 +422,7 @@ class DummySeeder extends Seeder
             [
                 'name' => 'PENIDA DAY TOUR ( WEST - EAST )',
                 'title' => 'PENIDA DAY TOUR ( WEST - EAST )',
-                'body' => file_get_contents(__DIR__.'/packages/3.txt'),
+                'body' => file_get_contents(__DIR__ . '/packages/3.txt'),
                 'meta_tag' => 'PENIDA DAY TOUR ( WEST - EAST )',
                 'price' => '540000',
                 'cover_image' => 'images/post3.webp',
@@ -451,7 +453,7 @@ class DummySeeder extends Seeder
             [
                 'name' => 'PENIDA WEST TOUR - LEMBONGAN TOUR',
                 'title' => 'PENIDA WEST TOUR - LEMBONGAN TOUR',
-                'body' => file_get_contents(__DIR__.'/packages/4.txt'),
+                'body' => file_get_contents(__DIR__ . '/packages/4.txt'),
                 'meta_tag' => 'PENIDA WEST TOUR - LEMBONGAN TOUR',
                 'price' => '590000',
                 'cover_image' => 'images/post2.webp',
@@ -482,7 +484,7 @@ class DummySeeder extends Seeder
             [
                 'name' => 'PENIDA WEST TOUR - SNORKLING ( at QUICKSILVER MEGA PONTON)',
                 'title' => 'PENIDA WEST TOUR - SNORKLING ( at QUICKSILVER MEGA PONTON)',
-                'body' => file_get_contents(__DIR__.'/packages/5.txt'),
+                'body' => file_get_contents(__DIR__ . '/packages/5.txt'),
                 'meta_tag' => 'PENIDA WEST TOUR - SNORKLING ( at QUICKSILVER MEGA PONTON)',
                 'price' => '580000',
                 'cover_image' => 'images/post1.webp',
@@ -513,7 +515,7 @@ class DummySeeder extends Seeder
             [
                 'name' => 'LEMBONGAN ISLAND TOUR',
                 'title' => 'LEMBONGAN ISLAND TOUR',
-                'body' => file_get_contents(__DIR__.'/packages/6.txt'),
+                'body' => file_get_contents(__DIR__ . '/packages/6.txt'),
                 'meta_tag' => 'LEMBONGAN ISLAND TOUR',
                 'price' => '475000',
                 'cover_image' => 'images/post1.webp',
@@ -546,7 +548,7 @@ class DummySeeder extends Seeder
         $images = collect();
         foreach (range(1, 4) as $img) {
             $images->add(File::create([
-                'path' => 'images/post'.$img.'.webp',
+                'path' => 'images/post' . $img . '.webp',
             ]));
         }
 

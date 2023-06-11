@@ -117,7 +117,8 @@ export default function Form(props) {
                 }
             })
             .catch((err) => {
-                if (err.response.data.message) {
+                console.log(err)
+                if (err.response?.data.message) {
                     alert(err.response.data.message)
                     return
                 }
@@ -145,12 +146,25 @@ export default function Form(props) {
     }, [track])
 
     useEffect(() => {
-        console.log(selectedOptionIndex)
         if (selectedOptionIndex === '') {
             setTimeSlots([])
             return
         }
         setTimeSlots(options[selectedOptionIndex].time_slots)
+
+        const option = options[selectedOptionIndex]
+        setData('attribute_json', {
+            ...data.attribute_json,
+            ticket_type: {
+                ...data.attribute_json.ticket_type,
+                option_name: option.name,
+                option_description: option.description,
+                questions: option.questions,
+                id: option.ticket_type_id,
+                name: option.ticket_type_name,
+                price: option.ticket_type_price,
+            },
+        })
     }, [selectedOptionIndex])
 
     return (
