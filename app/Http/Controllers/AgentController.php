@@ -28,7 +28,7 @@ class AgentController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|unique:customers,email',
-            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255',
+            'phone' => 'required|unique:customers,phone|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255',
             'address' => 'nullable|string',
             'nation' => 'nullable|string',
             'national_id' => 'nullable|numeric',
@@ -55,8 +55,8 @@ class AgentController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|unique:customers,email,'.$agent->id,
-            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255',
+            'email' => 'required|unique:customers,email,' . $agent->id,
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:255|unique:customers,phone,' . $agent->id,
             'address' => 'nullable|string',
             'nation' => 'nullable|string',
             'national_id' => 'nullable|numeric',
