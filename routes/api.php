@@ -39,6 +39,7 @@ Route::get('/tags', [TagController::class, 'index'])->name('api.tag.index');
 Route::get('/fastboats', [FastboatController::class, 'index'])->name('api.fastboat.index');
 Route::get('/agent', [AgentController::class, 'index'])->name('api.agent.index');
 Route::get('/fastboat/tracks', [FastboatTrackController::class, 'index'])->name('api.fasboat.track.index');
+Route::get('/fastboat/tracks/all', [FastboatTrackController::class, 'tracks'])->name('api.fasboat.track.tracks');
 Route::get('/car-rentals', [CarRentalController::class, 'index'])->name('api.car-rentals.index');
 Route::get('/customers', [CustomerController::class, 'index'])->name('api.customer.index');
 

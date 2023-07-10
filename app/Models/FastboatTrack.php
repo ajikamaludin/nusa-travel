@@ -125,7 +125,12 @@ class FastboatTrack extends Model
                     return $data->ticket_type->option_name;
                 }
 
-                return $this->group?->fastboat->name ?? '';
+                if ($this->group != null && $this->group?->fastboat != null) {
+                    $name = $this->group?->fastboat->name . " (" . $this->source->name . " - " . $this->destination->name . ")";
+                    return $name;
+                }
+
+                return '';
             },
         );
     }
@@ -170,8 +175,9 @@ class FastboatTrack extends Model
             'fastboat_track_group_id' => $this->fastboat_track_group_id,
             'fastboat_source_id' => $this->fastboat_source_id,
             'fastboat_destination_id' => $this->fastboat_destination_id,
-            'date' => $date,
-        ])->first();
+        ])
+            ->whereDate('date', Carbon::parse($date))
+            ->first();
 
         if ($cap != null) {
             return $cap->capacity;

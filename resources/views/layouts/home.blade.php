@@ -7,7 +7,7 @@
         <meta name="author" content="{{ $setting->getValue('G_SITE_NAME') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @yield('meta')
-        <title>{{ $setting->getValue('G_SITE_NAME') }}  @yield('title')</title>
+        <title>@yield('title') {{ $setting->getValue('G_SITE_NAME') }}</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">

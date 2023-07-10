@@ -29,6 +29,16 @@ class OrderController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return inertia('Order/CreateForm');
+    }
+
+    public function store(Request $request)
+    {
+        // 
+    }
+
     public function show(Order $order)
     {
         return inertia('Order/Detail', [
@@ -53,7 +63,7 @@ class OrderController extends Controller
         if ($order->payment_status != $request->payment_status) {
             $order->fill([
                 'payment_status' => $request->payment_status,
-                'payment_type' => 'Manual|'.$order->payment_type,
+                'payment_type' => 'Manual|' . $order->payment_type,
             ]);
         }
 

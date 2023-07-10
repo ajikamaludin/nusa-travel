@@ -4,7 +4,7 @@
         <div class="flex-1">
             <div class="text-lg md:text-3xl font-bold pb-2">{{ __('website.About Us')}}</div>
             <div>
-                {{$setting->getValue('G_SITE_ABOUT')}}
+                {{ $setting->getValue('G_SITE_ABOUT') }}
             </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2">

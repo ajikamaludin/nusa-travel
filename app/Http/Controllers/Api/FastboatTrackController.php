@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\FastboatTrack;
 use App\Models\FastboatTrackGroup;
 use App\Models\FastboatTrackGroupAgent;
 use Illuminate\Http\Request;
@@ -33,5 +34,10 @@ class FastboatTrackController extends Controller
         }
 
         return $query->get();
+    }
+
+    public function tracks()
+    {
+        return FastboatTrack::all();
     }
 }

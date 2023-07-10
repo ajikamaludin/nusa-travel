@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\CarRentalController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepositeAgentController;
@@ -165,8 +166,18 @@ Route::prefix('travel')->middleware([HandleInertiaRequests::class])->group(funct
         // Role
         Route::resource('/roles', RoleController::class);
 
+        // Calender
+        Route::get('/calender', [CalenderController::class, 'index'])->name('calender.index');
+        Route::get('/calender/create', [CalenderController::class, 'create'])->name('calender.create');
+        Route::post('/calender', [CalenderController::class, 'store'])->name('calender.store');
+        Route::get('/calender/{date}', [CalenderController::class, 'edit'])->name('calender.edit');
+        Route::put('/calender/{date}', [CalenderController::class, 'update'])->name('calender.update');
+        Route::delete('/calender/{date}', [CalenderController::class, 'destroy'])->name('calender.destroy');
+
         // Order
         Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+        Route::get('/orders/create', [OrderController::class, 'create'])->name('order.create');
+        Route::post('/orders/create', [OrderController::class, 'store'])->name('order.store');
         Route::get('/orders/{order}', [OrderController::class, 'show'])->name('order.show');
         Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('order.edit');
         Route::put('/orders/{order}', [OrderController::class, 'update'])->name('order.update');

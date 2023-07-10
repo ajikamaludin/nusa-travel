@@ -101,6 +101,14 @@ export default [
                 active: 'promo.*',
                 permission: 'view-promo',
             },
+            {
+                name: 'Calender',
+                show: true,
+                icon: HiOutlineCalendar,
+                route: route('calender.index'),
+                active: 'calender.*',
+                permission: 'view-fastboat',
+            },
         ],
     },
     {
