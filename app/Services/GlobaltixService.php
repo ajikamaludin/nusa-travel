@@ -190,10 +190,24 @@ class GlobaltixService
             ];
         }
 
+        $key = self::class . './ticketType/checkEventAvailability.' . $ticketTypeId . $date;
+
+        if (Cache::has($key)) {
+            $data = Cache::get($key);
+
+            return [
+                'id' => $data['id'],
+                'available' => $data['available'],
+                'total' => $data['total'],
+            ];
+        }
+
         $accessToken = self::auth();
 
         $url = $host . '/ticketType/checkEventAvailability';
-        $response = Http::acceptJson()
+        $response = Http::connectTimeout(120)
+            ->timeout(120)
+            ->acceptJson()
             ->withHeaders([
                 'Accept-Version' => '1.0',
                 'Authorization' => $accessToken,
@@ -234,11 +248,15 @@ class GlobaltixService
             }
         }
 
-        return [
+        $data = [
             'id' => $avability['id'],
             'available' => $avability['available'],
             'total' => $avability['total'],
         ];
+
+        Cache::put($key, $data, self::CACHE_TTL);
+
+        return $data;
     }
 
     public static function order(OrderItem $item)

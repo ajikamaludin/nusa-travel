@@ -183,6 +183,10 @@ class FastboatTrack extends Model
             return $cap->capacity;
         }
 
+        if ($this->group == null) {
+            return 0;
+        }
+
         return $this->group->fastboat->capacity;
     }
 
