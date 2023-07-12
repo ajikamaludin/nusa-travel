@@ -21,7 +21,7 @@ class CalenderController extends Controller
         }
 
         $date = Carbon::parse($startDate);
-        while ($date < $endDate) {
+        while ($date <= $endDate) {
             $dates[] = [
                 'today' => $date->isToday() ? 'Today' : '',
                 'date' => $date->format('d'),

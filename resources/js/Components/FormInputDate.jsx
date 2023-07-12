@@ -7,6 +7,7 @@ export default function FormInputDate({
     onChange,
     label = '',
     error,
+    placeholder = '',
 }) {
     const id = `${label}${Math.random()}`
     return (
@@ -35,6 +36,7 @@ export default function FormInputDate({
                 previousMonthButtonLabel="<"
                 nextYearButtonLabel=">"
                 previousYearButtonLabel="<"
+                placeholderText={placeholder}
             />
             {error && (
                 <p className="mb-2 text-sm text-red-600 dark:text-red-500">

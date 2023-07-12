@@ -10,14 +10,17 @@ class CustomerController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Customer::query()
-            ->where('is_active', Customer::ACTIVE);
+        $query = Customer::query();
 
         if ($request->has('q')) {
             $query->where('name', 'like', "%{$request->q}%");
         }
 
-        if ($request->has('agent')) {
+        if ($request->active == '-') {
+            $query->where('is_active', Customer::ACTIVE);
+        }
+
+        if ($request->agent == '-') {
             $query->where('is_agent', Customer::AGENT);
         }
 

@@ -203,7 +203,18 @@ class GlobaltixService
                 'date' => $date,
             ]);
 
-        Log::info(self::class, [$url, $accessToken, [$response->status(), 'response' => $response->json()]]);
+        Log::info(self::class, [
+            $url,
+            $accessToken,
+            [
+                'query_param' => [
+                    'id' => $ticketTypeId,
+                    'date' => $date,
+                ],
+                'status' => $response->status(),
+                'response' => $response->json()
+            ]
+        ]);
 
         $data = $response->json('data');
 

@@ -36,8 +36,18 @@ class FastboatTrackController extends Controller
         return $query->get();
     }
 
-    public function tracks()
+    public function tracks(Request $request)
     {
-        return FastboatTrack::all();
+        $query = FastboatTrack::query();
+
+        if ($request->q) {
+            $query->where('name', 'like', "%{$request->q}%");
+        }
+
+        if ($request->with_paginate != '') {
+            return $query->paginate();
+        }
+
+        return $query->get();
     }
 }

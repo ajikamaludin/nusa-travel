@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\CarRental;
+use App\Models\TourPackage;
 use Illuminate\Http\Request;
 
-class CarRentalController extends Controller
+class TourPackageController extends Controller
 {
     public function index(Request $request)
     {
-        $query = CarRental::query();
+        $query = TourPackage::query();
 
         if ($request->q) {
             $query->where('name', 'like', "%{$request->q}%");
