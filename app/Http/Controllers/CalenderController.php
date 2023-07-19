@@ -12,8 +12,8 @@ class CalenderController extends Controller
     public function index(Request $request)
     {
         $dates = [];
-        $startDate = now()->startOfWeek();
-        $endDate = now()->endOfWeek();
+        $startDate = now();
+        $endDate = now()->addDays(7);
 
         if ($request->startDate != '' && $request->endDate != '') {
             $startDate = Carbon::parse($request->startDate);
