@@ -36,6 +36,6 @@
         "react-number-format": "^5.1.2",
         "react-toastify": "^9.1.1",
         "react-use": "^17.4.0",
-        "tinymce": "^6.7.1"
+        "tinymce": "^6.7.3"
     }
 }
